@@ -4,7 +4,11 @@ To provide a centralized resource management tool that provides a low latency
 container management system, cluster matrics gathering, resiliency management,
 and finally provide the optimal microservice deployment strategy.
 
-## Main Research Question
+## Main Research Questions
+- Need to configure multiple monitoring sources to make an effective decision.
+- Difficult to manage and maintain the Kubernetes cluster manually in large-scale microservice applications.
+- Even after an issue has been identified, it might be difficult to comprehend why it happens.
+- How to reduce the network latency added by the containers to the Kubernetes cluster.
 
 ## Individual Research Questions
 
