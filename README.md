@@ -81,3 +81,5 @@ and finally provide the optimal microservice deployment strategy.
 - React
 - Spring Boot
 - Express
+- Redux
+
