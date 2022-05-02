@@ -1,0 +1,2 @@
+export const CPU_CFS_PEROIDS_TOTAL = container_cpu_cfs_periods_total;
+export const MEMORY_USAGE_BYTES = container_memory_usage_bytes;
