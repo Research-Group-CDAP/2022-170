@@ -1,25 +1,19 @@
 package main
 
 import (
-	"context"
-	"fmt"
+	"fast-provider/configs"
 
-	"github.com/docker/docker/api/types"
-	event "main.go/event/image"
+	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
-	ctx := context.Background()
+	app := fiber.New()
 
-	listErr := event.ListImages(ctx, types.ImageListOptions{})
-	if listErr != nil {
-		fmt.Println(listErr.Error())
-		return
-	}
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Fast Provider Server")
+	})
 
-	// err = event.Build(cli)
-	// if err != nil {
-	// 	fmt.Println(err.Error())
-	// 	return
-	// }
+	configs.ConnectDB()
+
+	app.Listen(":9000")
 }
