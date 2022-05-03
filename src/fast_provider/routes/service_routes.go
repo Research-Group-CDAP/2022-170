@@ -8,4 +8,5 @@ import (
 
 func ServiceRoutes(app *fiber.App) {
 	app.Post("/service/", controllers.RegisterService)
+	app.Get("/service/", controllers.GetServices)
 }

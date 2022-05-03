@@ -11,6 +11,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -50,7 +51,7 @@ func RegisterService(c *fiber.Ctx) error {
 		DefaultVersionTag: service.DefaultVersionTag,
 	}
 
-	result, err := serviceCollection.InsertOne(ctx, newService)
+	_, err := serviceCollection.InsertOne(ctx, newService)
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(responses.ServiceResponse{
 			Status: http.StatusInternalServerError, 
@@ -60,12 +61,38 @@ func RegisterService(c *fiber.Ctx) error {
 	}
 
 	return c.Status(http.StatusCreated).JSON(responses.ServiceResponse{
-		Status: http.StatusInternalServerError, 
+		Status: http.StatusCreated, 
 		Message: "Service registration success", 
-		Data: &fiber.Map{"data": result},
+		Data: &fiber.Map{"data": newService},
 	})
 }
 
-func getServices(c *fiber.Ctx) error {
-	return nil
+func GetServices(c *fiber.Ctx) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	cursor, err := serviceCollection.Find(ctx, bson.M{})
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(responses.ServiceResponse{
+			Status: http.StatusInternalServerError, 
+			Message: "Fail to fetch services", 
+			Data: &fiber.Map{"data": err.Error()},
+		})
+	}
+
+	var results []bson.M 
+	err = cursor.All(ctx, &results)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(responses.ServiceResponse{
+			Status: http.StatusInternalServerError, 
+			Message: "Fail to structure the data", 
+			Data: &fiber.Map{"data": err.Error()},
+		})
+	}
+
+	return c.Status(http.StatusAccepted).JSON(responses.ServiceResponse{
+		Status: http.StatusAccepted, 
+		Message: "Registered services", 
+		Data: &fiber.Map{"data": results},
+	})
 }
