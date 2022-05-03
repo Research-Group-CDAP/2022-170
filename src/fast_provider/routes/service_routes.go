@@ -1,7 +1,11 @@
 package routes
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"fast-provider/controllers"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 func ServiceRoutes(app *fiber.App) {
-	
+	app.Post("/service/", controllers.RegisterService)
 }

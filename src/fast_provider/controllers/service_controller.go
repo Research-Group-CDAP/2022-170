@@ -65,3 +65,7 @@ func RegisterService(c *fiber.Ctx) error {
 		Data: &fiber.Map{"data": result},
 	})
 }
+
+func getServices(c *fiber.Ctx) error {
+	return nil
+}
