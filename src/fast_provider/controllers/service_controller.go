@@ -17,7 +17,7 @@ import (
 )
 
 var serviceCollection *mongo.Collection = configs.GetCollections(configs.DB, "services")
-var validate = validator.New()
+var serviceValidate = validator.New()
 
 func RegisterService(c *fiber.Ctx) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -32,7 +32,7 @@ func RegisterService(c *fiber.Ctx) error {
 		})
 	}
 
-	if validateErr := validate.Struct(&service); validateErr != nil {
+	if validateErr := serviceValidate.Struct(&service); validateErr != nil {
 		return c.Status(http.StatusBadRequest).JSON(responses.ServiceResponse{
 			Status: http.StatusBadRequest,
 			Message: "Request body is not valid",
