@@ -1,17 +1,20 @@
 package services
 
 import (
+	"archive/tar"
 	"bufio"
+	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
+	"os"
 	"time"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
-	"github.com/docker/docker/pkg/archive"
 )
 
 func Build(serviceName string, tag string, srcPath string) error {
@@ -23,20 +26,48 @@ func Build(serviceName string, tag string, srcPath string) error {
 		return err
 	}
 
-	tar, err := archive.TarWithOptions(srcPath, &archive.TarOptions{})
+	buf := new(bytes.Buffer)
+	tw := tar.NewWriter(buf)
+	defer tw.Close()
+
+	fmt.Print(srcPath)
+	dockerFileReader, err := os.Open("Dockerfile")
 	if err != nil {
 		return err
 	}
 
-	// var localRegistryURL = "localhost:5000"
+
+	readDockerfile, err := ioutil.ReadAll(dockerFileReader)
+	if err != nil {
+		return err
+	}
+
+	tarHeader := &tar.Header{
+		Name: "Dockerfile",
+		Size: int64(len(readDockerfile)),
+	}
+
+	err = tw.WriteHeader(tarHeader) // Write header to tar file
+	if err != nil {
+		return err
+	}
+
+	_, err = tw.Write(readDockerfile) // Write dockerfile data into TAR file
+	if err != nil {
+		return err
+	}
+
+	dockerFileTarReader := bytes.NewReader(buf.Bytes())
+
+	var localRegistryURL = "localhost:5000"
 	buildOptions := types.ImageBuildOptions{
+		Context: dockerFileTarReader,
 		Dockerfile: "Dockerfile",
-		// Labels: map[string]string{"test": "test"},
-		// Tags: []string{"test"}, // tag the docker image that need to push the local container registry
+		Tags: []string{localRegistryURL + "/" + serviceName + ":" + tag}, // tag the docker image that need to push the local container registry
 		Remove: true,
 	}
 
-	res, err := dockerClient.ImageBuild(ctx, tar, buildOptions)
+	res, err := dockerClient.ImageBuild(ctx, dockerFileTarReader, buildOptions)
 	if err != nil {
 		return err
 	}

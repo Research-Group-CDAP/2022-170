@@ -91,8 +91,11 @@ func Release(c *fiber.Ctx) error {
 		})
 	}
 
+	time.Sleep(4 * time.Second)
+
+	// os.Chdir(dir)
+
 	defer services.Build(service.ServiceName, newRelease.VersionTag, dir)
 	
-
 	return nil
 }
