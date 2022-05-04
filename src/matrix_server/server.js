@@ -13,6 +13,7 @@ app.get("/", (req, res) => res.send("Metrics Server Running"));
 
 //Define Routes
 app.use("/prometheus", require("./routes/promethus.route"));
+app.use("/promethus_timerange", require("./routes/promethus_timerange.route"));
 
 const PORT = process.env.PORT || 5000;
 
