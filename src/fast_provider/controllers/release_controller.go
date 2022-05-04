@@ -67,7 +67,7 @@ func Release(c *fiber.Ctx) error {
 	}
 
 	// Clone the repository
-	dir, err := ioutil.TempDir("controllers", "")
+	dir, err := ioutil.TempDir("services", "")
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(responses.ServiceResponse{ 
 			Message: "Error with create temparary directory to clone the repository", 
@@ -90,10 +90,6 @@ func Release(c *fiber.Ctx) error {
 			Data: &fiber.Map{"data": err.Error()},
 		})
 	}
-
-	time.Sleep(4 * time.Second)
-
-	// os.Chdir(dir)
 
 	defer services.Build(service.ServiceName, newRelease.VersionTag, dir)
 	
