@@ -1,7 +1,11 @@
 package routes
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"fast-provider/controllers"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 func ReleaseRoutes(app *fiber.App) {
-	
+	app.Post("/release/add", controllers.Release)
 }

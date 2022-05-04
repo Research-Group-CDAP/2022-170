@@ -14,7 +14,7 @@ import (
 	"github.com/docker/docker/pkg/archive"
 )
 
-func Build(serviceName string, tag string) error {
+func Build(serviceName string, tag string, srcPath string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -23,15 +23,16 @@ func Build(serviceName string, tag string) error {
 		return err
 	}
 
-	tar, err := archive.TarWithOptions("", &archive.TarOptions{})
+	tar, err := archive.TarWithOptions(srcPath, &archive.TarOptions{})
 	if err != nil {
 		return err
 	}
 
-	var localRegistryURL = "localhost:5000"
+	// var localRegistryURL = "localhost:5000"
 	buildOptions := types.ImageBuildOptions{
 		Dockerfile: "Dockerfile",
-		Tags: []string{localRegistryURL + "/" + serviceName + ":" + tag}, // tag the docker image that need to push the local container registry
+		// Labels: map[string]string{"test": "test"},
+		// Tags: []string{"test"}, // tag the docker image that need to push the local container registry
 		Remove: true,
 	}
 

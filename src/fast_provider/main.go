@@ -3,6 +3,7 @@ package main
 import (
 	"fast-provider/configs"
 	"fast-provider/routes"
+	"fmt"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -21,6 +22,7 @@ func main() {
 	routes.ReleaseRoutes(app)
 	
 	configs.ConnectDB()
+	fmt.Println("✨ Database Synced")
 	
 	app.Listen(":9000")
 }

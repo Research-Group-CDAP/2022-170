@@ -26,7 +26,6 @@ func RegisterService(c *fiber.Ctx) error {
 
 	if err := c.BodyParser(&service); err != nil {
 		return c.Status(http.StatusBadRequest).JSON(responses.ServiceResponse{
-			Status: http.StatusBadRequest, 
 			Message: "Data is not valid", 
 			Data: &fiber.Map{"data": err.Error()},
 		})
@@ -34,7 +33,6 @@ func RegisterService(c *fiber.Ctx) error {
 
 	if validateErr := serviceValidate.Struct(&service); validateErr != nil {
 		return c.Status(http.StatusBadRequest).JSON(responses.ServiceResponse{
-			Status: http.StatusBadRequest,
 			Message: "Request body is not valid",
 			Data: &fiber.Map{"data": validateErr.Error()},
 		})
@@ -54,14 +52,12 @@ func RegisterService(c *fiber.Ctx) error {
 	_, err := serviceCollection.InsertOne(ctx, newService)
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(responses.ServiceResponse{
-			Status: http.StatusInternalServerError, 
 			Message: "Fail to register the new service", 
 			Data: &fiber.Map{"data": err.Error()},
 		})
 	}
 
 	return c.Status(http.StatusCreated).JSON(responses.ServiceResponse{
-		Status: http.StatusCreated, 
 		Message: "Service registration success", 
 		Data: &fiber.Map{"data": newService},
 	})
@@ -74,7 +70,6 @@ func GetServices(c *fiber.Ctx) error {
 	cursor, err := serviceCollection.Find(ctx, bson.M{})
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(responses.ServiceResponse{
-			Status: http.StatusInternalServerError, 
 			Message: "Fail to fetch services", 
 			Data: &fiber.Map{"data": err.Error()},
 		})
@@ -84,14 +79,12 @@ func GetServices(c *fiber.Ctx) error {
 	err = cursor.All(ctx, &results)
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(responses.ServiceResponse{
-			Status: http.StatusInternalServerError, 
 			Message: "Fail to structure the data", 
 			Data: &fiber.Map{"data": err.Error()},
 		})
 	}
 
 	return c.Status(http.StatusAccepted).JSON(responses.ServiceResponse{
-		Status: http.StatusAccepted, 
 		Message: "Registered services", 
 		Data: &fiber.Map{"data": results},
 	})
