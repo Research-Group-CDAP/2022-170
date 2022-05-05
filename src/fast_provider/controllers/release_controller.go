@@ -75,7 +75,7 @@ func Release(c *fiber.Ctx) error {
 		})
 	}
 
-	// defer os.RemoveAll(dir)
+	defer os.RemoveAll(dir)
 
 	_, err = git.PlainClone(dir, false, &git.CloneOptions{
 		URL: service.RepositoryLink,
@@ -91,7 +91,14 @@ func Release(c *fiber.Ctx) error {
 		})
 	}
 
-	defer services.Build(service.ServiceName, newRelease.VersionTag, dir)
+	services.Build(service.ServiceName, newRelease.VersionTag, dir)
+
+	var registryLocation = "localhost:5000"
+	var imageName = registryLocation + "/" + service.ServiceName + ":" + newRelease.VersionTag
+	services.Push(imageName)
+
+	defer services.PruneContainers()
+	defer services.PruneImages()
 	
 	return nil
 }
