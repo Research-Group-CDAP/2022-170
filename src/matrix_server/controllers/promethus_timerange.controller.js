@@ -13,8 +13,11 @@ var fs = require("fs");
 app.use(express.static(path.join(__dirname, "public")));
 
 const fetch_CPU_CFS_PEROIDS_TOTAL = async (request, response) => {
+  const { start, end, step } = request.body;
   axios
-    .get(`${PROMETHEUS_PORT}/query?query=${CPU_CFS_PEROIDS_TOTAL}`)
+    .get(
+      `${PROMETHEUS_PORT}/query_range?query=${CPU_CFS_PEROIDS_TOTAL}&start=${start}&end=${end}&step=${step}s`
+    )
     .then(async (promethusData) => {
       let json2csvCallback = function (err, csv) {
         if (err) throw err;
@@ -38,8 +41,11 @@ const fetch_CPU_CFS_PEROIDS_TOTAL = async (request, response) => {
 };
 
 const fetch_MEMORY_USAGE_BYTES = async (request, response) => {
+  const { start, end, step } = request.body;
   axios
-    .get(`${PROMETHEUS_PORT}/query?query=${MEMORY_USAGE_BYTES}`)
+    .get(
+      `${PROMETHEUS_PORT}/query_range?query=${MEMORY_USAGE_BYTES}&start=${start}&end=${end}&step=${step}s`
+    )
     .then(async (promethusData) => {
       let json2csvCallback = function (err, csv) {
         if (err) throw err;
