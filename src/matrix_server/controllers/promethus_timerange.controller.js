@@ -10,7 +10,7 @@ var app = express();
 var path = require("path");
 var fs = require("fs");
 const Cpu_Cfs_Periods_Model = require("../models/cpu_cfs_periods_timerange.model");
-const MemoryUsageBytesModel = require("../models/memory_usage_bytes.model");
+const MemoryUsageBytesModel = require("../models/memory_usage_bytes_timerange.model");
 
 app.use(express.static(path.join(__dirname, "public")));
 

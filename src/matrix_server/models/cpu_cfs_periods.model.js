@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const MemoryUsageBytesSchema = new Schema({
+const CPU_CFS_PERIODS_Schema = new Schema({
   metricName: {
     type: String,
   },
@@ -20,7 +20,7 @@ const MemoryUsageBytesSchema = new Schema({
   ],
 });
 
-module.exports = MemoryUsageBytesModel = mongoose.model(
-  "memoryusagebyte",
-  MemoryUsageBytesSchema
+module.exports = CPU_CFS_PERIODS_Model = mongoose.model(
+  "cpucfsperiods",
+  CPU_CFS_PERIODS_Schema
 );
