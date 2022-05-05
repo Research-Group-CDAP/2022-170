@@ -7,7 +7,6 @@ import (
 	"fast-provider/responses"
 	"fast-provider/services"
 	"io/ioutil"
-	"net/http"
 	"os"
 	"time"
 
@@ -28,17 +27,11 @@ func Release(c *fiber.Ctx) error {
 	defer close()
 
 	if err := c.BodyParser(&release); err != nil {
-		return c.Status(http.StatusBadRequest).JSON(responses.ServiceResponse{
-			Message: "Data is not valid", 
-			Data: &fiber.Map{"data": err.Error()},
-		})
+		responses.SendBadRequestResponse(c, &fiber.Map{"data": err.Error()})
 	}
 
 	if validateErr := releaseValidate.Struct(&release); validateErr != nil {
-		return c.Status(http.StatusBadRequest).JSON(responses.ServiceResponse{
-			Message: "Request body is not valid",
-			Data: &fiber.Map{"data": validateErr.Error()},
-		})
+		responses.SendBadRequestResponse(c, &fiber.Map{"data": validateErr.Error()})
 	}
 
 	newRelease := models.Release{
@@ -50,29 +43,20 @@ func Release(c *fiber.Ctx) error {
 
 	_, err := releaseCollection.InsertOne(ctx, newRelease)
 	if err != nil {
-		return c.Status(http.StatusInternalServerError).JSON(responses.ServiceResponse{
-			Message: "Fail to add new release information", 
-			Data: &fiber.Map{"data": err.Error()},
-		})
+		responses.SendErrorResponse(c, &fiber.Map{"data": err.Error()})
 	}
 
 	// Get service details
 	var service models.Service
 	err = serviceCollection.FindOne(ctx, bson.M{ "_id": newRelease.ServiceId }).Decode(&service)
 	if err != nil {
-		return c.Status(http.StatusInternalServerError).JSON(responses.ServiceResponse{
-			Message: "Fail to get the service info", 
-			Data: &fiber.Map{"data": err.Error()},
-		})
+		responses.SendErrorResponse(c, &fiber.Map{"data": err.Error()})
 	}
 
 	// Clone the repository
 	dir, err := ioutil.TempDir("services", "")
 	if err != nil {
-		return c.Status(http.StatusInternalServerError).JSON(responses.ServiceResponse{ 
-			Message: "Error with create temparary directory to clone the repository", 
-			Data: &fiber.Map{"data": err.Error()},
-		})
+		responses.SendErrorResponse(c, &fiber.Map{"data": err.Error()})
 	}
 
 	defer os.RemoveAll(dir)
@@ -85,10 +69,7 @@ func Release(c *fiber.Ctx) error {
 		SingleBranch: true,
 	})
 	if err != nil {
-		return c.Status(http.StatusInternalServerError).JSON(responses.ServiceResponse{ 
-			Message: "Error with cloning the repository", 
-			Data: &fiber.Map{"data": err.Error()},
-		})
+		responses.SendErrorResponse(c, &fiber.Map{"data": err.Error()})
 	}
 
 	services.Build(service.ServiceName, newRelease.VersionTag, dir)
@@ -100,5 +81,6 @@ func Release(c *fiber.Ctx) error {
 	defer services.PruneContainers()
 	defer services.PruneImages()
 	
+	responses.SendSuccessResponse(c, &fiber.Map{"data": newRelease})
 	return nil
 }

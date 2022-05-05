@@ -5,7 +5,6 @@ import (
 	"fast-provider/configs"
 	"fast-provider/models"
 	"fast-provider/responses"
-	"net/http"
 	"time"
 
 	"github.com/go-playground/validator/v10"
@@ -25,17 +24,23 @@ func RegisterService(c *fiber.Ctx) error {
 	defer cancel()
 
 	if err := c.BodyParser(&service); err != nil {
-		return c.Status(http.StatusBadRequest).JSON(responses.ServiceResponse{
-			Message: "Data is not valid", 
-			Data: &fiber.Map{"data": err.Error()},
-		})
+		responses.SendBadRequestResponse(c, &fiber.Map{"info": err.Error()})
 	}
 
 	if validateErr := serviceValidate.Struct(&service); validateErr != nil {
-		return c.Status(http.StatusBadRequest).JSON(responses.ServiceResponse{
-			Message: "Request body is not valid",
-			Data: &fiber.Map{"data": validateErr.Error()},
-		})
+		responses.SendBadRequestResponse(c, &fiber.Map{"data": validateErr.Error()})
+	}
+
+	// Get service documents
+	cursor, err := serviceCollection.Find(ctx, bson.M{})
+	if err != nil {
+		responses.SendErrorResponse(c, &fiber.Map{"data": err.Error()})
+	}
+
+	var services []models.Service
+	err = cursor.All(ctx, &services)
+	if err != nil {
+		responses.SendErrorResponse(c, &fiber.Map{"data": err.Error()})
 	}
 
 	newService := models.Service{
@@ -49,18 +54,13 @@ func RegisterService(c *fiber.Ctx) error {
 		DefaultVersionTag: service.DefaultVersionTag,
 	}
 
-	_, err := serviceCollection.InsertOne(ctx, newService)
+	_, err = serviceCollection.InsertOne(ctx, newService)
 	if err != nil {
-		return c.Status(http.StatusInternalServerError).JSON(responses.ServiceResponse{
-			Message: "Fail to register the new service", 
-			Data: &fiber.Map{"data": err.Error()},
-		})
+		responses.SendErrorResponse(c, &fiber.Map{"data": err.Error()})
 	}
 
-	return c.Status(http.StatusCreated).JSON(responses.ServiceResponse{
-		Message: "Service registration success", 
-		Data: &fiber.Map{"data": newService},
-	})
+	responses.SendSuccessResponse(c, &fiber.Map{"data": newService})
+	return nil
 }
 
 func GetServices(c *fiber.Ctx) error {
@@ -69,23 +69,15 @@ func GetServices(c *fiber.Ctx) error {
 
 	cursor, err := serviceCollection.Find(ctx, bson.M{})
 	if err != nil {
-		return c.Status(http.StatusInternalServerError).JSON(responses.ServiceResponse{
-			Message: "Fail to fetch services", 
-			Data: &fiber.Map{"data": err.Error()},
-		})
+		responses.SendErrorResponse(c, &fiber.Map{"data": err.Error()})
 	}
 
 	var results []bson.M 
 	err = cursor.All(ctx, &results)
 	if err != nil {
-		return c.Status(http.StatusInternalServerError).JSON(responses.ServiceResponse{
-			Message: "Fail to structure the data", 
-			Data: &fiber.Map{"data": err.Error()},
-		})
+		responses.SendErrorResponse(c, &fiber.Map{"data": err.Error()})
 	}
 
-	return c.Status(http.StatusAccepted).JSON(responses.ServiceResponse{
-		Message: "Registered services", 
-		Data: &fiber.Map{"data": results},
-	})
+	responses.SendSuccessResponse(c, &fiber.Map{"data": results})
+	return nil
 }

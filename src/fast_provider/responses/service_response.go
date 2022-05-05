@@ -1,8 +1,24 @@
 package responses
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"net/http"
 
-type ServiceResponse struct {
-	Message string `json:"message"`
-	Data *fiber.Map `json:"data"`
+	"github.com/gofiber/fiber/v2"
+)
+
+type ResponseParams struct {
+	Data *fiber.Map 
+	Message string 
+}
+
+func SendSuccessResponse(c *fiber.Ctx, data *fiber.Map) error {
+	return c.Status(http.StatusAccepted).JSON(data)
+}
+
+func SendBadRequestResponse(c *fiber.Ctx, data *fiber.Map) error {
+	return c.Status(http.StatusBadRequest).JSON(data)
+}
+
+func SendErrorResponse(c *fiber.Ctx, data *fiber.Map) error {
+	return c.Status(http.StatusInternalServerError).JSON(data)
 }
