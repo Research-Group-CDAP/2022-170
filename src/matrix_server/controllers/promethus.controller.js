@@ -129,7 +129,52 @@ const fetch_MEMORY_USAGE_BYTES = async (request, response) => {
     });
 };
 
+const getAllData = async (request, response) => {
+  const memoryUsage = await MemoryUsageBytesModel.find({timestamp :"1651745070.781"});
+  const cpuUsage = await Cpu_Cfs_Periods_Model.find({timestamp :"1651745070.781"});
+  
+  let metricArray = [];
+  await memoryUsage.map((element)=>{
+    element.timeSeriesData.map((singleElement)=>{
+      let cpuUsageData = "";
+      let podName = singleElement.podName;
+      cpuUsage.map(cpuElement=>{
+        cpuElement.timeSeriesData.map((singleCpuElement)=>{
+          if(singleCpuElement.podName === podName){
+            cpuUsageData = singleCpuElement.value;
+          }
+        })
+      })
+      let tempObject = {
+        podName,
+        memoryUsage : singleElement.value,
+        cpuUsage : cpuUsageData
+      }
+      metricArray.push(tempObject);
+    })
+  })
+
+  let json2csvCallback = function (err, csv) {
+    if (err) throw err;
+    var file_name = "test";
+    var file_content = csv;
+    file_content = file_content.replace(/\n/g, "\r\n");
+
+    var stream = fs.createWriteStream(file_name + ".csv");
+    stream.once("open", function () {
+      stream.write(file_content);
+      stream.end();
+    });
+  };
+  await converter.json2csv(metricArray, json2csvCallback);
+
+  console.log(metricArray)
+
+};
+
+
 module.exports = {
+  getAllData,
   fetch_CPU_CFS_PEROIDS_TOTAL,
   fetch_MEMORY_USAGE_BYTES,
 };
