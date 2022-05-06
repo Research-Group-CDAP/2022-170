@@ -8,7 +8,7 @@ def change_timestamp_to_dateTime_and_sort(dataframe,dateTime_col_name,timestamp_
     return dataframe
 
 def drop_column(dataframe, rem_column_name):
-   return dataframe.drop(rem_column_name,1) 
+   return dataframe.drop(rem_column_name,axis=1) 
         
 
 def interpolate_missing_values(dataframe):
@@ -28,12 +28,3 @@ def interpolate_missing_values(dataframe):
 
     return dataframe
 
-# Create input dataset
-def create_dataset (X, look_back = 1):
-    Xs, ys = [], []
-
-    for i in range(len(X)-look_back):
-        v = X[i:i+look_back]
-        Xs.append(v)
-        ys.append(X[i+look_back]) 
-    return np.array(Xs), np.array(ys)

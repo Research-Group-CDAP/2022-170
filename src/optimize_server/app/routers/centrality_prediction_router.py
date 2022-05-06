@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 from ..services import history_start,make_pod_predictions_start
 router = APIRouter(
-    prefix="/model-prdiction-cpu",
-    tags=['CPU_prediction']
+    prefix="/model-prdiction-centrality",
+    tags=['Centrality_prediction']
 )
 
 # endpoint to start prediction process
