@@ -129,31 +129,32 @@ const fetch_MEMORY_USAGE_BYTES = async (request, response) => {
     });
 };
 
-const getAllData = async (request, response) => {
-  const memoryUsage = await MemoryUsageBytesModel.find({timestamp :"1651745070.781"});
-  const cpuUsage = await Cpu_Cfs_Periods_Model.find({timestamp :"1651745070.781"});
-  
-  let metricArray = [];
-  await memoryUsage.map((element)=>{
-    element.timeSeriesData.map((singleElement)=>{
-      let cpuUsageData = "";
-      let podName = singleElement.podName;
-      cpuUsage.map(cpuElement=>{
-        cpuElement.timeSeriesData.map((singleCpuElement)=>{
-          if(singleCpuElement.podName === podName){
-            cpuUsageData = singleCpuElement.value;
-          }
-        })
-      })
-      let tempObject = {
-        podName,
-        memoryUsage : singleElement.value,
-        cpuUsage : cpuUsageData
-      }
-      metricArray.push(tempObject);
-    })
-  })
+const exportData = async (request, response) => {
+  const memoryUsage = await MemoryUsageBytesModel.findOne({
+    timestamp: "1651745070.781",
+  });
+  const cpuUsage = await Cpu_Cfs_Periods_Model.findOne({
+    timestamp: "1651745070.781",
+  });
 
+  let metricArray = [];
+  await memoryUsage.timeSeriesData.forEach((singleMemoryElement) => {
+    let tempObj = {
+      pod:null,
+      memory: null,
+      cpu: null,
+    }
+    tempObj.pod = singleMemoryElement.podName;
+    tempObj.memory = singleMemoryElement.value;
+    let tempMemoryElement = cpuUsage.timeSeriesData.find((memoryElement) => {
+        return memoryElement.podName == singleMemoryElement.podName;
+      });
+    console.log(tempMemoryElement);
+    if(tempMemoryElement){
+      tempObj.cpu = tempMemoryElement.value
+    }
+    metricArray.push(tempObj);
+  });
   let json2csvCallback = function (err, csv) {
     if (err) throw err;
     var file_name = "test";
@@ -168,13 +169,11 @@ const getAllData = async (request, response) => {
   };
   await converter.json2csv(metricArray, json2csvCallback);
 
-  console.log(metricArray)
-
+  return response.json(metricArray);
 };
 
-
 module.exports = {
-  getAllData,
+  exportData,
   fetch_CPU_CFS_PEROIDS_TOTAL,
   fetch_MEMORY_USAGE_BYTES,
 };
