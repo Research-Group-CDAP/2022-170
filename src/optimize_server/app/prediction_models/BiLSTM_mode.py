@@ -5,13 +5,12 @@ from tensorflow.keras.layers import Dense, LSTM,  Bidirectional
 
 
 class Bidirectional_LSTM_model():
-    def __init__(self, units, X_train,Y_train,epohs,batch_size):
+    def __init__(self, units, X_train, Y_train, epohs, batch_size):
         self.units = units
         self.X_train = X_train
         self.Y_train = Y_train
         self.epohs = epohs
         self.batch_size = batch_size
-
 
     def build_model(self):
         model = Sequential()
@@ -26,11 +25,16 @@ class Bidirectional_LSTM_model():
         model.compile(optimizer='adam', loss='mse')
         return model
 
-    def fit_model(self,model):
+    async def fit_model(self, model):
         early_stop = keras.callbacks.EarlyStopping(monitor='val_loss',
                                                    patience=50)
-        history = model.fit(self.X_train, self.Y_train, epochs=self.epohs,
+        history =  model.fit(self.X_train, self.Y_train, epochs=self.epohs,
                             validation_split=0.2,
                             batch_size=16, shuffle=False,
                             callbacks=[early_stop])
-        return history
+        return history, model
+
+    def predict(self, model,X_test,scaler):
+        prediction = model.predict(X_test)
+        prediction = scaler.inverse_transform(prediction)
+        return prediction

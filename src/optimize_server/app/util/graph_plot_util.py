@@ -18,6 +18,10 @@ def plot_loss (history, model_name):
         plt.ylabel('Loss')
         plt.xlabel('epoch')
         plt.legend(['Train loss', 'Validation loss'], loc='upper right')
+        
+        path = os.getcwd() + '/app/results/loss/'+model_name+'.png'
+        plt.savefig(path)
+
 def plot_future(prediction, model_name, y_test):
         plt.figure(figsize=(10, 6))
         range_future = len(prediction)

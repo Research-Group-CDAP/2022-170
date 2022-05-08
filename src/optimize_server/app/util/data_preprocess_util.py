@@ -13,7 +13,7 @@ def scale_data_using_minmax_scaler(train_data, test_data):
     scaler = MinMaxScaler().fit(train_data)
     train_scaled = scaler.transform(train_data)
     test_scaled = scaler.transform(test_data)
-    return train_scaled, test_scaled
+    return train_scaled, test_scaled , scaler
 
 def scale_data(scaler,data):
     scaled_data = scaler.transform(data)
