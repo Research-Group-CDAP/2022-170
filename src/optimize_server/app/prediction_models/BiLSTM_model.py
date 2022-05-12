@@ -30,7 +30,7 @@ class Bidirectional_LSTM_model():
                                                    patience=50)
         history =  model.fit(self.X_train, self.Y_train, epochs=self.epohs,
                             validation_split=0.2,
-                            batch_size=16, shuffle=False,
+                            batch_size=self.batch_size, shuffle=False,
                             callbacks=[early_stop])
         return history, model
 

@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from ..services import history_start,make_pod_predictions_start
+from ..services import history_cpu_start,make_pod_predictions_start
 router = APIRouter(
     prefix="/model-prdiction-cpu",
     tags=['CPU_prediction']
@@ -8,7 +8,7 @@ router = APIRouter(
 # endpoint to start prediction process
 @router.get('/generate_history-graphs')
 async def generate_history_graphs():
-    result = await history_start()
+    result = await history_cpu_start()
     return result
 
 # endpoint to start prediction process

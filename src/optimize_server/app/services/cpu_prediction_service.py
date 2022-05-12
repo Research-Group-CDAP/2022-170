@@ -6,10 +6,10 @@ from ..prediction_models import Bidirectional_LSTM_model,GRU_model
 
 
 
-async def history_start():
+async def history_cpu_start():
     df = await data_load_cpu()
     await generate_cpu_utilization_graphs(df)
-    return {"titile":"Hello"}
+    return {"status":"history plots complete"}
 
 async def make_pod_predictions_start(pod_name:str):
     df = await data_load_cpu()
@@ -18,7 +18,6 @@ async def make_pod_predictions_start(pod_name:str):
     train_data, test_data = split_test_and_train(dataframe, 0.6)
     train_scaled , test_scaled , scaler = scale_data_using_minmax_scaler(train_data, test_data)
     LOOK_BACK = 30
-    print(LOOK_BACK)
     X_train, y_train = create_dataset(train_scaled,LOOK_BACK)
     X_test, y_test = create_dataset(test_scaled,LOOK_BACK)
     model_bilstm_obj = Bidirectional_LSTM_model(64,X_train,y_train,100,16)
@@ -28,8 +27,8 @@ async def make_pod_predictions_start(pod_name:str):
     history_BiLSTM,model_bilstm = await model_bilstm_obj.fit_model(model_bilstm)
     history_GRU,model_gru = await model_gru_obj.fit_model(model_gru)
 
-    plot_loss (history_GRU, 'GRU')
-    plot_loss (history_BiLSTM, 'Bidirectional LSTM')   
+    plot_loss (history_GRU, 'GRU','cpu')
+    plot_loss (history_BiLSTM, 'Bidirectional LSTM','cpu')   
 
     y_test = inverse_scale_data(scaler,y_test)
     y_train = inverse_scale_data(scaler,y_train)
@@ -37,7 +36,15 @@ async def make_pod_predictions_start(pod_name:str):
     prediction_bilstm = model_bilstm_obj.predict(model_gru,X_test,scaler)
     prediction_gru = model_gru_obj.predict(model_bilstm,X_test,scaler)
 
-    plot_multi_step(history_GRU,prediction_bilstm,prediction_gru)
+    def prediction(model):
+        prediction = model.predict(X_train)
+        prediction = scaler.inverse_transform(prediction)
+        return prediction
+    prediction_gru = prediction(model_gru)
+
+    prediction_bilstm = prediction(model_bilstm)
+
+    plot_multi_step(train_data,prediction_gru,prediction_bilstm,'cpu')
     return []
 
 async def data_load_cpu():
@@ -51,7 +58,7 @@ async def generate_cpu_utilization_graphs(dataframe):
     for col in df.columns:
         if col == 'timestamp':
             continue
-        timeseries(df.index, df[col], 'index',col)
+        timeseries(df.index, df[col], 'index',col,'cpu')
 
 async def preprocess_cpu_utilization_dataset(dataframe):
     df = interpolate_missing_values(dataframe)
