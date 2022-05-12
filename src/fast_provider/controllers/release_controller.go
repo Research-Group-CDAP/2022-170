@@ -6,6 +6,7 @@ import (
 	"fast-provider/models"
 	"fast-provider/responses"
 	"fast-provider/services"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"time"
@@ -16,6 +17,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"gopkg.in/src-d/go-git.v4"
+	"gopkg.in/src-d/go-git.v4/plumbing"
 )
 
 var releaseCollection *mongo.Collection = configs.GetCollections(configs.DB, "releases")
@@ -64,7 +66,7 @@ func Release(c *fiber.Ctx) error {
 	_, err = git.PlainClone(dir, false, &git.CloneOptions{
 		URL: service.RepositoryLink,
 		RemoteName: "origin",
-		// ReferenceName: "master", // Need to add a custom branch name
+		ReferenceName: plumbing.ReferenceName("refs/heads/master"), // Need to add a custom branch name
 		Progress: os.Stdout,
 		SingleBranch: true,
 	})
@@ -72,11 +74,23 @@ func Release(c *fiber.Ctx) error {
 		responses.SendErrorResponse(c, &fiber.Map{"data": err.Error()})
 	}
 
+	startTime := time.Now()
+	fmt.Println("📦⏳ Docker build start time: " + startTime.String())
 	services.Build(service.ServiceName, newRelease.VersionTag, dir)
+	endTime := time.Now()
+	fmt.Println("📦⌛️ Docker build end time: " + endTime.String())
+	buildDiff := endTime.Sub(startTime)
+	fmt.Println("Build Time Difference: " + buildDiff.String())
 
 	var registryLocation = "localhost:5000"
 	var imageName = registryLocation + "/" + service.ServiceName + ":" + newRelease.VersionTag
+	pushStartTime := time.Now()
+	fmt.Println("⬆️⌛️ Docker push start time: " + pushStartTime.String())
 	services.Push(imageName)
+	pushEndTime := time.Now()
+	fmt.Println("⬆️⌛️ Docker push end time: " + pushEndTime.String())
+	pushDiff := pushEndTime.Sub(pushStartTime)
+	fmt.Println("Push Time Difference: " + pushDiff.String())
 
 	defer services.PruneContainers()
 	defer services.PruneImages()

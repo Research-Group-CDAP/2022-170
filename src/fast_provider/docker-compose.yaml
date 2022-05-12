@@ -6,6 +6,6 @@ services:
     ports:
       - "5000:5000"
     environment:
-      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /bucket
     volumes: 
-      - ./data:/data
+      - ./images:/bucket
