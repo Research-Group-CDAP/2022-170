@@ -1,0 +1,6 @@
+/go
+go1.18.1.linux-amd64.tar.gz
+vendor
+.vscode
+data
+/images
