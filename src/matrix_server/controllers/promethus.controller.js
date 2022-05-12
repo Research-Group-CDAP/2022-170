@@ -149,7 +149,6 @@ const exportData = async (request, response) => {
     let tempMemoryElement = cpuUsage.timeSeriesData.find((memoryElement) => {
         return memoryElement.podName == singleMemoryElement.podName;
       });
-    console.log(tempMemoryElement);
     if(tempMemoryElement){
       tempObj.cpu = tempMemoryElement.value
     }
@@ -168,7 +167,7 @@ const exportData = async (request, response) => {
     });
   };
   await converter.json2csv(metricArray, json2csvCallback);
-
+  console.log(metricArray);
   return response.json(metricArray);
 };
 
