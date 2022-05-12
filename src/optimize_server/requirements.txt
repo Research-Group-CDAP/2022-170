@@ -1,6 +1,9 @@
 fastapi
 uvicorn
+matplotlib
 motor
 pymongo
 pandas
+tensorflow
 sklearn
+aiofiles
