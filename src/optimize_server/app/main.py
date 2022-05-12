@@ -1,12 +1,11 @@
 from fastapi import FastAPI
-from .routers import BlogRouter
-from .routers import CPUPredictionRouter,CentralityPredictionRouter
+from .routers import CPUPredictionRouter,CentralityPredictionRouter,PredictionProviderRouter
 import uvicorn  
 app = FastAPI()
 
-app.include_router(BlogRouter)
 app.include_router(CPUPredictionRouter)
 app.include_router(CentralityPredictionRouter)
+app.include_router(PredictionProviderRouter)
 
 @app.get('/')
 def index():
