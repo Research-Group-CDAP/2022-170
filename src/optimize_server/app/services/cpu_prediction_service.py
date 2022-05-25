@@ -3,8 +3,17 @@ from ..util.dataframe_manipulation_util import change_timestamp_to_dateTime_and_
 from ..util.data_preprocess_util import split_test_and_train,scale_data_using_minmax_scaler,create_dataset,inverse_scale_data
 from ..util.graph_plot_util import timeseries,plot_loss,plot_multi_step
 from ..prediction_models import Bidirectional_LSTM_model,GRU_model
+import io
 
 
+
+async def return_pods_start():
+    df = await data_load_cpu()
+    buf = io.StringIO()
+    buf2 = io.StringIO()
+    df.info(buf=buf)
+    b_pod_info = buf.getvalue()
+    return {"pod info":b_pod_info}
 
 async def history_cpu_start():
     df = await data_load_cpu()
