@@ -2,6 +2,7 @@ const {
   PROMETHEUS_PORT,
   CPU_CFS_PEROIDS_TOTAL,
   MEMORY_USAGE_BYTES,
+  NETWORK_RECEIVE_BYTES_TOTAL
 } = require("../constants");
 const converter = require("json-2-csv");
 const axios = require("axios");
@@ -11,6 +12,7 @@ var path = require("path");
 var fs = require("fs");
 const Cpu_Cfs_Periods_Model = require("../models/cpu_cfs_periods.model");
 const MemoryUsageBytesModel = require("../models/memory_usage_bytes.model");
+const NetworkReceiveBytesModel = require("../models/network_receive_bytes_total.model");
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -129,6 +131,63 @@ const fetch_MEMORY_USAGE_BYTES = async (request, response) => {
     });
 };
 
+const fetch_NETWORK_RECEIVED_BYTES = async (request, response) => {
+  const { time, step } = request.body;
+  axios
+    .get(
+      `${PROMETHEUS_PORT}/query_range?query=${NETWORK_RECEIVE_BYTES_TOTAL}&start=${time}&end=${time}&step=${step}s`
+    )
+    .then(async (promethusData) => {
+      const metricArray = [];
+      let tempTimestamp = 0;
+      await promethusData.data.data.result.forEach((element) => {
+        let tempTimeSeriesData = {
+          podName: "",
+          timestamp: "",
+          value: "",
+        };
+        tempTimeSeriesData.podName = element.metric.pod;
+        element.values.forEach((responseArray) => {
+          tempTimestamp = responseArray[0];
+          tempTimeSeriesData.timestamp = responseArray[0];
+          tempTimeSeriesData.value = responseArray[1];
+        });
+        metricArray.push(tempTimeSeriesData);
+      });
+
+      console.log(metricArray);
+
+      const metrics_NetworkReceiveBytesModel = new NetworkReceiveBytesModel({
+        metricName: NETWORK_RECEIVE_BYTES_TOTAL,
+        timestamp: tempTimestamp,
+        timeSeriesData: metricArray,
+      });
+
+      let json2csvCallback = function (err, csv) {
+        if (err) throw err;
+        var file_name = NETWORK_RECEIVE_BYTES_TOTAL;
+        var file_content = csv;
+        file_content = file_content.replace(/\n/g, "\r\n");
+
+        var stream = fs.createWriteStream(file_name + ".csv");
+        stream.once("open", function () {
+          stream.write(file_content);
+          stream.end();
+        });
+      };
+      await converter.json2csv(metricArray, json2csvCallback);
+
+      await metrics_NetworkReceiveBytesModel
+        .save()
+        .then((createdMetrics) => {
+          response.json(createdMetrics);
+        })
+        .catch((error) => {
+          response.json(error);
+        });
+    });
+};
+
 const exportData = async (request, response) => {
   const memoryUsage = await MemoryUsageBytesModel.findOne({
     timestamp: "1651745070.781",
@@ -175,4 +234,5 @@ module.exports = {
   exportData,
   fetch_CPU_CFS_PEROIDS_TOTAL,
   fetch_MEMORY_USAGE_BYTES,
+  fetch_NETWORK_RECEIVED_BYTES
 };
