@@ -32,8 +32,7 @@ def timeseries_histogram(dataframe):
 
 def timeseries_subplot(dataframe):
         dataframe.plot(subplots=True, figsize=(30,30))
-        path = os.getcwd() + '/app/results/timeseries_history/cpu/summary/timeseries_subplots.png'
-        plt.xlim([0, 0.04])
+        path = os.getcwd() + '/app/results/timeseries_history/cpu/summary/timeseries_subplots.png'        
         plt.savefig(path)
         plt.close('all')
 
