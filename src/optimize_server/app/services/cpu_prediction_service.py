@@ -1,7 +1,7 @@
 from ..util.file_manipulation_util import import_dataframe_from_csv,export_dataframe_to_csv,np_arr_to_df
 from ..util.dataframe_manipulation_util import change_timestamp_to_dateTime_and_sort ,drop_column,interpolate_missing_values
 from ..util.data_preprocess_util import split_test_and_train,scale_data_using_minmax_scaler,create_dataset,inverse_scale_data
-from ..util.graph_plot_util import timeseries,plot_loss,plot_multi_step
+from ..util.graph_plot_util import timeseries,plot_loss,plot_multi_step,timeseries_summary,timeseries_histogram,timeseries_subplot
 from ..prediction_models import Bidirectional_LSTM_model,GRU_model
 import io
 
@@ -67,6 +67,10 @@ async def data_load_cpu():
 
 async def generate_cpu_utilization_graphs(dataframe):
     df = dataframe
+    df = drop_column(df,'timestamp')
+    timeseries_summary(df)
+    timeseries_histogram(df)
+    timeseries_subplot(df)
     for col in df.columns:
         if col == 'timestamp':
             continue

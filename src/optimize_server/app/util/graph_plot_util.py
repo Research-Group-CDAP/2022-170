@@ -15,6 +15,28 @@ def timeseries (x_axis, y_axis, x_label,column_name,pred_type):
         plt.savefig(path)
     plt.close('all')
 
+def timeseries_summary(dataframe):
+        dataframe.plot(figsize=(20,10))
+        path = os.getcwd() + '/app/results/timeseries_history/cpu/summary/summary.png'
+        plt.xlabel("time", {'fontsize': 12}) 
+        plt.ylabel('CPU(millicores)', {'fontsize': 12})
+        plt.savefig(path)
+        plt.close('all')
+
+def timeseries_histogram(dataframe):
+        dataframe.plot(kind='kde',figsize=(20,10))
+        path = os.getcwd() + '/app/results/timeseries_history/cpu/summary/density_histogram.png'
+        plt.xlim([0, 0.04])
+        plt.savefig(path)
+        plt.close('all')
+
+def timeseries_subplot(dataframe):
+        dataframe.plot(subplots=True, figsize=(30,30))
+        path = os.getcwd() + '/app/results/timeseries_history/cpu/summary/timeseries_subplots.png'
+        plt.xlim([0, 0.04])
+        plt.savefig(path)
+        plt.close('all')
+
 
 def plot_loss (history, model_name,pred_type):
         plt.figure(figsize = (10, 6))
