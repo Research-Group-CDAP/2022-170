@@ -60,9 +60,9 @@ async def make_pod_predictions_start(pod_name:str):
     return []
 
 async def data_load_cpu():
-    df = import_dataframe_from_csv('cpu.csv')
+    df = import_dataframe_from_csv('cpu2.csv')
     df = change_timestamp_to_dateTime_and_sort(df,'dateTime','timestamp')
-    df = drop_column(df,'Unnamed: 32')
+    # df = drop_column(df,'Unnamed: 32')
     return df
 
 async def generate_cpu_utilization_graphs(dataframe):

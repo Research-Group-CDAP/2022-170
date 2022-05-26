@@ -4,7 +4,7 @@ import os
 
 def timeseries (x_axis, y_axis, x_label,column_name,pred_type):
     plt.figure(figsize = (10, 6))
-    plt.plot(x_axis, y_axis, color ='black')
+    plt.plot(x_axis, y_axis)
     plt.xlabel(x_label, {'fontsize': 12}) 
     plt.ylabel('CPU(millicores)', {'fontsize': 12})
     if(pred_type=='cpu'):
