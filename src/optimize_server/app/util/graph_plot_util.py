@@ -81,7 +81,7 @@ def plot_multi_step(history, prediction1, prediction2,pred_type):
                 label='Forecasted for BiLSTM')
           
         plt.legend(loc='upper right')
-        plt.xlabel('Time step (day)')
+        plt.xlabel('Time step')
         plt.ylabel('CPU utilization')
         if(pred_type=='cpu'):
                 path = os.getcwd() + '/app/results/prediction/cpu/future_step_pred.png'
