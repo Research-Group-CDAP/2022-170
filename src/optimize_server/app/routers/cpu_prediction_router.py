@@ -22,4 +22,4 @@ async def generate_history_graphs():
 async def make_pod_predictions(pod_name:str):
     result = await make_pod_predictions_start(pod_name)    
     return result
-    
+
