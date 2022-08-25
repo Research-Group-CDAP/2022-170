@@ -37,10 +37,10 @@ func Release(c *fiber.Ctx) error {
 	}
 
 	newRelease := models.Release{
-		Id: primitive.NewObjectID(),
-		ServiceId: release.ServiceId,
+		Id:                 primitive.NewObjectID(),
+		ServiceId:          release.ServiceId,
 		ServiceReferenceId: release.ServiceReferenceId,
-		VersionTag: release.VersionTag,
+		VersionTag:         release.VersionTag,
 	}
 
 	_, err := releaseCollection.InsertOne(ctx, newRelease)
@@ -50,7 +50,7 @@ func Release(c *fiber.Ctx) error {
 
 	// Get service details
 	var service models.Service
-	err = serviceCollection.FindOne(ctx, bson.M{ "_id": newRelease.ServiceId }).Decode(&service)
+	err = serviceCollection.FindOne(ctx, bson.M{"_id": newRelease.ServiceId}).Decode(&service)
 	if err != nil {
 		responses.SendErrorResponse(c, &fiber.Map{"data": err.Error()})
 	}
@@ -64,11 +64,11 @@ func Release(c *fiber.Ctx) error {
 	defer os.RemoveAll(dir)
 
 	_, err = git.PlainClone(dir, false, &git.CloneOptions{
-		URL: service.RepositoryLink,
-		RemoteName: "origin",
+		URL:           service.Repository.Link,
+		RemoteName:    "origin",
 		ReferenceName: plumbing.ReferenceName("refs/heads/master"), // Need to add a custom branch name
-		Progress: os.Stdout,
-		SingleBranch: true,
+		Progress:      os.Stdout,
+		SingleBranch:  true,
 	})
 	if err != nil {
 		responses.SendErrorResponse(c, &fiber.Map{"data": err.Error()})
@@ -94,7 +94,7 @@ func Release(c *fiber.Ctx) error {
 
 	defer services.PruneContainers()
 	defer services.PruneImages()
-	
+
 	responses.SendSuccessResponse(c, &fiber.Map{"data": newRelease})
 	return nil
 }
