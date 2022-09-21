@@ -1,4 +1,5 @@
 import './styles/App.css'
+import PageRoutes from "./PageRoutes";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <div className="flex justify-center">
         <h3 className="text-2xl text-white">2022-170</h3>
       </div>
+     <PageRoutes />
     </div>
   )
 }

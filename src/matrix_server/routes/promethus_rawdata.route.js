@@ -5,7 +5,7 @@ const {
   fetch_CPU_CFS_PEROIDS_TOTAL,
   fetch_MEMORY_USAGE_BYTES,
   fetch_NETWORK_RECEIVED_BYTES
-} = require("../controllers/promethus_timerange.controller");
+} = require("../controllers/promethus_rawdata.controller");
 
 router.post("/fetch/CPU_CFS_PEROIDS", fetch_CPU_CFS_PEROIDS_TOTAL);
 router.post("/fetch/MEMORY_USAGE_BYTES", fetch_MEMORY_USAGE_BYTES);
