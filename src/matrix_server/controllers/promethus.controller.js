@@ -1,8 +1,8 @@
 const {
   PROMETHEUS_PORT,
-  CPU_CFS_PEROIDS_TOTAL,
-  MEMORY_USAGE_BYTES,
-  NETWORK_RECEIVE_BYTES_TOTAL
+  CPU_USAGE,
+  MEMORY_UTILIZATION,
+  NETWORK_UTILIZATION
 } = require("../constants");
 const converter = require("json-2-csv");
 const axios = require("axios");
@@ -10,229 +10,167 @@ var express = require("express");
 var app = express();
 var path = require("path");
 var fs = require("fs");
-const Cpu_Cfs_Periods_Model = require("../models/cpu_cfs_periods.model");
-const MemoryUsageBytesModel = require("../models/memory_usage_bytes.model");
-const NetworkReceiveBytesModel = require("../models/network_receive_bytes_total.model");
+const Cpu_Usage_Model = require("../models/cpu_usage.model");
+const Memory_Utilization_Model = require("../models/memory_utilization.model");
+const Network_Utilization_Model = require("../models/network_utilization.model");
 
 app.use(express.static(path.join(__dirname, "public")));
 
-const fetch_CPU_CFS_PEROIDS_TOTAL = async (request, response) => {
-  const { time, step } = request.body;
+const fetch_Cpu_Usage = async (request, response) => {
   axios
     .get(
-      `${PROMETHEUS_PORT}/query_range?query=${CPU_CFS_PEROIDS_TOTAL}&start=${time}&end=${time}&step=${step}s`
+      `${PROMETHEUS_PORT}/query?query=${CPU_USAGE}`
     )
     .then(async (promethusData) => {
+      console.log(promethusData.data.data.result);
+
+      //Save to Mongo Database
       const metricArray = [];
       let tempTimestamp = 0;
-      await promethusData.data.data.result.forEach((element) => {
+
+      await promethusData.data.data.result.forEach(async (element) => {
+
         let tempTimeSeriesData = {
           podName: "",
           timestamp: "",
           value: "",
         };
+
         tempTimeSeriesData.podName = element.metric.pod;
-        element.values.forEach((responseArray) => {
-          tempTimestamp = responseArray[0];
-          tempTimeSeriesData.timestamp = responseArray[0];
-          tempTimeSeriesData.value = responseArray[1];
-        });
-        metricArray.push(tempTimeSeriesData);
+
+        tempTimestamp = element.value[0];
+        tempTimeSeriesData.timestamp = element.value[0];
+        tempTimeSeriesData.value = element.value[1];
+
+        await metricArray.push(tempTimeSeriesData);
       });
 
-      console.log(metricArray);
-
-      const metrics_Cpu_Cfs_Periods_Model = new Cpu_Cfs_Periods_Model({
-        metricName: CPU_CFS_PEROIDS_TOTAL,
+      //Create a Object using Model
+      const metrics_CpuUsageModel = new Cpu_Usage_Model({
+        metricName: "container_cpu_usage_seconds_total",
         timestamp: tempTimestamp,
         timeSeriesData: metricArray,
       });
 
-      let json2csvCallback = function (err, csv) {
-        if (err) throw err;
-        var file_name = CPU_CFS_PEROIDS_TOTAL;
-        var file_content = csv;
-        file_content = file_content.replace(/\n/g, "\r\n");
-
-        var stream = fs.createWriteStream(file_name + ".csv");
-        stream.once("open", function () {
-          stream.write(file_content);
-          stream.end();
-        });
-      };
-
-      await converter.json2csv(metricArray, json2csvCallback);
-
-      await metrics_Cpu_Cfs_Periods_Model
-        .save()
-        .then((createdMetrics) => {
-          response.json(createdMetrics);
-        })
-        .catch((error) => {
-          response.json(error);
-        });
-    });
+      //Save to Database
+      await metrics_CpuUsageModel
+      .save()
+      .then((createdMetrics) => {
+        response.json(createdMetrics);
+      })
+      .catch((error) => {
+        response.json(error);
+      });
+     
+    }).catch((error)=>{
+      response.json(error)
+    })
 };
 
-const fetch_MEMORY_USAGE_BYTES = async (request, response) => {
-  const { time, step } = request.body;
+const fetch_Memory_Utilization= async (request, response) => {
   axios
     .get(
-      `${PROMETHEUS_PORT}/query_range?query=${MEMORY_USAGE_BYTES}&start=${time}&end=${time}&step=${step}s`
+      `${PROMETHEUS_PORT}/query?query=${MEMORY_UTILIZATION}`
     )
     .then(async (promethusData) => {
+      console.log(promethusData.data.data.result);
+
+      //Save to Mongo Database
       const metricArray = [];
       let tempTimestamp = 0;
-      await promethusData.data.data.result.forEach((element) => {
+
+      await promethusData.data.data.result.forEach(async (element) => {
+
         let tempTimeSeriesData = {
           podName: "",
           timestamp: "",
           value: "",
         };
+
         tempTimeSeriesData.podName = element.metric.pod;
-        element.values.forEach((responseArray) => {
-          tempTimestamp = responseArray[0];
-          tempTimeSeriesData.timestamp = responseArray[0];
-          tempTimeSeriesData.value = responseArray[1];
-        });
-        metricArray.push(tempTimeSeriesData);
+
+        tempTimestamp = element.value[0];
+        tempTimeSeriesData.timestamp = element.value[0];
+        tempTimeSeriesData.value = element.value[1];
+
+        await metricArray.push(tempTimeSeriesData);
       });
 
-      console.log(metricArray);
-
-      const metrics_MemoryUsageBytesModel = new MemoryUsageBytesModel({
-        metricName: MEMORY_USAGE_BYTES,
+      //Create a Object using Model
+      const metrics_MemoryUtilizationModel = new Memory_Utilization_Model({
+        metricName: "container_memory_working_set_bytes",
         timestamp: tempTimestamp,
         timeSeriesData: metricArray,
       });
 
-      let json2csvCallback = function (err, csv) {
-        if (err) throw err;
-        var file_name = MEMORY_USAGE_BYTES;
-        var file_content = csv;
-        file_content = file_content.replace(/\n/g, "\r\n");
-
-        var stream = fs.createWriteStream(file_name + ".csv");
-        stream.once("open", function () {
-          stream.write(file_content);
-          stream.end();
-        });
-      };
-      await converter.json2csv(metricArray, json2csvCallback);
-
-      await metrics_MemoryUsageBytesModel
-        .save()
-        .then((createdMetrics) => {
-          response.json(createdMetrics);
-        })
-        .catch((error) => {
-          response.json(error);
-        });
-    });
+      //Save to Database
+      await metrics_MemoryUtilizationModel
+      .save()
+      .then((createdMetrics) => {
+        response.json(createdMetrics);
+      })
+      .catch((error) => {
+        response.json(error);
+      });
+     
+    }).catch((error)=>{
+      response.json(error)
+    })
 };
 
-const fetch_NETWORK_RECEIVED_BYTES = async (request, response) => {
-  const { time, step } = request.body;
+const fetch_Network_Utilization= async (request, response) => {
   axios
     .get(
-      `${PROMETHEUS_PORT}/query_range?query=${NETWORK_RECEIVE_BYTES_TOTAL}&start=${time}&end=${time}&step=${step}s`
+      `${PROMETHEUS_PORT}/query?query=${NETWORK_UTILIZATION}`
     )
     .then(async (promethusData) => {
+      console.log(promethusData.data.data.result);
+
+      //Save to Mongo Database
       const metricArray = [];
       let tempTimestamp = 0;
-      await promethusData.data.data.result.forEach((element) => {
+
+      await promethusData.data.data.result.forEach(async (element) => {
+
         let tempTimeSeriesData = {
           podName: "",
           timestamp: "",
           value: "",
         };
+
         tempTimeSeriesData.podName = element.metric.pod;
-        element.values.forEach((responseArray) => {
-          tempTimestamp = responseArray[0];
-          tempTimeSeriesData.timestamp = responseArray[0];
-          tempTimeSeriesData.value = responseArray[1];
-        });
-        metricArray.push(tempTimeSeriesData);
+
+        tempTimestamp = element.value[0];
+        tempTimeSeriesData.timestamp = element.value[0];
+        tempTimeSeriesData.value = element.value[1];
+
+        await metricArray.push(tempTimeSeriesData);
       });
 
-      console.log(metricArray);
-
-      const metrics_NetworkReceiveBytesModel = new NetworkReceiveBytesModel({
-        metricName: NETWORK_RECEIVE_BYTES_TOTAL,
+      //Create a Object using Model
+      const metrics_NetworkUtilizationModel = new Network_Utilization_Model({
+        metricName: "container_network_receive_bytes_total",
         timestamp: tempTimestamp,
         timeSeriesData: metricArray,
       });
 
-      let json2csvCallback = function (err, csv) {
-        if (err) throw err;
-        var file_name = NETWORK_RECEIVE_BYTES_TOTAL;
-        var file_content = csv;
-        file_content = file_content.replace(/\n/g, "\r\n");
-
-        var stream = fs.createWriteStream(file_name + ".csv");
-        stream.once("open", function () {
-          stream.write(file_content);
-          stream.end();
-        });
-      };
-      await converter.json2csv(metricArray, json2csvCallback);
-
-      await metrics_NetworkReceiveBytesModel
-        .save()
-        .then((createdMetrics) => {
-          response.json(createdMetrics);
-        })
-        .catch((error) => {
-          response.json(error);
-        });
-    });
-};
-
-const exportData = async (request, response) => {
-  const memoryUsage = await MemoryUsageBytesModel.findOne({
-    timestamp: "1651745070.781",
-  });
-  const cpuUsage = await Cpu_Cfs_Periods_Model.findOne({
-    timestamp: "1651745070.781",
-  });
-
-  let metricArray = [];
-  await memoryUsage.timeSeriesData.forEach((singleMemoryElement) => {
-    let tempObj = {
-      pod:null,
-      memory: null,
-      cpu: null,
-    }
-    tempObj.pod = singleMemoryElement.podName;
-    tempObj.memory = singleMemoryElement.value;
-    let tempMemoryElement = cpuUsage.timeSeriesData.find((memoryElement) => {
-        return memoryElement.podName == singleMemoryElement.podName;
+      //Save to Database
+      await metrics_NetworkUtilizationModel
+      .save()
+      .then((createdMetrics) => {
+        response.json(createdMetrics);
+      })
+      .catch((error) => {
+        response.json(error);
       });
-    if(tempMemoryElement){
-      tempObj.cpu = tempMemoryElement.value
-    }
-    metricArray.push(tempObj);
-  });
-  let json2csvCallback = function (err, csv) {
-    if (err) throw err;
-    var file_name = "test";
-    var file_content = csv;
-    file_content = file_content.replace(/\n/g, "\r\n");
-
-    var stream = fs.createWriteStream(file_name + ".csv");
-    stream.once("open", function () {
-      stream.write(file_content);
-      stream.end();
-    });
-  };
-  await converter.json2csv(metricArray, json2csvCallback);
-  console.log(metricArray);
-  return response.json(metricArray);
+     
+    }).catch((error)=>{
+      response.json(error)
+    })
 };
 
 module.exports = {
-  exportData,
-  fetch_CPU_CFS_PEROIDS_TOTAL,
-  fetch_MEMORY_USAGE_BYTES,
-  fetch_NETWORK_RECEIVED_BYTES
+  fetch_Cpu_Usage,
+  fetch_Memory_Utilization,
+  fetch_Network_Utilization
 };

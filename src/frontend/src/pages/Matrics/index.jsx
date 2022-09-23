@@ -1,13 +1,15 @@
 import React from "react";
+import {CpuUsage} from "../../components"
 
-const Sponsers = (props) => {
+const Matrics = (props) => {
 	return (
-		<div id="sponsers" className="lg:px-20">
-			<h1 className="text-4xl md:text-5xl text-center my-10 font-bold">
+		<div>
+			<h1>
 				Matrics Dashboard
 			</h1>
+			<CpuUsage/>
 		</div>
 	);
 };
 
-export default Sponsers;
+export default Matrics;
