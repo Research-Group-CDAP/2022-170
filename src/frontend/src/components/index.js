@@ -1,1 +1,3 @@
-// React components implementation
+import CpuUsage from "./CpuUsage";
+
+export { CpuUsage };
