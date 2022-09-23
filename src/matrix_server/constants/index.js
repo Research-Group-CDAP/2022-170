@@ -1,11 +1,11 @@
 const PROMETHEUS_PORT = "http://localhost:9090/api/v1";
-const CPU_CFS_PEROIDS_TOTAL = "container_cpu_cfs_periods_total";
-const MEMORY_USAGE_BYTES = "container_memory_usage_bytes";
-const NETWORK_RECEIVE_BYTES_TOTAL = "container_network_receive_bytes_total";
+const CPU_USAGE = `sum (rate (container_cpu_usage_seconds_total{image!=""}[5m])) by (pod)`;
+const MEMORY_UTILIZATION = `sum (rate (container_memory_working_set_bytes{image!=""}[5m])) by (pod)`;
+const NETWORK_UTILIZATION = `sum (rate (container_network_receive_bytes_total{image!=""}[5m])) by (pod)`;
 
 module.exports = {
   PROMETHEUS_PORT,
-  CPU_CFS_PEROIDS_TOTAL,
-  MEMORY_USAGE_BYTES,
-  NETWORK_RECEIVE_BYTES_TOTAL
+  NETWORK_UTILIZATION,
+  CPU_USAGE,
+  MEMORY_UTILIZATION
 };
