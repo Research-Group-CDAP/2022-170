@@ -1,1 +1,3 @@
-// React pages implementation
+import Matrics from "./Matrics";
+
+export { Matrics };
