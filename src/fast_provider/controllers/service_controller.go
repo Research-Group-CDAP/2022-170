@@ -74,7 +74,7 @@ func GetServices(c *fiber.Ctx) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	opts := options.Find().SetProjection(bson.D{{"repository.password", 0}})
+	opts := options.Find().SetProjection(bson.D{{Key: "repository.password", Value: 0}})
 
 	cursor, err := serviceCollection.Find(ctx, bson.M{}, opts)
 	if err != nil {
@@ -97,7 +97,7 @@ func GetServiceById(c *fiber.Ctx) error {
 
 	service_id := c.Params("id")
 	primitive_id, _ := primitive.ObjectIDFromHex(service_id)
-	opts := options.FindOne().SetProjection(bson.D{{"repository.password", 0}})
+	opts := options.FindOne().SetProjection(bson.D{{Key: "repository.password", Value: 0}})
 
 	var results bson.M
 	err := serviceCollection.FindOne(ctx, bson.M{"_id": primitive_id}, opts).Decode(&results)
