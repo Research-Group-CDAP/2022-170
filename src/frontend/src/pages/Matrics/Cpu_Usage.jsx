@@ -1,4 +1,5 @@
 import React from "react";
+import {PodsList} from "../../components"
 
 const CpuUsage = (props) => {
 	return (
@@ -6,6 +7,7 @@ const CpuUsage = (props) => {
 			<h1>
 				CPU USAGE
 			</h1>
+			<PodsList/>
 		</div>
 	);
 };
