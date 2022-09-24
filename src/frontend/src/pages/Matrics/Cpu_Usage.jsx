@@ -7,7 +7,6 @@ const CpuUsage = (props) => {
 			<h1>
 				CPU USAGE
 			</h1>
-			<PodsList/>
 		</div>
 	);
 };
