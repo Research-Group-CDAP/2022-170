@@ -14,7 +14,7 @@ const Pods = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <h1>Pods</h1>
+      <h3>Pods</h3>
       <div>
       <PodsList podList={podData.data} />
       </div>
