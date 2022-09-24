@@ -10,8 +10,15 @@ import Dashboard from "@material-ui/icons/Dashboard";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    maxWidth: 660,
-    backgroundColor: theme.palette.background.paper,
+    maxWidth: "100%",
+    backgroundColor: "#0C0C0C"
+  },  
+  ListItem: {
+    backgroundColor: "#272525",
+    marginBottom:"5px"
+  },
+  ListItemIcon: {
+    color: "#ffffff",
   },
 }));
 
@@ -22,8 +29,8 @@ const PodsList = (props) => {
       <List component="nav" aria-label="main mailbox folders">
         {props.podList.map((singlePod) => {
           return (
-            <ListItem button>
-              <ListItemIcon>
+            <ListItem button className={classes.ListItem}>
+              <ListItemIcon className={classes.ListItemIcon}>
                 <Dashboard />
               </ListItemIcon>
               <ListItemText primary={singlePod.podName} />
