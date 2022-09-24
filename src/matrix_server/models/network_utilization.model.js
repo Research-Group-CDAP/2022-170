@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const MemoryUsageBytesSchema = new Schema({
+const Network_Utilization_Schema = new Schema({
   metricName: {
     type: String,
   },
@@ -20,7 +20,7 @@ const MemoryUsageBytesSchema = new Schema({
   ],
 });
 
-module.exports = MemoryUsageBytesModel = mongoose.model(
-  "memoryusagebyte",
-  MemoryUsageBytesSchema
+module.exports = Network_Utilization_Model = mongoose.model(
+  "network_utilization",
+  Network_Utilization_Schema
 );
