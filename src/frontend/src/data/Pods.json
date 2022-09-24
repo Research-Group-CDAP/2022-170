@@ -1,0 +1,45 @@
+{
+    "data": [
+      {
+        "id": 1,
+        "podName":"adservice-75656d5f44-lg5c5"
+      },
+      {
+        "id": 2,
+        "podName":"cartservice-8c64564d4-qvmcw"
+      },
+      {
+        "id": 3,
+        "podName":"checkoutservice-5d45565464-qcb6x"
+      },
+      {
+        "id": 4,
+        "podName":"currencyservice-7dc56c8-rz476"
+      },
+      {
+        "id": 5,
+        "podName":"emailservice-67b75bf988-v9vnb"
+      },
+      {
+        "id": 6,
+        "podName":"frontend-5db5d7b788-xc7vb"
+      },
+      {
+        "id": 7,
+        "podName":"paymentservice-6f69f8b58d-dsxn6"
+      },      
+      {
+        "id": 8,
+        "podName":"productcatalogservice-67f5c88476-kg7tw"
+      },
+      {
+        "id": 9,
+        "podName":"recommendationservice-7ddd87dccd-xjr4q"
+      },
+      {
+        "id": 10,
+        "podName":"shippingservice-55bd6c45bb-v6x56"
+      }
+    ]
+  }
+  
