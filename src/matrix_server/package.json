@@ -17,6 +17,7 @@
     "fs": "0.0.1-security",
     "json-2-csv": "^3.17.1",
     "mongoose": "^6.3.2",
+    "node-cron": "^3.0.2",
     "node-schedule": "^2.1.0"
   },
   "devDependencies": {

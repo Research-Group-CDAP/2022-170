@@ -1,4 +1,5 @@
 import React from "react";
+import {PodsList} from "../../components"
 
 const CpuUsage = (props) => {
 	return (
