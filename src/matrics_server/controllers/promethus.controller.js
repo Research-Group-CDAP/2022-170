@@ -2,7 +2,7 @@ const {
   PROMETHEUS_PORT,
   CPU_USAGE,
   MEMORY_UTILIZATION,
-  NETWORK_UTILIZATION
+  NETWORK_UTILIZATION,
 } = require("../constants");
 const converter = require("json-2-csv");
 const axios = require("axios");
@@ -13,23 +13,25 @@ var fs = require("fs");
 const Cpu_Usage_Model = require("../models/cpu_usage.model");
 const Memory_Utilization_Model = require("../models/memory_utilization.model");
 const Network_Utilization_Model = require("../models/network_utilization.model");
-
 app.use(express.static(path.join(__dirname, "public")));
+var cron = require("node-cron");
 
-const fetch_Cpu_Usage = async (request, response) => {
+cron.schedule("*/5 * * * *", () => {
+  console.log("Running a cron job every 5 minutes");
+  fetch_Cpu_Usage();
+  fetch_Memory_Utilization();
+  fetch_Network_Utilization();
+});
+
+const fetch_Cpu_Usage = async () => {
   axios
-    .get(
-      `${PROMETHEUS_PORT}/query?query=${CPU_USAGE}`
-    )
+    .get(`${PROMETHEUS_PORT}/query?query=${CPU_USAGE}`)
     .then(async (promethusData) => {
-      console.log(promethusData.data.data.result);
-
       //Save to Mongo Database
       const metricArray = [];
       let tempTimestamp = 0;
 
       await promethusData.data.data.result.forEach(async (element) => {
-
         let tempTimeSeriesData = {
           podName: "",
           timestamp: "",
@@ -54,33 +56,30 @@ const fetch_Cpu_Usage = async (request, response) => {
 
       //Save to Database
       await metrics_CpuUsageModel
-      .save()
-      .then((createdMetrics) => {
-        response.json(createdMetrics);
-      })
-      .catch((error) => {
-        response.json(error);
-      });
-     
-    }).catch((error)=>{
-      response.json(error)
+        .save()
+        .then((createdMetrics) => {
+          //response.json(createdMetrics);
+          console.log("Created CPU Metrics");
+          console.log(createdMetrics);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
-const fetch_Memory_Utilization= async (request, response) => {
+const fetch_Memory_Utilization = async () => {
   axios
-    .get(
-      `${PROMETHEUS_PORT}/query?query=${MEMORY_UTILIZATION}`
-    )
+    .get(`${PROMETHEUS_PORT}/query?query=${MEMORY_UTILIZATION}`)
     .then(async (promethusData) => {
-      console.log(promethusData.data.data.result);
-
       //Save to Mongo Database
       const metricArray = [];
       let tempTimestamp = 0;
 
       await promethusData.data.data.result.forEach(async (element) => {
-
         let tempTimeSeriesData = {
           podName: "",
           timestamp: "",
@@ -105,24 +104,23 @@ const fetch_Memory_Utilization= async (request, response) => {
 
       //Save to Database
       await metrics_MemoryUtilizationModel
-      .save()
-      .then((createdMetrics) => {
-        response.json(createdMetrics);
-      })
-      .catch((error) => {
-        response.json(error);
-      });
-     
-    }).catch((error)=>{
-      response.json(error)
+        .save()
+        .then((createdMetrics) => {
+          console.log("Created Memory Metrics");
+          console.log(createdMetrics);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
-const fetch_Network_Utilization= async (request, response) => {
+const fetch_Network_Utilization = async () => {
   axios
-    .get(
-      `${PROMETHEUS_PORT}/query?query=${NETWORK_UTILIZATION}`
-    )
+    .get(`${PROMETHEUS_PORT}/query?query=${NETWORK_UTILIZATION}`)
     .then(async (promethusData) => {
       console.log(promethusData.data.data.result);
 
@@ -131,7 +129,6 @@ const fetch_Network_Utilization= async (request, response) => {
       let tempTimestamp = 0;
 
       await promethusData.data.data.result.forEach(async (element) => {
-
         let tempTimeSeriesData = {
           podName: "",
           timestamp: "",
@@ -156,21 +153,22 @@ const fetch_Network_Utilization= async (request, response) => {
 
       //Save to Database
       await metrics_NetworkUtilizationModel
-      .save()
-      .then((createdMetrics) => {
-        response.json(createdMetrics);
-      })
-      .catch((error) => {
-        response.json(error);
-      });
-     
-    }).catch((error)=>{
-      response.json(error)
+        .save()
+        .then((createdMetrics) => {
+          console.log("Created Network Metrics");
+          console.log(createdMetrics);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 module.exports = {
   fetch_Cpu_Usage,
   fetch_Memory_Utilization,
-  fetch_Network_Utilization
+  fetch_Network_Utilization,
 };
