@@ -20,7 +20,4 @@ const CPU_USAGE_Schema = new Schema({
   ],
 });
 
-module.exports = CPU_USAGE_Model = mongoose.model(
-  "cpuusage",
-  CPU_USAGE_Schema
-);
+module.exports = CPU_USAGE_Model = mongoose.model("cpuusage", CPU_USAGE_Schema);
