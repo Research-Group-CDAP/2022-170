@@ -8,7 +8,7 @@ import Divider from "@material-ui/core/Divider";
 import Dashboard from "@material-ui/icons/Dashboard";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
-import LineChart from "../LineChart";
+import CpuUsage from "../CpuUsage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   list: {
     width: "800px",
     minHeight: "100vh",
-    padding:"5%",
+    padding: "5%",
     backgroundColor: "#272525",
     color: "#ffffff",
   },
@@ -66,7 +66,7 @@ const PodsList = (props) => {
       onClick={toggleDrawer(anchor, true)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <LineChart />
+      <CpuUsage />
     </div>
   );
 

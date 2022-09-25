@@ -29,7 +29,6 @@ export const options = {
     },
     title: {
       display: true,
-      text: "CPU Usage",
       color: "white",
       fontSize: 40,
     },
