@@ -8,7 +8,7 @@ import Divider from "@material-ui/core/Divider";
 import Dashboard from "@material-ui/icons/Dashboard";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
-import CpuUsage from "../CpuUsage";
+import SlideDrawer from "../SlideDrawer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,7 +66,7 @@ const PodsList = (props) => {
       onClick={toggleDrawer(anchor, true)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <CpuUsage />
+      <SlideDrawer />
     </div>
   );
 
