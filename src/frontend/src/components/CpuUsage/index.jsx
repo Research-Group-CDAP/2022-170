@@ -7,6 +7,7 @@ const CpuUsage = (props) => {
   return (
     <div>
       <h3>CPU USAGE</h3>
+      <h6>adservice-75656d5f44-lg5c5</h6>
       <LineChart />
       <div className="mt-5">
         <TimeSeriesDataTable />
