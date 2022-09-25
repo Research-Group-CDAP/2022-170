@@ -1,13 +1,13 @@
 import React from "react";
 import LineChart from "../LineChart";
 
-const CpuUsage = (props) => {
+const Memory = (props) => {
   return (
     <div>
-      <h3>CPU USAGE</h3>
+      <h3>Memory</h3>
       <LineChart />
     </div>
   );
 };
 
-export default CpuUsage;
+export default Memory;
