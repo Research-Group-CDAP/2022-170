@@ -4,5 +4,6 @@ import Network from "./Network";
 import PodsList from "./PodsList";
 import LineChart from "./LineChart";
 import SlideDrawer from "./SlideDrawer";
+import RegistrationArea from "./RegistrationArea"
 
-export { CpuUsage, Memory, Network, PodsList, LineChart, SlideDrawer };
+export { CpuUsage, Memory, Network, PodsList, LineChart, SlideDrawer ,RegistrationArea};
