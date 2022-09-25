@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     width: "800px",
-    minHeight: "100vh",
+    minHeight: "200vh",
     padding: "5%",
     backgroundColor: "#272525",
     color: "#ffffff",

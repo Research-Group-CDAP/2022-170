@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
   tabs: {
     color: "#ffffff",
     backgroundColor: "#272525",
+    borderBottom: '1px solid #e8e8e8',
   },
 }));
 
@@ -70,8 +71,8 @@ const SlideDrawer = (props) => {
       <AppBar position="static" color="black">
         <Tabs
           value={value}
-          className={classes.tabs}
           onChange={handleChange}
+          className={classes.tabs}
           variant="scrollable"
           scrollButtons="on"
           indicatorColor="white"
