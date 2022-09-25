@@ -7,6 +7,9 @@ import reducers from "./reducers";
 
 // Development Store
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(applyMiddleware(promiseMiddleware)));
+const store = createStore(
+  reducers,
+  composeEnhancers(applyMiddleware(promiseMiddleware))
+);
 
 export default store;
