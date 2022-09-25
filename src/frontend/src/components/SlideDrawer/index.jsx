@@ -9,7 +9,7 @@ import NetworkWifiIcon from "@material-ui/icons/NetworkWifi";
 import ComputerIcon from "@material-ui/icons/Computer";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import CpuUsage from "../CpuUsage";
+import Cpu from "../Cpu";
 import Memory from "../Memory";
 import Network from "../Network";
 
@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
   tabs: {
     color: "#ffffff",
     backgroundColor: "#272525",
+    borderBottom: '1px solid #e8e8e8',
   },
 }));
 
@@ -70,8 +71,8 @@ const SlideDrawer = (props) => {
       <AppBar position="static" color="black">
         <Tabs
           value={value}
-          className={classes.tabs}
           onChange={handleChange}
+          className={classes.tabs}
           variant="scrollable"
           scrollButtons="on"
           indicatorColor="white"
@@ -85,7 +86,7 @@ const SlideDrawer = (props) => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <CpuUsage />
+        <Cpu />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Memory />
