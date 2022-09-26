@@ -1,0 +1,5 @@
+const ACTION_TYPES = {
+    GET_CPU_TIME_SERIES_DATA: "GET_CPU_TIME_SERIES_DATA",
+}
+
+export default ACTION_TYPES;
