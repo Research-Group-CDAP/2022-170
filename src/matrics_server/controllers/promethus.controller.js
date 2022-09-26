@@ -16,14 +16,19 @@ const Network_Utilization_Model = require("../models/network_utilization.model")
 app.use(express.static(path.join(__dirname, "public")));
 var cron = require("node-cron");
 
-cron.schedule("*/5 * * * *", () => {
-  console.log("Running a cron job every 5 minutes");
-  fetch_Cpu_Usage();
-  fetch_Memory_Utilization();
-  fetch_Network_Utilization();
+cron.schedule("*/5 * * * *", async () => {
+  console.log("Running a cron job every 5 minutes | Timestamp : " + new Date());
+
+  await fetch_Cpu_Usage();
+  
+  await fetch_Memory_Utilization();
+  
+  await fetch_Network_Utilization();
 });
 
 const fetch_Cpu_Usage = async () => {
+  console.log("------------CPU------------");
+
   axios
     .get(`${PROMETHEUS_PORT}/query?query=${CPU_USAGE}`)
     .then(async (promethusData) => {
@@ -72,6 +77,8 @@ const fetch_Cpu_Usage = async () => {
 };
 
 const fetch_Memory_Utilization = async () => {
+  console.log("------------Memory------------");
+
   axios
     .get(`${PROMETHEUS_PORT}/query?query=${MEMORY_UTILIZATION}`)
     .then(async (promethusData) => {
@@ -119,6 +126,8 @@ const fetch_Memory_Utilization = async () => {
 };
 
 const fetch_Network_Utilization = async () => {
+  console.log("------------Network------------");
+
   axios
     .get(`${PROMETHEUS_PORT}/query?query=${NETWORK_UTILIZATION}`)
     .then(async (promethusData) => {
