@@ -11,18 +11,20 @@ const Cpu = (props) => {
 
   useEffect(() => {
     dispatch(fetch_All_Cpu_Usage_By_Pod(props.podName));
-  }, [props.podName,dispatch]);
+  }, [props.podName, dispatch]);
 
   useEffect(() => {
-    console.log("matricsReducer",state.cpuDataByPod);
+    console.log("matricsReducer", state.cpuDataByPod);
     setCpuTimeSeriesData(state.cpuDataByPod);
-	}, [state.cpuDataByPod]);
+  }, [state.cpuDataByPod]);
 
   return (
     <div>
       <h3>CPU</h3>
       <h6>{props.podName}</h6>
-      <LineChart />
+      {cpuTimeSeriesData.length && (
+        <LineChart timeSeriesData={cpuTimeSeriesData} />
+      )}
       <div className="mt-5">
         {cpuTimeSeriesData.length && (
           <TimeSeriesDataTable timeSeriesData={cpuTimeSeriesData} />
