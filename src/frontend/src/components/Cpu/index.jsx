@@ -10,8 +10,8 @@ const Cpu = (props) => {
   const [cpuTimeSeriesData, setCpuTimeSeriesData] = useState([]);
 
   useEffect(() => {
-    dispatch(fetch_All_Cpu_Usage_By_Pod("adservice-75656d5f44-5qm57"));
-  }, [dispatch]);
+    dispatch(fetch_All_Cpu_Usage_By_Pod(props.podName));
+  }, [props.podName,dispatch]);
 
   useEffect(() => {
     console.log("matricsReducer",state.cpuDataByPod);
