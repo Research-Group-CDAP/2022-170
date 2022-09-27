@@ -86,12 +86,12 @@ const SlideDrawer = (props) => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Cpu />
+        <Cpu podName={props.podName} />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel podName={props.podName} value={value} index={1}>
         <Memory />
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      <TabPanel podName={props.podName} value={value} index={2}>
         <Network />
       </TabPanel>
     </div>

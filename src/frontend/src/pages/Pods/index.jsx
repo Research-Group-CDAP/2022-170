@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { PodsList } from "../../components";
 import podData from "../../data/Pods.json";
@@ -13,9 +12,6 @@ const useStyles = makeStyles({
 
 const Pods = (props) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-	const state = useSelector((state) => state.matricsReducer);
-	const [applications, setApplications] = useState([]);
 
   return (
     <div className={classes.root}>
