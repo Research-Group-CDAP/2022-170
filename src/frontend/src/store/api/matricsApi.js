@@ -15,6 +15,12 @@ class MatricsAPI {
 	static fetch_All_Memory_Utilization_By_Pod(podName){
 		return axios.get(`${BASE_URL}/memory/fetch/fetch_All_Memory_Utilization_By_Pod/${podName}`);
 	}
+	static fetch_All_Network_Utilization(){
+		return axios.get(`${BASE_URL}/network/fetch/fetch_All_Network_Utilization`);
+	}
+	static fetch_All_Network_Utilization_By_Pod(podName){
+		return axios.get(`${BASE_URL}/network/fetch/fetch_All_Network_Utilization_By_Pod/${podName}`);
+	}
 }
 
 export default MatricsAPI;

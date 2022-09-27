@@ -11,7 +11,6 @@ const Memory = (props) => {
   const [memoryTimeSeriesData, setMemoryTimeSeriesData] = useState([]);
 
   useEffect(() => {
-    console.log("podName",props.podName);
     dispatch(fetch_All_Memory_Utilization_By_Pod(props.podName));
   }, [dispatch]);
 

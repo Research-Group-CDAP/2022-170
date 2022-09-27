@@ -5,6 +5,8 @@ const initialState = {
 	cpuDataByPod: [],
 	memoryData: [],
 	memoryDataByPod: [],
+	networkData: [],
+	networkDataByPod: [],
 	loading: false,
 	error: null,
 };
@@ -19,6 +21,10 @@ const matricsReducer = (state = initialState, action) => {
 			return { ...state, loading: true };
 		case `${ActionTypes.GET_MEMORY_TIME_SERIES_DATA_BY_POD}_PENDING`:
 			return { ...state, loading: true };
+		case `${ActionTypes.GET_NETWORK_TIME_SERIES_DATA}_PENDING`:
+			return { ...state, loading: true };
+		case `${ActionTypes.GET_NETWORK_TIME_SERIES_DATA_BY_POD}_PENDING`:
+			return { ...state, loading: true };
 
 		case `${ActionTypes.GET_CPU_TIME_SERIES_DATA}_FULFILLED`:
 			let cpuData = action.payload.data;
@@ -32,11 +38,19 @@ const matricsReducer = (state = initialState, action) => {
 		case `${ActionTypes.GET_MEMORY_TIME_SERIES_DATA_BY_POD}_FULFILLED`:
 			let memoryDataByPod = action.payload.data;
 			return { ...state, loading: false, memoryDataByPod };
+		case `${ActionTypes.GET_NETWORK_TIME_SERIES_DATA}_FULFILLED`:
+			let networkData = action.payload.data;
+			return { ...state, loading: false, networkData };
+		case `${ActionTypes.GET_NETWORK_TIME_SERIES_DATA_BY_POD}_FULFILLED`:
+			let networkDataByPod = action.payload.data;
+			return { ...state, loading: false, networkDataByPod };
 
 		case `${ActionTypes.GET_CPU_TIME_SERIES_DATA}_REJECTED`:
 		case `${ActionTypes.GET_CPU_TIME_SERIES_DATA_BY_POD}_REJECTED`:
 		case `${ActionTypes.GET_MEMORY_TIME_SERIES_DATA}_REJECTED`:
 		case `${ActionTypes.GET_MEMORY_TIME_SERIES_DATA_BY_POD}_REJECTED`:
+		case `${ActionTypes.GET_NETWORK_TIME_SERIES_DATA}_REJECTED`:
+		case `${ActionTypes.GET_NETWORK_TIME_SERIES_DATA_BY_POD}_REJECTED`:
 			return {
 				...state,
 				loading: false,

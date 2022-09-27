@@ -5,6 +5,7 @@ import LineChart from "../LineChart";
 import TimeSeriesDataTable from "../TimeSeriesDataTable";
 
 const Cpu = (props) => {
+  
   const dispatch = useDispatch();
   const state = useSelector((state) => state.matricsReducer);
   const [cpuTimeSeriesData, setCpuTimeSeriesData] = useState([]);
