@@ -14,7 +14,6 @@ const Cpu = (props) => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("matricsReducer", state.cpuDataByPod);
     setCpuTimeSeriesData(state.cpuDataByPod);
   }, [state.cpuDataByPod]);
 

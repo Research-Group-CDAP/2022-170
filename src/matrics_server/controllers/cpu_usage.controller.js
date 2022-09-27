@@ -68,21 +68,21 @@ const fetch_All_Cpu_Usage_By_Pod = async (request, response) => {
   Cpu_Usage_Model.find()
     .then(async (res) => {
       await res.forEach((matricData) => {
-        let podCpuData = {
+        let podData = {
           timestamp: 0,
           value: 0,
         };
 
-        podCpuData.timestamp = matricData.timestamp;
+        podData.timestamp = matricData.timestamp;
 
         let podDetails = matricData.timeSeriesData.filter(function (pod) {
           return (pod.podName == request.params.podName);
         });
         
         podDetails.forEach((pod) => {
-          podCpuData.value = pod.value;
+          podData.value = pod.value;
 
-          timeSeriesDataArray.push(podCpuData);
+          timeSeriesDataArray.push(podData);
         });
       });
       await response.json(timeSeriesDataArray);

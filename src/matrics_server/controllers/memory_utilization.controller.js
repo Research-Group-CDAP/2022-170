@@ -70,8 +70,38 @@ const {
     })
   };
 
+  const fetch_All_Memory_Utilization_By_Pod = async (request, response) => {
+    let timeSeriesDataArray = [];
+    Memory_Utilization_Model.find()
+      .then(async (res) => {
+        await res.forEach((matricData) => {
+          let podData = {
+            timestamp: 0,
+            value: 0,
+          };
+  
+          podData.timestamp = matricData.timestamp;
+  
+          let podDetails = matricData.timeSeriesData.filter(function (pod) {
+            return (pod.podName == request.params.podName);
+          });
+          
+          podDetails.forEach((pod) => {
+            podData.value = pod.value;
+  
+            timeSeriesDataArray.push(podData);
+          });
+        });
+        await response.json(timeSeriesDataArray);
+      })
+      .catch((error) => {
+        response.json(error);
+      });
+  };
+
   module.exports = {
     fetch_Memory_Utilization,
-    fetch_All_Memory_Utilization
+    fetch_All_Memory_Utilization,
+    fetch_All_Memory_Utilization_By_Pod
   };
   

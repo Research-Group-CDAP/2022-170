@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 const SlideDrawer = (props) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [podName, setPodName] = React.useState(props.podName);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -86,13 +87,13 @@ const SlideDrawer = (props) => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Cpu podName={props.podName} />
+        <Cpu podName={podName} />
       </TabPanel>
-      <TabPanel podName={props.podName} value={value} index={1}>
-        <Memory />
+      <TabPanel value={value} index={1}>
+        <Memory podName={podName} />
       </TabPanel>
-      <TabPanel podName={props.podName} value={value} index={2}>
-        <Network />
+      <TabPanel value={value} index={2}>
+        <Network podName={podName} />
       </TabPanel>
     </div>
   );

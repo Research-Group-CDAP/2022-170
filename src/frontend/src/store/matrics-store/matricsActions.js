@@ -15,6 +15,19 @@ export const fetch_All_Cpu_Usage_By_Pod = (podName) => {
 	};
 };
 
+export const fetch_All_Memory_Utilization = () => {
+	return {
+		type: ActionTypes.GET_MEMORY_TIME_SERIES_DATA,
+		payload: MatricsApi.fetch_All_Memory_Utilization(),
+	};
+};
+
+export const fetch_All_Memory_Utilization_By_Pod = (podName) => {
+	return {
+		type: ActionTypes.GET_MEMORY_TIME_SERIES_DATA_BY_POD,
+		payload: MatricsApi.fetch_All_Memory_Utilization_By_Pod(podName),
+	};
+};
 
 
 
