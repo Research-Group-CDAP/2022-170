@@ -52,7 +52,7 @@ const PodsList = (props) => {
     ) {
       return;
     }
-    setPodName(podName)
+    setPodName(podName);
     setState({ ...state, [anchor]: open });
   };
 
@@ -79,7 +79,7 @@ const PodsList = (props) => {
               <ListItem
                 button
                 className={classes.ListItem}
-                onClick={toggleDrawer("right", true,singlePod.podName)}
+                onClick={toggleDrawer("right", true, singlePod.podName)}
               >
                 <ListItemIcon className={classes.ListItemIcon}>
                   <Dashboard />

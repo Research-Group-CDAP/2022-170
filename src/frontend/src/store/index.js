@@ -1,4 +1,8 @@
-import { legacy_createStore as createStore, applyMiddleware, compose } from "redux";
+import {
+  legacy_createStore as createStore,
+  applyMiddleware,
+  compose,
+} from "redux";
 import promiseMiddleware from "redux-promise-middleware";
 import reducers from "./reducers";
 

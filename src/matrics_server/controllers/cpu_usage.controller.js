@@ -76,9 +76,9 @@ const fetch_All_Cpu_Usage_By_Pod = async (request, response) => {
         podData.timestamp = matricData.timestamp;
 
         let podDetails = matricData.timeSeriesData.filter(function (pod) {
-          return (pod.podName == request.params.podName);
+          return pod.podName == request.params.podName;
         });
-        
+
         podDetails.forEach((pod) => {
           podData.value = pod.value;
 

@@ -1,17 +1,17 @@
-.BootstrapTable{
-    color: white;
-    border-style: none;
+.BootstrapTable {
+  color: white;
+  border-style: none;
 }
 
-a.page-link{
-    background-color:#2b2b2b ;
-    border-color: #444343;
-    color: #fff;
+a.page-link {
+  background-color: #2b2b2b;
+  border-color: #444343;
+  color: #fff;
 }
 
 .page-item.active .page-link {
-    z-index: 1;
-    color: #fff;
-    background-color: #444343;
-    border-color: #444343;
+  z-index: 1;
+  color: #fff;
+  background-color: #444343;
+  border-color: #444343;
 }

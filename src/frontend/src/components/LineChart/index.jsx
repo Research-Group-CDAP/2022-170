@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -52,7 +52,6 @@ export const options = {
 };
 
 const LineChart = (props) => {
-
   const [labelData, setLabelData] = useState([]);
   const [datasetData, setDatasetData] = useState([]);
 
@@ -67,7 +66,7 @@ const LineChart = (props) => {
 
     setLabelData(tempLabelData);
     setDatasetData(tempDatasetData);
-  });
+  },[props.timeSeriesData]);
 
   const labels = labelData;
 

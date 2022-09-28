@@ -20,9 +20,9 @@ cron.schedule("*/5 * * * *", async () => {
   console.log("Running a cron job every 5 minutes | Timestamp : " + new Date());
 
   await fetch_Cpu_Usage();
-  
+
   await fetch_Memory_Utilization();
-  
+
   await fetch_Network_Utilization();
 });
 

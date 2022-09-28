@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import matricsReducer from "./matrics-store/matricsReducer";
 
 const reducers = combineReducers({
-  matricsReducer
+  matricsReducer,
 });
 
 export default reducers;
