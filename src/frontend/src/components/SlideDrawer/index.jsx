@@ -55,13 +55,14 @@ const useStyles = makeStyles((theme) => ({
   tabs: {
     color: "#ffffff",
     backgroundColor: "#272525",
-    borderBottom: '1px solid #e8e8e8',
+    borderBottom: "1px solid #e8e8e8",
   },
 }));
 
 const SlideDrawer = (props) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [podName] = React.useState(props.podName);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -86,13 +87,13 @@ const SlideDrawer = (props) => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Cpu />
+        <Cpu podName={podName} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Memory />
+        <Memory podName={podName} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Network />
+        <Network podName={podName} />
       </TabPanel>
     </div>
   );

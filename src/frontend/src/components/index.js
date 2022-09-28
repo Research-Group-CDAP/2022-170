@@ -4,6 +4,14 @@ import Network from "./Network";
 import PodsList from "./PodsList";
 import LineChart from "./LineChart";
 import SlideDrawer from "./SlideDrawer";
-import TimeSeriesDataTable from "./TimeSeriesDataTable"
+import TimeSeriesDataTable from "./TimeSeriesDataTable";
 
-export { Cpu, Memory, Network, PodsList, LineChart, SlideDrawer, TimeSeriesDataTable };
+export {
+  Cpu,
+  Memory,
+  Network,
+  PodsList,
+  LineChart,
+  SlideDrawer,
+  TimeSeriesDataTable,
+};
