@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
+import matricsReducer from "./matrics-store/matricsReducer";
 
 const reducers = combineReducers({
-  // Application Reducers
+  matricsReducer,
 });
 
 export default reducers;

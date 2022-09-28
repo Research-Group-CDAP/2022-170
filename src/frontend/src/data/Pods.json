@@ -2,43 +2,43 @@
   "data": [
     {
       "id": 1,
-      "podName": "adservice-75656d5f44-lg5c5"
+      "podName": "adservice-75656d5f44-5qm57"
     },
     {
       "id": 2,
-      "podName": "cartservice-8c64564d4-qvmcw"
+      "podName": "cartservice-8c64564d4-k7lf9"
     },
     {
       "id": 3,
-      "podName": "checkoutservice-5d45565464-qcb6x"
+      "podName": "checkoutservice-5d45565464-5wtdn"
     },
     {
       "id": 4,
-      "podName": "currencyservice-7dc56c8-rz476"
+      "podName": "currencyservice-7dc56c8-n696p"
     },
     {
       "id": 5,
-      "podName": "emailservice-67b75bf988-v9vnb"
+      "podName": "emailservice-67b75bf988-9q7t8"
     },
     {
       "id": 6,
-      "podName": "frontend-5db5d7b788-xc7vb"
+      "podName": "frontend-5db5d7b788-64gld"
     },
     {
       "id": 7,
-      "podName": "paymentservice-6f69f8b58d-dsxn6"
+      "podName": "paymentservice-6f69f8b58d-ttnsp"
     },
     {
       "id": 8,
-      "podName": "productcatalogservice-67f5c88476-kg7tw"
+      "podName": "productcatalogservice-67f5c88476-7kdlh"
     },
     {
       "id": 9,
-      "podName": "recommendationservice-7ddd87dccd-xjr4q"
+      "podName": "recommendationservice-7ddd87dccd-xjnw7"
     },
     {
       "id": 10,
-      "podName": "shippingservice-55bd6c45bb-v6x56"
+      "podName": "shippingservice-55bd6c45bb-lm9lm"
     }
   ]
 }

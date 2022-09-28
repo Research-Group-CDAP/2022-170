@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -51,22 +51,37 @@ export const options = {
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: [50, 60, 40, 70, 50, 40, 70, 50],
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-      textColor: "#ffffff",
-    },
-  ],
-};
-
 const LineChart = (props) => {
+  const [labelData, setLabelData] = useState([]);
+  const [datasetData, setDatasetData] = useState([]);
+
+  useEffect(() => {
+    let tempLabelData = [];
+    let tempDatasetData = [];
+
+    props.timeSeriesData.forEach((singleData, index) => {
+      tempLabelData.push(singleData.timestamp);
+      tempDatasetData.push(singleData.value);
+    });
+
+    setLabelData(tempLabelData);
+    setDatasetData(tempDatasetData);
+  },[props.timeSeriesData]);
+
+  const labels = labelData;
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: props.title,
+        data: datasetData,
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        textColor: "#ffffff",
+      },
+    ],
+  };
   return <Line options={options} data={data} />;
 };
 
