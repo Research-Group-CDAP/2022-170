@@ -4,8 +4,8 @@ import Image from "../../assetes/images/welcomeimage.avif";
 const useStyles = makeStyles({
   root: {
     textAlign: "center",
-    padding: "5% 20%",
-    fontSize: "80px",
+    padding: "4% 20%",
+    fontSize: "70px",
   },
 });
 
