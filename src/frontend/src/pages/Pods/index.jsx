@@ -5,8 +5,7 @@ import podData from "../../data/Pods.json";
 
 const useStyles = makeStyles({
   root: {
-    textAlign: "center",
-    padding: "5% 20%",
+    padding: "2% 10%",
   },
 });
 

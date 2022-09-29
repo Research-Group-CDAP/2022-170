@@ -1,11 +1,12 @@
 import PageRoutes from "./PageRoutes";
+import AppBar from "./components/AppBar";
 import { makeStyles } from "@material-ui/core/styles";
 import { colors } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
     minHeight: "100vh",
-    background: "#0C0C0C",
+    background: "#171717",
     color: "#FFFFFF",
   },
 });
@@ -15,7 +16,7 @@ const App = () => {
 
   return (
     <div className={classes.root}>
-      <PageRoutes />
+      <AppBar />
     </div>
   );
 };
