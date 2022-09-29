@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     maxWidth: "100%",
-    backgroundColor: "#0C0C0C",
+    backgroundColor: "#171717",
   },
   ListItem: {
     backgroundColor: "#272525",
