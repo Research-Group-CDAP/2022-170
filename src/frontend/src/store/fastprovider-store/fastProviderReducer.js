@@ -1,4 +1,4 @@
-import ActionTypes from "./fastProviderActions";
+import ActionTypes from "./fastProviderTypes";
 
 const initialState = {
   serviceRegisterInfo: {},
