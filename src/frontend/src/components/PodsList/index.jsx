@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     maxWidth: "100%",
-    backgroundColor: "#0C0C0C",
+    backgroundColor: "#171717",
   },
   ListItem: {
     backgroundColor: "#272525",
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     width: "800px",
-    minHeight: "100vh",
+    minHeight: "200vh",
     padding: "5%",
     backgroundColor: "#272525",
     color: "#ffffff",
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PodsList = (props) => {
   const classes = useStyles();
-
+  const [podName, setPodName] = React.useState();
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -45,14 +45,14 @@ const PodsList = (props) => {
     right: false,
   });
 
-  const toggleDrawer = (anchor, open) => (event) => {
+  const toggleDrawer = (anchor, open, podName) => (event) => {
     if (
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
     ) {
       return;
     }
-
+    setPodName(podName);
     setState({ ...state, [anchor]: open });
   };
 
@@ -66,7 +66,7 @@ const PodsList = (props) => {
       onClick={toggleDrawer(anchor, true)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <SlideDrawer />
+      <SlideDrawer podName={podName} />
     </div>
   );
 
@@ -79,7 +79,7 @@ const PodsList = (props) => {
               <ListItem
                 button
                 className={classes.ListItem}
-                onClick={toggleDrawer("right", true)}
+                onClick={toggleDrawer("right", true, singlePod.podName)}
               >
                 <ListItemIcon className={classes.ListItemIcon}>
                   <Dashboard />

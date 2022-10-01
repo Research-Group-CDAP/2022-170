@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { useDispatch, useSelector } from "react-redux";
-import { fetch_All_Memory_Utilization_By_Pod } from "../../store/matrics-store/matricsActions";
+import { fetch_All_Cpu_Usage_By_Pod } from "../../store/matrics-store/matricsActions";
 import LineChart from "../LineChart";
 import TimeSeriesDataTable from "../TimeSeriesDataTable";
 
@@ -15,34 +15,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Memory = (props) => {
+const Cpu = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.matricsReducer);
-  const [memoryTimeSeriesData, setMemoryTimeSeriesData] = useState([]);
+  const [cpuTimeSeriesData, setCpuTimeSeriesData] = useState([]);
 
   useEffect(() => {
-    dispatch(fetch_All_Memory_Utilization_By_Pod(props.podName));
+    dispatch(fetch_All_Cpu_Usage_By_Pod(props.podName));
   }, [props.podName, dispatch]);
 
   useEffect(() => {
-    setMemoryTimeSeriesData(state.memoryDataByPod);
-  }, [state.memoryDataByPod]);
+    setCpuTimeSeriesData(state.cpuDataByPod);
+  }, [state.cpuDataByPod]);
 
   return (
     <div>
-      <h3>Memory</h3>
+      <h3>CPU</h3>
       <h6>{props.podName}</h6>
-
       <div className={classes.root}>
-        {memoryTimeSeriesData.length ? (
+        {cpuTimeSeriesData.length ? (
           <>
-            <LineChart
-              title={"Memory Usage"}
-              timeSeriesData={memoryTimeSeriesData}
-            />
+            <LineChart title={"CPU Usage"} timeSeriesData={cpuTimeSeriesData} />
             <div className="mt-5">
-              <TimeSeriesDataTable timeSeriesData={memoryTimeSeriesData} />
+              <TimeSeriesDataTable timeSeriesData={cpuTimeSeriesData} />
             </div>
           </>
         ) : (
@@ -53,4 +49,4 @@ const Memory = (props) => {
   );
 };
 
-export default Memory;
+export default Cpu;

@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AppBar } from "./components";
 import { Home, Matrics, Pods } from "./pages";
 
 const PageRoutes = () => {
