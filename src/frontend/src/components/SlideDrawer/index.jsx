@@ -1,14 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
+import Box from "@material-ui/core/Box";
+import { makeStyles } from "@material-ui/core/styles";
 import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import Typography from "@material-ui/core/Typography";
+import ComputerIcon from "@material-ui/icons/Computer";
 import MemoryIcon from "@material-ui/icons/Memory";
 import NetworkWifiIcon from "@material-ui/icons/NetworkWifi";
-import ComputerIcon from "@material-ui/icons/Computer";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import PropTypes from "prop-types";
+import React from "react";
 import Cpu from "../Cpu";
 import Memory from "../Memory";
 import Network from "../Network";
@@ -50,12 +50,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    backgroundColor: "#272525",
+    backgroundColor: theme.palette.tabs.backgroundColor,
   },
   tabs: {
-    color: "#ffffff",
-    backgroundColor: "#272525",
-    borderBottom: "1px solid #e8e8e8",
+    color: theme.palette.tabs.color,
+    backgroundColor: theme.palette.tabs.backgroundColor,
+    borderBottom: "1px solid " + theme.palette.tabs.color,
   },
 }));
 
