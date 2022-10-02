@@ -20,12 +20,10 @@ const AddService = (props) => {
   const [state, setState] = useState({
     isSnackBackOpen: false,
     serviceName: "",
-    repository: {
-      userName: "",
-      password: "",
-      email: "",
-      link: "",
-    },
+    userName: "",
+    password: "",
+    email: "",
+    link: "",
     defaultVersionTag: "",
     isFormNotValid: false,
   });
@@ -42,10 +40,10 @@ const AddService = (props) => {
     const data = {
       serviceName: state.serviceName.trim().length > 0 ? state.serviceName : null,
       defaultVersionTag: state.defaultVersionTag.trim().length > 0 ? state.defaultVersionTag : null,
-      userName: state.repository.userName.trim().length > 0 ? state.repository.userName : null,
-      password: state.repository.password.trim().length > 0 ? state.repository.password : null,
-      email: state.repository.email.trim().length > 0 ? state.repository.email : null,
-      link: state.repository.link.trim().length > 0 ? state.repository.link : null,
+      userName: state.userName.trim().length > 0 ? state.userName : null,
+      password: state.password.trim().length > 0 ? state.password : null,
+      email: state.email.trim().length > 0 ? state.email : null,
+      link: state.link.trim().length > 0 ? state.link : null,
     };
 
     formData = Object.assign({}, data);
@@ -71,8 +69,11 @@ const AddService = (props) => {
   };
 
   const onChange = (event) => {
+    // console.log({ [event.target.name]: event.target.value });
     setState({ ...state, [event.target.name]: event.target.value });
+    console.log(state);
   };
+
   return (
     <Drawer anchor="right" open={props.open} onClose={props.handleClose}>
       <Box className={classes.root}>
@@ -113,7 +114,7 @@ const AddService = (props) => {
           fullWidth
           className={classes.mb}
           InputProps={{ disableUnderline: true }}
-          name="repository.userName"
+          name="userName"
           onChange={(e) => onChange(e)}
           error={state.isFormNotValid && formData.userName === null}
         />
@@ -123,7 +124,7 @@ const AddService = (props) => {
           fullWidth
           className={classes.mb}
           InputProps={{ disableUnderline: true }}
-          name="repository.email"
+          name="email"
           onChange={(e) => onChange(e)}
           error={state.isFormNotValid && formData.email === null}
           type="email"
@@ -134,7 +135,7 @@ const AddService = (props) => {
           fullWidth
           className={classes.mb}
           InputProps={{ disableUnderline: true }}
-          name="repository.password"
+          name="password"
           onChange={(e) => onChange(e)}
           error={state.isFormNotValid && formData.password === null}
           type="password"
@@ -145,7 +146,7 @@ const AddService = (props) => {
           fullWidth
           className={classes.mb}
           InputProps={{ disableUnderline: true }}
-          name="repository.password"
+          name="link"
           onChange={(e) => onChange(e)}
           error={state.isFormNotValid && formData.link === null}
         />
