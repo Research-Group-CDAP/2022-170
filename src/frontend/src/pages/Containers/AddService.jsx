@@ -1,8 +1,21 @@
-import { Box, Drawer, TextField, Typography } from "@material-ui/core";
+import { Box, Drawer, makeStyles, Typography } from "@material-ui/core";
+import SaveIcon from "@mui/icons-material/Save";
 import { Button } from "@mui/material";
 import React, { useState } from "react";
+import { InputField } from "../../components/TextField";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: 750,
+    padding: 30,
+  },
+  mb: {
+    marginBottom: 10,
+  },
+}));
 
 const AddService = (props) => {
+  const classes = useStyles();
   const [state, setState] = useState({
     serviceName: "",
     repository: {
@@ -21,27 +34,31 @@ const AddService = (props) => {
   };
   return (
     <Drawer anchor="right" open={props.open} onClose={props.handleClose}>
-      <Box sx={{ width: 750, padding: 30 }}>
+      <Box className={classes.root}>
         <Typography style={{ cursor: "move" }} id="draggable-dialog-title">
           Add New Service
         </Typography>
         <Typography variant="body2" style={{ marginBottom: 10 }}>
           Service Information
         </Typography>
-        <TextField
+        <InputField
           label="Service Name"
           variant="filled"
           placeholder="order-service"
           fullWidth
+          className={classes.mb}
+          InputProps={{ disableUnderline: true }}
           name="serviceName"
           onChange={(e) => onChange(e)}
           error={state.error}
         />
-        <TextField
+        <InputField
           label="Version Tag"
           variant="filled"
           placeholder="v1.0.2"
           fullWidth
+          className={classes.mb}
+          InputProps={{ disableUnderline: true }}
           name="serviceName"
           onChange={(e) => onChange(e)}
           error={state.error}
@@ -49,47 +66,60 @@ const AddService = (props) => {
         <Typography variant="body2" style={{ marginTop: 10, marginBottom: 10 }}>
           Repository Information
         </Typography>
-        <TextField
+        <InputField
           label="Username"
           variant="filled"
           fullWidth
+          className={classes.mb}
+          InputProps={{ disableUnderline: true }}
           name="repository.userName"
           onChange={(e) => onChange(e)}
           error={state.error}
         />
-        <TextField
+        <InputField
           label="Email"
           variant="filled"
           fullWidth
+          className={classes.mb}
+          InputProps={{ disableUnderline: true }}
           name="repository.email"
           onChange={(e) => onChange(e)}
           error={state.error}
           type="email"
         />
-        <TextField
+        <InputField
           label="Password"
           variant="filled"
           fullWidth
+          className={classes.mb}
+          InputProps={{ disableUnderline: true }}
           name="repository.password"
           onChange={(e) => onChange(e)}
           error={state.error}
           type="password"
         />
-        <TextField
+        <InputField
           label="Link"
           variant="filled"
           fullWidth
+          className={classes.mb}
+          InputProps={{ disableUnderline: true }}
           name="repository.password"
           onChange={(e) => onChange(e)}
           error={state.error}
         />
-        <Box display="flex" justifyContent="right">
+        <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
           <>
-            <Button autoFocus onClick={props.handleClose} variant="text">
+            <Button autoFocus onClick={props.handleClose} variant="text" disableElevation>
               Cancel
             </Button>
-            <Button onClick={props.handleClose} variant="text">
-              Add
+            <Button
+              onClick={props.handleClose}
+              variant="contained"
+              disableElevation
+              startIcon={<SaveIcon />}
+            >
+              Save
             </Button>
           </>
         </Box>
