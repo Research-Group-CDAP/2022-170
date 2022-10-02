@@ -28,7 +28,12 @@ const Containers = (props) => {
       <h3>Containers</h3>
       <div>
         <Stack direction="row-reverse">
-          <Button variant="contained" startIcon={<Add />} onClick={handleClickOpen}>
+          <Button
+            variant="contained"
+            startIcon={<Add />}
+            onClick={handleClickOpen}
+            disableElevation
+          >
             Add Service
           </Button>
           <AddService open={open} handleClose={handleClose} handleClickOpen={handleClickOpen} />

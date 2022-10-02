@@ -10,6 +10,9 @@ const InputField = styled((props) => (
       theme.palette.type === "light" ? "rgba(0, 0, 0, 0.12)" : "rgba(255, 255, 255, 0.08)",
     borderRadius: 5,
   },
+  "& label.Mui-error": {
+    color: "red",
+  },
   "& .MuiFormLabel-root": {
     color: theme.palette.type === "light" ? "rgba(0, 0, 0, 0.38)" : "rgba(255, 255, 255, 0.7)",
   },

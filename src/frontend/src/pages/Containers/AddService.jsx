@@ -25,7 +25,14 @@ const AddService = (props) => {
       link: "",
     },
     defaultVersionTag: "",
-    error: false,
+    error: {
+      serviceNameError: false,
+      userNameError: false,
+      passwordError: false,
+      emailError: false,
+      linkError: false,
+      versionTagError: false,
+    },
   });
 
   const onChange = (event) => {
@@ -50,7 +57,7 @@ const AddService = (props) => {
           InputProps={{ disableUnderline: true }}
           name="serviceName"
           onChange={(e) => onChange(e)}
-          error={state.error}
+          error={state.error.serviceNameError}
         />
         <InputField
           label="Version Tag"
@@ -61,7 +68,7 @@ const AddService = (props) => {
           InputProps={{ disableUnderline: true }}
           name="serviceName"
           onChange={(e) => onChange(e)}
-          error={state.error}
+          error={state.error.versionTagError}
         />
         <Typography variant="body2" style={{ marginTop: 10, marginBottom: 10 }}>
           Repository Information
@@ -74,7 +81,7 @@ const AddService = (props) => {
           InputProps={{ disableUnderline: true }}
           name="repository.userName"
           onChange={(e) => onChange(e)}
-          error={state.error}
+          error={state.error.userNameError}
         />
         <InputField
           label="Email"
@@ -84,7 +91,7 @@ const AddService = (props) => {
           InputProps={{ disableUnderline: true }}
           name="repository.email"
           onChange={(e) => onChange(e)}
-          error={state.error}
+          error={state.error.emailError}
           type="email"
         />
         <InputField
@@ -95,7 +102,7 @@ const AddService = (props) => {
           InputProps={{ disableUnderline: true }}
           name="repository.password"
           onChange={(e) => onChange(e)}
-          error={state.error}
+          error={state.error.passwordError}
           type="password"
         />
         <InputField
@@ -106,7 +113,7 @@ const AddService = (props) => {
           InputProps={{ disableUnderline: true }}
           name="repository.password"
           onChange={(e) => onChange(e)}
-          error={state.error}
+          error={state.error.linkError}
         />
         <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
           <>
