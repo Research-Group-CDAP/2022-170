@@ -1,14 +1,14 @@
+import { Icon } from "@iconify/react";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
-import Dashboard from "@material-ui/icons/Dashboard";
+import { ListItemIcon } from "@mui/material";
 import clsx from "clsx";
 import React from "react";
-import SlideDrawer from "../SlideDrawer";
+import ContainerInfoDrawer from "./ContainerInfoDrawer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PodsList = (props) => {
+const ContainerList = (props) => {
   const classes = useStyles();
-  const [podName, setPodName] = React.useState();
+  const [container, setContainer] = React.useState();
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -45,11 +45,11 @@ const PodsList = (props) => {
     right: false,
   });
 
-  const toggleDrawer = (anchor, open, podName) => (event) => {
+  const toggleDrawer = (anchor, open, container) => (event) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
     }
-    setPodName(podName);
+    setContainer(container);
     setState({ ...state, [anchor]: open });
   };
 
@@ -63,7 +63,7 @@ const PodsList = (props) => {
       onClick={toggleDrawer(anchor, true)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <SlideDrawer podName={podName} />
+      <ContainerInfoDrawer service={container} />
     </div>
   );
 
@@ -71,20 +71,23 @@ const PodsList = (props) => {
     <div className={classes.root}>
       <React.Fragment key={"right"}>
         <List component="nav" aria-label="main mailbox folders">
-          {props.podList.map((singlePod) => {
-            return (
-              <ListItem
-                button
-                className={classes.ListItem}
-                onClick={toggleDrawer("right", true, singlePod.podName)}
-              >
-                <ListItemIcon className={classes.ListItemIcon}>
-                  <Dashboard />
-                </ListItemIcon>
-                <ListItemText primary={singlePod.podName} />
-              </ListItem>
-            );
-          })}
+          {props.services &&
+            props.services.services &&
+            props.services.services.length > 0 &&
+            props.services.services.map((service) => {
+              return (
+                <ListItem
+                  button
+                  className={classes.ListItem}
+                  onClick={toggleDrawer("right", true, service)}
+                >
+                  <ListItemIcon>
+                    <Icon icon="logos:docker-icon" />
+                  </ListItemIcon>
+                  <ListItemText primary={service.service_name} />
+                </ListItem>
+              );
+            })}
         </List>
         <Divider />
         <Drawer anchor={"right"} open={state["right"]} onClose={toggleDrawer("right", false)}>
@@ -95,4 +98,4 @@ const PodsList = (props) => {
   );
 };
 
-export default PodsList;
+export default ContainerList;

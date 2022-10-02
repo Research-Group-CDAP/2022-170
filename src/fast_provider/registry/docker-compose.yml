@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  local-registry:
+    image: registry:2
+    container_name: local-registry
+    restart: always
+    ports:
+      - "5005:5000"
+    environment:
+      - REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=data
+      - REGISTRY_AUTH=htpasswd
+      - REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm
+      - REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd
+      - REGISTRY_HTTP_TLS_CERTIFICATE=/certs/registry_auth.crt
+      - REGISTRY_HTTP_TLS_KEY=/certs/registry_auth.key
+    volumes:
+      - ./data:/data
+      - ./auth:/auth
+      - ./certs:/certs
+
+  local-registry-ui:
+    image: parabuzzle/craneoperator:latest
+    container_name: local-registry-ui
+    restart: on-failure
+    ports:
+      - "8099:80"
+    links:
+      - local-registry
+    environment:
+      - REGISTRY_HOST=local-registry
+      - REGISTRY_PORT=5000
+      - REGISTRY_PROTOCOL=https
+      - SSL_VERIFY=false
+      - ALLOW_REGISTRY_LOGIN=true
+      - REGISTRY_ALLOW_DELETE=true
+      - REGISTRY_USERNAME=admin
+      - REGISTRY_PASSWORD=password
+      - USERNAME=admin
+      - PASSWORD=password
