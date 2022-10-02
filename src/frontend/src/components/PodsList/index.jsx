@@ -1,23 +1,23 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
+import { makeStyles } from "@material-ui/core/styles";
 import Dashboard from "@material-ui/icons/Dashboard";
 import clsx from "clsx";
-import Drawer from "@material-ui/core/Drawer";
+import React from "react";
 import SlideDrawer from "../SlideDrawer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     maxWidth: "100%",
-    backgroundColor: "#171717",
+    // backgroundColor: "#171717",
   },
   ListItem: {
-    backgroundColor: "#272525",
+    // backgroundColor: "#272525",
     marginBottom: "5px",
   },
   ListItemIcon: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     width: "800px",
     minHeight: "200vh",
     padding: "5%",
-    backgroundColor: "#272525",
+    // backgroundColor: "#272525",
     color: "#ffffff",
   },
   fullList: {
@@ -46,10 +46,7 @@ const PodsList = (props) => {
   });
 
   const toggleDrawer = (anchor, open, podName) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
+    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
     }
     setPodName(podName);
@@ -90,11 +87,7 @@ const PodsList = (props) => {
           })}
         </List>
         <Divider />
-        <Drawer
-          anchor={"right"}
-          open={state["right"]}
-          onClose={toggleDrawer("right", false)}
-        >
+        <Drawer anchor={"right"} open={state["right"]} onClose={toggleDrawer("right", false)}>
           {list("right")}
         </Drawer>
       </React.Fragment>

@@ -1,6 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AppBar } from "./components";
-import { Home, Matrics, Pods } from "./pages";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Containers, Home, Matrics, Pods } from "./pages";
 
 const PageRoutes = () => {
   return (
@@ -10,6 +9,7 @@ const PageRoutes = () => {
           <Route path="/" element={<Home />} />
           <Route path="/matrics" element={<Matrics />} />
           <Route path="/pods" element={<Pods />} />
+          <Route path="/containers" element={<Containers />} />
         </Routes>
       </BrowserRouter>
     </div>
