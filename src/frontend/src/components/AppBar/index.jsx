@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -6,7 +7,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
-import { Home, Mail, Pages, Store } from "@material-ui/icons";
+import { Home, Pages } from "@material-ui/icons";
 import React from "react";
 import PageRoutes from "../../PageRoutes";
 const drawerWidth = 240;
@@ -78,7 +79,7 @@ export default function PermanentDrawerLeft() {
           <a style={{ textDecoration: "none" }} href="/pods">
             <ListItem className={classes.Link} button key={"Pods"}>
               <ListItemIcon className={classes.ListItemIcon}>
-                <Mail />
+                <Icon icon="vscode-icons:folder-type-kubernetes" width={25} />
               </ListItemIcon>
               <ListItemText primary={"Pods"} />
             </ListItem>
@@ -86,7 +87,7 @@ export default function PermanentDrawerLeft() {
           <a style={{ textDecoration: "none" }} href="/containers">
             <ListItem className={classes.Link} button key={"Containers"}>
               <ListItemIcon className={classes.ListItemIcon}>
-                <Store />
+                <Icon icon="vscode-icons:folder-type-docker" width={25} />
               </ListItemIcon>
               <ListItemText primary={"Containers"} />
             </ListItem>

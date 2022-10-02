@@ -1,11 +1,11 @@
+import { Icon } from "@iconify/react";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
-import Dashboard from "@material-ui/icons/Dashboard";
+import { ListItemIcon } from "@mui/material";
 import clsx from "clsx";
 import React from "react";
 import ContainerInfoDrawer from "./ContainerInfoDrawer";
@@ -81,8 +81,8 @@ const ContainerList = (props) => {
                   className={classes.ListItem}
                   onClick={toggleDrawer("right", true, service)}
                 >
-                  <ListItemIcon className={classes.ListItemIcon}>
-                    <Dashboard />
+                  <ListItemIcon>
+                    <Icon icon="logos:docker-icon" />
                   </ListItemIcon>
                   <ListItemText primary={service.service_name} />
                 </ListItem>
