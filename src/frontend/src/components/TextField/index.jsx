@@ -1,7 +1,11 @@
 import { styled, TextField } from "@mui/material";
 
 const InputField = styled((props) => (
-  <TextField InputProps={{ disableUnderline: true }} {...props} />
+  <TextField
+    autoComplete="off"
+    InputProps={{ disableUnderline: true, autoComplete: "off" }}
+    {...props}
+  />
 ))(({ theme }) => ({
   marginBottom: 10,
   "& .MuiInputBase-root": {
