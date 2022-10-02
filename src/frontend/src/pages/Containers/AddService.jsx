@@ -1,8 +1,10 @@
 import { Box, Drawer, makeStyles, Snackbar, Typography } from "@material-ui/core";
 import SaveIcon from "@mui/icons-material/Save";
 import { Alert, Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { InputField } from "../../components/TextField";
+import { get_services, register_service } from "../../store/fastprovider-store/fastProviderActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
 let formData = {};
 const AddService = (props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const fastProviderState = useSelector((state) => state.fastProviderReducer);
   const [state, setState] = useState({
     isSnackBackOpen: false,
     serviceName: "",
@@ -27,6 +31,10 @@ const AddService = (props) => {
     defaultVersionTag: "",
     isFormNotValid: false,
   });
+
+  useEffect(() => {
+    dispatch(get_services());
+  }, [fastProviderState.serviceRegisterInfo, dispatch]);
 
   const handleCloseSnackBar = (event, reason) => {
     if (reason === "clickaway") {
@@ -59,9 +67,19 @@ const AddService = (props) => {
         return key !== null;
       });
 
-      console.log("Prev: ", formData.serviceName === null);
       if (!data.includes(false)) {
-        // submit form
+        const data = {
+          ServiceName: state.serviceName,
+          DefaultVersionTag: state.defaultVersionTag,
+          Repository: {
+            UserName: state.userName,
+            Email: state.email,
+            Password: state.password,
+            Link: state.link,
+          },
+        };
+
+        dispatch(register_service(data));
       } else {
         setState({ ...state, isFormNotValid: true, isSnackBackOpen: true });
       }
@@ -115,6 +133,7 @@ const AddService = (props) => {
           className={classes.mb}
           InputProps={{ disableUnderline: true }}
           name="userName"
+          placeholder="kubeuser"
           onChange={(e) => onChange(e)}
           error={state.isFormNotValid && formData.userName === null}
         />
@@ -125,6 +144,7 @@ const AddService = (props) => {
           className={classes.mb}
           InputProps={{ disableUnderline: true }}
           name="email"
+          placeholder="kube@mate.com"
           onChange={(e) => onChange(e)}
           error={state.isFormNotValid && formData.email === null}
           type="email"
@@ -136,6 +156,7 @@ const AddService = (props) => {
           className={classes.mb}
           InputProps={{ disableUnderline: true }}
           name="password"
+          placeholder="kubepassword"
           onChange={(e) => onChange(e)}
           error={state.isFormNotValid && formData.password === null}
           type="password"
@@ -147,6 +168,7 @@ const AddService = (props) => {
           className={classes.mb}
           InputProps={{ disableUnderline: true }}
           name="link"
+          placeholder="https://github.com/kubemate/yourregistry.git"
           onChange={(e) => onChange(e)}
           error={state.isFormNotValid && formData.link === null}
         />

@@ -17,23 +17,23 @@ const fastProviderReducer = (state = initialState, action) => {
       return { ...state, loading: true, error: null };
 
     case `${ActionTypes.REGISTER_SERVICE}_FULFILLED`:
-      let serviceRegisterInfo = action.paylaod.data;
+      let serviceRegisterInfo = action.payload.data;
       return { ...state, loading: false, serviceRegisterInfo };
     case `${ActionTypes.GET_SERVICES}_FULFILLED`:
-      let services = action.paylaod.data;
+      let services = action.payload.data;
       return { ...state, loading: false, services };
     case `${ActionTypes.GET_SERVICE_BY_ID}_FULFILLED`:
-      let service = action.paylaod.data;
+      let service = action.payload.data;
       return { ...state, loading: false, service };
     case `${ActionTypes.ADD_RELEASE}_FULFILLED`:
-      let releaseInfo = action.paylaod.data;
+      let releaseInfo = action.payload.data;
       return { ...state, loading: false, releaseInfo };
 
     case `${ActionTypes.REGISTER_SERVICE}_REJECTED`:
     case `${ActionTypes.GET_SERVICES}_REJECTED`:
     case `${ActionTypes.GET_SERVICE_BY_ID}_REJECTED`:
     case `${ActionTypes.ADD_RELEASE}_REJECTED`:
-      return { ...state, loading: false, error: action.paylaod.response.data, state: initialState };
+      return { ...state, loading: false, error: action.payload.response.data, state: initialState };
 
     default:
       return state;

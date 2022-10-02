@@ -19,7 +19,6 @@ const App = () => {
     () =>
       createTheme({
         palette: {
-          mode: mode,
           type: mode,
           tabs: {
             backgroundColor: "#272525",
