@@ -1,22 +1,38 @@
-import { alpha, styled, TextField } from "@mui/material";
+import { styled, TextField } from "@mui/material";
 
 const InputField = styled((props) => (
-  <TextField InputProps={{ disableUnderline: true }} {...props} />
+  <TextField
+    autoComplete="off"
+    InputProps={{ disableUnderline: true, autoComplete: "off" }}
+    {...props}
+  />
 ))(({ theme }) => ({
-  "& .MuiFilledInput-root": {
-    border: "1px solid #e2e2e1",
-    overflow: "hidden",
-
-    borderRadius: 4,
-    backgroundColor: theme.palette.type === "light" ? "#fcfcfb" : "#2b2b2b",
-    transition: theme.transitions.create(["border-color", "background-color", "box-shadow"]),
-    "&:hover": {
-      backgroundColor: "transparent",
-    },
-    "&.Mui-focused": {
-      backgroundColor: "transparent",
-      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 2px`,
-      borderColor: theme.palette.primary.main,
+  marginBottom: 10,
+  "& .MuiInputBase-root": {
+    color: theme.palette.type === "light" ? "#000" : "#fff",
+    backgroundColor:
+      theme.palette.type === "light" ? "rgba(0, 0, 0, 0.12)" : "rgba(255, 255, 255, 0.08)",
+    borderRadius: 5,
+  },
+  "& label.Mui-error": {
+    color: "red",
+  },
+  "& .MuiFormLabel-root": {
+    color: theme.palette.type === "light" ? "rgba(0, 0, 0, 0.38)" : "rgba(255, 255, 255, 0.7)",
+  },
+  "& label.Mui-focused": {
+    color: theme.palette.type === "light" ? "#000" : "#fff",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#fff",
+  },
+  "& .MuiFilledInput-underline:after": {
+    borderBottomColor: "#fff",
+  },
+  "& .MuiOutlinedInput-root": {
+    "&.Mui-focused fieldset": {
+      borderColor: "#fff",
+      color: "#fff",
     },
   },
 }));
