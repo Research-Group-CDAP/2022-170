@@ -7,11 +7,13 @@ import Typography from "@material-ui/core/Typography";
 import ComputerIcon from "@material-ui/icons/Computer";
 import MemoryIcon from "@material-ui/icons/Memory";
 import NetworkWifiIcon from "@material-ui/icons/NetworkWifi";
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 import PropTypes from "prop-types";
 import React from "react";
 import Cpu from "../Cpu";
 import Memory from "../Memory";
 import Network from "../Network";
+import PodInformation from "../PodInformation";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,11 +52,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    backgroundColor: theme.palette.tabs.backgroundColor,
+    backgroundColor: "#424242",
   },
   tabs: {
-    color: theme.palette.tabs.color,
-    backgroundColor: theme.palette.tabs.backgroundColor,
+    color: "#ffffff",
+    backgroundColor: "#424242",
     borderBottom: "1px solid " + theme.palette.tabs.color,
   },
 }));
@@ -84,6 +86,7 @@ const SlideDrawer = (props) => {
           <Tab label="CPU" icon={<ComputerIcon />} {...a11yProps(0)} />
           <Tab label="MEMORY" icon={<MemoryIcon />} {...a11yProps(1)} />
           <Tab label="NETWORK" icon={<NetworkWifiIcon />} {...a11yProps(2)} />
+          <Tab label="Pod Information" icon={<Brightness7Icon />} {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -94,6 +97,9 @@ const SlideDrawer = (props) => {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Network podName={podName} />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <PodInformation podName={podName} />
       </TabPanel>
     </div>
   );

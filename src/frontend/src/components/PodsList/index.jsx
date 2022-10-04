@@ -14,10 +14,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     maxWidth: "100%",
-    // backgroundColor: "#171717",
   },
   ListItem: {
-    // backgroundColor: "#272525",
+    backgroundColor: "#272525",
     marginBottom: "5px",
   },
   ListItemIcon: {
@@ -27,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
     width: "800px",
     minHeight: "200vh",
     padding: "5%",
-    // backgroundColor: "#272525",
     color: "#ffffff",
   },
   fullList: {
