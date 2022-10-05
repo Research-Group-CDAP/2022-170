@@ -25,10 +25,10 @@ func Build(serviceName string, tag string, srcPath string) error {
 		return err
 	}
 
-	var localRegistryURL = "localhost:5000"
+	var localRegistryURL = "localhost:5005"
 	buildOptions := types.ImageBuildOptions{
 		Dockerfile: "Dockerfile",
-		Tags: []string{localRegistryURL + "/" + serviceName + ":" + tag}, // tag the docker image that need to push the local container registry
+		Tags:       []string{localRegistryURL + "/" + serviceName + ":" + tag},
 	}
 
 	res, err := dockerClient.ImageBuild(ctx, tar, buildOptions)
@@ -39,9 +39,9 @@ func Build(serviceName string, tag string, srcPath string) error {
 
 	_, err = io.Copy(os.Stdout, res.Body)
 	if err != nil {
-			log.Fatal(err, " :unable to read image build response")
+		log.Fatal(err, " :unable to read image build response")
 	}
-	
+
 	return nil
 }
 
