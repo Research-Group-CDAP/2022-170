@@ -24,5 +24,3 @@ module.exports = Memory_Utilization_Model = mongoose.model(
   "memory_utilization",
   Memory_Utilization_Schema
 );
-
-module.exports = CPU_USAGE_Model = mongoose.model("cpuusage", CPU_USAGE_Schema);
