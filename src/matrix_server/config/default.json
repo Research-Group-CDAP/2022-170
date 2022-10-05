@@ -1,3 +1,0 @@
-{
-    "mongoURL": "mongodb+srv://matricsserver:matricsserver@cluster0.noblywd.mongodb.net/matricsdb?retryWrites=true&w=majority"
-}

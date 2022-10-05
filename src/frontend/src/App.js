@@ -1,11 +1,44 @@
-import PageRoutes from "./PageRoutes";
+import { Container, createTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
+import { createContext, useMemo, useState } from "react";
+import AppBar from "./components/AppBar";
+
+const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 const App = () => {
-  return (
-    <div>
-     <PageRoutes />
-    </div>
-  )
-}
+  const [mode, setMode] = useState("dark");
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+      },
+    }),
+    []
+  );
 
-export default App
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          type: mode,
+          tabs: {
+            backgroundColor: "#272525",
+            color: "rgba(255, 255, 255, 0.7)",
+          },
+        },
+      }),
+    [mode]
+  );
+
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Container>
+          <AppBar />
+        </Container>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
+};
+
+export default App;
