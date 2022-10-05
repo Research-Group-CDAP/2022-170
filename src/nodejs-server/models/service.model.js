@@ -30,6 +30,7 @@ const ServiceSchema = mongoose.Schema(
         pushStartTime: { type: Date, required: false, default: null },
         pushEndTime: { type: Date, required: false, default: null },
         version: { type: String, required: false, default: "" },
+        imageName: { type: String, required: false, default: "" },
       },
     ],
   },

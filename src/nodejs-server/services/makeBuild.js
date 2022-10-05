@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const Git = require("nodegit");
 const config = require("../configs");
+const { exec } = require("child_process");
 
 const makeBuild = async () => {
   let releaseId, buildStartTime, buildEndTime, pushStartTime, pushEndTime, version;
@@ -110,6 +111,7 @@ const makeBuild = async () => {
               pushStartTime: pushStartTime,
               pushEndTime: pushEndTime,
               version: version,
+              imageName: imageName,
             };
 
             await Service.findOneAndUpdate(
@@ -117,6 +119,18 @@ const makeBuild = async () => {
               { $push: { releases: releaseMetaDataObj } }
             );
           }
+
+          exec(
+            `docker rmi $(docker images --filter "dangling=true" -q --no-trunc)`,
+            (error, stdout, stderr) => {
+              if (error) {
+                return;
+              }
+
+              console.log(`stdout: ${stdout}`);
+              console.log(`stderr: ${stderr}`);
+            }
+          );
 
           return;
         })

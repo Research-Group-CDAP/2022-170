@@ -20,6 +20,7 @@
     "mongoose": "^6.6.4",
     "node-docker-api": "^1.1.22",
     "nodegit": "^0.27.0",
+    "shelljs": "^0.8.5",
     "tar-fs": "^2.1.1"
   },
   "devDependencies": {
