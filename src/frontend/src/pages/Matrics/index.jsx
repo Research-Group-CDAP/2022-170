@@ -1,15 +1,12 @@
 import React from "react";
-import {CpuUsage} from "../../components"
-
+import { PodsList } from "../../components";
 const Matrics = (props) => {
-	return (
-		<div>
-			<h1>
-				Matrics Dashboard
-			</h1>
-			<CpuUsage/>
-		</div>
-	);
+  return (
+    <div>
+      <h1>Matrics Dashboard</h1>
+      <PodsList />
+    </div>
+  );
 };
 
 export default Matrics;
