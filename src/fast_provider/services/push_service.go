@@ -15,9 +15,9 @@ func Push(image string) error {
 	ctx := context.Background()
 
 	var authConfig = types.AuthConfig{
-		ServerAddress: "localhost:5005",
-		Username:      "admin",
-		Password:      "password",
+		ServerAddress: "fastregistrytest.azurecr.io",
+		Username:      "fastregistrytest",
+		Password:      "7rO6jasprYa0B5eQC5/KseSmHe+l5aRq",
 	}
 	authConfigBytes, _ := json.Marshal(authConfig)
 	authConfigEncoded := base64.URLEncoding.EncodeToString(authConfigBytes)
