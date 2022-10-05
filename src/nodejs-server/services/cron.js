@@ -1,6 +1,7 @@
 const cron = require("cron");
 const { makeBuild } = require("./makeBuild");
 const { prepareRelease } = require("./prepareRelease");
+const { prepareDeployment } = require("./prepareDeployment");
 
 const croneInit = async () => {
   let crons = [];
@@ -18,6 +19,14 @@ const croneInit = async () => {
       cronTime: `*/25 * * * * *`,
       onTick: async function () {
         await makeBuild();
+      },
+      timeZone: "America/Los_Angeles",
+    }),
+
+    new cron.CronJob({
+      cronTime: `*/40 * * * * *`,
+      onTick: async function () {
+        await prepareDeployment();
       },
       timeZone: "America/Los_Angeles",
     })
