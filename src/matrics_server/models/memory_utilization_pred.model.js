@@ -20,7 +20,7 @@ const Memory_Utilization_Schema = new Schema({
   ],
 });
 
-module.exports = Memory_Utilization_Model = mongoose.model(
-  "memory_utilization_predict",
+module.exports = Memory_Utilization__Pred_Model = mongoose.model(
+  "memory_utilization_prediction",
   Memory_Utilization_Schema
 );

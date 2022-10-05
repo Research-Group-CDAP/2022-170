@@ -22,8 +22,6 @@ const fetch_All_Cpu_Usage_By_Pod = async (request, response) => {
 
         podDetails.forEach((pod) => {
             
-        // podData.value = pod.value* (Math.random()/10);
-
           podData.value = predict_pod_metrics(pod.value);
 
           timeSeriesDataArray.push(podData);
@@ -44,6 +42,7 @@ const predict_pod_metrics = (pod_value)=>{
         }
     return pod_value * (Math.random()/10) * x
 }
+
 module.exports = {
   fetch_All_Cpu_Usage_By_Pod,
 };
