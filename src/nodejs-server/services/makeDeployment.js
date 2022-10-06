@@ -38,6 +38,8 @@ const makeDeployment = async () => {
           waitingDeployment.deploymentConfigFile
         );
 
+        console.log(deploymentRes);
+
         await Deployment.findByIdAndUpdate(waitingDeployment._id, {
           status: "Completed",
           moreInformation: "Deployment is successfully completed",
