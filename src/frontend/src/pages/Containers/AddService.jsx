@@ -1,5 +1,6 @@
 import { Box, Drawer, Grid, makeStyles, Snackbar, Typography } from "@material-ui/core";
 import SaveIcon from "@mui/icons-material/Save";
+import { LoadingButton } from "@mui/lab";
 import { Alert, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,6 +48,7 @@ const AddService = (props) => {
     ports: [],
 
     isFormNotValid: false,
+    isLoading: false,
   });
 
   useEffect(() => {
@@ -67,39 +69,98 @@ const AddService = (props) => {
       userName: state.userName.trim().length > 0 ? state.userName : null,
       password: state.password.trim().length > 0 ? state.password : null,
       email: state.email.trim().length > 0 ? state.email : null,
-      link: state.link.trim().length > 0 ? state.link : null,
+      url: state.url.trim().length > 0 ? state.url : null,
+      containerPort: state.containerPort.trim().length > 0 ? state.containerPort : null,
+      envs: validateEnvs() ? state.envs : null,
+      svcPorts: validateServicePorts() ? state.ports : null,
     };
 
     formData = Object.assign({}, data);
     return true;
   };
 
+  const validateEnvs = () => {
+    let areEnvsValid = true;
+    if (state.envs.length > 0) {
+      for (let env of state.envs) {
+        console.log(env);
+        if (env.name.trim().length > 0 && env.value.trim().length > 0) {
+          areEnvsValid = true;
+        } else {
+          areEnvsValid = false;
+          break;
+        }
+      }
+    }
+    return areEnvsValid;
+  };
+
+  const validateServicePorts = () => {
+    let areSvcPortsValid = true;
+    if (state.ports.length > 0) {
+      for (let port of state.ports) {
+        console.log(port);
+        if (
+          port.name.trim().length > 0 &&
+          port.port.trim().length > 0 &&
+          port.targetPort.trim().length > 0
+        ) {
+          areSvcPortsValid = true;
+        } else {
+          areSvcPortsValid = false;
+          break;
+        }
+      }
+    }
+    return areSvcPortsValid;
+  };
+
   const submitForm = (event) => {
     event.preventDefault();
-    // const isFormValid = validateForm();
+    const isFormValid = validateForm();
     console.log(state);
 
-    // if (isFormValid) {
-    //   let data = Object.values(formData).map((key) => {
-    //     return key !== null;
-    //   });
+    if (isFormValid) {
+      let data = Object.values(formData).map((key) => {
+        return key !== null;
+      });
 
-    //   if (!data.includes(false)) {
-    //     const data = {
-    //       ServiceName: state.serviceName,
-    //       Repository: {
-    //         UserName: state.userName,
-    //         Email: state.email,
-    //         Password: state.password,
-    //         Link: state.link,
-    //       },
-    //     };
+      if (!data.includes(false)) {
+        const data = {
+          serviceName: state.serviceName,
+          repository: {
+            userName: state.userName,
+            email: state.email,
+            password: state.password,
+            url: state.url,
+          },
+          deploymentInfo: {
+            replicas: state.replicas,
+            ports: [{ containerPort: state.containerPort }],
+            env: state.envs,
+            resources: {
+              requests: {
+                cpu: state.requestCpu,
+                memory: state.requestMemory,
+              },
+              limits: {
+                cpu: state.limitsCpu,
+                memory: state.limitsMemory,
+              },
+            },
+          },
+          serviceInfo: {
+            serviceType: state.serviceType,
+            ports: state.ports,
+          },
+        };
 
-    //     dispatch(register_service(data));
-    //   } else {
-    //     setState({ ...state, isFormNotValid: true, isSnackBackOpen: true });
-    //   }
-    // }
+        console.log(data);
+        // dispatch(register_service(data));
+      } else {
+        setState({ ...state, isFormNotValid: true, isSnackBackOpen: true });
+      }
+    }
   };
 
   const onChange = (event) => {
@@ -183,7 +244,7 @@ const AddService = (props) => {
           InputProps={{ disableUnderline: true }}
           name="serviceName"
           onChange={(e) => onChange(e)}
-          // error={state.isFormNotValid && formData.serviceName === null}
+          error={state.isFormNotValid && formData.serviceName === null}
         />
         <Typography variant="body2" style={{ marginTop: 10, marginBottom: 10 }}>
           Repository Information
@@ -197,7 +258,7 @@ const AddService = (props) => {
           name="userName"
           placeholder="kubeuser"
           onChange={(e) => onChange(e)}
-          // error={state.isFormNotValid && formData.userName === null}
+          error={state.isFormNotValid && formData.userName === null}
         />
         <InputField
           label="Email"
@@ -208,7 +269,7 @@ const AddService = (props) => {
           name="email"
           placeholder="kube@mate.com"
           onChange={(e) => onChange(e)}
-          // error={state.isFormNotValid && formData.email === null}
+          error={state.isFormNotValid && formData.email === null}
           type="email"
         />
         <InputField
@@ -220,7 +281,7 @@ const AddService = (props) => {
           name="password"
           placeholder="kubepassword"
           onChange={(e) => onChange(e)}
-          // error={state.isFormNotValid && formData.password === null}
+          error={state.isFormNotValid && formData.password === null}
           type="password"
         />
         <InputField
@@ -232,7 +293,7 @@ const AddService = (props) => {
           name="url"
           placeholder="https://github.com/kubemate/yourregistry.git"
           onChange={(e) => onChange(e)}
-          // error={state.isFormNotValid && formData.link === null}
+          error={state.isFormNotValid && formData.url === null}
         />
         <Typography variant="body2" style={{ marginBottom: 10 }}>
           Deployment Information
@@ -246,7 +307,6 @@ const AddService = (props) => {
           InputProps={{ disableUnderline: true }}
           name="replicas"
           onChange={(e) => onChange(e)}
-          error={state.isFormNotValid && formData.serviceName === null}
         />
         <InputField
           label="Container Port"
@@ -257,7 +317,7 @@ const AddService = (props) => {
           InputProps={{ disableUnderline: true }}
           name="containerPort"
           onChange={(e) => onChange(e)}
-          error={state.isFormNotValid && formData.serviceName === null}
+          error={state.isFormNotValid && formData.containerPort === null}
         />
         <Box
           sx={{
@@ -268,7 +328,12 @@ const AddService = (props) => {
           }}
         >
           <>
-            <Typography variant="body2" style={{ marginBottom: 5 }}>
+            <Typography
+              variant="body2"
+              style={{ marginBottom: 5 }}
+              component="div"
+              color={state.isFormNotValid && formData.envs === null ? "error" : ""}
+            >
               Environmental Variables
             </Typography>
             <Button
@@ -283,6 +348,7 @@ const AddService = (props) => {
             </Button>
           </>
         </Box>
+
         {state.envs.map((item, index) => (
           <Grid container spacing={2} key={item.id}>
             <Grid item xs={5}>
@@ -390,7 +456,11 @@ const AddService = (props) => {
           }}
         >
           <>
-            <Typography variant="body2" style={{ marginBottom: 5 }}>
+            <Typography
+              variant="body2"
+              style={{ marginBottom: 5 }}
+              color={state.isFormNotValid && formData.svcPorts === null ? "error" : ""}
+            >
               Service Ports
             </Typography>
             <Button
@@ -475,17 +545,26 @@ const AddService = (props) => {
 
         <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
           <>
-            <Button autoFocus onClick={props.handleClose} variant="text" disableElevation>
+            <Button
+              autoFocus
+              onClick={props.handleClose}
+              variant="outlined"
+              color="info"
+              disableElevation
+              style={{ marginRight: 10 }}
+              disabled={state.isLoading}
+            >
               Cancel
             </Button>
-            <Button
+            <LoadingButton
               onClick={(e) => submitForm(e)}
               variant="contained"
               disableElevation
+              loading={state.isLoading}
               startIcon={<SaveIcon />}
             >
               Save
-            </Button>
+            </LoadingButton>
           </>
         </Box>
       </Box>
