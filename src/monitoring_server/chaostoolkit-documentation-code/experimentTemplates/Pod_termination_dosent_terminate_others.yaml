@@ -1,0 +1,30 @@
+version: 1.0.0
+title: Other pods should not be terminated, if we terminate a Pod?
+description: If a Pod is terminated, other pods should remain running.
+tags:
+- k8s
+- pod
+steady-state-hypothesis:
+    title: Pod exists
+    probes:
+    - name: pod-exists
+      type: probe
+      tolerance: 3
+      provider:
+        type: python
+        func: count_pods
+        module: chaosk8s.pod.probes
+        arguments:
+            label_selector: app=reviews
+            ns: default
+method:
+- type: action
+  name: terminate-pod
+  provider:
+    type: python
+    module: chaosk8s.pod.actions
+    func: terminate_pods
+    arguments:
+        name_pattern: ${POD_NAME}
+  pauses:
+    after: 10
