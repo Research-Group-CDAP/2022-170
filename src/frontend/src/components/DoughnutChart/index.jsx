@@ -6,18 +6,17 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DoughnutChart = (props) => {
   const data = {
-    labels: ["Running", "Inactive"],
+    labels: ["Active", "Inactive"],
     datasets: [
       {
-        label: "# of Votes",
         data: [props.active,props.inactive],
         backgroundColor: [
           "#009614",
-          "#403f3f",
+          "#b5b5b5",
         ],
         borderColor: [
           "#009614",
-          "#403f3f",
+          "#b5b5b5",
         ],
         borderWidth: 0,
       },
