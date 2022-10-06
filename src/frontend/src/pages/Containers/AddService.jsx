@@ -5,7 +5,7 @@ import { Alert, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { InputField } from "../../components/TextField";
-import { get_services } from "../../store/fastprovider-store/fastProviderActions";
+import { get_services, register_service } from "../../store/fastprovider-store/fastProviderActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,7 +53,8 @@ const AddService = (props) => {
 
   useEffect(() => {
     dispatch(get_services());
-  }, [fastProviderState.serviceRegisterInfo, dispatch]);
+    setState({ ...state, isLoading: false });
+  }, [dispatch]);
 
   const handleCloseSnackBar = (event, reason) => {
     if (reason === "clickaway") {
@@ -156,7 +157,8 @@ const AddService = (props) => {
         };
 
         console.log(data);
-        // dispatch(register_service(data));
+        dispatch(register_service(data));
+        setState({ ...state, isLoading: true });
       } else {
         setState({ ...state, isFormNotValid: true, isSnackBackOpen: true });
       }
