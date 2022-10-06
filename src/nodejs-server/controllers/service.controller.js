@@ -1,17 +1,81 @@
 const Service = require("../models/service.model");
+const Deployment = require("../models/deployment.model");
 
 const registerService = async (req, res) => {
   try {
-    req.body.serviceName = req.body.serviceName.toLowerCase();
-    const duplicateService = await Service.find({
-      serviceName: req.body.serviceName,
-    });
+    // const duplicateService = await Service.find({
+    //   serviceName: req.body.serviceName,
+    // });
 
-    if (duplicateService) {
-      throw new Error("Duplicate service name. Please add a different service name");
-    }
+    // if (duplicateService) {
+    //   throw new Error("Duplicate service name. Please add a different service name");
+    // }
 
     const service = await Service.create(req.body);
+
+    const deploymentObj = {
+      metadata: {
+        labels: {
+          app: service.serviceName,
+        },
+        name: service.serviceName,
+      },
+      spec: {
+        selector: {
+          matchLabels: {
+            app: service.serviceName,
+          },
+        },
+        replicas: service.deploymentInfo.replicas,
+        template: {
+          metadata: {
+            labels: {
+              app: service.serviceName,
+            },
+          },
+          spec: {
+            containers: [
+              {
+                name: service.serviceName,
+                ports: service.deploymentInfo.ports,
+                env: service.deploymentInfo.env,
+                resources: {
+                  requests: {
+                    cpu: service.deploymentInfo.resources.requests.cpu,
+                    memory: service.deploymentInfo.resources.requests.memory,
+                  },
+                  limits: {
+                    cpu: service.deploymentInfo.resources.limits.cpu,
+                    memory: service.deploymentInfo.resources.limits.memory,
+                  },
+                },
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    const serviceObj = {
+      metadata: {
+        name: service.serviceName,
+      },
+      spec: {
+        type: service.serviceInfo.serviceType,
+        selector: {
+          app: service.serviceName,
+        },
+        ports: service.serviceInfo.ports,
+      },
+    };
+
+    const deploymentDoc = {
+      serviceId: service._id,
+      deploymentConfigFile: deploymentObj,
+      serviceConfigFile: serviceObj,
+    };
+
+    await Deployment.create(deploymentDoc);
 
     res.status(200).json({ message: service, dateTime: new Date() });
   } catch (error) {

@@ -11,9 +11,10 @@ const createDeployment = async (req, res) => {
 
 const getDeployment = async (req, res) => {
   try {
-    const deployment = await Deployment.findOne({ serviceId: req.body.serviceId }).select(
-      "deploymentConfigFile"
-    );
+    const deployment = await Deployment.findOne(
+      { serviceId: req.body.serviceId },
+      { _id: 0 }
+    ).select("deploymentConfigFile");
 
     res.status(200).json(deployment.deploymentConfigFile);
   } catch (error) {

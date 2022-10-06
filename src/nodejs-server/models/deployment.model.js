@@ -31,43 +31,24 @@ const DeploymentSchema = mongoose.Schema({
           },
         },
         spec: {
-          terminationGracePeriodSeconds: { type: Number, required: false },
-          securityContext: {
-            fsGroup: { type: Number, required: false },
-            runAsGroup: { type: Number, required: false },
-            runAsNonRoot: { type: Boolean, required: false },
-            runAsUser: { type: Number, required: false },
-          },
           containers: [
             {
-              image: { type: String, required: true },
+              _id: false,
+              image: { type: String, required: false, default: "" },
               name: { type: String, required: true },
-              securityContext: {
-                allowPrivilegeEscalation: { type: Boolean, required: false },
-              },
               ports: [
                 {
+                  _id: false,
                   containerPort: { type: Number, required: true },
                 },
               ],
               env: [
                 {
+                  _id: false,
                   name: { type: String, required: false },
                   value: { type: String, required: false },
                 },
               ],
-              readinessProbe: {
-                periodSeconds: { type: Number, required: false },
-                exec: {
-                  command: [{ type: String, required: false }],
-                },
-              },
-              livenessProbe: {
-                periodSeconds: { type: Number, required: false },
-                exec: {
-                  command: [{ type: String, required: false }],
-                },
-              },
               resources: {
                 requests: {
                   cpu: { type: String, required: false },
@@ -97,6 +78,7 @@ const DeploymentSchema = mongoose.Schema({
       },
       ports: [
         {
+          _id: false,
           name: { type: String, required: true },
           port: { type: Number, required: true },
           targetPort: { type: Number, required: true },

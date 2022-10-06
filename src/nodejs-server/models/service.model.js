@@ -33,6 +33,41 @@ const ServiceSchema = mongoose.Schema(
         imageName: { type: String, required: false, default: "" },
       },
     ],
+    deploymentInfo: {
+      replicas: { type: Number, required: false, default: 1 },
+      ports: [{ containerPort: { type: Number, required: true } }],
+      env: [
+        {
+          name: { type: String, required: false },
+          value: { type: String, required: false },
+        },
+      ],
+      resources: {
+        requests: {
+          cpu: { type: String, required: false },
+          memory: { type: String, required: false },
+        },
+        limits: {
+          cpu: { type: String, required: false },
+          memory: { type: String, required: false },
+        },
+      },
+    },
+    serviceInfo: {
+      serviceType: {
+        type: String,
+        enum: ["ClusterIP", "NodePort", "LoadBalancer"],
+        required: true,
+        default: "ClusterIP",
+      },
+      ports: [
+        {
+          name: { type: String, required: true },
+          port: { type: Number, required: true },
+          targetPort: { type: Number, required: true },
+        },
+      ],
+    },
   },
   {
     timestamps: true,
