@@ -4,18 +4,6 @@ import Network from "./Network";
 import PodsList from "./PodsList";
 import LineChart from "./LineChart";
 import SlideDrawer from "./SlideDrawer";
-import TimeSeriesDataTable from "./TimeSeriesDataTable";
-import AppBar from "./AppBar"
-import PodInformation from "./PodInformation"
+import RegistrationArea from "./RegistrationArea"
 
-export {
-  Cpu,
-  Memory,
-  Network,
-  PodsList,
-  LineChart,
-  SlideDrawer,
-  TimeSeriesDataTable,
-  AppBar,
-  PodInformation
-};
+export { CpuUsage, Memory, Network, PodsList, LineChart, SlideDrawer ,RegistrationArea};

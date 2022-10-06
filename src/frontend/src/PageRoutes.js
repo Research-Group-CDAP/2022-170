@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Containers, Home, Matrics, Pods } from "./pages";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Home, Matrics, Pods , Registration } from "./pages";
 
 const PageRoutes = () => {
   return (
@@ -9,7 +9,8 @@ const PageRoutes = () => {
           <Route path="/" element={<Home />} />
           <Route path="/matrics" element={<Matrics />} />
           <Route path="/pods" element={<Pods />} />
-          <Route path="/containers" element={<Containers />} />
+          <Route path="/registration" element={<Registration />} />
+
         </Routes>
       </BrowserRouter>
     </div>
