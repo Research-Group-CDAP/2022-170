@@ -7,6 +7,8 @@ import SlideDrawer from "./SlideDrawer";
 import TimeSeriesDataTable from "./TimeSeriesDataTable";
 import AppBar from "./AppBar"
 import PodInformation from "./PodInformation"
+import DoughnutChart from "./DoughnutChart";
+import OverviewInformation from "./OverviewInformation";
 
 export {
   Cpu,
@@ -17,5 +19,7 @@ export {
   SlideDrawer,
   TimeSeriesDataTable,
   AppBar,
-  PodInformation
+  PodInformation,
+  DoughnutChart,
+  OverviewInformation
 };

@@ -26,6 +26,18 @@ const PodInformation = (props) => {
       <br />
       <div className={classes.root}>
         <div>
+        <Card className={classes.card}>
+            <CardContent>
+            <p>Status</p>
+            <p>{props.podDetails.status}</p>
+            </CardContent>
+          </Card>
+          <Card className={classes.card}>
+            <CardContent>
+            <p>Start Time</p>
+            <p>{props.podDetails.startTime}</p>
+            </CardContent>
+          </Card>
           <Card className={classes.card}>
             <CardContent>
               <p>Node Name</p>
@@ -48,6 +60,12 @@ const PodInformation = (props) => {
             <CardContent>
             <p>Pod IP</p>
             <p>{props.podDetails.podIP}</p>
+            </CardContent>
+          </Card>
+          <Card className={classes.card}>
+            <CardContent>
+            <p>Namespace</p>
+            <p>{props.podDetails.namespace}</p>
             </CardContent>
           </Card>
         </div>

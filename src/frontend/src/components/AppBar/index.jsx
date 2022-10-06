@@ -67,12 +67,30 @@ export default function PermanentDrawerLeft() {
             </ListItem>
           </a>
 
+          <a style={{ textDecoration: "none" }} href="/overview">
+            <ListItem className={classes.Link} button key={"Overview"}>
+              <ListItemIcon className={classes.ListItemIcon}>
+                <Pages />
+              </ListItemIcon>
+              <ListItemText primary={"Overview"} />
+            </ListItem>
+          </a>
+
           <a style={{ textDecoration: "none" }} href="/pods">
             <ListItem className={classes.Link} button key={"Pods"}>
               <ListItemIcon className={classes.ListItemIcon}>
                 <Pages />
               </ListItemIcon>
               <ListItemText primary={"Pods"} />
+            </ListItem>
+          </a>
+
+          <a style={{ textDecoration: "none" }} href="/services">
+            <ListItem className={classes.Link} button key={"Services"}>
+              <ListItemIcon className={classes.ListItemIcon}>
+                <Pages />
+              </ListItemIcon>
+              <ListItemText primary={"Services"} />
             </ListItem>
           </a>
 
