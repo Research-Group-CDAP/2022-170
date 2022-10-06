@@ -16,14 +16,14 @@ const Network_Utilization_Model = require("../models/network_utilization.model")
 app.use(express.static(path.join(__dirname, "public")));
 var cron = require("node-cron");
 
-cron.schedule("*/5 * * * *", async () => {
-  console.log("Running a cron job every 5 minutes | Timestamp : " + new Date());
+cron.schedule("*/1 * * * *", async () => {
+  console.log("Running a cron job every 1 minutes | Timestamp : " + new Date());
 
-  await fetch_Cpu_Usage();
+  // await fetch_Cpu_Usage();
 
-  await fetch_Memory_Utilization();
+  // await fetch_Memory_Utilization();
 
-  await fetch_Network_Utilization();
+  // await fetch_Network_Utilization();
 });
 
 const fetch_Cpu_Usage = async () => {

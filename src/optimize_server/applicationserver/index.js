@@ -91,12 +91,14 @@ app.get("/pods/:namespace", (req, res, next) => {
           name: "",
           nodeName: "",
           hostIP: "",
-          podIP:""
+          podIP:"",
+          containerImage:""
         };
         tempObject.name = singlePod.metadata.name;
         tempObject.nodeName = singlePod.spec.nodeName;
         tempObject.hostIP = singlePod.status.hostIP;
         tempObject.podIP = singlePod.status.podIP;
+        tempObject.containerImage = singlePod.spec.containers[0].image;
         tempArray.push(tempObject);
       });
       await res.status(200).json(tempArray);

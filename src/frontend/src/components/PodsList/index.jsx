@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 const PodsList = (props) => {
   const classes = useStyles();
   const [podName, setPodName] = React.useState();
+  const [podDetails, setPodDetails] = React.useState({});
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -43,11 +44,12 @@ const PodsList = (props) => {
     right: false,
   });
 
-  const toggleDrawer = (anchor, open, podName) => (event) => {
+  const toggleDrawer = (anchor, open, podName,singlePod) => (event) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
     }
     setPodName(podName);
+    setPodDetails(singlePod);
     setState({ ...state, [anchor]: open });
   };
 
@@ -61,7 +63,7 @@ const PodsList = (props) => {
       onClick={toggleDrawer(anchor, true)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <SlideDrawer podName={podName} />
+      <SlideDrawer podName={podName} podDetails={podDetails}/>
     </div>
   );
 
@@ -74,7 +76,7 @@ const PodsList = (props) => {
               <ListItem
                 button
                 className={classes.ListItem}
-                onClick={toggleDrawer("right", true, singlePod.name)}
+                onClick={toggleDrawer("right", true, singlePod.name, singlePod)}
               >
                 <ListItemIcon className={classes.ListItemIcon}>
                   <Dashboard />
