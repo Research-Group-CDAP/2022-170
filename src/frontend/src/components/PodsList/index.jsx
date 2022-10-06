@@ -74,12 +74,12 @@ const PodsList = (props) => {
               <ListItem
                 button
                 className={classes.ListItem}
-                onClick={toggleDrawer("right", true, singlePod.podName)}
+                onClick={toggleDrawer("right", true, singlePod.name)}
               >
                 <ListItemIcon className={classes.ListItemIcon}>
                   <Dashboard />
                 </ListItemIcon>
-                <ListItemText primary={singlePod.podName} />
+                <ListItemText primary={singlePod.name} />
               </ListItem>
             );
           })}

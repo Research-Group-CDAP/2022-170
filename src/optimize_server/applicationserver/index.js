@@ -80,22 +80,20 @@ app.get("/nodes", (req, res, next) => {
     });
 });
 
-app.get("/pods", (req, res, next) => {
+app.get("/pods/:namespace", (req, res, next) => {
   k8sApi
-    .listPodForAllNamespaces()
+    .listNamespacedPod(req.params.namespace)
     .then(async (data) => {
       let tempArray = [];
 
       await data.body.items.forEach((singlePod) => {
         let tempObject = {
           name: "",
-          port:"",
           nodeName: "",
           hostIP: "",
           podIP:""
         };
         tempObject.name = singlePod.metadata.name;
-        // tempObject.port = singlePod.spec.containers[0].env[0].value;
         tempObject.nodeName = singlePod.spec.nodeName;
         tempObject.hostIP = singlePod.status.hostIP;
         tempObject.podIP = singlePod.status.podIP;
