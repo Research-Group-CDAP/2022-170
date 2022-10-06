@@ -2,10 +2,10 @@ import { Box, Drawer, Grid, makeStyles, Snackbar, Typography } from "@material-u
 import SaveIcon from "@mui/icons-material/Save";
 import { LoadingButton } from "@mui/lab";
 import { Alert, Button } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { InputField } from "../../components/TextField";
-import { get_services, register_service } from "../../store/fastprovider-store/fastProviderActions";
+import { register_service } from "../../store/fastprovider-store/fastProviderActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +22,7 @@ const AddService = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const fastProviderState = useSelector((state) => state.fastProviderReducer);
+  const [isLoading, setIsLoading] = useState(false);
   const [state, setState] = useState({
     isSnackBackOpen: false,
 
@@ -48,13 +49,16 @@ const AddService = (props) => {
     ports: [],
 
     isFormNotValid: false,
-    isLoading: false,
   });
 
+  const fetchServices = useCallback(() => {
+    console.log("called", fastProviderState.serviceRegisterInfo);
+    setIsLoading(false);
+  }, [fastProviderState.serviceRegisterInfo]);
+
   useEffect(() => {
-    dispatch(get_services());
-    setState({ ...state, isLoading: false });
-  }, [dispatch]);
+    fetchServices();
+  }, [fetchServices]);
 
   const handleCloseSnackBar = (event, reason) => {
     if (reason === "clickaway") {
@@ -158,7 +162,7 @@ const AddService = (props) => {
 
         console.log(data);
         dispatch(register_service(data));
-        setState({ ...state, isLoading: true });
+        setIsLoading(true);
       } else {
         setState({ ...state, isFormNotValid: true, isSnackBackOpen: true });
       }
@@ -554,7 +558,7 @@ const AddService = (props) => {
               color="info"
               disableElevation
               style={{ marginRight: 10 }}
-              disabled={state.isLoading}
+              disabled={isLoading}
             >
               Cancel
             </Button>
@@ -562,7 +566,7 @@ const AddService = (props) => {
               onClick={(e) => submitForm(e)}
               variant="contained"
               disableElevation
-              loading={state.isLoading}
+              loading={isLoading}
               startIcon={<SaveIcon />}
             >
               Save
