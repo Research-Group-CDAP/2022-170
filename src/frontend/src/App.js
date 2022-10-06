@@ -1,19 +1,44 @@
-import './styles/App.css'
+import { Container, createTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
+import { createContext, useMemo, useState } from "react";
+import AppBar from "./components/AppBar";
+
+const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 const App = () => {
-  return (
-    <div className="mt-5">
-      <div className="flex justify-center">
-        <h1 className="text-3xl font-bold text-white">
-          Artificial Intelligence Based Centralized Resource Management
-          Applications for Distributed Systems
-        </h1>
-      </div>
-      <div className="flex justify-center">
-        <h3 className="text-2xl text-white">2022-170</h3>
-      </div>
-    </div>
-  )
-}
+  const [mode, setMode] = useState("dark");
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+      },
+    }),
+    []
+  );
 
-export default App
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          type: mode,
+          tabs: {
+            backgroundColor: "#272525",
+            color: "rgba(255, 255, 255, 0.7)",
+          },
+        },
+      }),
+    [mode]
+  );
+
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Container>
+          <AppBar />
+        </Container>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
+};
+
+export default App;
