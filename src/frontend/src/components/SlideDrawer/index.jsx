@@ -65,6 +65,7 @@ const SlideDrawer = (props) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [podName] = React.useState(props.podName);
+  const [podDetails] = React.useState(props.podDetails);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -99,7 +100,7 @@ const SlideDrawer = (props) => {
         <Network podName={podName} />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <PodInformation podName={podName} />
+        <PodInformation podName={podName} podDetails={podDetails} />
       </TabPanel>
     </div>
   );
