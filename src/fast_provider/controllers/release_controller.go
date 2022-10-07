@@ -119,9 +119,9 @@ func Release(c *fiber.Ctx) error {
 	}}}
 	releaseCollection.FindOneAndUpdate(ctx, filter, update3, opts)
 
-	var registryLocation = "localhost:5005"
+	var registryLocation = "fastregistrytest.azurecr.io"
 	var imageName = registryLocation + "/" + service.ServiceName + ":" + newRelease.VersionTag
-
+	fmt.Print(imageName)
 	pushStartTime := time.Now()
 	err = services.Push(imageName)
 	if err != nil {

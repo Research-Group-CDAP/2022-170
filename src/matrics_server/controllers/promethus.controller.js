@@ -13,17 +13,20 @@ var fs = require("fs");
 const Cpu_Usage_Model = require("../models/cpu_usage.model");
 const Memory_Utilization_Model = require("../models/memory_utilization.model");
 const Network_Utilization_Model = require("../models/network_utilization.model");
+const Cpu_Usage_Pred_Model = require("../models/cpu_usage_pred.model");
+const Memory_Utilization_Pred_Model = require("../models/memory_utilization_pred.model");
+const Network_Utilization_Pred_Model = require("../models/network_utilization_pred.model");
 app.use(express.static(path.join(__dirname, "public")));
 var cron = require("node-cron");
 
-cron.schedule("*/5 * * * *", async () => {
-  console.log("Running a cron job every 5 minutes | Timestamp : " + new Date());
+cron.schedule("*/1 * * * *", async () => {
+  console.log("Running a cron job every 1 minutes | Timestamp : " + new Date());
 
-  await fetch_Cpu_Usage();
+  // await fetch_Cpu_Usage();
 
-  await fetch_Memory_Utilization();
+  // await fetch_Memory_Utilization();
 
-  await fetch_Network_Utilization();
+  // await fetch_Network_Utilization();
 });
 
 const fetch_Cpu_Usage = async () => {
@@ -34,6 +37,7 @@ const fetch_Cpu_Usage = async () => {
     .then(async (promethusData) => {
       //Save to Mongo Database
       const metricArray = [];
+      const metricPredArray = [];
       let tempTimestamp = 0;
 
       await promethusData.data.data.result.forEach(async (element) => {
@@ -48,8 +52,10 @@ const fetch_Cpu_Usage = async () => {
         tempTimestamp = element.value[0];
         tempTimeSeriesData.timestamp = element.value[0];
         tempTimeSeriesData.value = element.value[1];
-
+        
         await metricArray.push(tempTimeSeriesData);
+        tempTimeSeriesData.value = element.value[1];
+        await metricPredArray.push(tempTimeSeriesData);
       });
 
       //Create a Object using Model

@@ -5,7 +5,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
-import Dashboard from "@material-ui/icons/Dashboard";
+import { Icon } from "@iconify/react";
 import clsx from "clsx";
 import React from "react";
 import SlideDrawer from "../SlideDrawer";
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 const PodsList = (props) => {
   const classes = useStyles();
   const [podName, setPodName] = React.useState();
+  const [podDetails, setPodDetails] = React.useState({});
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -43,11 +44,12 @@ const PodsList = (props) => {
     right: false,
   });
 
-  const toggleDrawer = (anchor, open, podName) => (event) => {
+  const toggleDrawer = (anchor, open, podName,singlePod) => (event) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
     }
     setPodName(podName);
+    setPodDetails(singlePod);
     setState({ ...state, [anchor]: open });
   };
 
@@ -61,7 +63,7 @@ const PodsList = (props) => {
       onClick={toggleDrawer(anchor, true)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <SlideDrawer podName={podName} />
+      <SlideDrawer podName={podName} podDetails={podDetails}/>
     </div>
   );
 
@@ -74,12 +76,12 @@ const PodsList = (props) => {
               <ListItem
                 button
                 className={classes.ListItem}
-                onClick={toggleDrawer("right", true, singlePod.podName)}
+                onClick={toggleDrawer("right", true, singlePod.name, singlePod)}
               >
                 <ListItemIcon className={classes.ListItemIcon}>
-                  <Dashboard />
+                  <Icon icon="vscode-icons:file-type-bitbucketpipeline" width={25} />
                 </ListItemIcon>
-                <ListItemText primary={singlePod.podName} />
+                <ListItemText primary={singlePod.name} />
               </ListItem>
             );
           })}

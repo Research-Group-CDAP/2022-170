@@ -4,6 +4,24 @@ import Network from "./Network";
 import PodsList from "./PodsList";
 import LineChart from "./LineChart";
 import SlideDrawer from "./SlideDrawer";
-import RegistrationArea from "./RegistrationArea"
+import TimeSeriesDataTable from "./TimeSeriesDataTable";
+import AppBar from "./AppBar"
+import PodInformation from "./PodInformation"
+import DoughnutChart from "./DoughnutChart";
+import OverviewInformation from "./OverviewInformation";
+import ServicesList from "./ServicesList";
 
-export { CpuUsage, Memory, Network, PodsList, LineChart, SlideDrawer ,RegistrationArea};
+export {
+  Cpu,
+  Memory,
+  Network,
+  PodsList,
+  LineChart,
+  SlideDrawer,
+  TimeSeriesDataTable,
+  AppBar,
+  PodInformation,
+  DoughnutChart,
+  OverviewInformation,
+  ServicesList
+};
