@@ -54,6 +54,7 @@ export const options = {
 const LineChart = (props) => {
   const [labelData, setLabelData] = useState([]);
   const [datasetData, setDatasetData] = useState([]);
+  const [predictDatasetData, setPredictDatasetData] = useState([]);
 
   useEffect(() => {
     let tempLabelData = [];
@@ -68,6 +69,19 @@ const LineChart = (props) => {
     setDatasetData(tempDatasetData);
   },[props.timeSeriesData]);
 
+  useEffect(() => {
+    let tempLabelData = [];
+    let tempDatasetData = [];
+
+    props.predictTimeSeriesData.slice(-20).forEach((singleData, index) => {
+      tempLabelData.push(singleData.timestamp);
+      tempDatasetData.push(singleData.value);
+    });
+
+    setPredictDatasetData(tempDatasetData);
+
+  },[props.predictTimeSeriesData]);
+
   const labels = labelData;
 
   const data = {
@@ -78,6 +92,13 @@ const LineChart = (props) => {
         data: datasetData,
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
+        textColor: "#ffffff",
+      },
+      {
+        label: props.titlePredicted,
+        data: predictDatasetData,
+        borderColor: "#008558",
+        backgroundColor: "#008558",
         textColor: "#ffffff",
       },
     ],

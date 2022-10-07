@@ -166,10 +166,10 @@ const predict_Network_Usage = async (request, response) => {
 const predict_pod_metrics = (pod_value) => {
   let x = 1
   y = Math.random()
-  if (y < 0.99) {
+  if (y > 0.99) {
     x = -1
   }
-  return pod_value * (Math.random() / 10) * x
+  return pod_value * (Math.random()) * x
 }
 
 module.exports = {
