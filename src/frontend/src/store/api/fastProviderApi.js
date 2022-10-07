@@ -4,7 +4,7 @@ const BASE_URL = process.env.REACT_APP_FAST_PROVIDER_API_ENDPOINT;
 
 class FastProviderAPI {
   static register_service(serviceData) {
-    return axios.post(`${BASE_URL}/service/`, serviceData);
+    return axios.post(`${BASE_URL}/service/register`, serviceData);
   }
 
   static get_services() {

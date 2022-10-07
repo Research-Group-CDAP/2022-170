@@ -3,31 +3,29 @@ import { makeStyles } from "@material-ui/styles";
 import { Button } from "@mui/material";
 import { Stack } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import ContainerList from "../../components/ContainerList";
+import { useDispatch } from "react-redux";
 import { get_services } from "../../store/fastprovider-store/fastProviderActions";
 import AddService from "./AddService";
+import ListService from "./ListService";
 
 const useStyles = makeStyles({
   root: {
-    padding: "2% 1%",
+    padding: "2% 10%",
   },
 });
 
 const Containers = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const fastProviderState = useSelector((state) => state.fastProviderReducer);
   const [open, setOpen] = useState(false);
-  const [services, setServices] = useState([]);
 
   useEffect(() => {
     dispatch(get_services());
   }, [dispatch]);
 
-  useEffect(() => {
-    setServices(fastProviderState.services);
-  }, [fastProviderState.services]);
+  // useEffect(() => {
+  //   setServices(fastProviderState.services);
+  // }, [fastProviderState.services]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -52,7 +50,7 @@ const Containers = (props) => {
           </Button>
           <AddService open={open} handleClose={handleClose} handleClickOpen={handleClickOpen} />
         </Stack>
-        <ContainerList services={services} />
+        <ListService />
       </div>
     </div>
   );
