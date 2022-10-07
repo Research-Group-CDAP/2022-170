@@ -44,7 +44,11 @@ const makeBuild = async () => {
 
       console.log("########## Step 06 - Setup image name");
       const imageName =
-        config.ACR_SERVER_URL + "/" + waitingRelease.serviceName + ":" + waitingRelease.latestTag;
+        config.REGISTRY_SERVER_URL +
+        "/" +
+        waitingRelease.serviceName +
+        ":" +
+        waitingRelease.latestTag;
 
       await Service.findOneAndUpdate(
         { _id: waitingRelease._id },
