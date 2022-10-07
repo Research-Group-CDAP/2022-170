@@ -1,0 +1,130 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: kube-system-kube-registry-pv
+  labels:
+    kubernetes.io/cluster-service: "true"
+    type: local
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/docker-reg"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: kube-registry-pvc
+  namespace: kube-system
+  labels:
+    kubernetes.io/cluster-service: "true"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: kube-registry-v0
+  namespace: kube-system
+  labels:
+    k8s-app: kube-registry-upstream
+    version: v0
+    kubernetes.io/cluster-service: "true"
+spec:
+  replicas: 1
+  selector:
+    k8s-app: kube-registry-upstream
+    version: v0
+  template:
+    metadata:
+      labels:
+        k8s-app: kube-registry-upstream
+        version: v0
+        kubernetes.io/cluster-service: "true"
+    spec:
+      containers:
+        - name: registry
+          image: registry:2
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          env:
+            - name: REGISTRY_HTTP_ADDR
+              value: :5000
+            - name: REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY
+              value: /var/lib/registry
+          volumeMounts:
+            - name: image-store
+              mountPath: /var/lib/registry
+          ports:
+            - containerPort: 5000
+              name: registry
+              protocol: TCP
+      volumes:
+        - name: image-store
+          persistentVolumeClaim:
+            claimName: kube-registry-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-registry
+  namespace: kube-system
+  labels:
+    k8s-app: kube-registry-upstream
+    kubernetes.io/cluster-service: "true"
+    kubernetes.io/name: "KubeRegistry"
+spec:
+  type: LoadBalancer
+  selector:
+    k8s-app: kube-registry-upstream
+  ports:
+    - name: registry
+      port: 5000
+      targetPort: 5000
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-registry-proxy
+  namespace: kube-system
+  labels:
+    k8s-app: kube-registry-proxy
+    kubernetes.io/cluster-service: "true"
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      k8s-app: kube-registry-proxy
+  template:
+    metadata:
+      labels:
+        k8s-app: kube-registry-proxy
+        kubernetes.io/name: "kube-registry-proxy"
+        kubernetes.io/cluster-service: "true"
+        version: v1
+    spec:
+      containers:
+        - name: kube-registry-proxy
+          image: k8s.gcr.io/kube-registry-proxy:0.4
+          resources:
+            limits:
+              cpu: 100m
+              memory: 50Mi
+          env:
+            - name: REGISTRY_HOST
+              value: kube-registry.kube-system.svc.cluster.local
+            - name: REGISTRY_PORT
+              value: "5000"
+          ports:
+            - name: registry
+              containerPort: 80
+              hostPort: 5000
