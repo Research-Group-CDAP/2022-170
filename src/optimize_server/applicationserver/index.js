@@ -3,8 +3,12 @@ const express = require("express");
 const cors = require("cors");
 const { X509Certificate } = require("crypto");
 const fs = require("fs");
+const connectDB = require("./config/db");
 
 const app = express();
+
+//Connect Database
+connectDB();
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
@@ -154,27 +158,9 @@ app.get("/replicasets/:namespace", (req, res, next) => {
     });
 });
 
+//Define Routes
+app.use("/prediction", require("./routes/prediction.route"));
+
 app.listen(8080, () => {
   console.log("Server started");
 });
-
-// k8sApi
-//   .listNamespacedPod("default")
-//   .then((res) => {
-//     console.log(res.body.items);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
-
-// k8sApi.listServiceForAllNamespaces().then((data) => {
-// console.log(data.body.items);
-// const info = data.body.items.filter((item) => item.metadata.name === "nginx");
-// console.log(info);
-// data.body.items.map((item) => {
-//   console.log(item.spec);
-//   console.log(item.spec.externalIPs);
-// });
-// });
-
-// k8sApi.listNode()
