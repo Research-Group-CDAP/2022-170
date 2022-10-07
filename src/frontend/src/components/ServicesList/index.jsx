@@ -10,10 +10,24 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 
 const columns = [
-  { id: "timestamp", label: "Timestamp", minWidth: 170 },
+  { id: "name", label: "Name", minWidth: 170 },
   {
-    id: "value",
-    label: "Value",
+    id: "namespace",
+    label: "Namespace",
+    minWidth: 170,
+    align: "right",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "startTime",
+    label: "Started",
+    minWidth: 170,
+    align: "right",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "status",
+    label: "Status",
     minWidth: 170,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
@@ -27,22 +41,30 @@ const useStyles = makeStyles({
   container: {
     maxHeight: 740,
   },
+  labelGreen: {
+    color: "#0bab00",
+  },
+  labelRed: {
+    color: "#ed1515",
+  },
 });
 
-export default function TimeSeriesDataTable(props) {
+export default function ServicesList(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  function createData(timestamp, value) {
-    return { timestamp, value };
+  function createData(name, namespace, startTime, status) {
+    return { name, namespace, startTime, status };
   }
 
-  let rows = props.timeSeriesData
-    .map((pod) => {
+  let rows = props.serviceList
+    .map((service) => {
       return createData(
-        pod.timestamp,
-        pod.value,
+        service.name,
+        service.namespace,
+        service.startTime,
+        service.status
       );
     })
     .sort((a, b) => (a.name < b.name ? -1 : 1));
@@ -83,9 +105,19 @@ export default function TimeSeriesDataTable(props) {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
+                          {column.format && typeof value === "number" ? (
+                            column.format(value)
+                          ) : column.id === "status" ? (
+                            value === "Running" ? (
+                              <span className={classes.labelGreen}>
+                                {value}
+                              </span>
+                            ) : (
+                              <span className={classes.labelRed}>Failed</span>
+                            )
+                          ) : (
+                            value
+                          )}
                         </TableCell>
                       );
                     })}

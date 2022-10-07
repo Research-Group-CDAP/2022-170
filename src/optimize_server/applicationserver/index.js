@@ -91,12 +91,20 @@ app.get("/pods/:namespace", (req, res, next) => {
           name: "",
           nodeName: "",
           hostIP: "",
-          podIP:""
+          podIP:"",
+          containerImage:"",
+          namespace:"",
+          status:"",
+          startTime:""
         };
         tempObject.name = singlePod.metadata.name;
         tempObject.nodeName = singlePod.spec.nodeName;
         tempObject.hostIP = singlePod.status.hostIP;
         tempObject.podIP = singlePod.status.podIP;
+        tempObject.containerImage = singlePod.spec.containers[0].image;
+        tempObject.namespace = singlePod.metadata.namespace;
+        tempObject.status = singlePod.status.phase;
+        tempObject.startTime = singlePod.status.startTime;
         tempArray.push(tempObject);
       });
       await res.status(200).json(tempArray);
@@ -107,11 +115,38 @@ app.get("/pods/:namespace", (req, res, next) => {
     });
 });
 
-app.get("/services", (req, res, next) => {
+app.get("/services/:namespace", (req, res, next) => {
   k8sApi
-    .listServiceForAllNamespaces()
+  .listNamespacedPod(req.params.namespace)
+    .then(async (data) => {
+      let tempArray = [];
+
+      await data.body.items.forEach((singleService) => {
+        let tempObject = {
+          name: "",
+          namespace:"",
+          status:"",
+          startTime:""
+        };
+        tempObject.name = singleService.metadata.labels.app;
+        tempObject.namespace = singleService.metadata.namespace;
+        tempObject.status = singleService.status.phase;
+        tempObject.startTime = singleService.status.startTime;
+        tempArray.push(tempObject);
+      });
+      await res.status(200).json(tempArray);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ err: err.message });
+    });
+});
+
+app.get("/replicasets/:namespace", (req, res, next) => {
+  k8sApi
+  .listReplicationControllerForAllNamespaces()
     .then((data) => {
-      res.status(200).json({ data: data.body.items });
+       res.status(200).json(data.body);
     })
     .catch((err) => {
       console.log(err);

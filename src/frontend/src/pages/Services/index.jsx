@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Paper from "@material-ui/core/Paper";
 import { useDispatch, useSelector } from "react-redux";
-import { fetch_All_Pods_By_Namespace } from "../../store/kube-store/kubeActions";
+import { fetch_All_Services_By_Namespace } from "../../store/kube-store/kubeActions";
 import { makeStyles } from "@material-ui/core/styles";
-import { PodsList } from "../../components";
+import { PodsList, ServicesList } from "../../components";
 import podData from "../../data/Pods.json";
 
 const useStyles = makeStyles({
@@ -13,28 +13,28 @@ const useStyles = makeStyles({
   },
 });
 
-const Pods = (props) => {
+const Services = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.kubeReducer);
-  const [podDetailsByNamespaceArray, setPodDetailsByNamespaceArray] = useState(
+  const [servicesDetailsByNamespaceArray, setServicesDetailsByNamespaceArray] = useState(
     []
   );
 
   useEffect(() => {
-    dispatch(fetch_All_Pods_By_Namespace("default"));
+    dispatch(fetch_All_Services_By_Namespace("default"));
   }, [dispatch]);
 
   useEffect(() => {
-    setPodDetailsByNamespaceArray(state.podDetailsByNamespace);
-  }, [state.podDetailsByNamespace]);
+    setServicesDetailsByNamespaceArray(state.servicesDetailsByNamespace);
+  }, [state.servicesDetailsByNamespace]);
 
   return (
     <div className={classes.root}>
-      <h3>Pods</h3>
+      <h3>Services</h3>
       <div>
-        {podDetailsByNamespaceArray.length ? (
-          <PodsList podList={podDetailsByNamespaceArray} />
+        {servicesDetailsByNamespaceArray.length ? (
+          <ServicesList serviceList={servicesDetailsByNamespaceArray}/>
         ) : (
           <LinearProgress />
         )}
@@ -43,4 +43,4 @@ const Pods = (props) => {
   );
 };
 
-export default Pods;
+export default Services;
