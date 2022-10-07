@@ -7,6 +7,93 @@ const Memory_Usage_Model = require("../models/memory_utilization.model");
 const Network_Usage_Pred_Model = require("../models/network_utilization_pred.model");
 const Network_Usage_Model = require("../models/network_utilization.model");
 
+const fetch_All_Predicted_Cpu_Usage_By_Pod = async (request, response) => {
+  let timeSeriesDataArray = [];
+  Cpu_Usage_Pred_Model.find()
+    .then(async (res) => {
+      await res.forEach((matricData) => {
+        let podData = {
+          timestamp: 0,
+          value: 0,
+        };
+
+        podData.timestamp = matricData.timestamp;
+
+        let podDetails = matricData.timeSeriesData.filter(function (pod) {
+          return pod.podName == request.params.podName;
+        });
+
+        podDetails.forEach((pod) => {
+          podData.value = pod.value;
+
+          timeSeriesDataArray.push(podData);
+        });
+      });
+      await response.json(timeSeriesDataArray);
+    })
+    .catch((error) => {
+      response.json(error);
+    });
+};
+
+const fetch_All_Predicted_Memory_Utilization_By_Pod = async (request, response) => {
+  let timeSeriesDataArray = [];
+  Memory_Usage_Pred_Model.find()
+    .then(async (res) => {
+      await res.forEach((matricData) => {
+        let podData = {
+          timestamp: 0,
+          value: 0,
+        };
+
+        podData.timestamp = matricData.timestamp;
+
+        let podDetails = matricData.timeSeriesData.filter(function (pod) {
+          return pod.podName == request.params.podName;
+        });
+
+        podDetails.forEach((pod) => {
+          podData.value = pod.value;
+
+          timeSeriesDataArray.push(podData);
+        });
+      });
+      await response.json(timeSeriesDataArray);
+    })
+    .catch((error) => {
+      response.json(error);
+    });
+};
+
+const fetch_All_Predicted_Network_Utilization_By_Pod = async (request, response) => {
+  let timeSeriesDataArray = [];
+  Network_Usage_Pred_Model.find()
+    .then(async (res) => {
+      await res.forEach((matricData) => {
+        let podData = {
+          timestamp: 0,
+          value: 0,
+        };
+
+        podData.timestamp = matricData.timestamp;
+
+        let podDetails = matricData.timeSeriesData.filter(function (pod) {
+          return pod.podName == request.params.podName;
+        });
+
+        podDetails.forEach((pod) => {
+          podData.value = pod.value;
+
+          timeSeriesDataArray.push(podData);
+        });
+      });
+      await response.json(timeSeriesDataArray);
+    })
+    .catch((error) => {
+      response.json(error);
+    });
+};
+
 const predict_Cpu_Usage = async (request, response) => {
   Cpu_Usage_Model.find()
     .then(async (res) => {
@@ -86,6 +173,9 @@ const predict_pod_metrics = (pod_value) => {
 }
 
 module.exports = {
+  fetch_All_Predicted_Cpu_Usage_By_Pod,
+  fetch_All_Predicted_Memory_Utilization_By_Pod,
+  fetch_All_Predicted_Network_Utilization_By_Pod,
   predict_Cpu_Usage,
   predict_Memory_Usage,
   predict_Network_Usage
