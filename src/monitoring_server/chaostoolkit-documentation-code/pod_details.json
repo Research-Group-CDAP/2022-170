@@ -1,0 +1,32 @@
+{
+  "details-v1-5974b67c8-gvxrc": {
+    "cpu": "100m",
+    "memory": "50Mi",
+    "app": "details"
+  },
+  "productpage-v1-64794f5db4-phbd4": {
+    "cpu": "100m",
+    "memory": "50Mi",
+    "app": "productpage"
+  },
+  "ratings-v1-c6cdf8d98-wdggp": {
+    "cpu": "100m",
+    "memory": "50Mi",
+    "app": "ratings"
+  },
+  "reviews-v1-7f6558b974-bjzvh": {
+    "cpu": "100m",
+    "memory": "50Mi",
+    "app": "reviews"
+  },
+  "reviews-v2-6cb6ccd848-t4lmw": {
+    "cpu": "100m",
+    "memory": "50Mi",
+    "app": "reviews"
+  },
+  "reviews-v3-cc56b578-sxnlj": {
+    "cpu": "100m",
+    "memory": "50Mi",
+    "app": "reviews"
+  }
+}
