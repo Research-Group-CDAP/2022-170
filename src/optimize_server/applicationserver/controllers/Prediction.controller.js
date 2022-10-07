@@ -1,48 +1,36 @@
-const { PROMETHEUS_PORT, CPU_USAGE } = require("../constants");
-const axios = require("axios");
 var express = require("express");
 var app = express();
+const Cpu_Usage_Pred_Model = require("../models/cpu_usage_pred.model");
 const Cpu_Usage_Model = require("../models/cpu_usage.model");
 
-const fetch_All_Cpu_Usage_By_Pod = async (request, response) => {
-  let timeSeriesDataArray = [];
+const fetch_All_Cpu_Usage = async (request, response) => {
   Cpu_Usage_Model.find()
     .then(async (res) => {
-      await res.forEach((matricData) => {
-        let podData = {
-          timestamp: 0,
-          value: 0,
-        };
-
-        podData.timestamp = matricData.timestamp;
-
-        let podDetails = matricData.timeSeriesData.filter(function (pod) {
-          return pod.podName == request.params.podName;
-        });
-
-        podDetails.forEach((pod) => {
-            
-          podData.value = predict_pod_metrics(pod.value);
-
-          timeSeriesDataArray.push(podData);
-        });
+      await res.forEach(async (singleTimestamp, timestampIndex) => {
+        await singleTimestamp.timeSeriesData.forEach(async (pod, podIndex) => {
+          res[timestampIndex].timeSeriesData[podIndex].value = await predict_pod_metrics(pod.value)
+        })
+      })
+      await Cpu_Usage_Pred_Model.bulkSave(res).then((response) => {
+        response.json(response);
+      }).catch((error) => {
+        response.json(error);
       });
-      await response.json(timeSeriesDataArray);
     })
     .catch((error) => {
       response.json(error);
     });
 };
 
-const predict_pod_metrics = (pod_value)=>{
-    let x = 1
-    y = Math.random()
-        if(y < 0.5){
-            x = -1
-        }
-    return pod_value * (Math.random()/10) * x
+const predict_pod_metrics = (pod_value) => {
+  let x = 1
+  y = Math.random()
+  if (y < 0.5) {
+    x = -1
+  }
+  return pod_value * (Math.random() / 10) * x
 }
 
 module.exports = {
-  fetch_All_Cpu_Usage_By_Pod,
+  fetch_All_Cpu_Usage,
 };

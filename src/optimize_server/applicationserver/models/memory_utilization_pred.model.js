@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const CPU_USAGE_Schema = new Schema({
+const Memory_Utilization_Schema = new Schema({
   metricName: {
     type: String,
   },
@@ -20,4 +20,7 @@ const CPU_USAGE_Schema = new Schema({
   ],
 });
 
-module.exports = CPU_USAGE_Model = mongoose.model("cpuusage", CPU_USAGE_Schema);
+module.exports = Memory_Utilization_Model = mongoose.model(
+  "memory_utilization_predict",
+  Memory_Utilization_Schema
+);

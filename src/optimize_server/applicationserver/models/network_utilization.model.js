@@ -21,6 +21,6 @@ const Network_Utilization_Schema = new Schema({
 });
 
 module.exports = Network_Utilization_Model = mongoose.model(
-  "network_utilization_predict",
+  "network_utilization",
   Network_Utilization_Schema
 );
