@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import Paper from "@material-ui/core/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import { fetch_All_Services_By_Namespace } from "../../store/kube-store/kubeActions";
 import { makeStyles } from "@material-ui/core/styles";
-import { PodsList, ServicesList } from "../../components";
-import podData from "../../data/Pods.json";
+import { ServicesList } from "../../components";
 
 const useStyles = makeStyles({
   root: {
