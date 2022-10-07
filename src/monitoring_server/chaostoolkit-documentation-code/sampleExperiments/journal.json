@@ -1,0 +1,131 @@
+{
+  "chaoslib-version": "1.29.0",
+  "platform": "Linux-5.15.0-1020-azure-x86_64-with-glibc2.29",
+  "node": "UbuntuVM1",
+  "experiment": {
+    "version": "1.0.0",
+    "title": "What happens if we terminate an instance of the application?",
+    "description": "If an instance of the application is terminated, a new instance should be created",
+    "tags": [
+      "k8s",
+      "pod",
+      "deployment"
+    ],
+    "steady-state-hypothesis": {
+      "title": "The app is healthy",
+      "probes": [
+        {
+          "name": "all-apps-are-healthy",
+          "type": "probe",
+          "tolerance": true,
+          "provider": {
+            "type": "python",
+            "func": "all_microservices_healthy",
+            "module": "chaosk8s.probes",
+            "arguments": {
+              "ns": "default"
+            }
+          }
+        }
+      ]
+    },
+    "method": [
+      {
+        "type": "action",
+        "name": "terminate-pod",
+        "provider": {
+          "type": "python",
+          "module": "chaosk8s.pod.actions",
+          "func": "terminate_pods",
+          "arguments": {
+            "rand": true,
+            "ns": "default"
+          }
+        },
+        "pauses": {
+          "after": 10
+        }
+      }
+    ],
+    "dry": null
+  },
+  "start": "2022-10-06T06:09:49.004382",
+  "status": "failed",
+  "deviated": false,
+  "steady_states": {
+    "before": {
+      "steady_state_met": false,
+      "probes": [
+        {
+          "activity": {
+            "name": "all-apps-are-healthy",
+            "type": "probe",
+            "tolerance": true,
+            "provider": {
+              "type": "python",
+              "func": "all_microservices_healthy",
+              "module": "chaosk8s.probes",
+              "arguments": {
+                "ns": "default"
+              }
+            }
+          },
+          "output": null,
+          "status": "failed",
+          "exception": [
+            "Traceback (most recent call last):\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/connection.py\", line 159, in _new_conn\n    conn = connection.create_connection(\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/util/connection.py\", line 84, in create_connection\n    raise err\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/util/connection.py\", line 74, in create_connection\n    sock.connect(sa)\n",
+            "ConnectionRefusedError: [Errno 111] Connection refused\n",
+            "\nDuring handling of the above exception, another exception occurred:\n\n",
+            "Traceback (most recent call last):\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/connectionpool.py\", line 665, in urlopen\n    httplib_response = self._make_request(\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/connectionpool.py\", line 387, in _make_request\n    conn.request(method, url, **httplib_request_kw)\n",
+            "  File \"/usr/lib/python3.8/http/client.py\", line 1256, in request\n    self._send_request(method, url, body, headers, encode_chunked)\n",
+            "  File \"/usr/lib/python3.8/http/client.py\", line 1302, in _send_request\n    self.endheaders(body, encode_chunked=encode_chunked)\n",
+            "  File \"/usr/lib/python3.8/http/client.py\", line 1251, in endheaders\n    self._send_output(message_body, encode_chunked=encode_chunked)\n",
+            "  File \"/usr/lib/python3.8/http/client.py\", line 1011, in _send_output\n    self.send(msg)\n",
+            "  File \"/usr/lib/python3.8/http/client.py\", line 951, in send\n    self.connect()\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/connection.py\", line 187, in connect\n    conn = self._new_conn()\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/connection.py\", line 171, in _new_conn\n    raise NewConnectionError(\n",
+            "urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7f7c730219d0>: Failed to establish a new connection: [Errno 111] Connection refused\n",
+            "\nDuring handling of the above exception, another exception occurred:\n\n",
+            "Traceback (most recent call last):\n",
+            "  File \"/home/ubuntuVM1/.local/lib/python3.8/site-packages/chaoslib/provider/python.py\", line 56, in run_python_activity\n    return func(**arguments)\n",
+            "  File \"/home/ubuntuVM1/.local/lib/python3.8/site-packages/chaosk8s/probes.py\", line 33, in all_microservices_healthy\n    return all_pods_healthy(ns, secrets)\n",
+            "  File \"/home/ubuntuVM1/.local/lib/python3.8/site-packages/chaosk8s/pod/probes.py\", line 288, in all_pods_healthy\n    ret = v1.list_namespaced_pod(namespace=ns)\n",
+            "  File \"/home/ubuntuVM1/.local/lib/python3.8/site-packages/kubernetes/client/api/core_v1_api.py\", line 15302, in list_namespaced_pod\n    return self.list_namespaced_pod_with_http_info(namespace, **kwargs)  # noqa: E501\n",
+            "  File \"/home/ubuntuVM1/.local/lib/python3.8/site-packages/kubernetes/client/api/core_v1_api.py\", line 15413, in list_namespaced_pod_with_http_info\n    return self.api_client.call_api(\n",
+            "  File \"/home/ubuntuVM1/.local/lib/python3.8/site-packages/kubernetes/client/api_client.py\", line 348, in call_api\n    return self.__call_api(resource_path, method,\n",
+            "  File \"/home/ubuntuVM1/.local/lib/python3.8/site-packages/kubernetes/client/api_client.py\", line 180, in __call_api\n    response_data = self.request(\n",
+            "  File \"/home/ubuntuVM1/.local/lib/python3.8/site-packages/kubernetes/client/api_client.py\", line 373, in request\n    return self.rest_client.GET(url,\n",
+            "  File \"/home/ubuntuVM1/.local/lib/python3.8/site-packages/kubernetes/client/rest.py\", line 239, in GET\n    return self.request(\"GET\", url,\n",
+            "  File \"/home/ubuntuVM1/.local/lib/python3.8/site-packages/kubernetes/client/rest.py\", line 212, in request\n    r = self.pool_manager.request(method, url,\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/request.py\", line 75, in request\n    return self.request_encode_url(\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/request.py\", line 97, in request_encode_url\n    return self.urlopen(method, url, **extra_kw)\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/poolmanager.py\", line 330, in urlopen\n    response = conn.urlopen(method, u.request_uri, **kw)\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/connectionpool.py\", line 747, in urlopen\n    return self.urlopen(\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/connectionpool.py\", line 747, in urlopen\n    return self.urlopen(\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/connectionpool.py\", line 747, in urlopen\n    return self.urlopen(\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/connectionpool.py\", line 719, in urlopen\n    retries = retries.increment(\n",
+            "  File \"/usr/lib/python3/dist-packages/urllib3/util/retry.py\", line 436, in increment\n    raise MaxRetryError(_pool, url, error or ResponseError(cause))\n",
+            "urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/v1/namespaces/default/pods (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f7c730219d0>: Failed to establish a new connection: [Errno 111] Connection refused'))\n",
+            "\nDuring handling of the above exception, another exception occurred:\n\n",
+            "chaoslib.exceptions.ActivityFailed: urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=80): Max retries exceeded with url: /api/v1/namespaces/default/pods (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f7c730219d0>: Failed to establish a new connection: [Errno 111] Connection refused'))\n"
+          ],
+          "start": "2022-10-06T06:09:49.005595",
+          "end": "2022-10-06T06:09:49.061309",
+          "duration": 0.055714,
+          "tolerance_met": false
+        }
+      ]
+    },
+    "after": null,
+    "during": []
+  },
+  "run": [],
+  "rollbacks": [],
+  "end": "2022-10-06T06:09:49.062683",
+  "duration": 0.06857514381408691
+}
