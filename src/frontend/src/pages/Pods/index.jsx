@@ -9,7 +9,7 @@ import podData from "../../data/Pods.json";
 
 const useStyles = makeStyles({
   root: {
-    padding: "2% 10%",
+    padding: "2% 5%",
   },
 });
 

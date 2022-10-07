@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import { useDispatch, useSelector } from "react-redux";
-import { fetch_All_Cpu_Usage_By_Pod } from "../../store/matrics-store/matricsActions";
-import { Divider } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,35 +10,20 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(2),
     },
   },
-  paper: {
-    display: "flex",
-    flexWrap: "wrap",
-    "& > *": {
-      margin: theme.spacing(3),
-      width: theme.spacing(20),
-      height: theme.spacing(20),
-      padding: "10px",
-      background: "#5e5e5e",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-    },
+  card: {
+    background: "#555151",
+    marginTop: theme.spacing(2),
+  },
+  labelGreen: {
+    color: "#0bab00",
+  },
+  labelRed: {
+    color: "#ed1515",
   },
 }));
 
 const PodInformation = (props) => {
   const classes = useStyles();
-  //   const dispatch = useDispatch();
-  //   const state = useSelector((state) => state.matricsReducer);
-  //   const [cpuTimeSeriesData, setCpuTimeSeriesData] = useState([]);
-
-  //   useEffect(() => {
-  //     dispatch(fetch_All_Cpu_Usage_By_Pod(props.podName));
-  //   }, [props.podName, dispatch]);
-
-  //   useEffect(() => {
-  //     setCpuTimeSeriesData(state.cpuDataByPod);
-  //   }, [state.cpuDataByPod]);
 
   return (
     <div>
@@ -49,35 +31,55 @@ const PodInformation = (props) => {
       <h6>{props.podName}</h6>
       <br />
       <div className={classes.root}>
-        <div className={classes.paper}>
-          <Paper elevation={3} align="center" justify="center">
-            <p>Node Name</p>
-            <p>Sample Node Name</p>
-          </Paper>
-          <Paper elevation={3} align="center" justify="center">
-            <p>PORT</p>
-            <p>8082</p>
-          </Paper>
-          <Paper elevation={3} align="center" justify="center">
-            <p>Host IP</p>
-            <p>190.253.023.5</p>
-          </Paper>
-          <Paper elevation={3} align="center" justify="center">
-            <p>Pod IP</p>
-            <p>190.253.023.5</p>
-          </Paper>
-          <Paper elevation={3} align="center" justify="center">
-            <p>PORT</p>
-            <p>8082</p>
-          </Paper>
-          <Paper elevation={3} align="center" justify="center">
-            <p>Host IP</p>
-            <p>190.253.023.5</p>
-          </Paper>
-          <Paper elevation={3} align="center" justify="center">
-            <p>Pod IP</p>
-            <p>190.253.023.5</p>
-          </Paper>
+        <div>
+          <Card className={classes.card}>
+            <CardContent>
+              <p>Status</p>
+              <p>
+                {props.podDetails.status === "Running" ? (
+                  <span className={classes.labelGreen}>{props.podDetails.status}</span>
+                ) : (
+                  <span className={classes.labelRed}>Failed</span>
+                )}
+              </p>
+            </CardContent>
+          </Card>
+          <Card className={classes.card}>
+            <CardContent>
+              <p>Start Time</p>
+              <p>{props.podDetails.startTime}</p>
+            </CardContent>
+          </Card>
+          <Card className={classes.card}>
+            <CardContent>
+              <p>Node Name</p>
+              <p>{props.podDetails.nodeName}</p>
+            </CardContent>
+          </Card>
+          <Card className={classes.card}>
+            <CardContent>
+              <p>Host IP</p>
+              <p>{props.podDetails.hostIP}</p>
+            </CardContent>
+          </Card>
+          <Card className={classes.card}>
+            <CardContent>
+              <p>Image</p>
+              <p>{props.podDetails.containerImage}</p>
+            </CardContent>
+          </Card>
+          <Card className={classes.card}>
+            <CardContent>
+              <p>Pod IP</p>
+              <p>{props.podDetails.podIP}</p>
+            </CardContent>
+          </Card>
+          <Card className={classes.card}>
+            <CardContent>
+              <p>Namespace</p>
+              <p>{props.podDetails.namespace}</p>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

@@ -25,7 +25,7 @@ func Build(serviceName string, tag string, srcPath string) error {
 		return err
 	}
 
-	var localRegistryURL = "localhost:5005"
+	var localRegistryURL = "fastregistrytest.azurecr.io"
 	buildOptions := types.ImageBuildOptions{
 		Dockerfile: "Dockerfile",
 		Tags:       []string{localRegistryURL + "/" + serviceName + ":" + tag},

@@ -4,7 +4,7 @@ import os
 
 
 def import_dataframe_from_csv(csv_name):
-     directory = os.getcwd() + '/app/util/' + csv_name
+     directory = os.getcwd() + '/app/util/datasets/' + csv_name
      df = pd.read_csv(directory)     
      return df
 

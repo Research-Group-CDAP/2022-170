@@ -59,7 +59,7 @@ const LineChart = (props) => {
     let tempLabelData = [];
     let tempDatasetData = [];
 
-    props.timeSeriesData.forEach((singleData, index) => {
+    props.timeSeriesData.slice(-20).forEach((singleData, index) => {
       tempLabelData.push(singleData.timestamp);
       tempDatasetData.push(singleData.value);
     });

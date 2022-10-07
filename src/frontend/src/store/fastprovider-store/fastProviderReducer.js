@@ -33,7 +33,7 @@ const fastProviderReducer = (state = initialState, action) => {
     case `${ActionTypes.GET_SERVICES}_REJECTED`:
     case `${ActionTypes.GET_SERVICE_BY_ID}_REJECTED`:
     case `${ActionTypes.ADD_RELEASE}_REJECTED`:
-      return { ...state, loading: false, error: action.payload.response.data, state: initialState };
+      return { ...state, loading: false, error: action.payload.response, state: initialState };
 
     default:
       return state;
