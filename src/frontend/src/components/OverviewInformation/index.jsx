@@ -40,17 +40,6 @@ const OverviewInformation = (props) => {
             />
           </Paper>
         </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.paper}>
-            <h5>Replica Sets</h5>
-            <DoughnutChart />
-          </Paper>
-        </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.paper}>
-            <DoughnutChart />
-          </Paper>
-        </Grid>
       </Grid>
     </div>
   );

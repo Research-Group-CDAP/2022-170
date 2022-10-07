@@ -9,6 +9,7 @@ import AppBar from "./AppBar"
 import PodInformation from "./PodInformation"
 import DoughnutChart from "./DoughnutChart";
 import OverviewInformation from "./OverviewInformation";
+import ServicesList from "./ServicesList";
 
 export {
   Cpu,
@@ -21,5 +22,6 @@ export {
   AppBar,
   PodInformation,
   DoughnutChart,
-  OverviewInformation
+  OverviewInformation,
+  ServicesList
 };

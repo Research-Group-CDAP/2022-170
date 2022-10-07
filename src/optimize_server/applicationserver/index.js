@@ -142,6 +142,18 @@ app.get("/services/:namespace", (req, res, next) => {
     });
 });
 
+app.get("/replicasets/:namespace", (req, res, next) => {
+  k8sApi
+  .listReplicationControllerForAllNamespaces()
+    .then((data) => {
+       res.status(200).json(data.body);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ err: err.message });
+    });
+});
+
 app.listen(8080, () => {
   console.log("Server started");
 });
