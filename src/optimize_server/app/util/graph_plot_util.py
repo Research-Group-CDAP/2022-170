@@ -66,7 +66,7 @@ def plot_future(prediction, model_name, y_test,pred_type):
         plt.xlabel('Time')
         plt.ylabel('CPU utilization')
 
-def plot_multi_step(history, prediction1, prediction2,pred_type):
+def plot_multi_step(history, prediction1,pred_type):
         
         plt.figure(figsize=(15, 6))
         
@@ -76,8 +76,6 @@ def plot_multi_step(history, prediction1, prediction2,pred_type):
         plt.plot(np.arange(range_history), np.array(history), 
                 label='History')
         plt.plot(range_future, np.array(prediction1),
-                label='Forecasted for GRU')
-        plt.plot(range_future, np.array(prediction2),
                 label='Forecasted for BiLSTM')
           
         plt.legend(loc='upper right')

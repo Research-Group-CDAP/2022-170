@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from ..services import history_cpu_start,make_pod_predictions_start,return_pods_start
+from ..services import history_cpu_start
 router = APIRouter(
     prefix="/model-prdiction-memory",
     tags=['MEMORY_prediction']

@@ -1,10 +1,12 @@
 from fastapi import FastAPI
-from .routers import CPUPredictionRouter,CentralityPredictionRouter,PredictionProviderRouter,DatabaseRouter
+from .routers import CPUPredictionRouter,MemoryPredictionRouter,NetworkPredictionRouter,PredictionProviderRouter,DatabaseRouter
 import uvicorn  
 app = FastAPI()
 
 app.include_router(CPUPredictionRouter)
-app.include_router(CentralityPredictionRouter)
+app.include_router(MemoryPredictionRouter)
+app.include_router(NetworkPredictionRouter)
+# app.include_router(CentralityPredictionRouter)
 app.include_router(PredictionProviderRouter)
 app.include_router(DatabaseRouter)
 
