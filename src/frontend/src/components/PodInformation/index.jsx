@@ -11,8 +11,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   card: {
-    background:"#555151",
+    background: "#555151",
     marginTop: theme.spacing(2),
+  },
+  labelGreen: {
+    color: "#0bab00",
+  },
+  labelRed: {
+    color: "#ed1515",
   },
 }));
 
@@ -26,16 +32,22 @@ const PodInformation = (props) => {
       <br />
       <div className={classes.root}>
         <div>
-        <Card className={classes.card}>
+          <Card className={classes.card}>
             <CardContent>
-            <p>Status</p>
-            <p>{props.podDetails.status}</p>
+              <p>Status</p>
+              <p>
+                {props.podDetails.status === "Running" ? (
+                  <span className={classes.labelGreen}>{props.podDetails.status}</span>
+                ) : (
+                  <span className={classes.labelRed}>Failed</span>
+                )}
+              </p>
             </CardContent>
           </Card>
           <Card className={classes.card}>
             <CardContent>
-            <p>Start Time</p>
-            <p>{props.podDetails.startTime}</p>
+              <p>Start Time</p>
+              <p>{props.podDetails.startTime}</p>
             </CardContent>
           </Card>
           <Card className={classes.card}>
@@ -46,26 +58,26 @@ const PodInformation = (props) => {
           </Card>
           <Card className={classes.card}>
             <CardContent>
-            <p>Host IP</p>
-            <p>{props.podDetails.hostIP}</p>
+              <p>Host IP</p>
+              <p>{props.podDetails.hostIP}</p>
             </CardContent>
           </Card>
           <Card className={classes.card}>
             <CardContent>
-            <p>Image</p>
-            <p>{props.podDetails.containerImage}</p>
+              <p>Image</p>
+              <p>{props.podDetails.containerImage}</p>
             </CardContent>
           </Card>
           <Card className={classes.card}>
             <CardContent>
-            <p>Pod IP</p>
-            <p>{props.podDetails.podIP}</p>
+              <p>Pod IP</p>
+              <p>{props.podDetails.podIP}</p>
             </CardContent>
           </Card>
           <Card className={classes.card}>
             <CardContent>
-            <p>Namespace</p>
-            <p>{props.podDetails.namespace}</p>
+              <p>Namespace</p>
+              <p>{props.podDetails.namespace}</p>
             </CardContent>
           </Card>
         </div>

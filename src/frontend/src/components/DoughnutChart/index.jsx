@@ -11,11 +11,11 @@ const DoughnutChart = (props) => {
       {
         data: [props.active,props.inactive],
         backgroundColor: [
-          "#009614",
+          "#0bab00",
           "#b5b5b5",
         ],
         borderColor: [
-          "#009614",
+          "#0bab00",
           "#b5b5b5",
         ],
         borderWidth: 0,

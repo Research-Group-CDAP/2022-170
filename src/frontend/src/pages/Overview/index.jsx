@@ -32,7 +32,7 @@ const Overview = (props) => {
   useEffect(() => {
     setPods(state.podDetailsByNamespace.length);
     let tempPodArr = state.podDetailsByNamespace.filter(function (pod) {
-      return pod.status == "Running";
+      return pod.status === "Running";
     });
     setActivePods(tempPodArr.length);
   }, [state.podDetailsByNamespace]);
@@ -42,14 +42,14 @@ const Overview = (props) => {
     let tempServiceArr = state.servicesDetailsByNamespace.filter(function (
       service
     ) {
-      return service.status == "Running";
+      return service.status === "Running";
     });
     setActiveServices(tempServiceArr.length);
   }, [state.servicesDetailsByNamespace]);
 
   return (
     <div className={classes.root}>
-      <h1>Overview</h1>
+      <h3>Overview</h3>
       <OverviewInformation
         pods={pods}
         activePods={activePods}

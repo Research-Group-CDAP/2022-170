@@ -5,7 +5,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
-import Dashboard from "@material-ui/icons/Dashboard";
+import { Icon } from "@iconify/react";
 import clsx from "clsx";
 import React from "react";
 import SlideDrawer from "../SlideDrawer";
@@ -79,7 +79,7 @@ const PodsList = (props) => {
                 onClick={toggleDrawer("right", true, singlePod.name, singlePod)}
               >
                 <ListItemIcon className={classes.ListItemIcon}>
-                  <Dashboard />
+                  <Icon icon="vscode-icons:file-type-bitbucketpipeline" width={25} />
                 </ListItemIcon>
                 <ListItemText primary={singlePod.name} />
               </ListItem>

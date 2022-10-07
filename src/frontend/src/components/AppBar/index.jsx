@@ -7,7 +7,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
-import { Home, Pages } from "@material-ui/icons";
 import React from "react";
 import PageRoutes from "../../PageRoutes";
 const drawerWidth = 240;
@@ -61,39 +60,27 @@ export default function PermanentDrawerLeft() {
           <a style={{ textDecoration: "none" }} href="/">
             <ListItem className={classes.Link} button key={"Home"}>
               <ListItemIcon className={classes.ListItemIcon}>
-                <Home />
+                <Icon icon="vscode-icons:file-type-homeassistant" width={25} />
               </ListItemIcon>
               <ListItemText primary={"Home"} />
             </ListItem>
           </a>
-
           <a style={{ textDecoration: "none" }} href="/overview">
             <ListItem className={classes.Link} button key={"Overview"}>
               <ListItemIcon className={classes.ListItemIcon}>
-                <Pages />
+                <Icon icon="vscode-icons:file-type-appsemble" width={25} />
               </ListItemIcon>
               <ListItemText primary={"Overview"} />
             </ListItem>
           </a>
-
-          <a style={{ textDecoration: "none" }} href="/pods">
-            <ListItem className={classes.Link} button key={"Pods"}>
-              <ListItemIcon className={classes.ListItemIcon}>
-                <Pages />
-              </ListItemIcon>
-              <ListItemText primary={"Pods"} />
-            </ListItem>
-          </a>
-
           <a style={{ textDecoration: "none" }} href="/services">
             <ListItem className={classes.Link} button key={"Services"}>
               <ListItemIcon className={classes.ListItemIcon}>
-                <Pages />
+                <Icon icon="vscode-icons:file-type-dependabot" width={25} />
               </ListItemIcon>
               <ListItemText primary={"Services"} />
             </ListItem>
           </a>
-
           <a style={{ textDecoration: "none" }} href="/pods">
             <ListItem className={classes.Link} button key={"Pods"}>
               <ListItemIcon className={classes.ListItemIcon}>

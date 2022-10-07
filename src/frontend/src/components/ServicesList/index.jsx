@@ -41,6 +41,12 @@ const useStyles = makeStyles({
   container: {
     maxHeight: 740,
   },
+  labelGreen: {
+    color: "#0bab00",
+  },
+  labelRed: {
+    color: "#ed1515",
+  },
 });
 
 export default function ServicesList(props) {
@@ -99,9 +105,19 @@ export default function ServicesList(props) {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
+                          {column.format && typeof value === "number" ? (
+                            column.format(value)
+                          ) : column.id === "status" ? (
+                            value === "Running" ? (
+                              <span className={classes.labelGreen}>
+                                {value}
+                              </span>
+                            ) : (
+                              <span className={classes.labelRed}>Failed</span>
+                            )
+                          ) : (
+                            value
+                          )}
                         </TableCell>
                       );
                     })}
