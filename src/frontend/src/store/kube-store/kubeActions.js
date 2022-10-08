@@ -8,3 +8,9 @@ export const fetch_All_Pods_By_Namespace = (namespace) => {
   };
 };
 
+export const fetch_All_Services_By_Namespace = (namespace) => {
+  return {
+    type: ActionTypes.GET_SERVICES_DETAILS_BY_NAMESPACE,
+    payload: KubeApi.fetch_All_Services_By_Namespace(namespace),
+  };
+};
