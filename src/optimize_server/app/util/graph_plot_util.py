@@ -83,7 +83,9 @@ def plot_multi_step(history, prediction1,pred_type):
         plt.ylabel('CPU utilization')
         if(pred_type=='cpu'):
                 path = os.getcwd() + '/app/results/prediction/cpu/future_step_pred.png'
-        elif(pred_type=='dep'):
-                path = os.getcwd() + '/app/results/prediction/dependency/future_step_pred.png'
+        elif(pred_type=='mem'):
+                path = os.getcwd() + '/app/results/prediction/memory/future_step_pred.png'
+        elif(pred_type=='net'):
+                path = os.getcwd() + '/app/results/prediction/network/future_step_pred.png'
         plt.savefig(path)
         plt.close('all')
