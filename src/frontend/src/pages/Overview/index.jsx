@@ -18,9 +18,11 @@ const Overview = (props) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.kubeReducer);
 
+  const [podList, setPodList] = useState([]);
   const [pods, setPods] = useState(0);
   const [activePods, setActivePods] = useState(0);
 
+  const [serviceList, setServiceList] = useState([]);
   const [services, setServices] = useState(0);
   const [activeServices, setActiveServices] = useState(0);
 
@@ -34,6 +36,7 @@ const Overview = (props) => {
     let tempPodArr = state.podDetailsByNamespace.filter(function (pod) {
       return pod.status === "Running";
     });
+    setPodList(state.podDetailsByNamespace);
     setActivePods(tempPodArr.length);
   }, [state.podDetailsByNamespace]);
 
@@ -44,6 +47,7 @@ const Overview = (props) => {
     ) {
       return service.status === "Running";
     });
+    setServiceList(state.servicesDetailsByNamespace);
     setActiveServices(tempServiceArr.length);
   }, [state.servicesDetailsByNamespace]);
 
@@ -53,8 +57,10 @@ const Overview = (props) => {
       <OverviewInformation
         pods={pods}
         activePods={activePods}
+        podList={podList}
         services={services}
         activeServices={activeServices}
+        serviceList={serviceList}
       />
     </div>
   );

@@ -73,10 +73,21 @@ app.get("/nodes", (req, res, next) => {
   k8sApi
     .listNode()
     .then((data) => {
+      let tempArray = [];
       data.body.items.map((item) => {
-        console.log(item.status.addresses);
+        let tempObject = {
+          name: "",
+          os: "",
+          cluster:"",
+          region:""
+        };
+        tempObject.name = item.metadata.labels["kubernetes.io/hostname"];
+        tempObject.os = item.metadata.labels["beta.kubernetes.io/os"];
+        tempObject.cluster = item.metadata.labels["kubernetes.azure.com/cluster"];
+        tempObject.region = item.metadata.labels["topology.kubernetes.io/region"];
+        tempArray.push(tempObject)
       });
-      res.status(200).json({ data: data.body.items });
+      res.status(200).json(tempArray);
     })
     .catch((err) => {
       console.log(err);
@@ -138,19 +149,7 @@ app.get("/services/:namespace", (req, res, next) => {
         tempObject.startTime = singleService.status.startTime;
         tempArray.push(tempObject);
       });
-      await res.status(200).json(tempArray);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ err: err.message });
-    });
-});
-
-app.get("/nodes", (req, res, next) => {
-  k8sApi
-  .listNode()
-    .then((data) => {
-       res.status(200).json(data.body);
+      await res.status(200).json(data.body.items[1]);
     })
     .catch((err) => {
       console.log(err);

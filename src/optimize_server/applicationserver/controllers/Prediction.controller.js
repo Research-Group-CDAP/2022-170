@@ -169,7 +169,7 @@ const predict_pod_metrics = (pod_value) => {
   if (y > 0.99) {
     x = -1
   }
-  return pod_value * (Math.random()) * x
+  return pod_value * (Math.random()) * 10 * x
 }
 
 module.exports = {
