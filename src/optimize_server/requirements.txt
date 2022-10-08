@@ -7,3 +7,5 @@ pandas
 tensorflow
 sklearn
 aiofiles
+python-dotenv
+pymongo[srv]
