@@ -18,7 +18,11 @@ const useStyles = makeStyles({
     paddingTop: "15%",
   },
   heading: {
-    fontSize: "50px",
+    fontSize: "60px",
+    textAlign: "left",
+  },
+  subHeading:{
+    fontSize: "30px",
     textAlign: "left",
   },
   textPara: {
@@ -29,9 +33,9 @@ const useStyles = makeStyles({
     textAlign: "center",
     fontSize: "15px",
   },
-  Card:{
-    minHeight:"250px"
-  }
+  Card: {
+    minHeight: "250px",
+  },
 });
 
 const Home = (props) => {
@@ -43,7 +47,10 @@ const Home = (props) => {
         <Grid container spacing={3}>
           <Grid item xs={6}>
             <div className={classes.heading}>
-              <p>KubeMate | The way the world runs Kubernetes</p>
+              <p>KubeMate</p>
+            </div>
+            <div className={classes.subHeading}>
+            <p>The way the world runs Kubernetes</p>
             </div>
             <div className={classes.textPara}>
               <p>
@@ -59,10 +66,11 @@ const Home = (props) => {
         </Grid>
       </div>
       <div className={classes.rootServices}>
+        <h2 textAlign="center">
+          The largest and most advanced Kubernetes platform in the world
+        </h2>
+        <br/>
         <Grid container spacing={3}>
-          <h3 textAlign="center">
-            The largest and most advanced Kubernetes platform in the world
-          </h3>
           <Grid item xs={4}>
             <Card className={classes.Card}>
               <CardContent>
@@ -78,7 +86,7 @@ const Home = (props) => {
           <Grid item xs={4}>
             <Card className={classes.Card}>
               <CardContent>
-                <h5>  Pro Features </h5>
+                <h5> Pro Features </h5>
                 <Divider />
                 <br />
                 Lens Desktop works with any Kubernetes. It removes complexity
