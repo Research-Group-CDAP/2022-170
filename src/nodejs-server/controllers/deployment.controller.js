@@ -22,4 +22,16 @@ const getDeployment = async (req, res) => {
   }
 };
 
-module.exports = { createDeployment, getDeployment };
+const makeRelease = async (req, res) => {
+  try {
+    const deployment = await Deployment.findOneAndUpdate(
+      { _id: req.params.id },
+      { makeRelease: true }
+    );
+    res.status(200).json(deployment);
+  } catch (error) {
+    res.status(400).json({ message: error.message, dateTime: new Date() });
+  }
+};
+
+module.exports = { createDeployment, getDeployment, makeRelease };

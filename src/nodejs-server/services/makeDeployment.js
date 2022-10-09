@@ -6,6 +6,7 @@ const kubeClient = new k8s.KubeConfig();
 kubeClient.loadFromDefault();
 
 const appsApi = kubeClient.makeApiClient(k8s.AppsV1Api);
+const coreApi = kubeClient.makeApiClient(k8s.CoreV1Api);
 
 const makeDeployment = async () => {
   let deploymentId;
@@ -13,7 +14,7 @@ const makeDeployment = async () => {
     console.log(
       "########## Step 00 - Fetch waiting deployment queue items at " + new Date().getMinutes()
     );
-    let waitingDeployment = await Deployment.findOne({ status: "Waiting" });
+    let waitingDeployment = await Deployment.findOne({ status: "Waiting", makeRelease: true });
     deploymentId = waitingDeployment._id;
 
     if (waitingDeployment) {
@@ -24,13 +25,13 @@ const makeDeployment = async () => {
 
       console.log("########## Step 01 - Get the container image location");
       const imageLocation = await Service.findById(waitingDeployment.serviceId).select(
-        "latestImageName"
+        "latestACRImageName"
       );
 
-      if (imageLocation.latestImageName !== "") {
+      if (imageLocation.latestACRImageName !== "") {
         console.log("########## Step 03 - Inject container image to the deployment");
         waitingDeployment.deploymentConfigFile.spec.template.spec.containers[0].image =
-          imageLocation.latestImageName;
+          imageLocation.latestACRImageName;
 
         console.log("########## Step 04 - 🚀 Trigger the deployment");
         const deploymentRes = await appsApi.createNamespacedDeployment(
@@ -38,7 +39,8 @@ const makeDeployment = async () => {
           waitingDeployment.deploymentConfigFile
         );
 
-        console.log(deploymentRes);
+        console.log("########## Step 05 - Relase the microservice app service");
+        await coreApi.createNamespacedService("default", waitingDeployment.serviceConfigFile);
 
         await Deployment.findByIdAndUpdate(waitingDeployment._id, {
           status: "Completed",
@@ -56,7 +58,7 @@ const makeDeployment = async () => {
   } catch (error) {
     await Deployment.findByIdAndUpdate(deploymentId, {
       status: "Failed",
-      moreInformation: error.message,
+      moreInformation: JSON.stringify(error),
     });
     return;
   }
