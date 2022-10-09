@@ -97,6 +97,22 @@ export default function PermanentDrawerLeft() {
               <ListItemText primary={"Containers"} />
             </ListItem>
           </a>
+          <a style={{ textDecoration: "none" }} href="/experiments">
+            <ListItem className={classes.Link} button key={"Experiments"}>
+              <ListItemIcon className={classes.ListItemIcon}>
+                <Icon icon="fluent-emoji-flat:test-tube" width={25} />
+              </ListItemIcon>
+              <ListItemText primary={"Experiments"} />
+            </ListItem>
+          </a>
+          <a style={{ textDecoration: "none" }} href="/predictions">
+            <ListItem className={classes.Link} button key={"Predictions"}>
+              <ListItemIcon className={classes.ListItemIcon}>
+                <Icon icon="flat-color-icons:combo-chart" width={25} />
+              </ListItemIcon>
+              <ListItemText primary={"Predictions"} />
+            </ListItem>
+          </a>
         </List>
       </Drawer>
       <main className={classes.content}>
