@@ -104,7 +104,7 @@ async def make_pod_predictions_CPU(pod_name:str):
 
     plot_multi_step(train_data,prediction_bilstm,'cpu')
     # plot_multi_step(train_data,prediction_bilstm,'cpu')
-    res = max(prediction_bilstm).tolist()[0]
+    res = prediction_bilstm.tolist()
     return {"res":res}
     
 # async def data_load_cpu():
