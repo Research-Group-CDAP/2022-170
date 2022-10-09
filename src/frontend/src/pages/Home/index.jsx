@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Icon } from "@iconify/react";
 import Image from "../../assetes/images/welcomeimage.avif";
 import ImageWeb from "../../assetes/images/webss.png";
 import Grid from "@material-ui/core/Grid";
@@ -74,7 +75,7 @@ const Home = (props) => {
           <Grid item xs={4}>
             <Card className={classes.Card}>
               <CardContent>
-                <h5> Kubernetes for Everyone</h5>
+                <h5>  <Icon icon="vscode-icons:folder-type-kubernetes-opened" width={25} /> Kubernetes for Everyone</h5>
                 <Divider />
                 <br />
                 Lens is built on open source with a vibrant community and is
@@ -86,7 +87,7 @@ const Home = (props) => {
           <Grid item xs={4}>
             <Card className={classes.Card}>
               <CardContent>
-                <h5> Pro Features </h5>
+                <h5> <Icon icon="vscode-icons:file-type-dartlang" width={25} /> Pro Features </h5>
                 <Divider />
                 <br />
                 Lens Desktop works with any Kubernetes. It removes complexity
@@ -98,7 +99,7 @@ const Home = (props) => {
           <Grid item xs={4}>
             <Card className={classes.Card}>
               <CardContent>
-                <h5> Built on Open Source </h5>
+                <h5> <Icon icon="vscode-icons:file-type-powershell2" width={25} /> Built on Open Source </h5>
                 <Divider />
                 <br />
                 Expand the core functionality of Lens Desktop with Desktop
