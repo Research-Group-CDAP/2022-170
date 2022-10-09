@@ -44,7 +44,7 @@ export default function TimeSeriesDataTable(props) {
         pod.timestamp,
         pod.value,
       );
-    })
+    }).reverse()
     .sort((a, b) => (a.name < b.name ? -1 : 1));
 
   const handleChangePage = (event, newPage) => {

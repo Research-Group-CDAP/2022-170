@@ -149,7 +149,7 @@ app.get("/services/:namespace", (req, res, next) => {
         tempObject.startTime = singleService.status.startTime;
         tempArray.push(tempObject);
       });
-      await res.status(200).json(data.body.items[1]);
+      await res.status(200).json(tempArray);
     })
     .catch((err) => {
       console.log(err);
