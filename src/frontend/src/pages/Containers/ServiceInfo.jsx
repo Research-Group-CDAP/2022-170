@@ -3,6 +3,8 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
+  Button,
   Chip,
   Divider,
   Typography,
@@ -190,6 +192,20 @@ const ServiceInfo = (props) => {
                     ],
                   }}
                 />
+                <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
+                  <Button
+                    autoFocus
+                    // onClick={props.handleClose}
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    disableElevation
+                    style={{ marginRight: 10, marginTop: 10 }}
+                    endIcon={<RocketLaunchIcon />}
+                  >
+                    Make a new release
+                  </Button>
+                </Box>
               </div>
             </AccordionDetails>
           </Accordion>
