@@ -4,7 +4,7 @@ const prepareDeployment = async () => {
   let releaseId;
 
   try {
-    const upCommingDeployment = await Deployment.findOne({ status: "None" });
+    const upCommingDeployment = await Deployment.findOne({ status: "None", makeRelease: true });
     if (upCommingDeployment) {
       releaseId = upCommingDeployment._id;
       await Deployment.findOneAndUpdate(

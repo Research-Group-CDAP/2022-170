@@ -22,6 +22,7 @@ const ServiceSchema = mongoose.Schema(
     deletedAt: { type: Date, required: false, default: null },
     moreInformation: { type: String, required: false, default: "" },
     latestImageName: { type: String, required: false, default: "" },
+    latestACRImageName: { type: String, required: false, default: "" },
     releases: [
       {
         releaseDateTime: { type: Date, required: false, default: null },

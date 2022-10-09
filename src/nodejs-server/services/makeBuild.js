@@ -50,6 +50,9 @@ const makeBuild = async () => {
         ":" +
         waitingRelease.latestTag;
 
+      const imageACRName =
+        config.ACR_SERVER_URL + "/" + waitingRelease.serviceName + ":" + waitingRelease.latestTag;
+
       await Service.findOneAndUpdate(
         { _id: waitingRelease._id },
         { status: "Building", moreInformation: "Service image is currently building" }
@@ -74,10 +77,10 @@ const makeBuild = async () => {
               }
             );
 
-            const pushData = await image.push({
-              username: config.ACR_USER_NAME,
-              password: config.ACR_PASSWORD,
-              email: config.ACR_EMAIL,
+            await image.push({
+              username: config.REGISTRY_USER_NAME,
+              password: config.REGISTRY_PASSWORD,
+              email: config.REGISTRY_EMAIL,
             });
 
             await Service.findOneAndUpdate(
@@ -88,21 +91,35 @@ const makeBuild = async () => {
               }
             );
             pushEndTime = new Date();
+
+            console.log("########## Step 08 - Tag release container image for backup");
+            await docker.image
+              .get(imageName)
+              .tag({ tag: waitingRelease.latestTag, repo: imageACRName });
+
+            console.log("########## Step 08 - Pushing the backup relase container image");
+            await docker.image.get(imageACRName).push({
+              username: config.ACR_USER_NAME,
+              password: config.ACR_PASSWORD,
+              email: config.ACR_EMAIL,
+            });
           } catch (error) {
             await Service.findOneAndUpdate(
               { _id: waitingRelease._id },
               { status: "Failed", moreInformation: error.message }
             );
+            return;
           }
         })
         .then(async () => {
-          console.log("########## Step 08 - Detached code repository");
+          console.log("########## Step 09 - Detached code repository");
           await Service.findOneAndUpdate(
             { _id: waitingRelease._id },
             {
               status: "Release-Completed",
               moreInformation: "Release successfully completed",
               latestImageName: imageName,
+              latestACRImageName: imageACRName,
             }
           );
           fs.rmSync("./temp", { recursive: true, force: true });
