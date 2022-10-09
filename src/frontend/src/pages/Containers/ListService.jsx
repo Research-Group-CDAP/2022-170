@@ -61,14 +61,14 @@ const ListService = () => {
     setState({ ...state, [anchor]: open });
   };
 
-  const list = (anchor) => (
+  const list = (anchor, service) => (
     <div
       className={clsx(classes.list, {
         [classes.fullList]: anchor === "top" || anchor === "bottom",
       })}
       role="presentation"
-      onClick={toggleDrawer(anchor, true)}
-      onKeyDown={toggleDrawer(anchor, false)}
+      onClick={toggleDrawer(anchor, true, service)}
+      onKeyDown={toggleDrawer(anchor, false, service)}
     >
       <ServiceInfo service={service} />
     </div>
@@ -81,6 +81,7 @@ const ListService = () => {
           {services.map((service) => {
             return (
               <ListItem
+                key={service._id}
                 button
                 className={classes.ListItem}
                 onClick={toggleDrawer("right", true, service)}
@@ -153,7 +154,7 @@ const ListService = () => {
           open={state["right"]}
           onClose={toggleDrawer("right", false, service)}
         >
-          {list("right")}
+          {list("right", service)}
         </Drawer>
       </React.Fragment>
     </div>
