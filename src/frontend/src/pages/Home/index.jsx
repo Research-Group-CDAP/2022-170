@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   },
   home: {
     height: "100vh",
-    paddingTop: "15%",
+    paddingTop: "12%",
   },
   heading: {
     fontSize: "60px",
@@ -62,7 +62,7 @@ const Home = (props) => {
             </div>
           </Grid>
           <Grid item xs={6}>
-            <img src={Image} width="400px" height="400px" alt={Image} />
+            <img src={Image} width="500px" height="500px" alt={Image} />
           </Grid>
         </Grid>
       </div>

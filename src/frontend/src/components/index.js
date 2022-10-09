@@ -11,6 +11,7 @@ import DoughnutChart from "./DoughnutChart";
 import OverviewInformation from "./OverviewInformation";
 import ServicesList from "./ServicesList";
 import OverviewTable from "./OverviewTable";
+import UsageRanker from "./UsageRanker";
 export {
   Cpu,
   Memory,
@@ -24,5 +25,6 @@ export {
   DoughnutChart,
   OverviewInformation,
   ServicesList,
-  OverviewTable
+  OverviewTable,
+  UsageRanker
 };

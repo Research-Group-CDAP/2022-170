@@ -4,6 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import DoughnutChart from "../DoughnutChart";
 import OverviewTable from "../OverviewTable";
+import UsageRanker from "../UsageRanker";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,6 +62,7 @@ const OverviewInformation = (props) => {
           </Grid>
         </Grid>
       </div>
+      <br />
       <div>
         <OverviewTable
           dataList={
@@ -68,6 +70,25 @@ const OverviewInformation = (props) => {
           }
         />
       </div>
+      <br />
+      <br/>
+      <Grid container spacing={3}>
+        <Grid item xs={4}>
+          <div>
+            {props.cpuUsage.length && <UsageRanker title="CPU Usage Ranker" usageList={props.cpuUsage} />}
+          </div>
+        </Grid>
+        <Grid item xs={4}>
+          <div>
+            {props.memoryUsage.length && <UsageRanker title="Memory Usage Ranker" usageList={props.memoryUsage} />}
+          </div>
+        </Grid>
+        <Grid item xs={4}>
+          <div>
+            {props.networkUsage.length && <UsageRanker title="Network Usage Ranker" usageList={props.networkUsage} />}
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };

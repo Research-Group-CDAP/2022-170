@@ -141,12 +141,16 @@ app.get("/services/:namespace", (req, res, next) => {
           name: "",
           namespace:"",
           status:"",
-          startTime:""
+          startTime:"",
+          cpu:"",
+          memory:""
         };
         tempObject.name = singleService.metadata.labels.app;
         tempObject.namespace = singleService.metadata.namespace;
         tempObject.status = singleService.status.phase;
         tempObject.startTime = singleService.status.startTime;
+        tempObject.cpu = singleService.spec.containers[0].resources.requests.cpu;
+        tempObject.memory = singleService.spec.containers[0].resources.requests.memory;
         tempArray.push(tempObject);
       });
       await res.status(200).json(tempArray);
