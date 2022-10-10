@@ -10,7 +10,8 @@ import PodInformation from "./PodInformation"
 import DoughnutChart from "./DoughnutChart";
 import OverviewInformation from "./OverviewInformation";
 import ServicesList from "./ServicesList";
-
+import OverviewTable from "./OverviewTable";
+import UsageRanker from "./UsageRanker";
 export {
   Cpu,
   Memory,
@@ -23,5 +24,7 @@ export {
   PodInformation,
   DoughnutChart,
   OverviewInformation,
-  ServicesList
+  ServicesList,
+  OverviewTable,
+  UsageRanker
 };

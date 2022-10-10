@@ -24,6 +24,9 @@ const App = () => {
             backgroundColor: "#272525",
             color: "rgba(255, 255, 255, 0.7)",
           },
+          mainPage:{
+           padding: "2% 2%",
+          }
         },
       }),
     [mode]

@@ -10,10 +10,10 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 
 const columns = [
-  { id: "timestamp", label: "Timestamp", minWidth: 170 },
+  { id: "name", label: "Name", minWidth: 170 },
   {
-    id: "value",
-    label: "Value",
+    id: "status",
+    label: "Status",
     minWidth: 170,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
@@ -27,24 +27,30 @@ const useStyles = makeStyles({
   container: {
     maxHeight: 740,
   },
+  labelGreen: {
+    color: "#0bab00",
+  },
+  labelRed: {
+    color: "#ed1515",
+  },
 });
 
-export default function TimeSeriesDataTable(props) {
+export default function OverviewTable(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  function createData(timestamp, value) {
-    return { timestamp, value };
+  function createData(name,status) {
+    return { name,status };
   }
 
-  let rows = props.timeSeriesData
-    .map((pod) => {
+  let rows = props.dataList
+    .map((service) => {
       return createData(
-        pod.timestamp,
-        pod.value,
+        service.name,
+        service.status
       );
-    }).reverse()
+    })
     .sort((a, b) => (a.name < b.name ? -1 : 1));
 
   const handleChangePage = (event, newPage) => {
@@ -83,9 +89,19 @@ export default function TimeSeriesDataTable(props) {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
+                          {column.format && typeof value === "number" ? (
+                            column.format(value)
+                          ) : column.id === "status" ? (
+                            value === "Running" ? (
+                              <span className={classes.labelGreen}>
+                                {value}
+                              </span>
+                            ) : (
+                              <span className={classes.labelRed}>Failed</span>
+                            )
+                          ) : (
+                            value
+                          )}
                         </TableCell>
                       );
                     })}

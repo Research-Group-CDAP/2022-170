@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import DoughnutChart from "../DoughnutChart";
+import OverviewTable from "../OverviewTable";
+import UsageRanker from "../UsageRanker";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,33 +14,79 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(4),
     textAlign: "center",
-    color: "#ffffff"
+    color: "#ffffff",
   },
 }));
 
 const OverviewInformation = (props) => {
   const classes = useStyles();
+  const [selectedDoughnut, setSelectedDoughnut] = useState("services");
+
+  const onClickPaper = (name) => {
+    setSelectedDoughnut(name);
+  };
 
   return (
     <div className={classes.root}>
+      <div>
+        <Grid container spacing={3}>
+          <Grid
+            item
+            xs={4}
+            onClick={() => {
+              onClickPaper("services");
+            }}
+          >
+            <Paper className={classes.paper}>
+              <h5>Services ( {props.services} )</h5>
+              <DoughnutChart
+                active={props.activeServices}
+                inactive={props.services - props.activeServices}
+              />
+            </Paper>
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            onClick={() => {
+              onClickPaper("pods");
+            }}
+          >
+            <Paper className={classes.paper}>
+              <h5>Pods ( {props.pods} ) </h5>
+              <DoughnutChart
+                active={props.activePods}
+                inactive={props.pods - props.activePods}
+              />
+            </Paper>
+          </Grid>
+        </Grid>
+      </div>
+      <br />
+      <div>
+        <OverviewTable
+          dataList={
+            selectedDoughnut === "services" ? props.serviceList : props.podList
+          }
+        />
+      </div>
+      <br />
+      <br/>
       <Grid container spacing={3}>
         <Grid item xs={4}>
-          <Paper className={classes.paper}>
-            <h5>Services ( {props.services} )</h5>
-            <DoughnutChart
-              active={props.activeServices}
-              inactive={props.services - props.activeServices}
-            />
-          </Paper>
+          <div>
+            {props.cpuUsage.length && <UsageRanker title="CPU Usage Ranker" usageList={props.cpuUsage} />}
+          </div>
         </Grid>
         <Grid item xs={4}>
-          <Paper className={classes.paper}>
-            <h5>Pods ( {props.pods} ) </h5>
-            <DoughnutChart
-              active={props.activePods}
-              inactive={props.pods - props.activePods}
-            />
-          </Paper>
+          <div>
+            {props.memoryUsage.length && <UsageRanker title="Memory Usage Ranker" usageList={props.memoryUsage} />}
+          </div>
+        </Grid>
+        <Grid item xs={4}>
+          <div>
+            {props.networkUsage.length && <UsageRanker title="Network Usage Ranker" usageList={props.networkUsage} />}
+          </div>
         </Grid>
       </Grid>
     </div>

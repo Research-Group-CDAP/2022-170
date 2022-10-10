@@ -3,6 +3,7 @@ import ActionTypes from "./kubeTypes";
 const initialState = {
   podDetailsByNamespace: [],
   servicesDetailsByNamespace: [],
+  dependencyDetailsByNamespace: [],
   loading: false,
   error: null,
 };
@@ -13,6 +14,8 @@ const kubeReducer = (state = initialState, action) => {
       return { ...state, loading: true };
     case `${ActionTypes.GET_SERVICES_DETAILS_BY_NAMESPACE}_PENDING`:
       return { ...state, loading: true };
+    case `${ActionTypes.GET_DEPENDENCY_DETAILS_BY_NAMESPACE}_PENDING`:
+      return { ...state, loading: true };
 
     case `${ActionTypes.GET_POD_DETAILS_BY_NAMESPACE}_FULFILLED`:
       let podDetailsByNamespace = action.payload.data;
@@ -20,9 +23,13 @@ const kubeReducer = (state = initialState, action) => {
     case `${ActionTypes.GET_SERVICES_DETAILS_BY_NAMESPACE}_FULFILLED`:
       let servicesDetailsByNamespace = action.payload.data;
       return { ...state, loading: false, servicesDetailsByNamespace };
+    case `${ActionTypes.GET_DEPENDENCY_DETAILS_BY_NAMESPACE}_FULFILLED`:
+      let dependencyDetailsByNamespace = action.payload.data;
+      return { ...state, loading: false, dependencyDetailsByNamespace };
 
     case `${ActionTypes.GET_POD_DETAILS_BY_NAMESPACE}_REJECTED`:
     case `${ActionTypes.GET_SERVICES_DETAILS_BY_NAMESPACE}_REJECTED`:
+    case `${ActionTypes.GET_DEPENDENCY_DETAILS_BY_NAMESPACE}_REJECTED`:
       return {
         ...state,
         loading: false,

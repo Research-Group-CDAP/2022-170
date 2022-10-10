@@ -73,10 +73,21 @@ app.get("/nodes", (req, res, next) => {
   k8sApi
     .listNode()
     .then((data) => {
+      let tempArray = [];
       data.body.items.map((item) => {
-        console.log(item.status.addresses);
+        let tempObject = {
+          name: "",
+          os: "",
+          cluster:"",
+          region:""
+        };
+        tempObject.name = item.metadata.labels["kubernetes.io/hostname"];
+        tempObject.os = item.metadata.labels["beta.kubernetes.io/os"];
+        tempObject.cluster = item.metadata.labels["kubernetes.azure.com/cluster"];
+        tempObject.region = item.metadata.labels["topology.kubernetes.io/region"];
+        tempArray.push(tempObject)
       });
-      res.status(200).json({ data: data.body.items });
+      res.status(200).json(tempArray);
     })
     .catch((err) => {
       console.log(err);
@@ -143,14 +154,32 @@ app.get("/services/:namespace", (req, res, next) => {
       await data.body.items.forEach((singleService) => {
         let tempObject = {
           name: "",
-          namespace: "",
-          status: "",
-          startTime: "",
+          namespace:"",
+          status:"",
+          startTime:"",
+          cpu:"",
+          memory:"",
+          podHash:"",
+          node:"",
+          kind:"",
+          apiVersion:"",
+          uid:"",
+          resourceVersion:"",
+          dnsPolicy:""
         };
         tempObject.name = singleService.metadata.labels.app;
         tempObject.namespace = singleService.metadata.namespace;
         tempObject.status = singleService.status.phase;
         tempObject.startTime = singleService.status.startTime;
+        tempObject.cpu = singleService.spec.containers[0].resources.requests.cpu;
+        tempObject.memory = singleService.spec.containers[0].resources.requests.memory;
+        tempObject.podHash = singleService.metadata.labels["pod-template-hash"];
+        tempObject.node = singleService.spec.nodeName;
+        tempObject.kind = singleService.metadata.ownerReferences[0].kind;
+        tempObject.apiVersion = singleService.metadata.ownerReferences[0].apiVersion;
+        tempObject.uid = singleService.metadata.ownerReferences[0].uid;
+        tempObject.resourceVersion = singleService.metadata.resourceVersion;
+        tempObject.dnsPolicy = singleService.spec.dnsPolicy;
         tempArray.push(tempObject);
       });
       await res.status(200).json(tempArray);
@@ -161,17 +190,31 @@ app.get("/services/:namespace", (req, res, next) => {
     });
 });
 
-app.get("/replicasets/:namespace", (req, res, next) => {
+app.get("/dependency/:namespace", (req, res, next) => {
   k8sApi
-    .listReplicationControllerForAllNamespaces()
-    .then((data) => {
-      res.status(200).json(data.body);
+  .listNamespacedPod(req.params.namespace)
+    .then(async (data) => {
+      let tempArray = [];
+
+      await data.body.items.forEach((singleService) => {
+        let tempObject = {
+          service: "",
+          pod:"",
+          node:""
+        };
+        tempObject.service = singleService.metadata.labels.app;
+        tempObject.pod = singleService.metadata.labels.app+"-"+singleService.metadata.labels["pod-template-hash"];
+        tempObject.node = singleService.spec.nodeName;
+        tempArray.push(tempObject);
+      });
+      await res.status(200).json(tempArray);
     })
     .catch((err) => {
       console.log(err);
       res.status(500).json({ err: err.message });
     });
 });
+
 
 //Define Routes
 app.use("/prediction", require("./routes/prediction.route"));
