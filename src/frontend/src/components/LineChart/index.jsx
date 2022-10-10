@@ -60,13 +60,15 @@ const LineChart = (props) => {
     let tempLabelData = [];
     let tempDatasetData = [];
 
-    props.predictTimeSeriesData.slice(-20).forEach((singleData, index) => {
+    props.timeSeriesData.slice(-20).forEach((singleData, index) => {
       tempLabelData.push(singleData.timestamp);
-      tempDatasetData.push(singleData.value);
+    });
+    props.predictedValues.slice(-20).forEach((singleData) => {
+      tempDatasetData.push(singleData);
     });
     setLabelData(tempLabelData);
     setPredictDatasetData(tempDatasetData);
-  }, [props.predictTimeSeriesData]);
+  }, [props.predictedValues]);
 
   useEffect(() => {
     let tempLabelData = [];
@@ -80,7 +82,7 @@ const LineChart = (props) => {
     setLabelData(tempLabelData);
     setDatasetData(tempDatasetData);
   }, [props.timeSeriesData]);
-  
+
   const labels = labelData;
 
   const data = {
