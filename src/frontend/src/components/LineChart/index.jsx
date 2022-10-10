@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -104,7 +105,7 @@ const LineChart = (props) => {
       },
     ],
   };
-  return <Line options={options} data={data} />;
+  return <div><Line options={options} data={data} /> <br/> {!predictDatasetData.length && <div> Analyzing On Progress <LinearProgress/></div>} </div>;
 };
 
 export default LineChart;
