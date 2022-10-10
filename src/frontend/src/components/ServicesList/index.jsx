@@ -20,6 +20,10 @@ const useRowStyles = makeStyles({
     "& > *": {
       borderBottom: "unset",
     },
+    '&:hover': {
+      background: "#787878",
+      cursor: 'default'
+    }
   },
   labelGreen: {
     color: "#90EE90",

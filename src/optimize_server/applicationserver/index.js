@@ -126,6 +126,15 @@ app.get("/pods/:namespace", (req, res, next) => {
           namespace: "",
           status: "",
           startTime: "",
+          apiVersion:"",
+          manager:"",
+          resourceVersion:"",
+          uid:"",
+          ports:"",
+          containerImage:"",
+          imagePullPolicy:"",
+          restartPolicy:"",
+          restartCount:0
         };
         tempObject.name = singlePod.metadata.name;
         tempObject.nodeName = singlePod.spec.nodeName;
@@ -135,6 +144,15 @@ app.get("/pods/:namespace", (req, res, next) => {
         tempObject.namespace = singlePod.metadata.namespace;
         tempObject.status = singlePod.status.phase;
         tempObject.startTime = singlePod.status.startTime;
+        tempObject.apiVersion = singlePod.metadata.managedFields[0].apiVersion;
+        tempObject.manager = singlePod.metadata.managedFields[0].manager;
+        tempObject.resourceVersion = singlePod.metadata.resourceVersion;
+        tempObject.uid = singlePod.metadata.uid;
+        tempObject.ports = singlePod.spec.containers[0].ports;
+        tempObject.containerImage = singlePod.spec.containers[0].image;
+        tempObject.imagePullPolicy = singlePod.spec.containers[0].imagePullPolicy;
+        tempObject.restartPolicy = singlePod.spec.restartPolicy;
+        tempObject.restartCount = singlePod.status.initContainerStatuses[0].restartCount;
         tempArray.push(tempObject);
       });
       await res.status(200).json(tempArray);
