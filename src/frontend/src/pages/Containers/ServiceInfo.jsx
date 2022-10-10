@@ -6,6 +6,11 @@ import {
   Box,
   Button,
   Chip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Divider,
   Typography,
 } from "@material-ui/core";
@@ -26,6 +31,7 @@ import moment from "moment";
 import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
+import { InputField } from "../../components/TextField";
 import { get_services, retry_release } from "../../store/fastprovider-store/fastProviderActions";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -57,6 +63,15 @@ const ServiceInfo = (props) => {
   const dispatch = useDispatch();
   const fastProviderState = useSelector((state) => state.fastProviderReducer);
   const [expanded, setExpanded] = useState();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -66,7 +81,6 @@ const ServiceInfo = (props) => {
     e.preventDefault();
     dispatch(retry_release(props.service._id));
     dispatch(get_services());
-    // dispatch(get_service_by_id(props.service._id));
   };
 
   return (
@@ -235,12 +249,47 @@ const ServiceInfo = (props) => {
           color="primary"
           size="small"
           disableElevation
+          onClick={handleClickOpen}
           style={{ marginRight: 10, marginTop: 10 }}
           endIcon={<RocketLaunchIcon />}
         >
           Make a new release
         </Button>
       </Box>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>New Release</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To make a new release to the application, please enter the version tag here. Kubemate
+            will make the release in few moments. <br />
+            <b>Current Release Tag: {props.service.latestTag}</b>
+          </DialogContentText>
+          <InputField
+            label="Version Tag"
+            variant="filled"
+            placeholder="v1.0.1"
+            fullWidth
+            // className={classes.mb}
+            InputProps={{ disableUnderline: true }}
+            name="version"
+            // onChange={(e) => onChange(e)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} disableElevation variant="outlined" color="default">
+            Cancel
+          </Button>
+          <Button
+            onClick={handleClose}
+            disableElevation
+            variant="contained"
+            color="primary"
+            endIcon={<RocketLaunchIcon />}
+          >
+            Release
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
