@@ -6,4 +6,6 @@ import Overview from "./Overview";
 import Services from "./Services";
 import Dependency from "./Dependency";
 import Experiments from "./Experiments";
-export { Home, Matrics, Pods, Containers, Overview, Services,Dependency,Experiments };
+import Predictions from "./Predictions";
+
+export { Home, Matrics, Pods, Containers, Overview, Services,Dependency,Experiments,Predictions };

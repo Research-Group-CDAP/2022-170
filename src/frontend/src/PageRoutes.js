@@ -8,6 +8,7 @@ import {
   Pods,
   Services,
   Experiments,
+  Predictions,
 } from "./pages";
 
 const PageRoutes = () => {
@@ -23,6 +24,7 @@ const PageRoutes = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/dependency" element={<Dependency />} />
           <Route path="/experiments" element={<Experiments />} />
+          <Route path="/predictions" element={<Predictions />} />
         </Routes>
       </BrowserRouter>
     </div>

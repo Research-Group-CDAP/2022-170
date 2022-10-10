@@ -3,13 +3,10 @@ const axios = require("axios");
 var express = require("express");
 var app = express();
 const Cpu_Usage_Model = require("../models/cpu_usage.model");
-const {ExportToCsv} = require('export-to-csv')
 
 const converter = require("json-2-csv");
 var path = require("path");
 var fs = require("fs");
-
-app.use(express.static(path.join(__dirname, "public")));
 
 const fetch_Cpu_Usage = async (request, response) => {
   axios
@@ -127,8 +124,8 @@ const exportToCSV= async (request, response) => {
         var file_name = "cpudata";
         var file_content = csv;
         file_content = file_content.replace(/\n/g, "\r\n");
-
-        var stream = fs.createWriteStream(file_name + ".csv");
+        const file = path.resolve(outputDir + '/foo.js');
+        var stream = fs.createWriteStream(file);
         stream.once("open", function () {
           stream.write(file_content);
           stream.end();
