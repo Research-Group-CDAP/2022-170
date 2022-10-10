@@ -12,6 +12,9 @@ import OverviewInformation from "./OverviewInformation";
 import ServicesList from "./ServicesList";
 import OverviewTable from "./OverviewTable";
 import UsageRanker from "./UsageRanker";
+import ServiceBackdrop from "./ServiceBackdrop";
+import PodBackdrop from "./podBackdrop";
+
 export {
   Cpu,
   Memory,
@@ -26,5 +29,7 @@ export {
   OverviewInformation,
   ServicesList,
   OverviewTable,
-  UsageRanker
+  UsageRanker,
+  ServiceBackdrop,
+  PodBackdrop
 };
