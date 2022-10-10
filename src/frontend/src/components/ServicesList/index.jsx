@@ -1,149 +1,7 @@
-// import React from "react";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Paper from "@material-ui/core/Paper";
-// import Table from "@material-ui/core/Table";
-// import TableBody from "@material-ui/core/TableBody";
-// import TableCell from "@material-ui/core/TableCell";
-// import TableContainer from "@material-ui/core/TableContainer";
-// import TableHead from "@material-ui/core/TableHead";
-// import TablePagination from "@material-ui/core/TablePagination";
-// import TableRow from "@material-ui/core/TableRow";
-
-// const columns = [
-//   { id: "name", label: "Name", minWidth: 170 },
-//   {
-//     id: "namespace",
-//     label: "Namespace",
-//     minWidth: 170,
-//     align: "right",
-//     format: (value) => value.toLocaleString("en-US"),
-//   },
-//   {
-//     id: "startTime",
-//     label: "Started",
-//     minWidth: 170,
-//     align: "right",
-//     format: (value) => value.toLocaleString("en-US"),
-//   },
-//   {
-//     id: "status",
-//     label: "Status",
-//     minWidth: 170,
-//     align: "right",
-//     format: (value) => value.toLocaleString("en-US"),
-//   },
-// ];
-
-// const useStyles = makeStyles({
-//   root: {
-//     width: "100%",
-//   },
-//   container: {
-//     maxHeight: 740,
-//   },
-//   labelGreen: {
-//     color: "#0bab00",
-//   },
-//   labelRed: {
-//     color: "#ed1515",
-//   },
-// });
-
-// export default function ServicesList(props) {
-//   const classes = useStyles();
-//   const [page, setPage] = React.useState(0);
-//   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-//   function createData(name, namespace, startTime, status) {
-//     return { name, namespace, startTime, status };
-//   }
-
-//   let rows = props.serviceList
-//     .map((service) => {
-//       return createData(
-//         service.name,
-//         service.namespace,
-//         service.startTime,
-//         service.status
-//       );
-//     })
-//     .sort((a, b) => (a.name < b.name ? -1 : 1));
-
-//   const handleChangePage = (event, newPage) => {
-//     setPage(newPage);
-//   };
-
-//   const handleChangeRowsPerPage = (event) => {
-//     setRowsPerPage(+event.target.value);
-//     setPage(0);
-//   };
-
-//   return (
-//     <Paper className={classes.root}>
-//       <TableContainer className={classes.container}>
-//         <Table stickyHeader aria-label="sticky table">
-//           <TableHead>
-//             <TableRow>
-//               {columns.map((column) => (
-//                 <TableCell
-//                   key={column.id}
-//                   align={column.align}
-//                   style={{ minWidth: column.minWidth }}
-//                 >
-//                   {column.label}
-//                 </TableCell>
-//               ))}
-//             </TableRow>
-//           </TableHead>
-//           <TableBody>
-//             {rows
-//               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-//               .map((row) => {
-//                 return (
-//                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-//                     {columns.map((column) => {
-//                       const value = row[column.id];
-//                       return (
-//                         <TableCell key={column.id} align={column.align}>
-//                           {column.format && typeof value === "number" ? (
-//                             column.format(value)
-//                           ) : column.id === "status" ? (
-//                             value === "Running" ? (
-//                               <span className={classes.labelGreen}>
-//                                 {value}
-//                               </span>
-//                             ) : (
-//                               <span className={classes.labelRed}>Failed</span>
-//                             )
-//                           ) : (
-//                             value
-//                           )}
-//                         </TableCell>
-//                       );
-//                     })}
-//                   </TableRow>
-//                 );
-//               })}
-//           </TableBody>
-//         </Table>
-//       </TableContainer>
-//       <TablePagination
-//         rowsPerPageOptions={[10, 25, 100]}
-//         component="div"
-//         count={rows.length}
-//         rowsPerPage={rowsPerPage}
-//         page={page}
-//         onPageChange={handleChangePage}
-//         onRowsPerPageChange={handleChangeRowsPerPage}
-//       />
-//     </Paper>
-//   );
-// }
-
 import React from "react";
-import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import Table from "@material-ui/core/Table";
@@ -152,10 +10,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import { Icon } from "@iconify/react";
 
 const useRowStyles = makeStyles({
   root: {
@@ -169,14 +27,40 @@ const useRowStyles = makeStyles({
   labelRed: {
     color: "#ed1515",
   },
+  expandRow:{
+    background:"#343434"
+  }
 });
 
-function createData(name, namespace, startTime, status) {
+function createData(
+  name,
+  namespace,
+  startTime,
+  status,
+  cpu,
+  memory,
+  podHash,
+  node,
+  kind,
+  apiVersion,
+  uid,
+  resourceVersion,
+  dnsPolicy
+) {
   return {
     name,
     namespace,
     startTime,
     status,
+    cpu,
+    memory,
+    podHash,
+    node,
+    kind,
+    apiVersion,
+    uid,
+    resourceVersion,
+    dnsPolicy,
   };
 }
 
@@ -210,13 +94,29 @@ function Row(props) {
           )}
         </TableCell>
       </TableRow>
-      <TableRow>
+      <TableRow className={classes.expandRow}>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box margin={1}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
+            <Box margin={2}>
+              <Grid container spacing={3}>
+                <Grid item xs={6}>
+                  <p><Icon icon="carbon:cloud-service-management" width={20} /> name : {row.name}</p>
+                  <p><Icon icon="ic:baseline-drive-file-rename-outline" width={20} /> namespace : {row.namespace}</p>
+                  <p><Icon icon="bx:time-five" width={20} /> startTime : {row.startTime}</p>
+                  <p><Icon icon="heroicons-solid:status-online" width={20} /> status : {row.status}</p>
+                  <p><Icon icon="akar-icons:laptop-device" width={20} /> cpu : {row.cpu}</p>
+                  <p><Icon icon="ic:baseline-memory" width={20} /> memory : {row.memory}</p>
+                  <p><Icon icon="fa6-solid:circle-nodes" width={20} /> node : {row.node}</p>
+                </Grid>
+                <Grid item xs={6}>
+                  <p><Icon icon="eos-icons:api-outlined" width={20} /> apiVersion : {row.apiVersion}</p>
+                  <p><Icon icon="charm:key" width={20} /> uid : {row.uid}</p>
+                  <p><Icon icon="mingcute:version-fill" width={20} /> resourceVersion : {row.resourceVersion}</p>
+                  <p><Icon icon="carbon:policy" width={20} /> dnsPolicy : {row.dnsPolicy}</p>
+                  <p><Icon icon="fa-brands:slack-hash" width={20} /> podHash : {row.podHash}</p>
+                  <p><Icon icon="icon-park-twotone:setting-web" width={20} /> kind :{row.kind}</p>
+                </Grid>
+              </Grid>
             </Box>
           </Collapse>
         </TableCell>
@@ -231,7 +131,16 @@ export default function CollapsibleTable(props) {
       service.name,
       service.namespace,
       service.startTime,
-      service.status
+      service.status,
+      service.cpu,
+      service.memory,
+      service.podHash,
+      service.node,
+      service.kind,
+      service.apiVersion,
+      service.uid,
+      service.resourceVersion,
+      service.dnsPolicy
     );
   });
 
