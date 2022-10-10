@@ -13,7 +13,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Backdrop from "@material-ui/core/Backdrop";
-import { ServiceBackdrop } from "../../components";
+import { PodBackdrop, ServiceBackdrop } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -46,6 +46,7 @@ export default function Dependency() {
   const [podsArray, setPodsArray] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [selectServiceDetails, setSelectServiceDetails] = React.useState(null);
+  const [selectPodDetails, setSelectPodDetails] = React.useState(null);
 
   useEffect(() => {
     dispatch(fetch_All_Dependency_By_Namespace("default"));
@@ -82,9 +83,10 @@ export default function Dependency() {
 
   const handleClose = () => {
     setOpen(false);
+    setSelectServiceDetails(null);
   };
 
-  const handleToggle = (serviceName) => {
+  const handleToggleSevice = (serviceName) => {
     setOpen(!open);
     let tempArray = servicesArray.filter(function (service) {
       return service.name === serviceName;
@@ -92,6 +94,14 @@ export default function Dependency() {
     tempArray.length && setSelectServiceDetails(tempArray[0]);
   };
 
+  const handleTogglePod = (podName) => {
+    setOpen(!open);
+    let tempArray = podsArray.filter(function (pod) {
+      return pod.name.includes(podName);
+    });
+    tempArray.length && setSelectPodDetails(tempArray[0]);
+  };
+  
   return (
     <div className={classes.root}>
       <h3>Dependency Map</h3>
@@ -106,14 +116,19 @@ export default function Dependency() {
                     <div
                       id={dependencyList.service}
                       onClick={() => {
-                        handleToggle(dependencyList.service);
+                        handleToggleSevice(dependencyList.service);
                       }}
                     >
                       <Card className={classes.card}>
                         <CardContent>{dependencyList.service}</CardContent>
                       </Card>
                     </div>
-                    <div id={dependencyList.pod}>
+                    <div
+                      id={dependencyList.pod}
+                      onClick={() => {
+                        handleTogglePod(dependencyList.pod);
+                      }}
+                    >
                       <Card className={classes.card}>
                         <CardContent>{dependencyList.pod} </CardContent>
                       </Card>
@@ -133,7 +148,18 @@ export default function Dependency() {
         )}
       </div>
       <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
-       {selectServiceDetails !== null ? <ServiceBackdrop data={selectServiceDetails}/> : "" } 
+        {selectServiceDetails !== null ? (
+          <ServiceBackdrop data={selectServiceDetails} />
+        ) : (
+          ""
+        )}
+        {selectPodDetails !== null ? (
+          <PodBackdrop data={selectPodDetails} />
+        ) : (
+          ""
+        )}
+
+
       </Backdrop>
     </div>
   );
