@@ -14,7 +14,7 @@ import OverviewTable from "./OverviewTable";
 import UsageRanker from "./UsageRanker";
 import ServiceBackdrop from "./ServiceBackdrop";
 import PodBackdrop from "./podBackdrop";
-
+import PredictionLineChart from "./PredictionLineChart";
 export {
   Cpu,
   Memory,
@@ -31,5 +31,6 @@ export {
   OverviewTable,
   UsageRanker,
   ServiceBackdrop,
-  PodBackdrop
+  PodBackdrop,
+  PredictionLineChart
 };
