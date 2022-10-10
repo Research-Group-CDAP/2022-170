@@ -20,6 +20,6 @@ app.use("/cpu", require("./routes/cpu_usage.route"));
 app.use("/network", require("./routes/network_utilization.route"));
 app.use("/memory", require("./routes/memory_utilization.route"));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => console.log(`Metrics Server started on port ${PORT}`));

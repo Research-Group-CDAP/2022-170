@@ -110,86 +110,11 @@
     ],
     "dry": null
   },
-  "start": "2022-10-06T09:03:27.063544",
+  "start": "2022-10-09T13:34:11.712392",
   "status": "failed",
-  "deviated": true,
+  "deviated": false,
   "steady_states": {
     "before": {
-      "steady_state_met": true,
-      "probes": [
-        {
-          "activity": {
-            "type": "probe",
-            "name": "the-astre-service-must-be-running",
-            "tolerance": true,
-            "provider": {
-              "type": "python",
-              "module": "os.path",
-              "func": "exists",
-              "arguments": {
-                "path": "astre.pid"
-              }
-            }
-          },
-          "output": true,
-          "status": "succeeded",
-          "start": "2022-10-06T09:03:27.064809",
-          "end": "2022-10-06T09:03:27.065128",
-          "duration": 0.000319,
-          "tolerance_met": true
-        },
-        {
-          "activity": {
-            "type": "probe",
-            "name": "the-sunset-service-must-be-running",
-            "tolerance": true,
-            "provider": {
-              "type": "python",
-              "module": "os.path",
-              "func": "exists",
-              "arguments": {
-                "path": "sunset.pid"
-              }
-            }
-          },
-          "output": true,
-          "status": "succeeded",
-          "start": "2022-10-06T09:03:27.065576",
-          "end": "2022-10-06T09:03:27.065833",
-          "duration": 0.000257,
-          "tolerance_met": true
-        },
-        {
-          "activity": {
-            "type": "probe",
-            "name": "we-can-request-sunset",
-            "tolerance": 200,
-            "provider": {
-              "type": "http",
-              "timeout": 3,
-              "verify_tls": false,
-              "url": "https://localhost:8443/city/Paris"
-            }
-          },
-          "output": {
-            "status": 200,
-            "headers": {
-              "Content-Type": "text/plain;charset=utf-8",
-              "Server": "CherryPy/18.8.0",
-              "Date": "Thu, 06 Oct 2022 09:03:27 GMT",
-              "Content-Length": "59"
-            },
-            "body": "The sunset will occur at 2022-10-06T19:21:58+02:00 in Paris"
-          },
-          "status": "succeeded",
-          "start": "2022-10-06T09:03:27.066139",
-          "end": "2022-10-06T09:03:27.084030",
-          "duration": 0.017891,
-          "tolerance_met": true
-        }
-      ]
-    },
-    "after": {
       "steady_state_met": false,
       "probes": [
         {
@@ -208,101 +133,18 @@
           },
           "output": false,
           "status": "succeeded",
-          "start": "2022-10-06T09:03:28.121915",
-          "end": "2022-10-06T09:03:28.122461",
-          "duration": 0.000546,
+          "start": "2022-10-09T13:34:11.713732",
+          "end": "2022-10-09T13:34:11.714164",
+          "duration": 0.000432,
           "tolerance_met": false
         }
       ]
     },
+    "after": null,
     "during": []
   },
-  "run": [
-    {
-      "activity": {
-        "type": "action",
-        "name": "swap-to-expired-cert",
-        "provider": {
-          "type": "process",
-          "path": "cp",
-          "arguments": "expired-cert.pem cert.pem"
-        }
-      },
-      "output": {
-        "status": 0,
-        "stdout": "",
-        "stderr": ""
-      },
-      "status": "succeeded",
-      "start": "2022-10-06T09:03:27.085007",
-      "end": "2022-10-06T09:03:27.090025",
-      "duration": 0.005018
-    },
-    {
-      "activity": {
-        "type": "probe",
-        "name": "read-tls-cert-expiry-date",
-        "provider": {
-          "type": "process",
-          "path": "openssl",
-          "arguments": "x509 -enddate -noout -in cert.pem"
-        }
-      },
-      "output": {
-        "status": 0,
-        "stdout": "notAfter=May  5 15:00:00 2018 GMT\n",
-        "stderr": ""
-      },
-      "status": "succeeded",
-      "start": "2022-10-06T09:03:27.090367",
-      "end": "2022-10-06T09:03:27.096748",
-      "duration": 0.006381
-    },
-    {
-      "activity": {
-        "type": "action",
-        "name": "restart-astre-service-to-pick-up-certificate",
-        "provider": {
-          "type": "process",
-          "path": "pkill",
-          "arguments": "--echo -HUP -F astre.pid"
-        }
-      },
-      "output": {
-        "status": 0,
-        "stdout": " killed (pid 5058)\n",
-        "stderr": ""
-      },
-      "status": "succeeded",
-      "start": "2022-10-06T09:03:27.097067",
-      "end": "2022-10-06T09:03:27.111433",
-      "duration": 0.014366
-    },
-    {
-      "activity": {
-        "type": "action",
-        "name": "restart-sunset-service-to-pick-up-certificate",
-        "provider": {
-          "type": "process",
-          "path": "pkill",
-          "arguments": "--echo -HUP -F sunset.pid"
-        },
-        "pauses": {
-          "after": 1
-        }
-      },
-      "output": {
-        "status": 0,
-        "stdout": " killed (pid 5358)\n",
-        "stderr": ""
-      },
-      "status": "succeeded",
-      "start": "2022-10-06T09:03:27.111802",
-      "end": "2022-10-06T09:03:27.119736",
-      "duration": 0.007934
-    }
-  ],
+  "run": [],
   "rollbacks": [],
-  "end": "2022-10-06T09:03:28.122812",
-  "duration": 1.070016860961914
+  "end": "2022-10-09T13:34:11.714891",
+  "duration": 0.012630462646484375
 }
