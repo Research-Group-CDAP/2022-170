@@ -9,6 +9,9 @@ class kubeAPI {
   static fetch_All_Services_By_Namespace(namespace) {
     return axios.get(`${BASE_URL}/services/${namespace}`);
   }
+  static fetch_All_Dependency_By_Namespace(namespace) {
+    return axios.get(`${BASE_URL}/dependency/${namespace}`);
+  }
   static fetch_All_Nodes() {
     return axios.get(`${BASE_URL}/nodes`);
   }

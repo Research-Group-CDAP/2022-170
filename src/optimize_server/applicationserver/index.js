@@ -161,6 +161,32 @@ app.get("/services/:namespace", (req, res, next) => {
     });
 });
 
+app.get("/dependency/:namespace", (req, res, next) => {
+  k8sApi
+  .listNamespacedPod(req.params.namespace)
+    .then(async (data) => {
+      let tempArray = [];
+
+      await data.body.items.forEach((singleService) => {
+        let tempObject = {
+          service: "",
+          pod:"",
+          node:""
+        };
+        tempObject.service = singleService.metadata.labels.app;
+        tempObject.pod = singleService.metadata.labels.app+"-"+singleService.metadata.labels["pod-template-hash"];
+        tempObject.node = singleService.spec.nodeName;
+        tempArray.push(tempObject);
+      });
+      await res.status(200).json(tempArray);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ err: err.message });
+    });
+});
+
+
 //Define Routes
 app.use("/prediction", require("./routes/prediction.route"));
 

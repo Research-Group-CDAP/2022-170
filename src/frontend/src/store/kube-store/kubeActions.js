@@ -14,3 +14,10 @@ export const fetch_All_Services_By_Namespace = (namespace) => {
     payload: KubeApi.fetch_All_Services_By_Namespace(namespace),
   };
 };
+
+export const fetch_All_Dependency_By_Namespace = (namespace) => {
+  return {
+    type: ActionTypes.GET_DEPENDENCY_DETAILS_BY_NAMESPACE,
+    payload: KubeApi.fetch_All_Dependency_By_Namespace(namespace),
+  };
+};
