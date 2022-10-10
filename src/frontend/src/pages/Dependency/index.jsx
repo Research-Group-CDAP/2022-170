@@ -27,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
     margin: "30px",
     padding: "5px",
     background: "#242424",
+    '&:hover': {
+      background: "#787878",
+      cursor: 'default'
+    }
   },
   paper: {
     padding: "5px",
@@ -84,6 +88,7 @@ export default function Dependency() {
   const handleClose = () => {
     setOpen(false);
     setSelectServiceDetails(null);
+    setSelectPodDetails(null);
   };
 
   const handleToggleSevice = (serviceName) => {

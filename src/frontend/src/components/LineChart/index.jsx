@@ -60,45 +60,44 @@ const LineChart = (props) => {
     let tempLabelData = [];
     let tempDatasetData = [];
 
-    props.timeSeriesData.slice(-20).forEach((singleData, index) => {
+    props.predictTimeSeriesData.slice(-20).forEach((singleData, index) => {
+      tempLabelData.push(singleData.timestamp);
+      tempDatasetData.push(singleData.value);
+    });
+    setLabelData(tempLabelData);
+    setPredictDatasetData(tempDatasetData);
+  }, [props.predictTimeSeriesData]);
+
+  useEffect(() => {
+    let tempLabelData = [];
+    let tempDatasetData = [];
+
+    props.timeSeriesData.slice(-13).forEach((singleData, index) => {
       tempLabelData.push(singleData.timestamp);
       tempDatasetData.push(singleData.value);
     });
 
     setLabelData(tempLabelData);
     setDatasetData(tempDatasetData);
-  },[props.timeSeriesData]);
-
-  useEffect(() => {
-    let tempLabelData = [];
-    let tempDatasetData = [];
-
-    props.predictTimeSeriesData.slice(-20).forEach((singleData, index) => {
-      tempLabelData.push(singleData.timestamp);
-      tempDatasetData.push(singleData.value);
-    });
-
-    setPredictDatasetData(tempDatasetData);
-
-  },[props.predictTimeSeriesData]);
-
+  }, [props.timeSeriesData]);
+  
   const labels = labelData;
 
   const data = {
     labels,
     datasets: [
       {
-        label: props.title,
-        data: datasetData,
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-        textColor: "#ffffff",
-      },
-      {
         label: props.titlePredicted,
         data: predictDatasetData,
         borderColor: "#008558",
         backgroundColor: "#008558",
+        textColor: "#ffffff",
+      },
+      {
+        label: props.title,
+        data: datasetData,
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
         textColor: "#ffffff",
       },
     ],
