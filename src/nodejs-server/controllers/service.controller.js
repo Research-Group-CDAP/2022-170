@@ -13,7 +13,7 @@ const registerService = async (req, res) => {
 
     const service = await Service.create(req.body);
 
-    const deploymentObj = {
+    let deploymentObj = {
       metadata: {
         labels: {
           app: service.serviceName,
@@ -36,9 +36,29 @@ const registerService = async (req, res) => {
           spec: {
             containers: [
               {
-                name: service.serviceName,
+                securityContext: {
+                  capabilities: {
+                    drop: ["all"],
+                  },
+                },
                 ports: service.deploymentInfo.ports,
                 env: service.deploymentInfo.env,
+                readinessProbe: {
+                  exec: {
+                    command: [
+                      "/bin/grpc_health_probe",
+                      `-addr=:${service.deploymentInfo.ports[0].containerPort}`,
+                    ],
+                  },
+                },
+                livenessProbe: {
+                  exec: {
+                    command: [
+                      "/bin/grpc_health_probe",
+                      `-addr=:${service.deploymentInfo.ports[0].containerPort}`,
+                    ],
+                  },
+                },
                 resources: {
                   requests: {
                     cpu: service.deploymentInfo.resources.requests.cpu,
@@ -55,6 +75,18 @@ const registerService = async (req, res) => {
         },
       },
     };
+
+    if (req.body.initialDelaySeconds) {
+      deploymentObj.spec.template.spec.containers[0].readinessProbe.initialDelaySeconds =
+        req.body.initialDelaySeconds;
+    }
+
+    if (req.body.periodSeconds) {
+      deploymentObj.spec.template.spec.containers[0].readinessProbe.periodSeconds =
+        req.body.periodSeconds;
+    }
+
+    // deploymentObj.spec.template.spec.containers[0].securityContext.capabilities.drop.push("all");
 
     const serviceObj = {
       metadata: {

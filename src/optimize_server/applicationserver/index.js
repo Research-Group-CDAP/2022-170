@@ -84,6 +84,21 @@ app.get("/nodes", (req, res, next) => {
     });
 });
 
+app.get("/pod/:pod", (req, res, next) => {
+  k8sApi
+    // .readNamespacedPodLog(req.params.pod, "default", "server")
+    // .readNamespacedPodEphemeralcontainers(req.params.pod, "default")
+    .readNamespacedPodStatus(req.params.pod, "default")
+    .then((data) => {
+      console.log(JSON.parse(JSON.stringify(data.body)));
+      res.status(200).json(JSON.parse(JSON.stringify(data.body.status)));
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ err: JSON.stringify(err) });
+    });
+});
+
 app.get("/pods/:namespace", (req, res, next) => {
   k8sApi
     .listNamespacedPod(req.params.namespace)
@@ -95,11 +110,11 @@ app.get("/pods/:namespace", (req, res, next) => {
           name: "",
           nodeName: "",
           hostIP: "",
-          podIP:"",
-          containerImage:"",
-          namespace:"",
-          status:"",
-          startTime:""
+          podIP: "",
+          containerImage: "",
+          namespace: "",
+          status: "",
+          startTime: "",
         };
         tempObject.name = singlePod.metadata.name;
         tempObject.nodeName = singlePod.spec.nodeName;
@@ -121,16 +136,16 @@ app.get("/pods/:namespace", (req, res, next) => {
 
 app.get("/services/:namespace", (req, res, next) => {
   k8sApi
-  .listNamespacedPod(req.params.namespace)
+    .listNamespacedPod(req.params.namespace)
     .then(async (data) => {
       let tempArray = [];
 
       await data.body.items.forEach((singleService) => {
         let tempObject = {
           name: "",
-          namespace:"",
-          status:"",
-          startTime:""
+          namespace: "",
+          status: "",
+          startTime: "",
         };
         tempObject.name = singleService.metadata.labels.app;
         tempObject.namespace = singleService.metadata.namespace;
@@ -148,9 +163,9 @@ app.get("/services/:namespace", (req, res, next) => {
 
 app.get("/replicasets/:namespace", (req, res, next) => {
   k8sApi
-  .listReplicationControllerForAllNamespaces()
+    .listReplicationControllerForAllNamespaces()
     .then((data) => {
-       res.status(200).json(data.body);
+      res.status(200).json(data.body);
     })
     .catch((err) => {
       console.log(err);
