@@ -138,7 +138,21 @@ const exportToCSV= async (request, response) => {
       );
 
       await console.log("CSV Generateed");
-      await response.json(timeSeriesDataArray);
+      await console.log(timeSeriesDataArray);
+      await axios
+        .get(
+        'http://127.0.0.1:8000/model-prdiction-network/make-prediction_singlepod?pod_name=' + request.params.podName
+        )
+        .then(async (res) => {
+          let tempArray = [];
+          await res.data.res.forEach((singleValue)=>{
+            tempArray.push(singleValue[0])
+          })
+          await response.json(tempArray);
+        })
+        .catch((error) => {
+          response.json(error);
+        });
     })
     .catch((error) => {
       response.json(error);

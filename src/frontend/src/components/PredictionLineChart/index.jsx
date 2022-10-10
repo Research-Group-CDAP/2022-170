@@ -59,14 +59,17 @@ const PredictionLineChart = (props) => {
     let tempLabelData = [];
     let tempDatasetData = [];
 
-    props.timeSeriesData.slice(-20).forEach((singleData, index) => {
+    props.timeSeriesData.slice(-20).forEach((singleData) => {
       tempLabelData.push(singleData.timestamp);
-      tempDatasetData.push(singleData.value);
+    });
+
+    props.predictTimeSeriesData.slice(-20).forEach((predictedValue) => {
+      tempDatasetData.push(predictedValue);
     });
 
     setLabelData(tempLabelData);
     setDatasetData(tempDatasetData);
-  },[props.timeSeriesData]);
+  },[props.predictTimeSeriesData]);
 
   const labels = labelData;
 
