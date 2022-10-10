@@ -105,7 +105,17 @@ const LineChart = (props) => {
       },
     ],
   };
-  return <div><Line options={options} data={data} /> <br/> {!predictDatasetData.length && <div> Analyzing On Progress <LinearProgress/></div>} </div>;
+  return (
+    <div>
+      <Line options={options} data={data} /> <br />{" "}
+      {!predictDatasetData.length && (
+        <div>
+           Analyzing On Progress{" "}
+          <LinearProgress />
+        </div>
+      )}{" "}
+    </div>
+  );
 };
 
 export default LineChart;
