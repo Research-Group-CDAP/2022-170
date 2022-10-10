@@ -36,33 +36,33 @@ export default function PodBackdrop(props) {
             {props.data.status}
           </p>
           <p>
-            <Icon icon="akar-icons:laptop-device" width={20} /> cpu :{" "}
-            {props.data.cpu}
+            <Icon icon="fa6-solid:code" width={20} /> apiVersion :{" "}
+            {props.data.apiVersion}
           </p>
           <p>
-            <Icon icon="ic:baseline-memory" width={20} /> memory :{" "}
-            {props.data.memory}
+            <Icon icon="ic:baseline-manage-accounts" width={20} /> manager :{" "}
+            {props.data.manager}
           </p>
           <p>
-            <Icon icon="fa6-solid:circle-nodes" width={20} /> node :{" "}
-            {props.data.node}
+            <Icon icon="ic:baseline-alternate-email" width={20} /> uid :{" "}
+            {props.data.uid}
           </p>
         </Grid>
         <Grid item xs={6}>
           <p>
-            <Icon icon="eos-icons:api-outlined" width={20} /> apiVersion :{" "}
-            {props.data.apiVersion}
+            <Icon icon="ic:baseline-local-police" width={20} /> imagePullPolicy :{" "}
+            {props.data.imagePullPolicy}
           </p>
           <p>
-            <Icon icon="charm:key" width={20} /> uid : {props.data.uid}
+            <Icon icon="ic:baseline-refresh" width={20} /> restartPolicy : {props.data.restartPolicy}
           </p>
           <p>
-            <Icon icon="mingcute:version-fill" width={20} /> resourceVersion :{" "}
-            {props.data.resourceVersion}
+            <Icon icon="ic:baseline-format-list-numbered" width={20} /> restartCount :{" "}
+            {props.data.restartCount}
           </p>
           <p>
-            <Icon icon="carbon:policy" width={20} /> dnsPolicy :{" "}
-            {props.data.dnsPolicy}
+            <Icon icon="ic:baseline-broken-image" width={20} /> containerImage :{" "}
+            {props.data.containerImage}
           </p>
           <p>
             <Icon icon="fa-brands:slack-hash" width={20} /> Host IP :{" "}
@@ -71,10 +71,6 @@ export default function PodBackdrop(props) {
           <p>
             <Icon icon="fa-brands:slack-hash" width={20} /> Pod IP :{" "}
             {props.data.podIP}
-          </p>
-          <p>
-            <Icon icon="icon-park-twotone:setting-web" width={20} /> kind :
-            {props.data.containerImage}
           </p>
         </Grid>
       </Grid>
