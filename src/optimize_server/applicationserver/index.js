@@ -143,7 +143,14 @@ app.get("/services/:namespace", (req, res, next) => {
           status:"",
           startTime:"",
           cpu:"",
-          memory:""
+          memory:"",
+          podHash:"",
+          node:"",
+          kind:"",
+          apiVersion:"",
+          uid:"",
+          resourceVersion:"",
+          dnsPolicy:""
         };
         tempObject.name = singleService.metadata.labels.app;
         tempObject.namespace = singleService.metadata.namespace;
@@ -151,6 +158,13 @@ app.get("/services/:namespace", (req, res, next) => {
         tempObject.startTime = singleService.status.startTime;
         tempObject.cpu = singleService.spec.containers[0].resources.requests.cpu;
         tempObject.memory = singleService.spec.containers[0].resources.requests.memory;
+        tempObject.podHash = singleService.metadata.labels["pod-template-hash"];
+        tempObject.node = singleService.spec.nodeName;
+        tempObject.kind = singleService.metadata.ownerReferences[0].kind;
+        tempObject.apiVersion = singleService.metadata.ownerReferences[0].apiVersion;
+        tempObject.uid = singleService.metadata.ownerReferences[0].uid;
+        tempObject.resourceVersion = singleService.metadata.resourceVersion;
+        tempObject.dnsPolicy = singleService.spec.dnsPolicy;
         tempArray.push(tempObject);
       });
       await res.status(200).json(tempArray);
