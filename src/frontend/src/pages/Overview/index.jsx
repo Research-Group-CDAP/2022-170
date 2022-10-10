@@ -8,9 +8,10 @@ import {
   fetch_All_Services_By_Namespace,
 } from "../../store/kube-store/kubeActions";
 import { fetch_All_Cpu_Usage, fetch_All_Memory_Utilization, fetch_All_Network_Utilization } from "../../store/matrics-store/matricsActions";
+
 const useStyles = makeStyles({
   root: {
-    padding: "2% 4%",
+    padding: "2% 2%",
   },
 });
 

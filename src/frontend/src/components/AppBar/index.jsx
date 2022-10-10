@@ -97,6 +97,14 @@ export default function PermanentDrawerLeft() {
               <ListItemText primary={"Containers"} />
             </ListItem>
           </a>
+          <a style={{ textDecoration: "none" }} href="/dependency">
+            <ListItem className={classes.Link} button key={"Dependency"}>
+              <ListItemIcon className={classes.ListItemIcon}>
+                <Icon icon="vscode-icons:file-type-dependencies" width={25} />
+              </ListItemIcon>
+              <ListItemText primary={"Dependency"} />
+            </ListItem>
+          </a>
         </List>
       </Drawer>
       <main className={classes.content}>
