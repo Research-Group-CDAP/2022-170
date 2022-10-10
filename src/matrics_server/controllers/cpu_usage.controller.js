@@ -121,11 +121,12 @@ const exportToCSV= async (request, response) => {
 
       let json2csvCallback = function (err, csv) {
         if (err) throw err;
-        var file_name = "cpudata";
+        var file_name = request.params.podName;
         var file_content = csv;
         file_content = file_content.replace(/\n/g, "\r\n");
-        const file = path.resolve(outputDir + '/foo.js');
-        var stream = fs.createWriteStream(file);
+        console.log("pathname",__dirname);
+        var savePath = __dirname + '/../../optimize_server/app/util/datasets/CPU/';
+        var stream = fs.createWriteStream(savePath + file_name + ".csv");
         stream.once("open", function () {
           stream.write(file_content);
           stream.end();
