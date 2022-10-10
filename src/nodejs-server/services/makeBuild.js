@@ -20,6 +20,8 @@ const makeBuild = async () => {
         { status: "In-Progress", moreInformation: "Release is in progress" }
       );
 
+      fs.rmSync("./temp", { recursive: true, force: true });
+
       console.log("########## Step 01 - Clone the code repository");
       await Git.Clone(waitingRelease.repository.url, "./temp");
 

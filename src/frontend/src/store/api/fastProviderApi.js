@@ -18,6 +18,10 @@ class FastProviderAPI {
   static add_release(resleaseInfo) {
     return axios.post(`${BASE_URL}/release/add`, resleaseInfo);
   }
+
+  static retry_release(serviceId) {
+    return axios.put(`${BASE_URL}/service/retry/${serviceId}`, {});
+  }
 }
 
 export default FastProviderAPI;

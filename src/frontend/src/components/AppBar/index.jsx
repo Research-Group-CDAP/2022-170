@@ -54,7 +54,10 @@ export default function PermanentDrawerLeft() {
         }}
         anchor="left"
       >
-        <h4 className="m-4">KubeMate</h4>
+        <h4 className="m-2">
+          <img src="/assets/images/kubemate.png" width={35} alt="Kubemate logo" className="mr-2" />
+          <strong>KubeMate</strong>
+        </h4>
         <Divider />
         <List>
           <a style={{ textDecoration: "none" }} href="/">

@@ -9,6 +9,7 @@ import {
   Divider,
   Typography,
 } from "@material-ui/core";
+import { RefreshOutlined } from "@material-ui/icons";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
@@ -24,6 +25,8 @@ import {
 import moment from "moment";
 import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
+import { useDispatch, useSelector } from "react-redux";
+import { get_services, retry_release } from "../../store/fastprovider-store/fastProviderActions";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -51,10 +54,19 @@ export const options = {
 const labels = [""];
 
 const ServiceInfo = (props) => {
+  const dispatch = useDispatch();
+  const fastProviderState = useSelector((state) => state.fastProviderReducer);
   const [expanded, setExpanded] = useState();
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
+  };
+
+  const retryRelease = (e) => {
+    e.preventDefault();
+    dispatch(retry_release(props.service._id));
+    dispatch(get_services());
+    // dispatch(get_service_by_id(props.service._id));
   };
 
   return (
@@ -95,6 +107,25 @@ const ServiceInfo = (props) => {
           >
             {props.service.status}
           </span>
+          {props.service.status === "Failed" && (
+            <Button
+              variant="outlined"
+              color="default"
+              size="small"
+              onClick={retryRelease}
+              style={{
+                borderRadius: 20,
+                fontSize: 12,
+                height: 20,
+                marginLeft: 8,
+                color: "#ffa000",
+                borderColor: "#ffa000",
+              }}
+            >
+              <RefreshOutlined style={{ width: 15, marginRight: 5 }} />
+              Retry Release
+            </Button>
+          )}
         </Typography>
       ) : (
         ""
@@ -129,7 +160,7 @@ const ServiceInfo = (props) => {
           <Accordion
             expanded={expanded === release._id}
             onChange={handleChange(release._id)}
-            elevation={5}
+            elevation={1}
             style={{ width: "100%" }}
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -192,24 +223,24 @@ const ServiceInfo = (props) => {
                     ],
                   }}
                 />
-                <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
-                  <Button
-                    autoFocus
-                    // onClick={props.handleClose}
-                    variant="contained"
-                    color="primary"
-                    size="small"
-                    disableElevation
-                    style={{ marginRight: 10, marginTop: 10 }}
-                    endIcon={<RocketLaunchIcon />}
-                  >
-                    Make a new release
-                  </Button>
-                </Box>
               </div>
             </AccordionDetails>
           </Accordion>
         ))}
+      <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
+        <Button
+          autoFocus
+          // onClick={props.handleClose}
+          variant="contained"
+          color="primary"
+          size="small"
+          disableElevation
+          style={{ marginRight: 10, marginTop: 10 }}
+          endIcon={<RocketLaunchIcon />}
+        >
+          Make a new release
+        </Button>
+      </Box>
     </>
   );
 };

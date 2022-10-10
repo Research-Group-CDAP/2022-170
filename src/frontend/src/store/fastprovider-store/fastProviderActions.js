@@ -28,3 +28,10 @@ export const add_relese = (releaseInfo) => {
     payload: FastProviderApi.add_release(releaseInfo),
   };
 };
+
+export const retry_release = (serviceId) => {
+  return {
+    type: ActionTypes.RETRY_RELEASE,
+    payload: FastProviderApi.retry_release(serviceId),
+  };
+};

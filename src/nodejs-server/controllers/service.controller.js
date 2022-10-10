@@ -3,14 +3,6 @@ const Deployment = require("../models/deployment.model");
 
 const registerService = async (req, res) => {
   try {
-    // const duplicateService = await Service.find({
-    //   serviceName: req.body.serviceName,
-    // });
-
-    // if (duplicateService) {
-    //   throw new Error("Duplicate service name. Please add a different service name");
-    // }
-
     const service = await Service.create(req.body);
 
     let deploymentObj = {
@@ -148,4 +140,22 @@ const getServices = async (req, res) => {
   }
 };
 
-module.exports = { registerService, newRelease, getServices };
+const getServiceById = async (req, res) => {
+  try {
+    const service = await Service.findById(req.params.id);
+    res.status(200).json(service);
+  } catch (error) {
+    res.status(400).json({ message: error.message, dateTime: new Date() });
+  }
+};
+
+const retryRelease = async (req, res) => {
+  try {
+    const service = await Service.findByIdAndUpdate(req.params.id, { status: "Waiting" });
+    res.status(200).json(service);
+  } catch (error) {
+    res.status(400).json({ message: error.message, dateTime: new Date() });
+  }
+};
+
+module.exports = { registerService, newRelease, getServices, retryRelease, getServiceById };
