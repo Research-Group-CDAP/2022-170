@@ -48,6 +48,9 @@ const AddService = (props) => {
     portId: -1,
     ports: [],
 
+    initialDelaySeconds: null,
+    periodSeconds: null,
+
     isFormNotValid: false,
   });
 
@@ -158,6 +161,8 @@ const AddService = (props) => {
             serviceType: state.serviceType,
             ports: state.ports,
           },
+          initialDelaySeconds: state.initialDelaySeconds,
+          periodSeconds: state.periodSeconds,
         };
 
         console.log(data);
@@ -436,6 +441,26 @@ const AddService = (props) => {
           className={classes.mb}
           InputProps={{ disableUnderline: true }}
           name="limitsMemory"
+          onChange={(e) => onChange(e)}
+        />
+        <InputField
+          label="Initial Delay Seconds"
+          variant="filled"
+          placeholder="15"
+          fullWidth
+          className={classes.mb}
+          InputProps={{ disableUnderline: true }}
+          name="initialDelaySeconds"
+          onChange={(e) => onChange(e)}
+        />
+        <InputField
+          label="Period Seconds"
+          variant="filled"
+          placeholder="5"
+          fullWidth
+          className={classes.mb}
+          InputProps={{ disableUnderline: true }}
+          name="periodSeconds"
           onChange={(e) => onChange(e)}
         />
 
