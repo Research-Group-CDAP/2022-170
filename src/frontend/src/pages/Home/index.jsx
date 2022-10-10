@@ -78,7 +78,7 @@ const Home = (props) => {
                 <h5>  <Icon icon="vscode-icons:folder-type-kubernetes-opened" width={25} /> Kubernetes for Everyone</h5>
                 <Divider />
                 <br />
-                Lens is built on open source with a vibrant community and is
+                KubeMate is built on open source with a vibrant community and is
                 backed by a number of Kubernetes and cloud native ecosystem
                 pioneers.
               </CardContent>
@@ -90,7 +90,7 @@ const Home = (props) => {
                 <h5> <Icon icon="vscode-icons:file-type-dartlang" width={25} /> Pro Features </h5>
                 <Divider />
                 <br />
-                Lens Desktop works with any Kubernetes. It removes complexity
+                KubeMate works with any Kubernetes. It removes complexity
                 and increases productivity. It’s used by everyone — from devs to
                 ops and startups to large companies.
               </CardContent>
@@ -102,7 +102,7 @@ const Home = (props) => {
                 <h5> <Icon icon="vscode-icons:file-type-powershell2" width={25} /> Built on Open Source </h5>
                 <Divider />
                 <br />
-                Expand the core functionality of Lens Desktop with Desktop
+                Expand the core functionality of KubeMate
                 Kubernetes, Teamwork, Security and Commercial Support for
                 increased productivity and time to value.
               </CardContent>
