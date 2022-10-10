@@ -22,7 +22,7 @@ const useRowStyles = makeStyles({
     },
   },
   labelGreen: {
-    color: "#0bab00",
+    color: "#90EE90",
   },
   labelRed: {
     color: "#ed1515",

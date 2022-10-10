@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     maxHeight: 740,
   },
   labelGreen: {
-    color: "#0bab00",
+    color: "#90EE90",
   },
   labelRed: {
     color: "#ed1515",
