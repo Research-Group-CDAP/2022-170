@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../store/auth-store/authActions";
+import { loginUser } from "../../store/auth-store/authActions";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,29 +22,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Registration = (props) => {
+const UserLogin = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.authReducer);
 
-  const [fullName, setFullName] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
-  const onSubmitRegister = () => {
-    const registerData = {
-      fullName,
+  const onSubmitLogin = () => {
+    const loginData = {
       email,
       password,
     };
-    dispatch(registerUser(registerData));
+    dispatch(loginUser(loginData));
   };
 
   // If the user login is success
   useEffect(() => {
     let authToken = state.user?.token;
     if (authToken) {
-      alert("Successfully signed in");
       localStorage.setItem("x-auth-token", authToken);
       window.location.href = "/";
     }
@@ -47,20 +49,9 @@ const Registration = (props) => {
 
   return (
     <div className={classes.root}>
-      <h3>User Registration</h3>
+      <h3>User Login</h3>
       <br />
       <div>
-        <form className={classes.field} noValidate autoComplete="off">
-          <TextField
-            id="filled-basic"
-            label="Full Name"
-            variant="filled"
-            className={classes.TextField}
-            onChange={(e) => {
-              setFullName(e.target.value);
-            }}
-          />
-        </form>
         <form className={classes.field} noValidate autoComplete="off">
           <TextField
             id="filled-basic"
@@ -84,18 +75,21 @@ const Registration = (props) => {
           />
         </form>
         <form className={classes.field} noValidate autoComplete="off">
+          {" "}
           <Button
             variant="contained"
             color="primary"
-            onClick={onSubmitRegister}
             className={classes.TextField}
+            onClick={onSubmitLogin}
           >
-            Register
+            Login
           </Button>
         </form>
+        { state.user?.token && <Alert severity="success">Login Successful!</Alert>}
+        { state.error && !state.error?.msg === "Token is not valid" &&  <Alert severity="error">Something went wrong!</Alert> }
       </div>
     </div>
   );
 };
 
-export default Registration;
+export default UserLogin;

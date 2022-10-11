@@ -7,5 +7,20 @@ import Services from "./Services";
 import Dependency from "./Dependency";
 import Experiments from "./Experiments";
 import Predictions from "./Predictions";
-
-export { Home, Matrics, Pods, Containers, Overview, Services,Dependency,Experiments,Predictions };
+import UserInformation from "./UserInformation";
+import UserLogin from "./Login";
+import Registration from "./Registration";
+export {
+  Home,
+  Matrics,
+  Pods,
+  Containers,
+  Overview,
+  Services,
+  Dependency,
+  Experiments,
+  Predictions,
+  UserInformation,
+  UserLogin,
+  Registration
+};

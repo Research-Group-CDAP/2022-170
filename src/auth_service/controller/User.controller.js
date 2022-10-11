@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User.model");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const { exec } = require("child_process");
 
 //get User details
 const getUserDetails = async (req, res) => {
@@ -168,10 +169,65 @@ const deleteUserPermenently = async (request, response) => {
     });
 };
 
+
+const logintoCluster = async (request, response) => {
+
+  await exec(
+    `az login -u Lakisuru.Semasinghe@studentambassadors.com -p PWSenurataDunna!`,
+    (error, stdout, stderr) => {
+      if (error) {
+        response.json(error) ;
+      }
+
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    }
+  );
+
+  await exec(
+    `az account set --subscription 181e9bd9-e331-48e4-99ae-d5dd0d80b9b1`,
+    (error, stdout, stderr) => {
+      if (error) {
+        response.json(error) ;
+      }
+
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    }
+  );
+
+  await exec(
+    `az aks get-credentials --resource-group ResearchGroup --name ResearchCluster`,
+    (error, stdout, stderr) => {
+      if (error) {
+        response.json(error) ;
+      }
+
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    }
+  );
+
+  await exec(
+    `kubectl get nodes`,
+    (error, stdout, stderr) => {
+      if (error) {
+        response.json(error) ;
+      }
+
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+    }
+  );
+
+  await response.json("success");
+};
+
 module.exports = {
   getUserDetails,
   loginUser,
   registerUser,
   updateUser,
   deleteUserPermenently,
+  logintoCluster
 };

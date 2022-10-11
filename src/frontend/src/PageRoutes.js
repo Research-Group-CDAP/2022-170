@@ -9,6 +9,9 @@ import {
   Services,
   Experiments,
   Predictions,
+  UserInformation,
+  UserLogin,
+  Registration,
 } from "./pages";
 
 const PageRoutes = () => {
@@ -25,6 +28,9 @@ const PageRoutes = () => {
           <Route path="/dependency" element={<Dependency />} />
           <Route path="/experiments" element={<Experiments />} />
           <Route path="/predictions" element={<Predictions />} />
+          <Route path="/user" element={<UserInformation />} />
+          <Route path="/login" element={<UserLogin />} />
+          <Route path="/register" element={<Registration />} />
         </Routes>
       </BrowserRouter>
     </div>
