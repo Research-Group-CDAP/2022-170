@@ -14,6 +14,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Backdrop from "@material-ui/core/Backdrop";
 import { PodBackdrop, ServiceBackdrop } from "../../components";
+import { Icon } from "@iconify/react";
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -27,10 +28,10 @@ const useStyles = makeStyles((theme) => ({
     margin: "30px",
     padding: "5px",
     background: "#242424",
-    '&:hover': {
+    "&:hover": {
       background: "#787878",
-      cursor: 'default'
-    }
+      cursor: "default",
+    },
   },
   paper: {
     padding: "5px",
@@ -71,16 +72,20 @@ export default function Dependency() {
   }, [state.podDetailsByNamespace]);
 
   useEffect(() => {
+    const lineOptions = {
+      color: "#90EE90"
+    };
+
     state.dependencyDetailsByNamespace.forEach((dependencyList, index) => {
       new LeaderLine(
         document.getElementById(dependencyList.service),
-        LeaderLine.pointAnchor(document.getElementById(dependencyList.pod))
+        LeaderLine.pointAnchor(document.getElementById(dependencyList.pod)),
+        lineOptions
       );
       new LeaderLine(
         document.getElementById(dependencyList.pod),
-        LeaderLine.pointAnchor(
-          document.getElementById(dependencyList.node + "-" + index)
-        )
+        LeaderLine.pointAnchor(document.getElementById(dependencyList.node + "-" + index)),
+        lineOptions
       );
     });
   }, [dependencyDetailsByNamespaceArray]);
@@ -106,7 +111,7 @@ export default function Dependency() {
     });
     tempArray.length && setSelectPodDetails(tempArray[0]);
   };
-  
+
   return (
     <div className={classes.root}>
       <h3>Dependency Map</h3>
@@ -123,9 +128,9 @@ export default function Dependency() {
                       onClick={() => {
                         handleToggleSevice(dependencyList.service);
                       }}
-                    >
+                    > 
                       <Card className={classes.card}>
-                        <CardContent>{dependencyList.service}</CardContent>
+                        <CardContent><Icon icon="ic:baseline-developer-board" width={20} /> {dependencyList.service}</CardContent>
                       </Card>
                     </div>
                     <div
@@ -135,12 +140,12 @@ export default function Dependency() {
                       }}
                     >
                       <Card className={classes.card}>
-                        <CardContent>{dependencyList.pod} </CardContent>
+                        <CardContent><Icon icon="ic:baseline-shopping-basket" width={20} />  {dependencyList.pod} </CardContent>
                       </Card>
                     </div>
                     <div id={dependencyList.node + "-" + index}>
                       <Card className={classes.card}>
-                        <CardContent>{dependencyList.node}</CardContent>
+                        <CardContent><Icon icon="ic:baseline-call-to-action" width={20} />  {dependencyList.node}</CardContent>
                       </Card>
                     </div>
                   </Paper>
@@ -163,8 +168,6 @@ export default function Dependency() {
         ) : (
           ""
         )}
-
-
       </Backdrop>
     </div>
   );

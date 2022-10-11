@@ -79,7 +79,7 @@ const Overview = (props) => {
         matricsState.memoryData[matricsState.memoryData.length - 1].timeSeriesData;
         setMemoryUsage(tempMemoryDataObject);
     }
-  }, [matricsState.cpuData]);
+  }, [matricsState.memoryData]);
 
   useEffect(() => {
     let tempNetworkDataObject = [];
