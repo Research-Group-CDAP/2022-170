@@ -36,9 +36,11 @@ const useStyles = makeStyles((theme) => ({
   },
   labelGreen: {
     color: "#90EE90",
+    fontSize: "25px"
   },
   labelRed: {
     color: "#ed1515",
+    fontSize: "25px"
   },
 }));
 
@@ -56,9 +58,7 @@ const UserInformation = (props) => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("clusterConntected")) {
-      setClusterStatus(true);
-    }
+    setClusterStatus(localStorage.getItem("clusterConntected"));
   }, []);
 
   useEffect(() => {
@@ -74,6 +74,12 @@ const UserInformation = (props) => {
       clusterName: state.user?.clusterName,
     };
     dispatch(logintoCluster(data));
+    setClusterStatus(true);
+  };
+
+  const removeConnectWithCluster = () => {
+    localStorage.removeItem("clusterConntected");
+    setClusterStatus(false);
   };
 
   return (
@@ -83,7 +89,22 @@ const UserInformation = (props) => {
       <div className={classes.root}>
         <div>
           <Grid container spacing={3}>
-            <Grid item xs={12} container justifyContent="flex-end">
+            <Grid item xs={6} container justifyContent="flex-start">
+              {clusterStatus ? (
+                <p className={classes.labelGreen}>          <Icon
+                icon="pajamas:status-health"
+                width={20}
+                style={{ marginRight: 8 }}
+              />Cluster Connected</p>
+              ) : (
+                <p className={classes.labelRed}>          <Icon
+                icon="pajamas:status-health"
+                width={20}
+                style={{ marginRight: 8 }}
+              />Cluster Not Connected</p>
+              )}
+            </Grid>
+            <Grid item xs={6} container justifyContent="flex-end">
               <Icon
                 icon="akar-icons:edit"
                 width={35}
@@ -92,6 +113,7 @@ const UserInformation = (props) => {
                 }}
               />
             </Grid>
+
             <Grid item xs={6}>
               <Card className={classes.card}>
                 <CardContent>
@@ -162,23 +184,49 @@ const UserInformation = (props) => {
                   Connecting...
                 </Button>
               ) : clusterStatus ? (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.root}
-                  onClick={connectWithCluster}
-                >
-                  Connected
-                </Button>
+                <>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.root}
+                    disabled
+                  >
+                    Connect
+                  </Button>
+                  <br /> <br />
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    className={classes.root}
+                    onClick={() => {
+                      removeConnectWithCluster();
+                    }}
+                  >
+                    Remove Connection
+                  </Button>
+                </>
               ) : (
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  className={classes.root}
-                  onClick={connectWithCluster}
-                >
-                  Not Connected
-                </Button>
+                <>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.root}
+                    onClick={() => {
+                      connectWithCluster();
+                    }}
+                  >
+                    Connect
+                  </Button>
+                  <br /> <br />
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    className={classes.root}
+                    disabled
+                  >
+                    Remove Connection
+                  </Button>
+                </>
               )}
             </Grid>
           </Grid>
