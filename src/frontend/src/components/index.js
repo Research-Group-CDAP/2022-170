@@ -15,6 +15,7 @@ import UsageRanker from "./UsageRanker";
 import ServiceBackdrop from "./ServiceBackdrop";
 import PodBackdrop from "./podBackdrop";
 import PredictionLineChart from "./PredictionLineChart";
+import UserInformationUpdate from "./UserInformationUpdate";
 export {
   Cpu,
   Memory,
@@ -32,5 +33,6 @@ export {
   UsageRanker,
   ServiceBackdrop,
   PodBackdrop,
-  PredictionLineChart
+  PredictionLineChart,
+  UserInformationUpdate
 };

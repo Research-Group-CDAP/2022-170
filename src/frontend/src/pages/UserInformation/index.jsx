@@ -8,8 +8,15 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { logintoCluster } from "../../store/auth-store/authActions";
 import { useState, useEffect } from "react";
+import Backdrop from "@material-ui/core/Backdrop";
+import { UserInformationUpdate } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+    background: "black",
+  },
   rootPage: {
     padding: "2% 2%",
   },
@@ -42,6 +49,12 @@ const UserInformation = (props) => {
   const [clusterStatus, setClusterStatus] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState(false);
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     if (localStorage.getItem("clusterConntected")) {
       setClusterStatus(true);
@@ -70,6 +83,15 @@ const UserInformation = (props) => {
       <div className={classes.root}>
         <div>
           <Grid container spacing={3}>
+            <Grid item xs={12} container justifyContent="flex-end">
+              <Icon
+                icon="akar-icons:edit"
+                width={35}
+                onClick={() => {
+                  setOpen(!open);
+                }}
+              />
+            </Grid>
             <Grid item xs={6}>
               <Card className={classes.card}>
                 <CardContent>
@@ -136,10 +158,7 @@ const UserInformation = (props) => {
             </Grid>
             <Grid item xs={12}>
               {loadingStatus ? (
-                <Button
-                  variant="contained"
-                  className={classes.root}
-                >
+                <Button variant="contained" className={classes.root}>
                   Connecting...
                 </Button>
               ) : clusterStatus ? (
@@ -163,6 +182,18 @@ const UserInformation = (props) => {
               )}
             </Grid>
           </Grid>
+          <Backdrop className={classes.backdrop} open={open}>
+            <Grid container spacing={1}>
+              <Grid item xs={12} container justifyContent="center">
+                <Button onClick={handleClose} variant="contained" color="primary">Close</Button>
+              </Grid>
+              {state.user && (
+                <Grid item xs={12} container justifyContent="center">
+                  <UserInformationUpdate user={state.user} />
+                </Grid>
+              )}
+            </Grid>
+          </Backdrop>
         </div>
       </div>
     </div>
