@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PodCard from "./PodCard";
 import { fetch_All_Pods_By_Namespace } from "../../store/kube-store/kubeActions";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 const useStyles = makeStyles({
   root: {
@@ -28,13 +29,18 @@ const Experiments = () => {
   return (
     <div className={classes.root}>
       <h3>Experiments</h3>
-      <Grid container spacing={2}>
-        {podList.map((pod) => (
-          <Grid item lg={4}>
-            <PodCard pod={pod} />
-          </Grid>
-        ))}
-      </Grid>
+      <br />
+      {podList.length ? (
+        <Grid container spacing={2}>
+          {podList.map((pod) => (
+            <Grid item lg={4}>
+              <PodCard pod={pod} />
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <LinearProgress />
+      )}
     </div>
   );
 };

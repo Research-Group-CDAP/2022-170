@@ -120,7 +120,7 @@ const Predictions = (props) => {
         <Grid container spacing={3}>
           <Grid item xs={5}>
             <div>
-              <h5>Pod Name </h5>
+              <h6>Pod Name </h6>
               <FormControl variant="filled" className={classes.formControl}>
                 <Select
                   native
@@ -141,7 +141,7 @@ const Predictions = (props) => {
           </Grid>
           <Grid item xs={5}>
             <div>
-              <h5>Type </h5>
+              <h6>Type </h6>
               <FormControl variant="filled" className={classes.formControl}>
                 <Select
                   native
