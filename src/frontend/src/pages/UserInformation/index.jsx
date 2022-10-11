@@ -5,6 +5,9 @@ import CardContent from "@material-ui/core/CardContent";
 import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import { logintoCluster } from "../../store/auth-store/authActions";
+import { useState, useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   rootPage: {
@@ -34,7 +37,31 @@ const useStyles = makeStyles((theme) => ({
 
 const UserInformation = (props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const state = useSelector((state) => state.authReducer);
+  const [clusterStatus, setClusterStatus] = useState(false);
+  const [loadingStatus, setLoadingStatus] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("clusterConntected")) {
+      setClusterStatus(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("clusterConntected", true);
+    setLoadingStatus(false);
+  }, [state.clusterConnected]);
+
+  const connectWithCluster = () => {
+    setLoadingStatus(true);
+    const data = {
+      azureSubscriptionId: state.user?.azureSubscriptionId,
+      resourceGroup: state.user?.resourceGroup,
+      clusterName: state.user?.clusterName,
+    };
+    dispatch(logintoCluster(data));
+  };
 
   return (
     <div className={classes.rootPage}>
@@ -77,15 +104,6 @@ const UserInformation = (props) => {
                   <p>{state.user?.azureUserName}</p>
                 </CardContent>
               </Card>
-              <Card className={classes.card}>
-                <CardContent>
-                  <p>
-                    <Icon icon="ic:baseline-password" width={20} />{" "}
-                    azurePassword
-                  </p>
-                  <p>{state.user?.azurePassword}</p>
-                </CardContent>
-              </Card>
             </Grid>
             <Grid item xs={6}>
               <Card className={classes.card}>
@@ -115,6 +133,34 @@ const UserInformation = (props) => {
                   <p>{state.user?.azureSubscriptionId}</p>
                 </CardContent>
               </Card>
+            </Grid>
+            <Grid item xs={12}>
+              {loadingStatus ? (
+                <Button
+                  variant="contained"
+                  className={classes.root}
+                >
+                  Connecting...
+                </Button>
+              ) : clusterStatus ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.root}
+                  onClick={connectWithCluster}
+                >
+                  Connected
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  className={classes.root}
+                  onClick={connectWithCluster}
+                >
+                  Not Connected
+                </Button>
+              )}
             </Grid>
           </Grid>
         </div>

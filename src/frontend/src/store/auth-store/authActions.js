@@ -28,3 +28,10 @@ export const getUserDetails = () => {
     payload: AuthApi.getUserDetails(),
   };
 };
+
+export const logintoCluster = (clusterData) => {
+  return {
+    type: ActionTypes.LOGIN_CLUSTER,
+    payload: AuthApi.logintoCluster(clusterData),
+  };
+};

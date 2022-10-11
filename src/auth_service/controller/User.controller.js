@@ -175,7 +175,7 @@ const logintoCluster = async (request, response) => {
     `az account set --subscription ${request.body.azureSubscriptionId}`,
     (error, stdout, stderr) => {
       if (error) {
-        response.json(error) ;
+        response.json({connected:false}) ;
       }else{
         console.log(`stdout: ${stdout}`);
         console.log(`stderr: ${stderr}`);
@@ -183,7 +183,7 @@ const logintoCluster = async (request, response) => {
           `az aks get-credentials --resource-group ${request.body.resourceGroup} --name ${request.body.clusterName}`,
           (error, stdout, stderr) => {
             if (error) {
-              response.json(error) ;
+              response.json({connected:false}) ;
             }else{
               console.log(`stdout: ${stdout}`);
               console.log(`stderr: ${stderr}`);
@@ -191,7 +191,7 @@ const logintoCluster = async (request, response) => {
                 `pm2 restart kube-server`,
                 (error, stdout, stderr) => {
                   if (error) {
-                    console.log(error) ;
+                    response.json({connected:false}) ;
                   }else{
                     console.log(`stdout: ${stdout}`);
                     console.log(`stderr: ${stderr}`);
@@ -199,11 +199,11 @@ const logintoCluster = async (request, response) => {
                       `pm2 restart matrics-server`,
                       (error, stdout, stderr) => {
                         if (error) {
-                          console.log(error) ;
+                          response.json({connected:false}) ;
                         }else{
                           console.log(`stdout: ${stdout}`);
                           console.log(`stderr: ${stderr}`);
-                          response.json("Connected") ;
+                          response.json({connected:true}) ;
                         }
                       }
                     );

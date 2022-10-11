@@ -3,9 +3,9 @@ import ActionTypes from "./authTypes";
 const initialState = {
   user: null,
   login: false,
+  clusterConnected: false,
   loading: false,
   error: null,
-  clusterConnected: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -16,7 +16,9 @@ const authReducer = (state = initialState, action) => {
       return { ...state, loading: true };
     case `${ActionTypes.GET_USER_DETAILS}_PENDING`:
       return { ...state, loading: true };
-
+    case `${ActionTypes.LOGIN_CLUSTER}_PENDING`:
+      return { ...state, loading: true };
+  
     case `${ActionTypes.LOGIN_USER}_FULFILLED`:
       let user = action.payload.data;
       return { ...state, loading: false, login: true, user };
@@ -26,10 +28,14 @@ const authReducer = (state = initialState, action) => {
     case `${ActionTypes.GET_USER_DETAILS}_FULFILLED`:
       let userData = action.payload.data;
       return { ...state, loading: false, login: true, user: userData };
+    case `${ActionTypes.LOGIN_CLUSTER}_FULFILLED`:
+      let clusterConnected = action.payload.connected;
+      return { ...state, loading: false, login: true, clusterConnected };
 
     case `${ActionTypes.LOGIN_USER}_REJECTED`:
     case `${ActionTypes.REGISTER_USER}_REJECTED`:
     case `${ActionTypes.GET_USER_DETAILS}_REJECTED`:
+    case `${ActionTypes.LOGIN_CLUSTER}_REJECTED`:
       return {
         ...state,
         loading: false,

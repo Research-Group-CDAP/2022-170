@@ -9,7 +9,7 @@ npm install pm2@latest -g
 
 To Run 
 pm2 start index.js --name kube-server
-pm2 start index.js --name matrics-server
+pm2 start server.js --name matrics-server
 
 To Stop
 pm2 stop kube-server
