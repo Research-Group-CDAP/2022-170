@@ -49,13 +49,20 @@ const ContainerInfoDrawer = (props) => {
       </Typography>
       <Typography variant="body2" component="div" style={{ marginBottom: 5 }}>
         Service Created At:{" "}
-        <strong>{moment(service.created_at).format("YYYY-MM-DD hh:mm:ss")}</strong>
+        <strong>
+          {moment(service.created_at).format("YYYY-MM-DD hh:mm:ss")}
+        </strong>
       </Typography>
       <Typography variant="body2" component="div" style={{ marginBottom: 5 }}>
         Service Last Updated:{" "}
-        <strong>{moment(service.updated_at).format("YYYY-MM-DD hh:mm:ss")}</strong>
+        <strong>
+          {moment(service.updated_at).format("YYYY-MM-DD hh:mm:ss")}
+        </strong>
       </Typography>
-      <Typography varient="h2" style={{ fontWeight: "bold", marginBottom: 10, marginTop: 10 }}>
+      <Typography
+        varient="h2"
+        style={{ fontWeight: "bold", marginBottom: 10, marginTop: 10 }}
+      >
         Codebase Information
       </Typography>
       <Typography variant="body2" component="div" style={{ marginBottom: 5 }}>

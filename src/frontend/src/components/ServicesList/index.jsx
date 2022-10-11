@@ -14,16 +14,17 @@ import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import { Icon } from "@iconify/react";
+import moment from "moment";
 
 const useRowStyles = makeStyles({
   root: {
     "& > *": {
       borderBottom: "unset",
     },
-    '&:hover': {
+    "&:hover": {
       background: "#787878",
-      cursor: 'default'
-    }
+      cursor: "default",
+    },
   },
   labelGreen: {
     color: "#90EE90",
@@ -31,9 +32,9 @@ const useRowStyles = makeStyles({
   labelRed: {
     color: "#ed1515",
   },
-  expandRow:{
-    background:"#343434"
-  }
+  expandRow: {
+    background: "#343434",
+  },
 });
 
 function createData(
@@ -104,21 +105,62 @@ function Row(props) {
             <Box margin={2}>
               <Grid container spacing={3}>
                 <Grid item xs={6}>
-                  <p><Icon icon="carbon:cloud-service-management" width={20} /> name : {row.name}</p>
-                  <p><Icon icon="ic:baseline-drive-file-rename-outline" width={20} /> namespace : {row.namespace}</p>
-                  <p><Icon icon="bx:time-five" width={20} /> startTime : {row.startTime}</p>
-                  <p><Icon icon="heroicons-solid:status-online" width={20} /> status : {row.status}</p>
-                  <p><Icon icon="akar-icons:laptop-device" width={20} /> cpu : {row.cpu}</p>
-                  <p><Icon icon="ic:baseline-memory" width={20} /> memory : {row.memory}</p>
-                  <p><Icon icon="fa6-solid:circle-nodes" width={20} /> node : {row.node}</p>
+                  <p>
+                    <Icon icon="carbon:cloud-service-management" width={20} />{" "}
+                    name : {row.name}
+                  </p>
+                  <p>
+                    <Icon
+                      icon="ic:baseline-drive-file-rename-outline"
+                      width={20}
+                    />{" "}
+                    namespace : {row.namespace}
+                  </p>
+                  <p>
+                    <Icon icon="bx:time-five" width={20} /> startTime :{" "}
+                    {moment(row.startTime).format("YYYY/MM/DD hh:mm")}
+                  </p>
+                  <p>
+                    <Icon icon="heroicons-solid:status-online" width={20} />{" "}
+                    status : {row.status}
+                  </p>
+                  <p>
+                    <Icon icon="akar-icons:laptop-device" width={20} /> cpu :{" "}
+                    {row.cpu}
+                  </p>
+                  <p>
+                    <Icon icon="ic:baseline-memory" width={20} /> memory :{" "}
+                    {row.memory}
+                  </p>
+                  <p>
+                    <Icon icon="fa6-solid:circle-nodes" width={20} /> node :{" "}
+                    {row.node}
+                  </p>
                 </Grid>
                 <Grid item xs={6}>
-                  <p><Icon icon="eos-icons:api-outlined" width={20} /> apiVersion : {row.apiVersion}</p>
-                  <p><Icon icon="charm:key" width={20} /> uid : {row.uid}</p>
-                  <p><Icon icon="mingcute:version-fill" width={20} /> resourceVersion : {row.resourceVersion}</p>
-                  <p><Icon icon="carbon:policy" width={20} /> dnsPolicy : {row.dnsPolicy}</p>
-                  <p><Icon icon="fa-brands:slack-hash" width={20} /> podHash : {row.podHash}</p>
-                  <p><Icon icon="icon-park-twotone:setting-web" width={20} /> kind :{row.kind}</p>
+                  <p>
+                    <Icon icon="eos-icons:api-outlined" width={20} /> apiVersion
+                    : {row.apiVersion}
+                  </p>
+                  <p>
+                    <Icon icon="charm:key" width={20} /> uid : {row.uid}
+                  </p>
+                  <p>
+                    <Icon icon="mingcute:version-fill" width={20} />{" "}
+                    resourceVersion : {row.resourceVersion}
+                  </p>
+                  <p>
+                    <Icon icon="carbon:policy" width={20} /> dnsPolicy :{" "}
+                    {row.dnsPolicy}
+                  </p>
+                  <p>
+                    <Icon icon="fa-brands:slack-hash" width={20} /> podHash :{" "}
+                    {row.podHash}
+                  </p>
+                  <p>
+                    <Icon icon="icon-park-twotone:setting-web" width={20} />{" "}
+                    kind :{row.kind}
+                  </p>
                 </Grid>
               </Grid>
             </Box>
@@ -155,9 +197,9 @@ export default function CollapsibleTable(props) {
           <TableRow>
             <TableCell />
             <TableCell>Name</TableCell>
-            <TableCell align="right">Namespace</TableCell>
-            <TableCell align="right">Started</TableCell>
-            <TableCell align="right">status</TableCell>
+            <TableCell>Namespace</TableCell>
+            <TableCell>Started</TableCell>
+            <TableCell>status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

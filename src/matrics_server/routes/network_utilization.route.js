@@ -4,7 +4,7 @@ const router = express.Router();
 const {
   fetch_All_Network_Utilization,
   fetch_All_Network_Utilization_By_Pod,
-  exportToCSV
+  exportToCSV,
 } = require("../controllers/network_utilization.controller");
 
 router.get(
@@ -15,9 +15,6 @@ router.get(
   "/fetch/fetch_All_Network_Utilization_By_Pod/:podName",
   fetch_All_Network_Utilization_By_Pod
 );
-router.get(
-  "/export/All_Network_Usage_By_Pod/:podName",
-  exportToCSV
-);
+router.get("/export/All_Network_Usage_By_Pod/:podName", exportToCSV);
 
 module.exports = router;

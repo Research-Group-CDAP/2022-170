@@ -15,9 +15,8 @@ const Services = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.kubeReducer);
-  const [servicesDetailsByNamespaceArray, setServicesDetailsByNamespaceArray] = useState(
-    []
-  );
+  const [servicesDetailsByNamespaceArray, setServicesDetailsByNamespaceArray] =
+    useState([]);
 
   useEffect(() => {
     dispatch(fetch_All_Services_By_Namespace("default"));
@@ -32,7 +31,7 @@ const Services = (props) => {
       <h3>Services</h3>
       <div>
         {servicesDetailsByNamespaceArray.length ? (
-          <ServicesList serviceList={servicesDetailsByNamespaceArray}/>
+          <ServicesList serviceList={servicesDetailsByNamespaceArray} />
         ) : (
           <LinearProgress />
         )}

@@ -69,7 +69,7 @@ const PredictionLineChart = (props) => {
 
     setLabelData(tempLabelData);
     setDatasetData(tempDatasetData);
-  },[props.predictTimeSeriesData]);
+  }, [props.predictTimeSeriesData]);
 
   const labels = labelData;
 
@@ -82,7 +82,7 @@ const PredictionLineChart = (props) => {
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
         textColor: "#ffffff",
-      }
+      },
     ],
   };
   return <Line options={options} data={data} />;

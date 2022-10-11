@@ -52,7 +52,7 @@ const fetch_Cpu_Usage = async () => {
         tempTimestamp = element.value[0];
         tempTimeSeriesData.timestamp = element.value[0];
         tempTimeSeriesData.value = element.value[1];
-        
+
         await metricArray.push(tempTimeSeriesData);
         tempTimeSeriesData.value = element.value[1];
         await metricPredArray.push(tempTimeSeriesData);

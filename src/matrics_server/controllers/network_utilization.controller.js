@@ -96,7 +96,7 @@ const fetch_All_Network_Utilization_By_Pod = async (request, response) => {
     });
 };
 
-const exportToCSV= async (request, response) => {
+const exportToCSV = async (request, response) => {
   let timeSeriesDataArray = [];
   Network_Utilization_Model.find()
     .then(async (res) => {
@@ -110,7 +110,7 @@ const exportToCSV= async (request, response) => {
 
         let podDetails = matricData.timeSeriesData.filter(function (pod) {
           let myTextArray = pod.podName.split("-");
-          let tempPodName = myTextArray[0]+"-"+myTextArray[1];
+          let tempPodName = myTextArray[0] + "-" + myTextArray[1];
           return request.params.podName.includes(tempPodName);
         });
 
@@ -126,30 +126,29 @@ const exportToCSV= async (request, response) => {
         var file_name = request.params.podName;
         var file_content = csv;
         file_content = file_content.replace(/\n/g, "\r\n");
-        console.log("pathname",__dirname);
-        var savePath = __dirname + '/../../optimize_server/app/util/datasets/NETWORK/';
+        console.log("pathname", __dirname);
+        var savePath =
+          __dirname + "/../../optimize_server/app/util/datasets/NETWORK/";
         var stream = fs.createWriteStream(savePath + file_name + ".csv");
         stream.once("open", function () {
           stream.write(file_content);
           stream.end();
         });
       };
-      await converter.json2csv(
-        timeSeriesDataArray,
-        json2csvCallback
-      );
+      await converter.json2csv(timeSeriesDataArray, json2csvCallback);
 
       await console.log("CSV Generateed");
       await console.log(timeSeriesDataArray);
       await axios
         .get(
-        'http://127.0.0.1:8000/model-prdiction-network/make-prediction_singlepod?pod_name=' + request.params.podName
+          "http://127.0.0.1:8000/model-prdiction-network/make-prediction_singlepod?pod_name=" +
+            request.params.podName
         )
         .then(async (res) => {
           let tempArray = [];
-          await res.data.res.forEach((singleValue)=>{
-            tempArray.push(singleValue[0])
-          })
+          await res.data.res.forEach((singleValue) => {
+            tempArray.push(singleValue[0]);
+          });
           await response.json(tempArray);
         })
         .catch((error) => {
@@ -165,5 +164,5 @@ module.exports = {
   fetch_Network_Utilization,
   fetch_All_Network_Utilization,
   fetch_All_Network_Utilization_By_Pod,
-  exportToCSV
+  exportToCSV,
 };

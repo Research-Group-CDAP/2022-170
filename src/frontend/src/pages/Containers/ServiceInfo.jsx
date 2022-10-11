@@ -25,7 +25,14 @@ import moment from "moment";
 import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export const options = {
   maxBarThickness: 40,
@@ -69,7 +76,8 @@ const ServiceInfo = (props) => {
       </Typography>
       <Divider />
       <Typography variant="subtitle1">
-        Container Name: {props.service.serviceName ? props.service.serviceName : ""}
+        Container Name:{" "}
+        {props.service.serviceName ? props.service.serviceName : ""}
       </Typography>
 
       {props.service.status ? (
@@ -78,7 +86,8 @@ const ServiceInfo = (props) => {
           <span
             style={{
               color:
-                props.service.status === "Building" || props.service.status === "Waiting"
+                props.service.status === "Building" ||
+                props.service.status === "Waiting"
                   ? "#ffa000"
                   : props.service.status === "In-Progress"
                   ? "#29b6f6"
@@ -113,14 +122,27 @@ const ServiceInfo = (props) => {
       </Typography>
       <Typography variant="subtitle1">
         Created At:{" "}
-        {props.service.createdAt ? <>{moment(props.service.createdAt).format("llll")}</> : ""}
+        {props.service.createdAt ? (
+          <>{moment(props.service.createdAt).format("llll")}</>
+        ) : (
+          ""
+        )}
       </Typography>
       <Typography variant="subtitle1">
         Updated At:{" "}
-        {props.service.updatedAt ? <>{moment(props.service.updatedAt).format("llll")}</> : ""}
+        {props.service.updatedAt ? (
+          <>{moment(props.service.updatedAt).format("llll")}</>
+        ) : (
+          ""
+        )}
       </Typography>
       <Typography variant="subtitle1">
-        Description: {props.service.moreInformation ? <>{props.service.moreInformation}</> : ""}
+        Description:{" "}
+        {props.service.moreInformation ? (
+          <>{props.service.moreInformation}</>
+        ) : (
+          ""
+        )}
       </Typography>
       <Divider style={{ marginBottom: 10 }} />
       {props.service.releases &&
@@ -134,7 +156,9 @@ const ServiceInfo = (props) => {
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Icon icon="octicon:container-24" width={23} />
-              <Typography style={{ marginLeft: 5 }}>{props.service.serviceName}</Typography>
+              <Typography style={{ marginLeft: 5 }}>
+                {props.service.serviceName}
+              </Typography>
               <Chip
                 size="small"
                 variant="outlined"
@@ -152,12 +176,15 @@ const ServiceInfo = (props) => {
                   moment(release.releaseDateTime).format("LT")
                 }
               />
-              {props.service.latestTag === release.version && <RocketLaunchIcon color="success" />}
+              {props.service.latestTag === release.version && (
+                <RocketLaunchIcon color="success" />
+              )}
             </AccordionSummary>
             <AccordionDetails>
               <div style={{ width: "100%" }}>
                 <Typography variant="subtitle2">
-                  Build Start Time: {moment(release.buildStartTime).format("LTS")}
+                  Build Start Time:{" "}
+                  {moment(release.buildStartTime).format("LTS")}
                 </Typography>
                 <Typography variant="subtitle2">
                   Build End Time: {moment(release.buildEndTime).format("LTS")}
@@ -176,7 +203,10 @@ const ServiceInfo = (props) => {
                       {
                         label: "Push Time (milli seconds)",
                         data: [
-                          moment(release.pushEndTime).diff(release.pushStartTime, "milliseconds"),
+                          moment(release.pushEndTime).diff(
+                            release.pushStartTime,
+                            "milliseconds"
+                          ),
                         ],
                         borderColor: "rgb(255, 99, 132)",
                         backgroundColor: "rgba(255, 99, 132, 0.5)",
@@ -184,7 +214,10 @@ const ServiceInfo = (props) => {
                       {
                         label: "Build Time (seconds)",
                         data: [
-                          moment(release.buildEndTime).diff(release.buildStartTime, "seconds"),
+                          moment(release.buildEndTime).diff(
+                            release.buildStartTime,
+                            "seconds"
+                          ),
                         ],
                         borderColor: "rgb(53, 162, 235)",
                         backgroundColor: "rgba(53, 162, 235, 0.5)",
@@ -192,7 +225,13 @@ const ServiceInfo = (props) => {
                     ],
                   }}
                 />
-                <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "flex-end",
+                  }}
+                >
                   <Button
                     autoFocus
                     // onClick={props.handleClose}
