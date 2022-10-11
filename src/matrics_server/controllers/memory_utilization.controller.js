@@ -109,7 +109,9 @@ const exportToCSV= async (request, response) => {
         podData.timestamp = matricData.timestamp;
 
         let podDetails = matricData.timeSeriesData.filter(function (pod) {
-          return pod.podName == request.params.podName;
+          let myTextArray = pod.podName.split("-");
+          let tempPodName = myTextArray[0]+"-"+myTextArray[1];
+          return request.params.podName.includes(tempPodName);
         });
 
         podDetails.forEach((pod) => {
