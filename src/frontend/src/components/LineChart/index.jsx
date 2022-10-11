@@ -110,8 +110,7 @@ const LineChart = (props) => {
       <Line options={options} data={data} /> <br />{" "}
       {!predictDatasetData.length && (
         <div>
-           Analyzing On Progress{" "}
-          <LinearProgress />
+          Analyzing On Progress <LinearProgress />
         </div>
       )}{" "}
     </div>

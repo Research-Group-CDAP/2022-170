@@ -6,7 +6,6 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import MuiAlert from "@material-ui/lab/Alert";
 import Grid from "@material-ui/core/Grid";
-import LoginImage from "../../assetes/images/login.png"
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -22,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
   TextField: {
     width: "100%",
   },
-  title:{
+  title: {
     fontSize: "120px",
-    textAlign:"center"
-  }
+    textAlign: "center",
+  },
 }));
 
 const UserLogin = (props) => {
@@ -57,7 +56,7 @@ const UserLogin = (props) => {
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-        <p className={classes.title}>KubeMate</p>
+          <p className={classes.title}>KubeMate</p>
         </Grid>
         <Grid item xs={12}>
           <div>

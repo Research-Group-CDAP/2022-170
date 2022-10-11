@@ -40,16 +40,13 @@ export default function OverviewTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  function createData(name,status) {
-    return { name,status };
+  function createData(name, status) {
+    return { name, status };
   }
 
   let rows = props.dataList
     .map((service) => {
-      return createData(
-        service.name,
-        service.status
-      );
+      return createData(service.name, service.status);
     })
     .sort((a, b) => (a.name < b.name ? -1 : 1));
 

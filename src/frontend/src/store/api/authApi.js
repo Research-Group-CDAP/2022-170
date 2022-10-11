@@ -31,7 +31,11 @@ class AuthAPI {
   }
 
   static logintoCluster(clusterData) {
-    return axios.post(`${BASE_URL}/user/logintoCluster`, clusterData, requestConfigJson);
+    return axios.post(
+      `${BASE_URL}/user/logintoCluster`,
+      clusterData,
+      requestConfigJson
+    );
   }
 }
 

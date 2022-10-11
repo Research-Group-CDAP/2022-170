@@ -81,7 +81,7 @@ export default function UsageRanker(props) {
           <Stepper activeStep={activeStep} orientation="vertical">
             {steps.map(
               (pod, index) =>
-              podDetailsByNamespaceArray.includes(pod.podName) && (
+                podDetailsByNamespaceArray.includes(pod.podName) && (
                   <Step key={index}>
                     <StepLabel>{pod.podName}</StepLabel>
                     <StepContent>

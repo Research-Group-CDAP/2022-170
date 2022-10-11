@@ -7,7 +7,7 @@ import { Divider } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     background: "#424242",
-    padding: "3%"
+    padding: "3%",
   },
 }));
 
@@ -16,7 +16,7 @@ export default function PodBackdrop(props) {
   return (
     <div className={classes.root}>
       <h4>Pod Information</h4>
-      <br/>
+      <br />
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <p>
@@ -50,15 +50,16 @@ export default function PodBackdrop(props) {
         </Grid>
         <Grid item xs={6}>
           <p>
-            <Icon icon="ic:baseline-local-police" width={20} /> imagePullPolicy :{" "}
-            {props.data.imagePullPolicy}
+            <Icon icon="ic:baseline-local-police" width={20} /> imagePullPolicy
+            : {props.data.imagePullPolicy}
           </p>
           <p>
-            <Icon icon="ic:baseline-refresh" width={20} /> restartPolicy : {props.data.restartPolicy}
+            <Icon icon="ic:baseline-refresh" width={20} /> restartPolicy :{" "}
+            {props.data.restartPolicy}
           </p>
           <p>
-            <Icon icon="ic:baseline-format-list-numbered" width={20} /> restartCount :{" "}
-            {props.data.restartCount}
+            <Icon icon="ic:baseline-format-list-numbered" width={20} />{" "}
+            restartCount : {props.data.restartCount}
           </p>
           <p>
             <Icon icon="ic:baseline-broken-image" width={20} /> containerImage :{" "}

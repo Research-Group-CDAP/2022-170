@@ -44,8 +44,11 @@ const PodsList = (props) => {
     right: false,
   });
 
-  const toggleDrawer = (anchor, open, podName,singlePod) => (event) => {
-    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
+  const toggleDrawer = (anchor, open, podName, singlePod) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
     setPodName(podName);
@@ -63,7 +66,7 @@ const PodsList = (props) => {
       onClick={toggleDrawer(anchor, true)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <SlideDrawer podName={podName} podDetails={podDetails}/>
+      <SlideDrawer podName={podName} podDetails={podDetails} />
     </div>
   );
 
@@ -79,7 +82,10 @@ const PodsList = (props) => {
                 onClick={toggleDrawer("right", true, singlePod.name, singlePod)}
               >
                 <ListItemIcon className={classes.ListItemIcon}>
-                  <Icon icon="vscode-icons:file-type-bitbucketpipeline" width={25} />
+                  <Icon
+                    icon="vscode-icons:file-type-bitbucketpipeline"
+                    width={25}
+                  />
                 </ListItemIcon>
                 <ListItemText primary={singlePod.name} />
               </ListItem>
@@ -87,7 +93,11 @@ const PodsList = (props) => {
           })}
         </List>
         <Divider />
-        <Drawer anchor={"right"} open={state["right"]} onClose={toggleDrawer("right", false)}>
+        <Drawer
+          anchor={"right"}
+          open={state["right"]}
+          onClose={toggleDrawer("right", false)}
+        >
           {list("right")}
         </Drawer>
       </React.Fragment>

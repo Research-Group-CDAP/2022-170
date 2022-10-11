@@ -1,8 +1,9 @@
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import React from "react";
-import pods from "../../data/Pods.json";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PodCard from "./PodCard";
+import { fetch_All_Pods_By_Namespace } from "../../store/kube-store/kubeActions";
 
 const useStyles = makeStyles({
   root: {
@@ -12,13 +13,25 @@ const useStyles = makeStyles({
 
 const Experiments = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.kubeReducer);
+  const [podList, setPodList] = useState([]);
+
+  useEffect(() => {
+    dispatch(fetch_All_Pods_By_Namespace("default"));
+  }, [dispatch]);
+
+  useEffect(() => {
+    setPodList(state.podDetailsByNamespace);
+  }, [state.podDetailsByNamespace]);
+
   return (
     <div className={classes.root}>
       <h3>Experiments</h3>
       <Grid container spacing={2}>
-        {pods.data.map((pod) => (
+        {podList.map((pod) => (
           <Grid item lg={4}>
-            <PodCard />
+            <PodCard pod={pod} />
           </Grid>
         ))}
       </Grid>

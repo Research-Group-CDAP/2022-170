@@ -46,7 +46,10 @@ const ContainerList = (props) => {
   });
 
   const toggleDrawer = (anchor, open, container) => (event) => {
-    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
     setContainer(container);
@@ -90,7 +93,11 @@ const ContainerList = (props) => {
             })}
         </List>
         <Divider />
-        <Drawer anchor={"right"} open={state["right"]} onClose={toggleDrawer("right", false)}>
+        <Drawer
+          anchor={"right"}
+          open={state["right"]}
+          onClose={toggleDrawer("right", false)}
+        >
           {list("right")}
         </Drawer>
       </React.Fragment>

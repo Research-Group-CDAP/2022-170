@@ -53,9 +53,9 @@ export default function PermanentDrawerLeft() {
   }, []);
 
   useEffect(() => {
-    if(state.user){
+    if (state.user) {
       setLoginStatus(true);
-    }else{
+    } else {
       setLoginStatus(false);
     }
   }, [state.user]);
@@ -88,10 +88,7 @@ export default function PermanentDrawerLeft() {
               <a style={{ textDecoration: "none" }} href="/login">
                 <ListItem className={classes.Link} button key={"Login"}>
                   <ListItemIcon className={classes.ListItemIcon}>
-                    <Icon
-                      icon="ic:baseline-login"
-                      width={25}
-                    />
+                    <Icon icon="ic:baseline-login" width={25} />
                   </ListItemIcon>
                   <ListItemText primary={"Login"} />
                 </ListItem>
@@ -99,10 +96,7 @@ export default function PermanentDrawerLeft() {
               <a style={{ textDecoration: "none" }} href="/register">
                 <ListItem className={classes.Link} button key={"Register"}>
                   <ListItemIcon className={classes.ListItemIcon}>
-                    <Icon
-                      icon="ic:baseline-app-registration"
-                      width={25}
-                    />
+                    <Icon icon="ic:baseline-app-registration" width={25} />
                   </ListItemIcon>
                   <ListItemText primary={"Register"} />
                 </ListItem>
@@ -117,10 +111,7 @@ export default function PermanentDrawerLeft() {
                   key={"User Information"}
                 >
                   <ListItemIcon className={classes.ListItemIcon}>
-                    <Icon
-                      icon="vscode-icons:file-type-jenkins"
-                      width={25}
-                    />
+                    <Icon icon="vscode-icons:file-type-jenkins" width={25} />
                   </ListItemIcon>
                   <ListItemText primary={"User Information"} />
                 </ListItem>

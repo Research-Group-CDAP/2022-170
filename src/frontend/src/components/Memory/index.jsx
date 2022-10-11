@@ -26,7 +26,7 @@ const Memory = (props) => {
 
   useEffect(() => {
     dispatch(fetch_All_Memory_Utilization_By_Pod(props.podName));
-    if(!predictedMemoryValues.length){
+    if (!predictedMemoryValues.length) {
       dispatch(fetch_Predicted_Memory_Utilization_By_Pod(props.podName));
     }
   }, [props.podName, dispatch]);

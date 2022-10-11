@@ -54,7 +54,10 @@ const ListService = () => {
   }, [fastProviderReducer.services]);
 
   const toggleDrawer = (anchor, open, service) => (event) => {
-    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
     setService(service);
@@ -90,12 +93,17 @@ const ListService = () => {
                   <Icon icon="logos:docker-icon" width={35} />
                 </ListItemIcon>
                 <ListItemText
-                  primary={<strong style={{ color: "#b3e5fc" }}>{service.serviceName}</strong>}
+                  primary={
+                    <strong style={{ color: "#b3e5fc" }}>
+                      {service.serviceName}
+                    </strong>
+                  }
                   secondary={
                     <span
                       style={{
                         color:
-                          service.status === "Building" || service.status === "Waiting"
+                          service.status === "Building" ||
+                          service.status === "Waiting"
                             ? "#ffa000"
                             : service.status === "In-Progress"
                             ? "#29b6f6"
@@ -124,7 +132,11 @@ const ListService = () => {
                       </strong>
                     </span>
                   }
-                  secondary={<span>Created: {moment(service.createdAt).format("llll")}</span>}
+                  secondary={
+                    <span>
+                      Created: {moment(service.createdAt).format("llll")}
+                    </span>
+                  }
                 />
                 <ListItemText
                   primary={
