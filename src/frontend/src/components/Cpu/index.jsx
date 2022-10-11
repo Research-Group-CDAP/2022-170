@@ -26,7 +26,7 @@ const Cpu = (props) => {
 
   useEffect(() => {
     dispatch(fetch_All_Cpu_Usage_By_Pod(props.podName));
-    if(!predictedCpuValues.length){
+    if (!predictedCpuValues.length) {
       dispatch(fetch_Predicted_Cpu_Usage_By_Pod(props.podName));
     }
   }, [props.podName, dispatch]);
@@ -46,7 +46,12 @@ const Cpu = (props) => {
       <div className={classes.root}>
         {cpuTimeSeriesData.length ? (
           <>
-            <LineChart title={"CPU Usage"} titlePredicted={"Predicted CPU Usage"} timeSeriesData={cpuTimeSeriesData} predictedValues={predictedCpuValues}/>
+            <LineChart
+              title={"CPU Usage"}
+              titlePredicted={"Predicted CPU Usage"}
+              timeSeriesData={cpuTimeSeriesData}
+              predictedValues={predictedCpuValues}
+            />
             <div className="mt-5">
               <TimeSeriesDataTable timeSeriesData={cpuTimeSeriesData} />
             </div>

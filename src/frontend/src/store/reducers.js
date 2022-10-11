@@ -11,7 +11,7 @@ const reducers = combineReducers({
   kubeReducer,
   optimizeReducer,
   predictionReducer,
-  authReducer
+  authReducer,
 });
 
 export default reducers;

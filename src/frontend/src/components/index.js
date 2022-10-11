@@ -5,8 +5,8 @@ import PodsList from "./PodsList";
 import LineChart from "./LineChart";
 import SlideDrawer from "./SlideDrawer";
 import TimeSeriesDataTable from "./TimeSeriesDataTable";
-import AppBar from "./AppBar"
-import PodInformation from "./PodInformation"
+import AppBar from "./AppBar";
+import PodInformation from "./PodInformation";
 import DoughnutChart from "./DoughnutChart";
 import OverviewInformation from "./OverviewInformation";
 import ServicesList from "./ServicesList";
@@ -34,5 +34,5 @@ export {
   ServiceBackdrop,
   PodBackdrop,
   PredictionLineChart,
-  UserInformationUpdate
+  UserInformationUpdate,
 };

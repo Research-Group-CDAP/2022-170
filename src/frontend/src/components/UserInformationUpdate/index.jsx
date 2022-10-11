@@ -28,7 +28,7 @@ const UserInformationUpdate = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.authReducer);
-  const [Id, setId] = useState(props.user._id);
+  const [Id] = useState(props.user._id);
   const [fullName, setFullName] = useState(props.user.fullName);
   const [azureUserName, setAzureUserName] = useState(props.user.azureUserName);
   const [azurePassword, setAzurePassword] = useState(props.user.azurePassword);
@@ -146,11 +146,15 @@ const UserInformationUpdate = (props) => {
           </Button>
         </form>
         <form className={classes.field} noValidate autoComplete="off">
-          {updatedStatus === null ? "": updatedStatus === "updated" ? (
+          {updatedStatus === null ? (
+            ""
+          ) : updatedStatus === "updated" ? (
             <Alert severity="success">Updated Succesful!</Alert>
           ) : updatedStatus === "error" ? (
             <Alert severity="error">Something went wrong!</Alert>
-          ): ""}
+          ) : (
+            ""
+          )}
         </form>
       </div>
     </div>

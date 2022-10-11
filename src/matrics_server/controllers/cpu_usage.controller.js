@@ -110,7 +110,7 @@ const exportToCSV = async (request, response) => {
 
         let podDetails = matricData.timeSeriesData.filter(function (pod) {
           let myTextArray = pod.podName.split("-");
-          let tempPodName = myTextArray[0]+"-"+myTextArray[1];
+          let tempPodName = myTextArray[0] + "-" + myTextArray[1];
           return request.params.podName.includes(tempPodName);
         });
 
@@ -141,13 +141,14 @@ const exportToCSV = async (request, response) => {
       await console.log(timeSeriesDataArray);
       await axios
         .get(
-        'http://127.0.0.1:8000/model-prdiction-cpu/make-prediction_singlepod?pod_name=' + request.params.podName
+          "http://127.0.0.1:8000/model-prdiction-cpu/make-prediction_singlepod?pod_name=" +
+            request.params.podName
         )
         .then(async (res) => {
           let tempArray = [];
-          await res.data.res.forEach((singleValue)=>{
-            tempArray.push(singleValue[0])
-          })
+          await res.data.res.forEach((singleValue) => {
+            tempArray.push(singleValue[0]);
+          });
           await response.json(tempArray);
         })
         .catch((error) => {

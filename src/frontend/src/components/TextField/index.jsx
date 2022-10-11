@@ -11,14 +11,19 @@ const InputField = styled((props) => (
   "& .MuiInputBase-root": {
     color: theme.palette.type === "light" ? "#000" : "#fff",
     backgroundColor:
-      theme.palette.type === "light" ? "rgba(0, 0, 0, 0.12)" : "rgba(255, 255, 255, 0.08)",
+      theme.palette.type === "light"
+        ? "rgba(0, 0, 0, 0.12)"
+        : "rgba(255, 255, 255, 0.08)",
     borderRadius: 5,
   },
   "& label.Mui-error": {
     color: "red",
   },
   "& .MuiFormLabel-root": {
-    color: theme.palette.type === "light" ? "rgba(0, 0, 0, 0.38)" : "rgba(255, 255, 255, 0.7)",
+    color:
+      theme.palette.type === "light"
+        ? "rgba(0, 0, 0, 0.38)"
+        : "rgba(255, 255, 255, 0.7)",
   },
   "& label.Mui-focused": {
     color: theme.palette.type === "light" ? "#000" : "#fff",

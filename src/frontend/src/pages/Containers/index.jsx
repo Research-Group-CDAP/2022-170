@@ -48,7 +48,11 @@ const Containers = (props) => {
           >
             Add Service
           </Button>
-          <AddService open={open} handleClose={handleClose} handleClickOpen={handleClickOpen} />
+          <AddService
+            open={open}
+            handleClose={handleClose}
+            handleClickOpen={handleClickOpen}
+          />
         </Stack>
         <ListService />
       </div>

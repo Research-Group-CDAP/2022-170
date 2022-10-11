@@ -7,7 +7,7 @@ import { Divider } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     background: "#424242",
-    padding: "3%"
+    padding: "3%",
   },
 }));
 
@@ -16,7 +16,7 @@ export default function ServiceBackdrop(props) {
   return (
     <div className={classes.root}>
       <h4>Sevice Information</h4>
-      <br/>
+      <br />
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <p>

@@ -22,5 +22,5 @@ export {
   Predictions,
   UserInformation,
   UserLogin,
-  Registration
+  Registration,
 };

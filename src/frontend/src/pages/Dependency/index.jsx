@@ -73,7 +73,7 @@ export default function Dependency() {
 
   useEffect(() => {
     const lineOptions = {
-      color: "#90EE90"
+      color: "#90EE90",
     };
 
     state.dependencyDetailsByNamespace.forEach((dependencyList, index) => {
@@ -84,7 +84,9 @@ export default function Dependency() {
       );
       new LeaderLine(
         document.getElementById(dependencyList.pod),
-        LeaderLine.pointAnchor(document.getElementById(dependencyList.node + "-" + index)),
+        LeaderLine.pointAnchor(
+          document.getElementById(dependencyList.node + "-" + index)
+        ),
         lineOptions
       );
     });
@@ -128,9 +130,12 @@ export default function Dependency() {
                       onClick={() => {
                         handleToggleSevice(dependencyList.service);
                       }}
-                    > 
+                    >
                       <Card className={classes.card}>
-                        <CardContent><Icon icon="ic:baseline-developer-board" width={20} /> {dependencyList.service}</CardContent>
+                        <CardContent>
+                          <Icon icon="ic:baseline-developer-board" width={20} />{" "}
+                          {dependencyList.service}
+                        </CardContent>
                       </Card>
                     </div>
                     <div
@@ -140,12 +145,18 @@ export default function Dependency() {
                       }}
                     >
                       <Card className={classes.card}>
-                        <CardContent><Icon icon="ic:baseline-shopping-basket" width={20} />  {dependencyList.pod} </CardContent>
+                        <CardContent>
+                          <Icon icon="ic:baseline-shopping-basket" width={20} />{" "}
+                          {dependencyList.pod}{" "}
+                        </CardContent>
                       </Card>
                     </div>
                     <div id={dependencyList.node + "-" + index}>
                       <Card className={classes.card}>
-                        <CardContent><Icon icon="ic:baseline-call-to-action" width={20} />  {dependencyList.node}</CardContent>
+                        <CardContent>
+                          <Icon icon="ic:baseline-call-to-action" width={20} />{" "}
+                          {dependencyList.node}
+                        </CardContent>
                       </Card>
                     </div>
                   </Paper>

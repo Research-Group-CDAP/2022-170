@@ -185,7 +185,13 @@ const UserInformation = (props) => {
           <Backdrop className={classes.backdrop} open={open}>
             <Grid container spacing={1}>
               <Grid item xs={12} container justifyContent="center">
-                <Button onClick={handleClose} variant="contained" color="primary">Close</Button>
+                <Button
+                  onClick={handleClose}
+                  variant="contained"
+                  color="primary"
+                >
+                  Close
+                </Button>
               </Grid>
               {state.user && (
                 <Grid item xs={12} container justifyContent="center">

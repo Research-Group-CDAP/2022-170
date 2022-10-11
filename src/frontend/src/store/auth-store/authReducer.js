@@ -21,7 +21,7 @@ const authReducer = (state = initialState, action) => {
       return { ...state, loading: true };
     case `${ActionTypes.UPDATE_USER}_PENDING`:
       return { ...state, loading: true };
-  
+
     case `${ActionTypes.LOGIN_USER}_FULFILLED`:
       let user = action.payload.data;
       return { ...state, loading: false, login: true, user };
@@ -36,7 +36,13 @@ const authReducer = (state = initialState, action) => {
       return { ...state, loading: false, login: true, clusterConnected };
     case `${ActionTypes.UPDATE_USER}_FULFILLED`:
       let updatedUserData = action.payload.data;
-      return { ...state, loading: false, login: true, user: updatedUserData, updated:true };
+      return {
+        ...state,
+        loading: false,
+        login: true,
+        user: updatedUserData,
+        updated: true,
+      };
 
     case `${ActionTypes.LOGIN_USER}_REJECTED`:
     case `${ActionTypes.REGISTER_USER}_REJECTED`:
