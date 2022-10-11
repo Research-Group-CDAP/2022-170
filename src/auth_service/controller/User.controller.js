@@ -171,56 +171,51 @@ const deleteUserPermenently = async (request, response) => {
 
 
 const logintoCluster = async (request, response) => {
-
   await exec(
-    `az login -u Lakisuru.Semasinghe@studentambassadors.com -p PWSenurataDunna!`,
+    `az account set --subscription ${request.body.azureSubscriptionId}`,
     (error, stdout, stderr) => {
       if (error) {
         response.json(error) ;
+      }else{
+        console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
+        exec(
+          `az aks get-credentials --resource-group ${request.body.resourceGroup} --name ${request.body.clusterName}`,
+          (error, stdout, stderr) => {
+            if (error) {
+              response.json(error) ;
+            }else{
+              console.log(`stdout: ${stdout}`);
+              console.log(`stderr: ${stderr}`);
+              exec(
+                `pm2 restart kube-server`,
+                (error, stdout, stderr) => {
+                  if (error) {
+                    console.log(error) ;
+                  }else{
+                    console.log(`stdout: ${stdout}`);
+                    console.log(`stderr: ${stderr}`);
+                    exec(
+                      `pm2 restart matrics-server`,
+                      (error, stdout, stderr) => {
+                        if (error) {
+                          console.log(error) ;
+                        }else{
+                          console.log(`stdout: ${stdout}`);
+                          console.log(`stderr: ${stderr}`);
+                          response.json("Connected") ;
+                        }
+                      }
+                    );
+                  }
+                }
+              );
+            }
+          }
+        );
       }
-
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
     }
   );
-
-  await exec(
-    `az account set --subscription 181e9bd9-e331-48e4-99ae-d5dd0d80b9b1`,
-    (error, stdout, stderr) => {
-      if (error) {
-        response.json(error) ;
-      }
-
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
-    }
-  );
-
-  await exec(
-    `az aks get-credentials --resource-group ResearchGroup --name ResearchCluster`,
-    (error, stdout, stderr) => {
-      if (error) {
-        response.json(error) ;
-      }
-
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
-    }
-  );
-
-  await exec(
-    `kubectl get nodes`,
-    (error, stdout, stderr) => {
-      if (error) {
-        response.json(error) ;
-      }
-
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
-    }
-  );
-
-  await response.json("success");
 };
 
 module.exports = {

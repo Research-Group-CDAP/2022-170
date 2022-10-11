@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/auth-store/authActions";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import MuiAlert from '@material-ui/lab/Alert';
+import MuiAlert from "@material-ui/lab/Alert";
+import Grid from "@material-ui/core/Grid";
+import LoginImage from "../../assetes/images/login.png"
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -12,7 +14,7 @@ function Alert(props) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: "2% 2%",
+    padding: "8% 2%",
   },
   field: {
     margin: "10px",
@@ -20,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
   TextField: {
     width: "100%",
   },
+  title:{
+    fontSize: "120px",
+    textAlign:"center"
+  }
 }));
 
 const UserLogin = (props) => {
@@ -49,45 +55,54 @@ const UserLogin = (props) => {
 
   return (
     <div className={classes.root}>
-      <h3>User Login</h3>
-      <br />
-      <div>
-        <form className={classes.field} noValidate autoComplete="off">
-          <TextField
-            id="filled-basic"
-            label="Email"
-            variant="filled"
-            className={classes.TextField}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-        </form>
-        <form className={classes.field} noValidate autoComplete="off">
-          <TextField
-            id="filled-basic"
-            label="Password"
-            variant="filled"
-            className={classes.TextField}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </form>
-        <form className={classes.field} noValidate autoComplete="off">
-          {" "}
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.TextField}
-            onClick={onSubmitLogin}
-          >
-            Login
-          </Button>
-        </form>
-        { state.user?.token && <Alert severity="success">Login Successful!</Alert>}
-        { state.error && !state.error?.msg === "Token is not valid" &&  <Alert severity="error">Something went wrong!</Alert> }
-      </div>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+        <p className={classes.title}>KubeMate</p>
+        </Grid>
+        <Grid item xs={12}>
+          <div>
+            <form className={classes.field} noValidate autoComplete="off">
+              <TextField
+                id="filled-basic"
+                label="Email"
+                variant="filled"
+                className={classes.TextField}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </form>
+            <form className={classes.field} noValidate autoComplete="off">
+              <TextField
+                id="filled-basic"
+                label="Password"
+                variant="filled"
+                className={classes.TextField}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </form>
+            <form className={classes.field} noValidate autoComplete="off">
+              {" "}
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.TextField}
+                onClick={onSubmitLogin}
+              >
+                Login
+              </Button>
+            </form>
+            {state.user?.token && (
+              <Alert severity="success">Login Successful!</Alert>
+            )}
+            {state.error && !state.error?.msg === "Token is not valid" && (
+              <Alert severity="error">Something went wrong!</Alert>
+            )}
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };

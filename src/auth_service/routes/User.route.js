@@ -12,6 +12,6 @@ router.delete("/remove/:userId",auth, deleteUserPermenently);
 router.post("/register", registerUser);
 router.put("/edit",auth, updateUser);
 router.post("/login", loginUser);
-router.get("/logintoCluster",logintoCluster)
+router.post("/logintoCluster",logintoCluster)
 
 module.exports = router;

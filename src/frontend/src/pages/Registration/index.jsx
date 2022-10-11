@@ -7,13 +7,17 @@ import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: "2% 2%",
+    padding: "5% 2%",
   },
   field: {
     margin: "10px",
   },
   TextField: {
     width: "100%",
+  },
+  title: {
+    fontSize: "120px",
+    textAlign: "center",
   },
 }));
 
@@ -47,7 +51,7 @@ const Registration = (props) => {
 
   return (
     <div className={classes.root}>
-      <h3>User Registration</h3>
+      <p className={classes.title}>KubeMate</p>
       <br />
       <div>
         <form className={classes.field} noValidate autoComplete="off">
