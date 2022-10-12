@@ -49,7 +49,6 @@ const loginUser = async (req, res) => {
 
 //Register User
 const registerUser = async (req, res) => {
-
   const { fullName, email, password } = req.body;
 
   try {
@@ -64,7 +63,7 @@ const registerUser = async (req, res) => {
     user = new User({
       fullName,
       email,
-      password
+      password,
     });
 
     //Encrypt Password
@@ -169,44 +168,52 @@ const deleteUserPermenently = async (request, response) => {
     });
 };
 
-
 const logintoCluster = async (request, response) => {
   await exec(
-    `az account set --subscription ${request.body.azureSubscriptionId}`,
+    `az login -u ${request.body.azureUserName} -p ${request.body.azurePassword}`,
     (error, stdout, stderr) => {
       if (error) {
-        response.json({connected:false}) ;
-      }else{
+        response.json({ connected: false });
+      } else {
         console.log(`stdout: ${stdout}`);
         console.log(`stderr: ${stderr}`);
+
         exec(
-          `az aks get-credentials --resource-group ${request.body.resourceGroup} --name ${request.body.clusterName}`,
+          `az account set --subscription ${request.body.azureSubscriptionId}`,
           (error, stdout, stderr) => {
             if (error) {
-              response.json({connected:false}) ;
-            }else{
+              response.json({ connected: false });
+            } else {
               console.log(`stdout: ${stdout}`);
               console.log(`stderr: ${stderr}`);
               exec(
-                `pm2 restart kube-server`,
+                `az aks get-credentials --resource-group ${request.body.resourceGroup} --name ${request.body.clusterName}`,
                 (error, stdout, stderr) => {
                   if (error) {
-                    response.json({connected:false}) ;
-                  }else{
+                    response.json({ connected: false });
+                  } else {
                     console.log(`stdout: ${stdout}`);
                     console.log(`stderr: ${stderr}`);
-                    exec(
-                      `pm2 restart matrics-server`,
-                      (error, stdout, stderr) => {
-                        if (error) {
-                          response.json({connected:false}) ;
-                        }else{
-                          console.log(`stdout: ${stdout}`);
-                          console.log(`stderr: ${stderr}`);
-                          response.json({connected:true}) ;
-                        }
+                    exec(`pm2 restart kube-server`, (error, stdout, stderr) => {
+                      if (error) {
+                        response.json({ connected: false });
+                      } else {
+                        console.log(`stdout: ${stdout}`);
+                        console.log(`stderr: ${stderr}`);
+                        exec(
+                          `pm2 restart matrics-server`,
+                          (error, stdout, stderr) => {
+                            if (error) {
+                              response.json({ connected: false });
+                            } else {
+                              console.log(`stdout: ${stdout}`);
+                              console.log(`stderr: ${stderr}`);
+                              response.json({ connected: true });
+                            }
+                          }
+                        );
                       }
-                    );
+                    });
                   }
                 }
               );
@@ -224,5 +231,5 @@ module.exports = {
   registerUser,
   updateUser,
   deleteUserPermenently,
-  logintoCluster
+  logintoCluster,
 };
