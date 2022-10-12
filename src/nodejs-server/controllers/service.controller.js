@@ -28,39 +28,42 @@ const registerService = async (req, res) => {
           spec: {
             containers: [
               {
-                securityContext: {
-                  capabilities: {
-                    drop: ["all"],
-                  },
-                },
+                // securityContext: {
+                //   capabilities: {
+                //     drop: ["all"],
+                //   },
+                // },
                 ports: service.deploymentInfo.ports,
-                env: service.deploymentInfo.env,
-                readinessProbe: {
-                  exec: {
-                    command: [
-                      "/bin/grpc_health_probe",
-                      `-addr=:${service.deploymentInfo.ports[0].containerPort}`,
-                    ],
-                  },
-                },
-                livenessProbe: {
-                  exec: {
-                    command: [
-                      "/bin/grpc_health_probe",
-                      `-addr=:${service.deploymentInfo.ports[0].containerPort}`,
-                    ],
-                  },
-                },
-                resources: {
-                  requests: {
-                    cpu: service.deploymentInfo.resources.requests.cpu,
-                    memory: service.deploymentInfo.resources.requests.memory,
-                  },
-                  limits: {
-                    cpu: service.deploymentInfo.resources.limits.cpu,
-                    memory: service.deploymentInfo.resources.limits.memory,
-                  },
-                },
+                env:
+                  service.deploymentInfo.env && service.deploymentInfo.env.length > 0
+                    ? service.deploymentInfo.env
+                    : null,
+                // readinessProbe: {
+                //   exec: {
+                //     command: [
+                //       "/bin/grpc_health_probe",
+                //       `-addr=:${service.deploymentInfo.ports[0].containerPort}`,
+                //     ],
+                //   },
+                // },
+                // livenessProbe: {
+                //   exec: {
+                //     command: [
+                //       "/bin/grpc_health_probe",
+                //       `-addr=:${service.deploymentInfo.ports[0].containerPort}`,
+                //     ],
+                //   },
+                // },
+                // resources: {
+                //   requests: {
+                //     cpu: service.deploymentInfo.resources.requests.cpu,
+                //     memory: service.deploymentInfo.resources.requests.memory,
+                //   },
+                //   limits: {
+                //     cpu: service.deploymentInfo.resources.limits.cpu,
+                //     memory: service.deploymentInfo.resources.limits.memory,
+                //   },
+                // },
               },
             ],
           },

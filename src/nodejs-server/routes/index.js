@@ -18,7 +18,7 @@ const routes = (app) => {
 
   app.post("/deployment/create", createDeployment);
   app.get("/deployment/", getDeployment);
-  app.put("/deployment/release", makeRelease);
+  app.put("/deployment/release/:id", makeRelease);
 };
 
 module.exports = { routes };

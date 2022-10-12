@@ -7,7 +7,7 @@ import {
   Button,
   Chip,
   Snackbar,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -29,7 +29,7 @@ import {
   Legend,
   LinearScale,
   Title,
-  Tooltip
+  Tooltip,
 } from "chart.js";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -40,7 +40,7 @@ import {
   add_relese,
   get_services,
   make_release,
-  retry_release
+  retry_release,
 } from "../../store/fastprovider-store/fastProviderActions";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -134,7 +134,11 @@ const ListService = () => {
       setState((s) => (s.right = false));
       setVersion("");
     }
-  }, [fastProviderReducer.releaseInfo]);
+
+    if (fastProviderReducer.makeRelease) {
+      setState((s) => (s.right = false));
+    }
+  }, [fastProviderReducer.releaseInfo, fastProviderReducer.makeRelease]);
 
   const onChange = (e) => {
     e.preventDefault();
@@ -183,7 +187,6 @@ const ListService = () => {
       isReleaseBtnDisabled: true,
     });
     dispatch(make_release(service._id));
-    toggleDrawer("right", false);
   };
 
   return (
@@ -244,7 +247,6 @@ const ListService = () => {
                       Release Count: <strong>{service.releases.length}</strong>
                     </span>
                   }
-                  // secondary={<span>Created At: {moment(service.createdAt).format("llll")}</span>}
                 />
                 <Chip
                   size="medium"
@@ -439,7 +441,7 @@ const ListService = () => {
                             }}
                           >
                             <Button
-                              style={{ width: "50%", marginTop: 10 }}
+                              style={{ width: "auto", marginTop: 10 }}
                               variant="outlined"
                               color="inherit"
                               endIcon={<Icon icon="logos:kubernetes" width={25} />}
