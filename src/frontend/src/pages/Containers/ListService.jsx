@@ -7,7 +7,7 @@ import {
   Button,
   Chip,
   Snackbar,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -29,7 +29,7 @@ import {
   Legend,
   LinearScale,
   Title,
-  Tooltip,
+  Tooltip
 } from "chart.js";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -40,7 +40,7 @@ import {
   add_relese,
   get_services,
   make_release,
-  retry_release,
+  retry_release
 } from "../../store/fastprovider-store/fastProviderActions";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -443,7 +443,7 @@ const ListService = () => {
                             ],
                           }}
                         />
-                        {service.latestTag === release.version && !service.isLatestVersionReleased && (
+                        {service.latestTag === release.version && (
                           <Box
                             sx={{
                               display: "flex",
