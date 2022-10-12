@@ -14,3 +14,9 @@ pm2 start server.js --name matrics-server
 To Stop
 pm2 stop kube-server
 pm2 stop matrics-server
+
+install istioctl
+----------------------------------------------
+curl -sL https://istio.io/downloadIstioctl | sh -
+export PATH=$HOME/.istioctl/bin:$PATH
+istioctl dashboard prometheus
