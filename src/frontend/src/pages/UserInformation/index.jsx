@@ -96,11 +96,19 @@ const UserInformation = (props) => {
       `${process.env.REACT_APP_AUTH_API_ENDPOINT}/user/logintoCluster`,
       data,
       requestConfigJson
-    ).then(() => {
-      dispatch(logintoCluster(true));
-      dispatch(clusterConnected());
-      setClusterStatus(true);
-      setLoadingStatus(false);
+    ).then((res) => {
+      console.log(res.connected)
+      if(res.connected){
+        dispatch(logintoCluster(true));
+        dispatch(clusterConnected());
+        setClusterStatus(true);
+        setLoadingStatus(false);
+      }else{
+        setClusterStatus(false);
+        setLoadingStatus(false);
+        dispatch(logintoCluster(false));
+        dispatch(clusterNotConnected());
+      }
     }).catch(() => {
       setClusterStatus(false);
       setLoadingStatus(false);
