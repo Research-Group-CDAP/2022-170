@@ -4,25 +4,25 @@
   "node": "kubemate-vm",
   "experiment": {
     "version": "1.0.0",
-    "title": "Other pods should not be terminated, if we terminate a Pod?",
-    "description": "If a Pod is terminated, other pods should remain running.",
+    "title": "Lets kill pods randomly",
+    "description": "If a random pod is killed, application should remain healthy.",
     "tags": [
       "k8s",
-      "pod"
+      "pod",
+      "deployment"
     ],
     "steady-state-hypothesis": {
-      "title": "Pod exists",
+      "title": "The app is healthy",
       "probes": [
         {
-          "name": "pod-exists",
+          "name": "all-apps-are-healthy",
           "type": "probe",
-          "tolerance": 0,
+          "tolerance": true,
           "provider": {
             "type": "python",
-            "func": "count_pods",
-            "module": "chaosk8s.pod.probes",
+            "func": "all_microservices_healthy",
+            "module": "chaosk8s.probes",
             "arguments": {
-              "label_selector": "app=reviews",
               "ns": "default"
             }
           }
@@ -38,7 +38,8 @@
           "module": "chaosk8s.pod.actions",
           "func": "terminate_pods",
           "arguments": {
-            "name_pattern": "adservice-75656d5f44-8kr66"
+            "rand": true,
+            "ns": "default"
           }
         },
         "pauses": {
@@ -48,7 +49,7 @@
     ],
     "dry": null
   },
-  "start": "2022-10-12T10:16:48.897059",
+  "start": "2022-10-12T11:45:50.550692",
   "status": "completed",
   "deviated": false,
   "steady_states": {
@@ -57,24 +58,23 @@
       "probes": [
         {
           "activity": {
-            "name": "pod-exists",
+            "name": "all-apps-are-healthy",
             "type": "probe",
-            "tolerance": 0,
+            "tolerance": true,
             "provider": {
               "type": "python",
-              "func": "count_pods",
-              "module": "chaosk8s.pod.probes",
+              "func": "all_microservices_healthy",
+              "module": "chaosk8s.probes",
               "arguments": {
-                "label_selector": "app=reviews",
                 "ns": "default"
               }
             }
           },
-          "output": 0,
+          "output": true,
           "status": "succeeded",
-          "start": "2022-10-12T10:16:48.897716",
-          "end": "2022-10-12T10:16:48.956685",
-          "duration": 0.058969,
+          "start": "2022-10-12T11:45:50.551348",
+          "end": "2022-10-12T11:45:50.659152",
+          "duration": 0.107804,
           "tolerance_met": true
         }
       ]
@@ -84,24 +84,23 @@
       "probes": [
         {
           "activity": {
-            "name": "pod-exists",
+            "name": "all-apps-are-healthy",
             "type": "probe",
-            "tolerance": 0,
+            "tolerance": true,
             "provider": {
               "type": "python",
-              "func": "count_pods",
-              "module": "chaosk8s.pod.probes",
+              "func": "all_microservices_healthy",
+              "module": "chaosk8s.probes",
               "arguments": {
-                "label_selector": "app=reviews",
                 "ns": "default"
               }
             }
           },
-          "output": 0,
+          "output": true,
           "status": "succeeded",
-          "start": "2022-10-12T10:16:59.073971",
-          "end": "2022-10-12T10:16:59.135264",
-          "duration": 0.061293,
+          "start": "2022-10-12T11:46:00.801996",
+          "end": "2022-10-12T11:46:00.907791",
+          "duration": 0.105795,
           "tolerance_met": true
         }
       ]
@@ -118,21 +117,24 @@
           "module": "chaosk8s.pod.actions",
           "func": "terminate_pods",
           "arguments": {
-            "name_pattern": "adservice-75656d5f44-8kr66"
+            "rand": true,
+            "ns": "default"
           }
         },
         "pauses": {
           "after": 10
         }
       },
-      "output": [],
+      "output": [
+        "loadgenerator-77bc9cbc96-9d8qb"
+      ],
       "status": "succeeded",
-      "start": "2022-10-12T10:16:48.957235",
-      "end": "2022-10-12T10:16:49.063087",
-      "duration": 0.105852
+      "start": "2022-10-12T11:45:50.659650",
+      "end": "2022-10-12T11:45:50.790874",
+      "duration": 0.131224
     }
   ],
   "rollbacks": [],
-  "end": "2022-10-12T10:16:59.135746",
-  "duration": 10.248234987258911
+  "end": "2022-10-12T11:46:00.908346",
+  "duration": 10.367003440856934
 }
