@@ -76,6 +76,7 @@ const UserLogin = (props) => {
                 id="filled-basic"
                 label="Password"
                 variant="filled"
+                type="password"
                 className={classes.TextField}
                 onChange={(e) => {
                   setPassword(e.target.value);

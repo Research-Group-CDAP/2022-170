@@ -196,7 +196,6 @@ const generateYamlFile = async (req, res) => {
     let data;
 
     if (req.params.experimentType === "RandomPodTerminate") {
-        console.log("Option 1");
         data = YAML.stringify(RandomPodTerminate);
     } else if (req.params.experimentType === "Pod_Termination_Dosent_Terminate_Others") {
         Pod_Termination_Dosent_Terminate_Others.method[0].provider.arguments.name_pattern = req.params.podName
