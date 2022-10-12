@@ -16,16 +16,32 @@ app.use(express.json({ extended: false }));
 app.get("/", (req, res) => res.send("Monitoring Server Running"));
 
 app.get("/experiment", (req, res) => {
+
     exec(
         `chaos run experimentTemplates/randompodterm.yaml`,
         (error, stdout, stderr) => {
+          
           if (error) {
-            return;
+            res.json(error);
+          }else{
+            console.log(`stdout: ${stdout}`);
+            console.log(`stderr: ${stderr}`);
+            exec(
+              `chaos report --export-format=html5 journal.json report.html`,
+              (error, stdout, stderr) => {
+                if (error) {
+                  res.json(error);
+                }else{
+                  console.log(`stdout: ${stdout}`);
+                  console.log(`stderr: ${stderr}`);
+                  res.json("Report Generated");
+                }
+              }
+          );
           }
-          console.log(`stdout: ${stdout}`);
-          console.log(`stderr: ${stderr}`);
         }
     );
+
 });
 
 const PORT = process.env.PORT || 4001;
