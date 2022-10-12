@@ -32,6 +32,6 @@ export const getUserDetails = () => {
 export const logintoCluster = (clusterData) => {
   return {
     type: ActionTypes.LOGIN_CLUSTER,
-    payload: AuthApi.logintoCluster(clusterData),
+    payload: clusterData,
   };
 };
