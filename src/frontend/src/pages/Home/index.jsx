@@ -56,7 +56,7 @@ const Home = (props) => {
             <div className={classes.textPara}>
               <p>
                 Kubernetes is the OS for the cloud. Thousands of businesses and
-                people develop and operate their Kubernetes on Lens — The
+                people develop and operate their Kubernetes on KubeMate — The
                 largest and most advanced Kubernetes platform in the world.
               </p>
             </div>

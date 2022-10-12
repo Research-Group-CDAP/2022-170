@@ -61,6 +61,7 @@ export default function PermanentDrawerLeft() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.authReducer);
+  const kubeState = useSelector((state) => state.kubeReducer);
   const [loginStatus, setLoginStatus] = useState(false);
 
   useEffect(() => {
@@ -132,68 +133,72 @@ export default function PermanentDrawerLeft() {
                     <ListItemText primary={"User Information"} />
                   </ListItem>
                 </a>
-                <a style={{ textDecoration: "none" }} href="/overview">
-                  <ListItem className={classes.Link} button key={"Overview"}>
-                    <ListItemIcon className={classes.ListItemIcon}>
-                      <Icon icon="vscode-icons:file-type-appsemble" width={25} />
-                    </ListItemIcon>
-                    <ListItemText primary={"Overview"} />
-                  </ListItem>
-                </a>
-                <a style={{ textDecoration: "none" }} href="/services">
-                  <ListItem className={classes.Link} button key={"Services"}>
-                    <ListItemIcon className={classes.ListItemIcon}>
-                      <Icon icon="vscode-icons:file-type-dependabot" width={25} />
-                    </ListItemIcon>
-                    <ListItemText primary={"Services"} />
-                  </ListItem>
-                </a>
-                <a style={{ textDecoration: "none" }} href="/pods">
-                  <ListItem className={classes.Link} button key={"Pods"}>
-                    <ListItemIcon className={classes.ListItemIcon}>
-                      <Icon
-                        icon="vscode-icons:folder-type-kubernetes"
-                        width={25}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary={"Pods"} />
-                  </ListItem>
-                </a>
-                <a style={{ textDecoration: "none" }} href="/containers">
-                  <ListItem className={classes.Link} button key={"Containers"}>
-                    <ListItemIcon className={classes.ListItemIcon}>
-                      <Icon icon="vscode-icons:folder-type-docker" width={25} />
-                    </ListItemIcon>
-                    <ListItemText primary={"Containers"} />
-                  </ListItem>
-                </a>
-                <a style={{ textDecoration: "none" }} href="/dependency">
-                  <ListItem className={classes.Link} button key={"Dependency"}>
-                    <ListItemIcon className={classes.ListItemIcon}>
-                      <Icon
-                        icon="vscode-icons:file-type-dependencies"
-                        width={25}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary={"Dependency"} />
-                  </ListItem>
-                </a>
-                <a style={{ textDecoration: "none" }} href="/experiments">
-                  <ListItem className={classes.Link} button key={"Experiments"}>
-                    <ListItemIcon className={classes.ListItemIcon}>
-                      <Icon icon="fluent-emoji-flat:test-tube" width={25} />
-                    </ListItemIcon>
-                    <ListItemText primary={"Experiments"} />
-                  </ListItem>
-                </a>
-                <a style={{ textDecoration: "none" }} href="/predictions">
-                  <ListItem className={classes.Link} button key={"Predictions"}>
-                    <ListItemIcon className={classes.ListItemIcon}>
-                      <Icon icon="flat-color-icons:combo-chart" width={25} />
-                    </ListItemIcon>
-                    <ListItemText primary={"Predictions"} />
-                  </ListItem>
-                </a>
+                {kubeState.clusterConnected &&
+                  <>
+                    <a style={{ textDecoration: "none" }} href="/overview">
+                      <ListItem className={classes.Link} button key={"Overview"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon icon="vscode-icons:file-type-appsemble" width={25} />
+                        </ListItemIcon>
+                        <ListItemText primary={"Overview"} />
+                      </ListItem>
+                    </a>
+                    <a style={{ textDecoration: "none" }} href="/services">
+                      <ListItem className={classes.Link} button key={"Services"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon icon="vscode-icons:file-type-dependabot" width={25} />
+                        </ListItemIcon>
+                        <ListItemText primary={"Services"} />
+                      </ListItem>
+                    </a>
+                    <a style={{ textDecoration: "none" }} href="/pods">
+                      <ListItem className={classes.Link} button key={"Pods"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon
+                            icon="vscode-icons:folder-type-kubernetes"
+                            width={25}
+                          />
+                        </ListItemIcon>
+                        <ListItemText primary={"Pods"} />
+                      </ListItem>
+                    </a>
+                    <a style={{ textDecoration: "none" }} href="/containers">
+                      <ListItem className={classes.Link} button key={"Containers"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon icon="vscode-icons:folder-type-docker" width={25} />
+                        </ListItemIcon>
+                        <ListItemText primary={"Containers"} />
+                      </ListItem>
+                    </a>
+                    <a style={{ textDecoration: "none" }} href="/dependency">
+                      <ListItem className={classes.Link} button key={"Dependency"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon
+                            icon="vscode-icons:file-type-dependencies"
+                            width={25}
+                          />
+                        </ListItemIcon>
+                        <ListItemText primary={"Dependency"} />
+                      </ListItem>
+                    </a>
+                    <a style={{ textDecoration: "none" }} href="/experiments">
+                      <ListItem className={classes.Link} button key={"Experiments"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon icon="fluent-emoji-flat:test-tube" width={25} />
+                        </ListItemIcon>
+                        <ListItemText primary={"Experiments"} />
+                      </ListItem>
+                    </a>
+                    <a style={{ textDecoration: "none" }} href="/predictions">
+                      <ListItem className={classes.Link} button key={"Predictions"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon icon="flat-color-icons:combo-chart" width={25} />
+                        </ListItemIcon>
+                        <ListItemText primary={"Predictions"} />
+                      </ListItem>
+                    </a>
+                  </>
+                }
                 <a
                   style={{ textDecoration: "none" }}
                   onClick={() => {
@@ -210,6 +215,7 @@ export default function PermanentDrawerLeft() {
                     <ListItemText primary={"Logout"} />
                   </ListItem>
                 </a>
+
               </>
             )}
           </List>

@@ -4,13 +4,24 @@ import {
   CssBaseline,
   ThemeProvider,
 } from "@material-ui/core";
-import { createContext, useMemo, useState } from "react";
+import { createContext, useMemo, useState, useEffect } from "react";
 import AppBar from "./components/AppBar";
+import { useDispatch, useSelector } from "react-redux";
+import { clusterConnected, clusterNotConnected } from "./store/kube-store/kubeActions";
 
-const ColorModeContext = createContext({ toggleColorMode: () => {} });
+const ColorModeContext = createContext({ toggleColorMode: () => { } });
 
 const App = () => {
   const [mode, setMode] = useState("dark");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem("clusterConntected")) {
+      dispatch(clusterConnected());
+    } else {
+      dispatch(clusterNotConnected());
+    }
+  }, [])
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
