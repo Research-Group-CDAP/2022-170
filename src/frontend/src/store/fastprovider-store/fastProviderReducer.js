@@ -1,10 +1,12 @@
 import ActionTypes from "./fastProviderTypes";
 
 const initialState = {
-  serviceRegisterInfo: {},
+  serviceRegisterInfo: null,
   services: [],
-  service: {},
-  releaseInfo: {},
+  service: null,
+  releaseInfo: null,
+  retryRelease: null,
+  makeRelease: null,
   error: null,
 };
 
@@ -14,6 +16,8 @@ const fastProviderReducer = (state = initialState, action) => {
     case `${ActionTypes.GET_SERVICES}_PENDING`:
     case `${ActionTypes.GET_SERVICE_BY_ID}_PENDING`:
     case `${ActionTypes.ADD_RELEASE}_PENDING`:
+    case `${ActionTypes.RETRY_RELEASE}_PENDING`:
+    case `${ActionTypes.MAKE_RELEASE}_PENDING`:
       return { ...state, loading: true, error: null };
 
     case `${ActionTypes.REGISTER_SERVICE}_FULFILLED`:
@@ -28,6 +32,12 @@ const fastProviderReducer = (state = initialState, action) => {
     case `${ActionTypes.ADD_RELEASE}_FULFILLED`:
       let releaseInfo = action.payload.data;
       return { ...state, loading: false, releaseInfo };
+    case `${ActionTypes.RETRY_RELEASE}_FULFILLED`:
+      let retryRelease = action.payload.data;
+      return { ...state, loading: false, retryRelease };
+    case `${ActionTypes.MAKE_RELEASE}_FULFILLED`:
+      let makeRelease = action.payload.data;
+      return { ...state, loading: false, makeRelease };
 
     case `${ActionTypes.REGISTER_SERVICE}_REJECTED`:
     case `${ActionTypes.GET_SERVICES}_REJECTED`:

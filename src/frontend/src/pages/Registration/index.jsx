@@ -43,7 +43,6 @@ const Registration = (props) => {
   useEffect(() => {
     let authToken = state.user?.token;
     if (authToken) {
-      alert("Successfully signed in");
       localStorage.setItem("x-auth-token", authToken);
       window.location.href = "/";
     }
