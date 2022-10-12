@@ -25,7 +25,7 @@ const getDeployment = async (req, res) => {
 const makeRelease = async (req, res) => {
   try {
     const deployment = await Deployment.findOneAndUpdate(
-      { _id: req.params.id },
+      { serviceId: req.params.id },
       { makeRelease: true }
     );
     res.status(200).json(deployment);

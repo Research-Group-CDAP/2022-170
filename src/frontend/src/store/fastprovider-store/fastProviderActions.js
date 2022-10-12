@@ -35,3 +35,10 @@ export const retry_release = (serviceId) => {
     payload: FastProviderApi.retry_release(serviceId),
   };
 };
+
+export const make_release = (serviceId) => {
+  return {
+    type: ActionTypes.MAKE_RELEASE,
+    payload: FastProviderApi.make_release(serviceId),
+  };
+};

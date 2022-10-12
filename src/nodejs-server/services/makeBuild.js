@@ -28,8 +28,7 @@ const makeBuild = async () => {
       console.log("########## Step 02 - Enable socket connection to Docker Daemon");
       const promisifyStream = (stream) =>
         new Promise((resolve, reject) => {
-          console.log("Here");
-          stream.on("data", (data) => console.log(data.toString()));
+          stream.on("data", (data) => console.log(JSON.parse(JSON.stringify(data.toString()))));
           stream.on("end", resolve);
           stream.on("error", reject);
         });
@@ -108,7 +107,7 @@ const makeBuild = async () => {
           } catch (error) {
             await Service.findOneAndUpdate(
               { _id: waitingRelease._id },
-              { status: "Failed", moreInformation: error.message }
+              { status: "Failed", moreInformation: JSON.stringify(error) }
             );
             return;
           }
@@ -158,9 +157,10 @@ const makeBuild = async () => {
           return;
         })
         .catch(async (error) => {
+          console.log(error);
           await Service.findOneAndUpdate(
             { _id: waitingRelease._id },
-            { status: "Failed", moreInformation: error.message }
+            { status: "Failed", moreInformation: JSON.stringify(error) }
           );
           return;
         });
@@ -168,9 +168,10 @@ const makeBuild = async () => {
       console.log("Release queue is empty at " + new Date().getMinutes());
     }
   } catch (error) {
+    console.log(error);
     await Service.findOneAndUpdate(
       { _id: releaseId },
-      { status: "Failed", moreInformation: error.message }
+      { status: "Failed", moreInformation: JSON.stringify(error) }
     );
   }
 };

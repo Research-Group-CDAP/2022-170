@@ -4,7 +4,11 @@ const {
   getServices,
   retryRelease,
 } = require("../controllers/service.controller");
-const { createDeployment, getDeployment } = require("../controllers/deployment.controller");
+const {
+  createDeployment,
+  getDeployment,
+  makeRelease,
+} = require("../controllers/deployment.controller");
 
 const routes = (app) => {
   app.post("/service/register", registerService);
@@ -14,6 +18,7 @@ const routes = (app) => {
 
   app.post("/deployment/create", createDeployment);
   app.get("/deployment/", getDeployment);
+  app.put("/deployment/release", makeRelease);
 };
 
 module.exports = { routes };
