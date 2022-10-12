@@ -11,6 +11,7 @@ pip install -U chaostoolkit
 pip install chaostoolkit-kubernetes
 pip install -U chaostoolkit-reporting
 sudo apt-get install libcairo2-dev
+pip install markupsafe==2.0.1
 
 Run the Experiment
 ----------------------------------------
