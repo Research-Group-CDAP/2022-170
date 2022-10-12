@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from "react";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import { Icon } from "@iconify/react";
+import { Card, CardContent, Divider } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import Grid from "@material-ui/core/Grid";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Select from "@material-ui/core/Select";
+import { makeStyles } from "@material-ui/core/styles";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { PredictionLineChart } from "../../components";
+import { fetch_All_Pods_By_Namespace } from "../../store/kube-store/kubeActions";
 import {
   fetch_All_Cpu_Usage_By_Pod,
   fetch_All_Memory_Utilization_By_Pod,
-  fetch_All_Network_Utilization_By_Pod,
+  fetch_All_Network_Utilization_By_Pod
 } from "../../store/matrics-store/matricsActions";
-import { fetch_All_Pods_By_Namespace } from "../../store/kube-store/kubeActions";
 import {
   fetch_Predicted_Cpu_Usage_By_Pod,
   fetch_Predicted_Memory_Utilization_By_Pod,
-  fetch_Predicted_Network_Utilization_By_Pod,
+  fetch_Predicted_Network_Utilization_By_Pod
 } from "../../store/prediction-store/predictionActions";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import WorldImage from "../../assetes/images/worldgif.gif";
-import { PredictionLineChart } from "../../components";
 
 const useStyles = makeStyles({
   root: {
@@ -27,6 +28,9 @@ const useStyles = makeStyles({
   progressBar: {
     width: "100%",
   },
+  fields: {
+    width: "100%"
+  }
 });
 
 const Predictions = (props) => {
@@ -118,13 +122,15 @@ const Predictions = (props) => {
       <br />
       <div>
         <Grid container spacing={3}>
-          <Grid item xs={5}>
+          <Grid item xs={6}>
             <div>
               <h6>Pod Name </h6>
-              <FormControl variant="filled" className={classes.formControl}>
+              <FormControl variant="filled" className={classes.fields}>
                 <Select
                   native
                   value={selectedPodName}
+                  fullWidth
+                  className={classes.fields}
                   onChange={handleChangePodName}
                   inputProps={{
                     name: "age",
@@ -139,14 +145,15 @@ const Predictions = (props) => {
               </FormControl>
             </div>
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={6}>
             <div>
               <h6>Type </h6>
-              <FormControl variant="filled" className={classes.formControl}>
+              <FormControl variant="filled" className={classes.fields}>
                 <Select
                   native
                   value={selectedType}
                   onChange={handleChangeType}
+                  className={classes.fields}
                   inputProps={{
                     name: "age",
                     id: "filled-age-native-simple",
@@ -174,14 +181,14 @@ const Predictions = (props) => {
             </div>
           </Grid>
           <Grid item xs={12} container justify="center">
-            {status === null && (
+            {/* {status === null && (
               <img
                 src={WorldImage}
                 width="500px"
                 height="500px"
                 alt={WorldImage}
               />
-            )}
+            )} */}
             {status === "loading" && (
               <div className={classes.progressBar}>
                 <LinearProgress />
@@ -210,6 +217,63 @@ const Predictions = (props) => {
             )}
           </Grid>
         </Grid>
+        <div className={classes.rootServices}>
+        <h2 textAlign="center">
+          The largest and most advanced Kubernetes platform in the world
+        </h2>
+        <br />
+        <Grid container spacing={3}>
+          <Grid item xs={4}>
+            <Card className={classes.Card}>
+              <CardContent>
+                <h5>
+                  {" "}
+                  <Icon
+                    icon="vscode-icons:folder-type-kubernetes-opened"
+                    width={25}
+                  />{" "}
+                  Kubernetes for Everyone
+                </h5>
+                <Divider />
+                <br />
+                Developed an algorithm that predicts the microservice's load through the time series data queried from the cluster
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={4}>
+            <Card className={classes.Card}>
+              <CardContent>
+                <h5>
+                  {" "}
+                  <Icon icon="vscode-icons:file-type-dartlang" width={25} /> Pro
+                  Features{" "}
+                </h5>
+                <Divider />
+                <br />
+                Solution that optimizes the autoscaling strategy based on a clustered matrix and the predicted load
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={4}>
+            <Card className={classes.Card}>
+              <CardContent>
+                <h5>
+                  {" "}
+                  <Icon
+                    icon="vscode-icons:file-type-powershell2"
+                    width={25}
+                  />{" "}
+                  Built on Open Source{" "}
+                </h5>
+                <Divider />
+                <br />
+                Evaluate the effectiveness of the proposed deployment strategy of the optimization server compared to the existing strategy
+              </CardContent>
+            </Card>
+          </Grid>
+         
+        </Grid>
+      </div>
       </div>
     </div>
   );
