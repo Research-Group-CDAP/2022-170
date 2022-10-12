@@ -11,6 +11,7 @@ import { clusterConnected, clusterNotConnected } from "../../store/kube-store/ku
 import { useState, useEffect } from "react";
 import Backdrop from "@material-ui/core/Backdrop";
 import { UserInformationUpdate } from "../../components";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -49,6 +50,7 @@ const UserInformation = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.authReducer);
+  const kubeReducer = useSelector((state) => state.kubeReducer);
   const [clusterStatus, setClusterStatus] = useState(false);
   const [loadingStatus, setLoadingStatus] = useState(false);
 
@@ -63,15 +65,15 @@ const UserInformation = (props) => {
   }, []);
 
   useEffect(() => {
-    if(state.clusterConnected){
+    if (kubeReducer.clusterConnected) {
       localStorage.setItem("clusterConntected", true);
       setLoadingStatus(false);
       dispatch(clusterConnected());
-    }else{
+    } else {
       setLoadingStatus(false);
       dispatch(clusterNotConnected());
     }
-  }, [state.clusterConnected]);
+  }, [kubeReducer.clusterConnected]);
 
   const connectWithCluster = () => {
     setLoadingStatus(true);
@@ -82,14 +84,37 @@ const UserInformation = (props) => {
       resourceGroup: state.user?.resourceGroup,
       clusterName: state.user?.clusterName,
     };
-    dispatch(logintoCluster(data));
-    setClusterStatus(true);
+
+    const requestConfigJson = {
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+        "Content-type": "application/json",
+      },
+    };
+
+    axios.post(
+      `${process.env.REACT_APP_AUTH_API_ENDPOINT}/user/logintoCluster`,
+      data,
+      requestConfigJson
+    ).then(() => {
+      dispatch(logintoCluster(true));
+      dispatch(clusterConnected());
+      setClusterStatus(true);
+      setLoadingStatus(false);
+    }).catch(() => {
+      setClusterStatus(false);
+      setLoadingStatus(false);
+      dispatch(logintoCluster(false));
+      dispatch(clusterNotConnected());
+    });
+
   };
 
   const removeConnectWithCluster = () => {
     localStorage.removeItem("clusterConntected");
     setClusterStatus(false);
-    window.location.href = "/";
+    dispatch(clusterNotConnected());
+    //window.location.href = "/";
   };
 
   return (
@@ -100,7 +125,7 @@ const UserInformation = (props) => {
         <div>
           <Grid container spacing={3}>
             <Grid item xs={6} container justifyContent="flex-start">
-              {clusterStatus ? (
+              {kubeReducer.clusterConnected ? (
                 <p className={classes.labelGreen}>          <Icon
                   icon="pajamas:status-health"
                   width={20}
@@ -193,7 +218,7 @@ const UserInformation = (props) => {
                 <Button variant="contained" className={classes.root}>
                   Connecting...
                 </Button>
-              ) : clusterStatus ? (
+              ) : kubeReducer.clusterConnected ? (
                 <>
                   <Button
                     variant="contained"

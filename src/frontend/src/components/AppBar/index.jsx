@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 import PageRoutes from "../../PageRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDetails } from "../../store/auth-store/authActions";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes,Link  } from "react-router-dom";
 import {
   Containers,
   Dependency,
@@ -91,37 +91,37 @@ export default function PermanentDrawerLeft() {
           <h4 className="m-4">KubeMate</h4>
           <Divider />
           <List>
-            <a style={{ textDecoration: "none" }} href="/">
+            <Link style={{ textDecoration: "none" }} to="/">
               <ListItem className={classes.Link} button key={"Home"}>
                 <ListItemIcon className={classes.ListItemIcon}>
                   <Icon icon="vscode-icons:file-type-homeassistant" width={25} />
                 </ListItemIcon>
                 <ListItemText primary={"Home"} />
               </ListItem>
-            </a>
+            </Link>
 
             {!loginStatus ? (
               <>
-                <a style={{ textDecoration: "none" }} href="/login">
+                <Link style={{ textDecoration: "none" }} to="/login">
                   <ListItem className={classes.Link} button key={"Login"}>
                     <ListItemIcon className={classes.ListItemIcon}>
                       <Icon icon="ic:baseline-login" width={25} />
                     </ListItemIcon>
                     <ListItemText primary={"Login"} />
                   </ListItem>
-                </a>
-                <a style={{ textDecoration: "none" }} href="/register">
+                </Link>
+                <Link style={{ textDecoration: "none" }} to="/register">
                   <ListItem className={classes.Link} button key={"Register"}>
                     <ListItemIcon className={classes.ListItemIcon}>
                       <Icon icon="ic:baseline-app-registration" width={25} />
                     </ListItemIcon>
                     <ListItemText primary={"Register"} />
                   </ListItem>
-                </a>
+                </Link>
               </>
             ) : (
               <>
-                <a style={{ textDecoration: "none" }} href="/user">
+                <Link style={{ textDecoration: "none" }} to="/user">
                   <ListItem
                     className={classes.Link}
                     button
@@ -132,26 +132,26 @@ export default function PermanentDrawerLeft() {
                     </ListItemIcon>
                     <ListItemText primary={"User Information"} />
                   </ListItem>
-                </a>
+                </Link>
                 {kubeState.clusterConnected &&
                   <>
-                    <a style={{ textDecoration: "none" }} href="/overview">
+                    <Link style={{ textDecoration: "none" }} to="/overview">
                       <ListItem className={classes.Link} button key={"Overview"}>
                         <ListItemIcon className={classes.ListItemIcon}>
                           <Icon icon="vscode-icons:file-type-appsemble" width={25} />
                         </ListItemIcon>
                         <ListItemText primary={"Overview"} />
                       </ListItem>
-                    </a>
-                    <a style={{ textDecoration: "none" }} href="/services">
+                    </Link>
+                    <Link style={{ textDecoration: "none" }} to="/services">
                       <ListItem className={classes.Link} button key={"Services"}>
                         <ListItemIcon className={classes.ListItemIcon}>
                           <Icon icon="vscode-icons:file-type-dependabot" width={25} />
                         </ListItemIcon>
                         <ListItemText primary={"Services"} />
                       </ListItem>
-                    </a>
-                    <a style={{ textDecoration: "none" }} href="/pods">
+                    </Link>
+                    <Link style={{ textDecoration: "none" }} to="/pods">
                       <ListItem className={classes.Link} button key={"Pods"}>
                         <ListItemIcon className={classes.ListItemIcon}>
                           <Icon
@@ -161,16 +161,16 @@ export default function PermanentDrawerLeft() {
                         </ListItemIcon>
                         <ListItemText primary={"Pods"} />
                       </ListItem>
-                    </a>
-                    <a style={{ textDecoration: "none" }} href="/containers">
+                    </Link>
+                    <Link style={{ textDecoration: "none" }} to="/containers">
                       <ListItem className={classes.Link} button key={"Containers"}>
                         <ListItemIcon className={classes.ListItemIcon}>
                           <Icon icon="vscode-icons:folder-type-docker" width={25} />
                         </ListItemIcon>
                         <ListItemText primary={"Containers"} />
                       </ListItem>
-                    </a>
-                    <a style={{ textDecoration: "none" }} href="/dependency">
+                    </Link>
+                    <Link style={{ textDecoration: "none" }} to="/dependency">
                       <ListItem className={classes.Link} button key={"Dependency"}>
                         <ListItemIcon className={classes.ListItemIcon}>
                           <Icon
@@ -180,26 +180,26 @@ export default function PermanentDrawerLeft() {
                         </ListItemIcon>
                         <ListItemText primary={"Dependency"} />
                       </ListItem>
-                    </a>
-                    <a style={{ textDecoration: "none" }} href="/experiments">
+                    </Link>
+                    <Link style={{ textDecoration: "none" }} to="/experiments">
                       <ListItem className={classes.Link} button key={"Experiments"}>
                         <ListItemIcon className={classes.ListItemIcon}>
                           <Icon icon="fluent-emoji-flat:test-tube" width={25} />
                         </ListItemIcon>
                         <ListItemText primary={"Experiments"} />
                       </ListItem>
-                    </a>
-                    <a style={{ textDecoration: "none" }} href="/predictions">
+                    </Link>
+                    <Link style={{ textDecoration: "none" }} to="/predictions">
                       <ListItem className={classes.Link} button key={"Predictions"}>
                         <ListItemIcon className={classes.ListItemIcon}>
                           <Icon icon="flat-color-icons:combo-chart" width={25} />
                         </ListItemIcon>
                         <ListItemText primary={"Predictions"} />
                       </ListItem>
-                    </a>
+                    </Link>
                   </>
                 }
-                <a
+                <Link
                   style={{ textDecoration: "none" }}
                   onClick={() => {
                     localStorage.removeItem("x-auth-token");
@@ -214,7 +214,7 @@ export default function PermanentDrawerLeft() {
                     </ListItemIcon>
                     <ListItemText primary={"Logout"} />
                   </ListItem>
-                </a>
+                </Link>
 
               </>
             )}

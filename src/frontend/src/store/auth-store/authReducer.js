@@ -32,7 +32,7 @@ const authReducer = (state = initialState, action) => {
       let userData = action.payload.data;
       return { ...state, loading: false, login: true, user: userData };
     case `${ActionTypes.LOGIN_CLUSTER}_FULFILLED`:
-      let clusterConnected = action.payload.data.connected;
+      let clusterConnected = action.payload;
       return { ...state, loading: false, login: true, clusterConnected };
     case `${ActionTypes.UPDATE_USER}_FULFILLED`:
       let updatedUserData = action.payload.data;
