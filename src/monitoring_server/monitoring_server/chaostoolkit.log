@@ -672,3 +672,360 @@
 [2022-10-12 08:17:08 DEBUG] [__init__:399] No controls to apply on 'experiment'
 [2022-10-12 08:17:08 DEBUG] [__init__:91] Cleaning up controls
 [2022-10-12 08:17:08 DEBUG] [caching:42] Clearing activities cache
+[2022-10-12 09:36:47 DEBUG] [cli:112] ###############################################################################
+[2022-10-12 09:36:47 DEBUG] [cli:113] Running command 'run'
+[2022-10-12 09:36:47 DEBUG] [cli:117] Using settings file '/home/kubemateadmin/.chaostoolkit/settings.yaml'
+[2022-10-12 09:36:47 DEBUG] [settings:30] The Chaos Toolkit settings file could not be found at '/home/kubemateadmin/.chaostoolkit/settings.yaml'.
+[2022-10-12 09:36:47 DEBUG] [__init__:399] No controls to apply on 'loader'
+[2022-10-12 09:36:47 DEBUG] [__init__:399] No controls to apply on 'loader'
+[2022-10-12 09:36:47 DEBUG] [caching:24] Building activity cache...
+[2022-10-12 09:36:47 DEBUG] [caching:35] Cached 2 activities
+[2022-10-12 09:36:47 INFO] [experiment:58] Validating the experiment's syntax
+[2022-10-12 09:36:47 DEBUG] [configuration:63] Loading configuration...
+[2022-10-12 09:36:47 DEBUG] [secret:78] Loading secrets...
+[2022-10-12 09:36:47 DEBUG] [secret:104] Done loading secrets
+[2022-10-12 09:36:47 INFO] [experiment:109] Experiment looks valid
+[2022-10-12 09:36:47 DEBUG] [caching:42] Clearing activities cache
+[2022-10-12 09:36:47 DEBUG] [caching:24] Building activity cache...
+[2022-10-12 09:36:47 DEBUG] [caching:35] Cached 2 activities
+[2022-10-12 09:36:47 DEBUG] [configuration:63] Loading configuration...
+[2022-10-12 09:36:47 DEBUG] [secret:78] Loading secrets...
+[2022-10-12 09:36:47 DEBUG] [secret:104] Done loading secrets
+[2022-10-12 09:36:47 DEBUG] [configuration:160] Loading dynamic configuration...
+[2022-10-12 09:36:47 INFO] [run:320] Running experiment: Lets kill pods randomly
+[2022-10-12 09:36:47 DEBUG] [__init__:52] Initializing controls
+[2022-10-12 09:36:47 INFO] [run:344] Steady-state strategy: default
+[2022-10-12 09:36:47 INFO] [run:348] Rollbacks strategy: default
+[2022-10-12 09:36:47 DEBUG] [__init__:399] No controls to apply on 'experiment'
+[2022-10-12 09:36:47 DEBUG] [run:506] Running steady-state hypothesis before the method
+[2022-10-12 09:36:47 INFO] [hypothesis:182] Steady state hypothesis: The app is healthy
+[2022-10-12 09:36:47 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:36:47 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:36:47 INFO] [activity:204] Probe: all-apps-are-healthy
+[2022-10-12 09:36:47 DEBUG] [python:33] Activity 'all-apps-are-healthy' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/probes.py'
+[2022-10-12 09:36:47 WARNING] [__init__:165] all_microservices_healthy function is DEPRECATED and will be removed in the next         releases, please use all_pods_healthy instead
+[2022-10-12 09:36:47 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:36:47 DEBUG] [probes:296] Found 0 failed and 0 not ready pods
+[2022-10-12 09:36:47 DEBUG] [activity:221]   => succeeded with 'True'
+[2022-10-12 09:36:47 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:36:47 DEBUG] [hypothesis:221] allowed tolerance is True
+[2022-10-12 09:36:47 INFO] [hypothesis:231] Steady state hypothesis is met!
+[2022-10-12 09:36:47 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:36:47 INFO] [run:607] Playing your experiment's method now...
+[2022-10-12 09:36:47 DEBUG] [__init__:399] No controls to apply on 'method'
+[2022-10-12 09:36:47 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:36:47 INFO] [activity:204] Action: terminate-pod
+[2022-10-12 09:36:47 DEBUG] [python:33] Activity 'terminate-pod' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/pod/actions.py'
+[2022-10-12 09:36:47 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:36:47 DEBUG] [actions:238] Found 12 pods in ns 'default'
+[2022-10-12 09:36:47 DEBUG] [activity:221]   => succeeded with '['productcatalogservice-67f5c88476-bjl9j']'
+[2022-10-12 09:36:47 INFO] [activity:239] Pausing after activity for 10s...
+[2022-10-12 09:36:57 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:36:57 DEBUG] [__init__:399] No controls to apply on 'method'
+[2022-10-12 09:36:57 DEBUG] [run:536] Running steady-state hypothesis after the method
+[2022-10-12 09:36:57 INFO] [hypothesis:182] Steady state hypothesis: The app is healthy
+[2022-10-12 09:36:57 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:36:57 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:36:57 INFO] [activity:204] Probe: all-apps-are-healthy
+[2022-10-12 09:36:57 DEBUG] [python:33] Activity 'all-apps-are-healthy' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/probes.py'
+[2022-10-12 09:36:57 WARNING] [__init__:165] all_microservices_healthy function is DEPRECATED and will be removed in the next         releases, please use all_pods_healthy instead
+[2022-10-12 09:36:57 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:36:58 DEBUG] [probes:296] Found 0 failed and 0 not ready pods
+[2022-10-12 09:36:58 DEBUG] [activity:221]   => succeeded with 'True'
+[2022-10-12 09:36:58 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:36:58 DEBUG] [hypothesis:221] allowed tolerance is True
+[2022-10-12 09:36:58 INFO] [hypothesis:231] Steady state hypothesis is met!
+[2022-10-12 09:36:58 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:36:58 INFO] [run:893] Let's rollback...
+[2022-10-12 09:36:58 DEBUG] [__init__:399] No controls to apply on 'rollback'
+[2022-10-12 09:36:58 INFO] [rollback:27] No declared rollbacks, let's move on.
+[2022-10-12 09:36:58 DEBUG] [__init__:399] No controls to apply on 'rollback'
+[2022-10-12 09:36:58 INFO] [run:458] Experiment ended with status: completed
+[2022-10-12 09:36:58 DEBUG] [__init__:399] No controls to apply on 'experiment'
+[2022-10-12 09:36:58 DEBUG] [__init__:91] Cleaning up controls
+[2022-10-12 09:36:58 DEBUG] [caching:42] Clearing activities cache
+[2022-10-12 09:45:06 DEBUG] [cli:112] ###############################################################################
+[2022-10-12 09:45:06 DEBUG] [cli:113] Running command 'run'
+[2022-10-12 09:45:06 DEBUG] [cli:117] Using settings file '/home/kubemateadmin/.chaostoolkit/settings.yaml'
+[2022-10-12 09:45:07 DEBUG] [settings:30] The Chaos Toolkit settings file could not be found at '/home/kubemateadmin/.chaostoolkit/settings.yaml'.
+[2022-10-12 09:45:07 DEBUG] [__init__:399] No controls to apply on 'loader'
+[2022-10-12 09:45:07 DEBUG] [__init__:399] No controls to apply on 'loader'
+[2022-10-12 09:45:07 DEBUG] [caching:24] Building activity cache...
+[2022-10-12 09:45:07 DEBUG] [caching:35] Cached 2 activities
+[2022-10-12 09:45:07 INFO] [experiment:58] Validating the experiment's syntax
+[2022-10-12 09:45:07 DEBUG] [configuration:63] Loading configuration...
+[2022-10-12 09:45:07 DEBUG] [secret:78] Loading secrets...
+[2022-10-12 09:45:07 DEBUG] [secret:104] Done loading secrets
+[2022-10-12 09:45:07 INFO] [experiment:109] Experiment looks valid
+[2022-10-12 09:45:07 DEBUG] [caching:42] Clearing activities cache
+[2022-10-12 09:45:07 DEBUG] [caching:24] Building activity cache...
+[2022-10-12 09:45:07 DEBUG] [caching:35] Cached 2 activities
+[2022-10-12 09:45:07 DEBUG] [configuration:63] Loading configuration...
+[2022-10-12 09:45:07 DEBUG] [secret:78] Loading secrets...
+[2022-10-12 09:45:07 DEBUG] [secret:104] Done loading secrets
+[2022-10-12 09:45:07 DEBUG] [configuration:160] Loading dynamic configuration...
+[2022-10-12 09:45:07 INFO] [run:320] Running experiment: Other pods should not be terminated, if we terminate a Pod?
+[2022-10-12 09:45:07 DEBUG] [__init__:52] Initializing controls
+[2022-10-12 09:45:07 INFO] [run:344] Steady-state strategy: default
+[2022-10-12 09:45:07 INFO] [run:348] Rollbacks strategy: default
+[2022-10-12 09:45:07 DEBUG] [__init__:399] No controls to apply on 'experiment'
+[2022-10-12 09:45:07 DEBUG] [run:506] Running steady-state hypothesis before the method
+[2022-10-12 09:45:07 INFO] [hypothesis:182] Steady state hypothesis: Pod exists
+[2022-10-12 09:45:07 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:45:07 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:45:07 INFO] [activity:204] Probe: pod-exists
+[2022-10-12 09:45:07 DEBUG] [python:33] Activity 'pod-exists' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/pod/probes.py'
+[2022-10-12 09:45:07 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:45:07 DEBUG] [probes:219] Found 0 pods matching label 'app=reviews' in ns 'default'
+[2022-10-12 09:45:07 DEBUG] [activity:221]   => succeeded with '0'
+[2022-10-12 09:45:07 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:45:07 DEBUG] [hypothesis:221] allowed tolerance is 0
+[2022-10-12 09:45:07 INFO] [hypothesis:231] Steady state hypothesis is met!
+[2022-10-12 09:45:07 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:45:07 INFO] [run:607] Playing your experiment's method now...
+[2022-10-12 09:45:07 DEBUG] [__init__:399] No controls to apply on 'method'
+[2022-10-12 09:45:07 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:45:07 INFO] [activity:204] Action: terminate-pod
+[2022-10-12 09:45:07 DEBUG] [python:33] Activity 'terminate-pod' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/pod/actions.py'
+[2022-10-12 09:45:07 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:45:07 DEBUG] [actions:238] Found 12 pods in ns 'default'
+[2022-10-12 09:45:07 DEBUG] [actions:246] Pod 'adservice-75656d5f44-8kr66' match pattern
+[2022-10-12 09:45:07 DEBUG] [activity:221]   => succeeded with '['adservice-75656d5f44-8kr66']'
+[2022-10-12 09:45:07 INFO] [activity:239] Pausing after activity for 10s...
+[2022-10-12 09:45:17 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:45:17 DEBUG] [__init__:399] No controls to apply on 'method'
+[2022-10-12 09:45:17 DEBUG] [run:536] Running steady-state hypothesis after the method
+[2022-10-12 09:45:17 INFO] [hypothesis:182] Steady state hypothesis: Pod exists
+[2022-10-12 09:45:17 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:45:17 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:45:17 INFO] [activity:204] Probe: pod-exists
+[2022-10-12 09:45:17 DEBUG] [python:33] Activity 'pod-exists' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/pod/probes.py'
+[2022-10-12 09:45:17 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:45:17 DEBUG] [probes:219] Found 0 pods matching label 'app=reviews' in ns 'default'
+[2022-10-12 09:45:17 DEBUG] [activity:221]   => succeeded with '0'
+[2022-10-12 09:45:17 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:45:17 DEBUG] [hypothesis:221] allowed tolerance is 0
+[2022-10-12 09:45:17 INFO] [hypothesis:231] Steady state hypothesis is met!
+[2022-10-12 09:45:17 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:45:17 INFO] [run:893] Let's rollback...
+[2022-10-12 09:45:17 DEBUG] [__init__:399] No controls to apply on 'rollback'
+[2022-10-12 09:45:17 INFO] [rollback:27] No declared rollbacks, let's move on.
+[2022-10-12 09:45:17 DEBUG] [__init__:399] No controls to apply on 'rollback'
+[2022-10-12 09:45:17 INFO] [run:458] Experiment ended with status: completed
+[2022-10-12 09:45:17 DEBUG] [__init__:399] No controls to apply on 'experiment'
+[2022-10-12 09:45:17 DEBUG] [__init__:91] Cleaning up controls
+[2022-10-12 09:45:17 DEBUG] [caching:42] Clearing activities cache
+[2022-10-12 09:50:59 DEBUG] [cli:112] ###############################################################################
+[2022-10-12 09:50:59 DEBUG] [cli:113] Running command 'run'
+[2022-10-12 09:50:59 DEBUG] [cli:117] Using settings file '/home/kubemateadmin/.chaostoolkit/settings.yaml'
+[2022-10-12 09:51:00 DEBUG] [settings:30] The Chaos Toolkit settings file could not be found at '/home/kubemateadmin/.chaostoolkit/settings.yaml'.
+[2022-10-12 09:51:00 DEBUG] [__init__:399] No controls to apply on 'loader'
+[2022-10-12 09:51:00 DEBUG] [__init__:399] No controls to apply on 'loader'
+[2022-10-12 09:51:00 DEBUG] [caching:24] Building activity cache...
+[2022-10-12 09:51:00 DEBUG] [caching:35] Cached 2 activities
+[2022-10-12 09:51:00 INFO] [experiment:58] Validating the experiment's syntax
+[2022-10-12 09:51:00 DEBUG] [configuration:63] Loading configuration...
+[2022-10-12 09:51:00 DEBUG] [secret:78] Loading secrets...
+[2022-10-12 09:51:00 DEBUG] [secret:104] Done loading secrets
+[2022-10-12 09:51:00 INFO] [experiment:109] Experiment looks valid
+[2022-10-12 09:51:00 DEBUG] [caching:42] Clearing activities cache
+[2022-10-12 09:51:00 DEBUG] [caching:24] Building activity cache...
+[2022-10-12 09:51:00 DEBUG] [caching:35] Cached 2 activities
+[2022-10-12 09:51:00 DEBUG] [configuration:63] Loading configuration...
+[2022-10-12 09:51:00 DEBUG] [secret:78] Loading secrets...
+[2022-10-12 09:51:00 DEBUG] [secret:104] Done loading secrets
+[2022-10-12 09:51:00 DEBUG] [configuration:160] Loading dynamic configuration...
+[2022-10-12 09:51:00 INFO] [run:320] Running experiment: Lets kill pods randomly
+[2022-10-12 09:51:00 DEBUG] [__init__:52] Initializing controls
+[2022-10-12 09:51:00 INFO] [run:344] Steady-state strategy: default
+[2022-10-12 09:51:00 INFO] [run:348] Rollbacks strategy: default
+[2022-10-12 09:51:00 DEBUG] [__init__:399] No controls to apply on 'experiment'
+[2022-10-12 09:51:00 DEBUG] [run:506] Running steady-state hypothesis before the method
+[2022-10-12 09:51:00 INFO] [hypothesis:182] Steady state hypothesis: The app is healthy
+[2022-10-12 09:51:00 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:51:00 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:51:00 INFO] [activity:204] Probe: all-apps-are-healthy
+[2022-10-12 09:51:00 DEBUG] [python:33] Activity 'all-apps-are-healthy' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/probes.py'
+[2022-10-12 09:51:00 WARNING] [__init__:165] all_microservices_healthy function is DEPRECATED and will be removed in the next         releases, please use all_pods_healthy instead
+[2022-10-12 09:51:00 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:51:00 DEBUG] [probes:296] Found 0 failed and 0 not ready pods
+[2022-10-12 09:51:00 DEBUG] [activity:221]   => succeeded with 'True'
+[2022-10-12 09:51:00 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:51:00 DEBUG] [hypothesis:221] allowed tolerance is True
+[2022-10-12 09:51:00 INFO] [hypothesis:231] Steady state hypothesis is met!
+[2022-10-12 09:51:00 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:51:00 INFO] [run:607] Playing your experiment's method now...
+[2022-10-12 09:51:00 DEBUG] [__init__:399] No controls to apply on 'method'
+[2022-10-12 09:51:00 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:51:00 INFO] [activity:204] Action: terminate-pod
+[2022-10-12 09:51:00 DEBUG] [python:33] Activity 'terminate-pod' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/pod/actions.py'
+[2022-10-12 09:51:00 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:51:00 DEBUG] [actions:238] Found 12 pods in ns 'default'
+[2022-10-12 09:51:00 DEBUG] [activity:221]   => succeeded with '['paymentservice-6f69f8b58d-6q7t4']'
+[2022-10-12 09:51:00 INFO] [activity:239] Pausing after activity for 10s...
+[2022-10-12 09:51:10 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:51:10 DEBUG] [__init__:399] No controls to apply on 'method'
+[2022-10-12 09:51:10 DEBUG] [run:536] Running steady-state hypothesis after the method
+[2022-10-12 09:51:10 INFO] [hypothesis:182] Steady state hypothesis: The app is healthy
+[2022-10-12 09:51:10 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:51:10 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:51:10 INFO] [activity:204] Probe: all-apps-are-healthy
+[2022-10-12 09:51:10 DEBUG] [python:33] Activity 'all-apps-are-healthy' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/probes.py'
+[2022-10-12 09:51:10 WARNING] [__init__:165] all_microservices_healthy function is DEPRECATED and will be removed in the next         releases, please use all_pods_healthy instead
+[2022-10-12 09:51:10 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:51:10 DEBUG] [probes:296] Found 0 failed and 0 not ready pods
+[2022-10-12 09:51:10 DEBUG] [activity:221]   => succeeded with 'True'
+[2022-10-12 09:51:10 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:51:10 DEBUG] [hypothesis:221] allowed tolerance is True
+[2022-10-12 09:51:10 INFO] [hypothesis:231] Steady state hypothesis is met!
+[2022-10-12 09:51:10 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:51:10 INFO] [run:893] Let's rollback...
+[2022-10-12 09:51:10 DEBUG] [__init__:399] No controls to apply on 'rollback'
+[2022-10-12 09:51:10 INFO] [rollback:27] No declared rollbacks, let's move on.
+[2022-10-12 09:51:10 DEBUG] [__init__:399] No controls to apply on 'rollback'
+[2022-10-12 09:51:10 INFO] [run:458] Experiment ended with status: completed
+[2022-10-12 09:51:10 DEBUG] [__init__:399] No controls to apply on 'experiment'
+[2022-10-12 09:51:10 DEBUG] [__init__:91] Cleaning up controls
+[2022-10-12 09:51:10 DEBUG] [caching:42] Clearing activities cache
+[2022-10-12 09:51:36 DEBUG] [cli:112] ###############################################################################
+[2022-10-12 09:51:36 DEBUG] [cli:113] Running command 'run'
+[2022-10-12 09:51:36 DEBUG] [cli:117] Using settings file '/home/kubemateadmin/.chaostoolkit/settings.yaml'
+[2022-10-12 09:51:37 DEBUG] [settings:30] The Chaos Toolkit settings file could not be found at '/home/kubemateadmin/.chaostoolkit/settings.yaml'.
+[2022-10-12 09:51:37 DEBUG] [__init__:399] No controls to apply on 'loader'
+[2022-10-12 09:51:37 DEBUG] [__init__:399] No controls to apply on 'loader'
+[2022-10-12 09:51:37 DEBUG] [caching:24] Building activity cache...
+[2022-10-12 09:51:37 DEBUG] [caching:35] Cached 2 activities
+[2022-10-12 09:51:37 INFO] [experiment:58] Validating the experiment's syntax
+[2022-10-12 09:51:37 DEBUG] [configuration:63] Loading configuration...
+[2022-10-12 09:51:37 DEBUG] [secret:78] Loading secrets...
+[2022-10-12 09:51:37 DEBUG] [secret:104] Done loading secrets
+[2022-10-12 09:51:37 INFO] [experiment:109] Experiment looks valid
+[2022-10-12 09:51:37 DEBUG] [caching:42] Clearing activities cache
+[2022-10-12 09:51:37 DEBUG] [caching:24] Building activity cache...
+[2022-10-12 09:51:37 DEBUG] [caching:35] Cached 2 activities
+[2022-10-12 09:51:37 DEBUG] [configuration:63] Loading configuration...
+[2022-10-12 09:51:37 DEBUG] [secret:78] Loading secrets...
+[2022-10-12 09:51:37 DEBUG] [secret:104] Done loading secrets
+[2022-10-12 09:51:37 DEBUG] [configuration:160] Loading dynamic configuration...
+[2022-10-12 09:51:37 INFO] [run:320] Running experiment: Other pods should not be terminated, if we terminate a Pod?
+[2022-10-12 09:51:37 DEBUG] [__init__:52] Initializing controls
+[2022-10-12 09:51:37 INFO] [run:344] Steady-state strategy: default
+[2022-10-12 09:51:37 INFO] [run:348] Rollbacks strategy: default
+[2022-10-12 09:51:37 DEBUG] [__init__:399] No controls to apply on 'experiment'
+[2022-10-12 09:51:37 DEBUG] [run:506] Running steady-state hypothesis before the method
+[2022-10-12 09:51:37 INFO] [hypothesis:182] Steady state hypothesis: Pod exists
+[2022-10-12 09:51:37 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:51:37 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:51:37 INFO] [activity:204] Probe: pod-exists
+[2022-10-12 09:51:37 DEBUG] [python:33] Activity 'pod-exists' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/pod/probes.py'
+[2022-10-12 09:51:37 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:51:37 DEBUG] [probes:219] Found 0 pods matching label 'app=reviews' in ns 'default'
+[2022-10-12 09:51:37 DEBUG] [activity:221]   => succeeded with '0'
+[2022-10-12 09:51:37 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:51:37 DEBUG] [hypothesis:221] allowed tolerance is 0
+[2022-10-12 09:51:37 INFO] [hypothesis:231] Steady state hypothesis is met!
+[2022-10-12 09:51:37 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:51:37 INFO] [run:607] Playing your experiment's method now...
+[2022-10-12 09:51:37 DEBUG] [__init__:399] No controls to apply on 'method'
+[2022-10-12 09:51:37 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:51:37 INFO] [activity:204] Action: terminate-pod
+[2022-10-12 09:51:37 DEBUG] [python:33] Activity 'terminate-pod' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/pod/actions.py'
+[2022-10-12 09:51:37 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:51:37 DEBUG] [actions:238] Found 12 pods in ns 'default'
+[2022-10-12 09:51:37 DEBUG] [activity:221]   => succeeded with '[]'
+[2022-10-12 09:51:37 INFO] [activity:239] Pausing after activity for 10s...
+[2022-10-12 09:51:47 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:51:47 DEBUG] [__init__:399] No controls to apply on 'method'
+[2022-10-12 09:51:47 DEBUG] [run:536] Running steady-state hypothesis after the method
+[2022-10-12 09:51:47 INFO] [hypothesis:182] Steady state hypothesis: Pod exists
+[2022-10-12 09:51:47 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:51:47 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:51:47 INFO] [activity:204] Probe: pod-exists
+[2022-10-12 09:51:47 DEBUG] [python:33] Activity 'pod-exists' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/pod/probes.py'
+[2022-10-12 09:51:47 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:51:47 DEBUG] [probes:219] Found 0 pods matching label 'app=reviews' in ns 'default'
+[2022-10-12 09:51:47 DEBUG] [activity:221]   => succeeded with '0'
+[2022-10-12 09:51:47 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:51:47 DEBUG] [hypothesis:221] allowed tolerance is 0
+[2022-10-12 09:51:47 INFO] [hypothesis:231] Steady state hypothesis is met!
+[2022-10-12 09:51:47 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:51:47 INFO] [run:893] Let's rollback...
+[2022-10-12 09:51:47 DEBUG] [__init__:399] No controls to apply on 'rollback'
+[2022-10-12 09:51:47 INFO] [rollback:27] No declared rollbacks, let's move on.
+[2022-10-12 09:51:47 DEBUG] [__init__:399] No controls to apply on 'rollback'
+[2022-10-12 09:51:47 INFO] [run:458] Experiment ended with status: completed
+[2022-10-12 09:51:47 DEBUG] [__init__:399] No controls to apply on 'experiment'
+[2022-10-12 09:51:47 DEBUG] [__init__:91] Cleaning up controls
+[2022-10-12 09:51:47 DEBUG] [caching:42] Clearing activities cache
+[2022-10-12 09:54:04 DEBUG] [cli:112] ###############################################################################
+[2022-10-12 09:54:04 DEBUG] [cli:113] Running command 'run'
+[2022-10-12 09:54:04 DEBUG] [cli:117] Using settings file '/home/kubemateadmin/.chaostoolkit/settings.yaml'
+[2022-10-12 09:54:05 DEBUG] [settings:30] The Chaos Toolkit settings file could not be found at '/home/kubemateadmin/.chaostoolkit/settings.yaml'.
+[2022-10-12 09:54:05 DEBUG] [__init__:399] No controls to apply on 'loader'
+[2022-10-12 09:54:05 DEBUG] [__init__:399] No controls to apply on 'loader'
+[2022-10-12 09:54:05 DEBUG] [caching:24] Building activity cache...
+[2022-10-12 09:54:05 DEBUG] [caching:35] Cached 2 activities
+[2022-10-12 09:54:05 INFO] [experiment:58] Validating the experiment's syntax
+[2022-10-12 09:54:05 DEBUG] [configuration:63] Loading configuration...
+[2022-10-12 09:54:05 DEBUG] [secret:78] Loading secrets...
+[2022-10-12 09:54:05 DEBUG] [secret:104] Done loading secrets
+[2022-10-12 09:54:05 INFO] [experiment:109] Experiment looks valid
+[2022-10-12 09:54:05 DEBUG] [caching:42] Clearing activities cache
+[2022-10-12 09:54:05 DEBUG] [caching:24] Building activity cache...
+[2022-10-12 09:54:05 DEBUG] [caching:35] Cached 2 activities
+[2022-10-12 09:54:05 DEBUG] [configuration:63] Loading configuration...
+[2022-10-12 09:54:05 DEBUG] [secret:78] Loading secrets...
+[2022-10-12 09:54:05 DEBUG] [secret:104] Done loading secrets
+[2022-10-12 09:54:05 DEBUG] [configuration:160] Loading dynamic configuration...
+[2022-10-12 09:54:05 INFO] [run:320] Running experiment: Lets kill pods randomly
+[2022-10-12 09:54:05 DEBUG] [__init__:52] Initializing controls
+[2022-10-12 09:54:05 INFO] [run:344] Steady-state strategy: default
+[2022-10-12 09:54:05 INFO] [run:348] Rollbacks strategy: default
+[2022-10-12 09:54:05 DEBUG] [__init__:399] No controls to apply on 'experiment'
+[2022-10-12 09:54:05 DEBUG] [run:506] Running steady-state hypothesis before the method
+[2022-10-12 09:54:05 INFO] [hypothesis:182] Steady state hypothesis: The app is healthy
+[2022-10-12 09:54:05 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:54:05 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:54:05 INFO] [activity:204] Probe: all-apps-are-healthy
+[2022-10-12 09:54:05 DEBUG] [python:33] Activity 'all-apps-are-healthy' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/probes.py'
+[2022-10-12 09:54:05 WARNING] [__init__:165] all_microservices_healthy function is DEPRECATED and will be removed in the next         releases, please use all_pods_healthy instead
+[2022-10-12 09:54:05 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:54:05 DEBUG] [probes:296] Found 0 failed and 0 not ready pods
+[2022-10-12 09:54:05 DEBUG] [activity:221]   => succeeded with 'True'
+[2022-10-12 09:54:05 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:54:05 DEBUG] [hypothesis:221] allowed tolerance is True
+[2022-10-12 09:54:05 INFO] [hypothesis:231] Steady state hypothesis is met!
+[2022-10-12 09:54:05 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:54:05 INFO] [run:607] Playing your experiment's method now...
+[2022-10-12 09:54:05 DEBUG] [__init__:399] No controls to apply on 'method'
+[2022-10-12 09:54:05 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:54:05 INFO] [activity:204] Action: terminate-pod
+[2022-10-12 09:54:05 DEBUG] [python:33] Activity 'terminate-pod' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/pod/actions.py'
+[2022-10-12 09:54:05 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:54:05 DEBUG] [actions:238] Found 12 pods in ns 'default'
+[2022-10-12 09:54:05 DEBUG] [activity:221]   => succeeded with '['checkoutservice-5d45565464-rvzx8']'
+[2022-10-12 09:54:05 INFO] [activity:239] Pausing after activity for 10s...
+[2022-10-12 09:54:15 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:54:15 DEBUG] [__init__:399] No controls to apply on 'method'
+[2022-10-12 09:54:15 DEBUG] [run:536] Running steady-state hypothesis after the method
+[2022-10-12 09:54:15 INFO] [hypothesis:182] Steady state hypothesis: The app is healthy
+[2022-10-12 09:54:15 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:54:15 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:54:15 INFO] [activity:204] Probe: all-apps-are-healthy
+[2022-10-12 09:54:15 DEBUG] [python:33] Activity 'all-apps-are-healthy' loaded from '/home/kubemateadmin/.local/lib/python3.8/site-packages/chaosk8s/probes.py'
+[2022-10-12 09:54:15 WARNING] [__init__:165] all_microservices_healthy function is DEPRECATED and will be removed in the next         releases, please use all_pods_healthy instead
+[2022-10-12 09:54:15 DEBUG] [__init__:73] Using Kubernetes context 'default' from config '/home/kubemateadmin/.kube/config'
+[2022-10-12 09:54:15 DEBUG] [probes:296] Found 0 failed and 0 not ready pods
+[2022-10-12 09:54:15 DEBUG] [activity:221]   => succeeded with 'True'
+[2022-10-12 09:54:15 DEBUG] [__init__:399] No controls to apply on 'activity'
+[2022-10-12 09:54:15 DEBUG] [hypothesis:221] allowed tolerance is True
+[2022-10-12 09:54:15 INFO] [hypothesis:231] Steady state hypothesis is met!
+[2022-10-12 09:54:15 DEBUG] [__init__:399] No controls to apply on 'hypothesis'
+[2022-10-12 09:54:15 INFO] [run:893] Let's rollback...
+[2022-10-12 09:54:15 DEBUG] [__init__:399] No controls to apply on 'rollback'
+[2022-10-12 09:54:15 INFO] [rollback:27] No declared rollbacks, let's move on.
+[2022-10-12 09:54:15 DEBUG] [__init__:399] No controls to apply on 'rollback'
+[2022-10-12 09:54:15 INFO] [run:458] Experiment ended with status: completed
+[2022-10-12 09:54:15 DEBUG] [__init__:399] No controls to apply on 'experiment'
+[2022-10-12 09:54:15 DEBUG] [__init__:91] Cleaning up controls
+[2022-10-12 09:54:15 DEBUG] [caching:42] Clearing activities cache
