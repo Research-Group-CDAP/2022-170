@@ -8,6 +8,7 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import axios from "axios";
 import ExperimentReport from "./ExperimentReport";
+import MuiAlert from '@material-ui/lab/Alert';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -56,47 +57,66 @@ const ExperimentSlideDrawer = (props) => {
   const [podName] = React.useState(props.podName);
   const [experimentType, setExperimentType] = React.useState();
   const [report, setReport] = React.useState(null);
+  const [loadingStatus, setLoadingStatus] = React.useState(false);
+  const [isSuccess, setIsSuccess] = React.useState(false);
 
   const generateYaml = () => {
+    setLoadingStatus(true);
     axios.post(`http://localhost:4001/experiment/generateYamlFile/${podName}/${experimentType}`).then((res) => {
       if (res.data === "YAML Generated") {
-        alert(res.data);
+        setLoadingStatus(false);
+        setIsSuccess(true);
       } else {
-        alert(res.data);
+        setLoadingStatus(false);
+        setIsSuccess(false);
       }
 
     }).catch((error) => {
-      alert(error);
+      setLoadingStatus(false);
+      setIsSuccess(false);
     })
   }
 
   const executeExperiment = () => {
+    setLoadingStatus(true);
     axios.post(`http://localhost:4001/experiment/executeExperiment`).then((res) => {
       if (res.data === "Report Generated") {
-        alert(res.data);
+        setLoadingStatus(false);
+        setIsSuccess(true);
       } else {
-        alert(res.data);
+        setLoadingStatus(false);
+        setIsSuccess(false);
       }
     }).catch((error) => {
-      alert(error);
+      setLoadingStatus(false);
+      setIsSuccess(false);
     })
   }
 
   const responseAsJson = () => {
+    setLoadingStatus(true);
     axios.post(`http://localhost:4002/restartmonitoringserver`).then((res) => {
       if (res.data.restart) {
         axios.get(`http://localhost:4001/experiment/responseAsJson`).then((res) => {
-          alert("success")
+          setLoadingStatus(false);
+          setIsSuccess(true);
           console.log(res.data)
           setReport(res.data)
         }).catch((error) => {
-          alert(error);
+          setLoadingStatus(false);
+          setIsSuccess(false);
         })
       }
     }).catch((error) => {
-      alert(error);
+      setLoadingStatus(false);
+      setIsSuccess(false);
     })
   }
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+
 
   return (
     <div className={classes.root}>
@@ -145,8 +165,13 @@ const ExperimentSlideDrawer = (props) => {
           </Button>
         </Grid>
         <Grid item xs={12}>
+          {loadingStatus ? <Alert severity="info">Loading!</Alert> : isSuccess ? <Alert severity="success">Succesfully Executed</Alert>
+            : <Alert severity="error">Something went wrong!</Alert>
+          }
+        </Grid>
+        <Grid item xs={12}>
           {report &&
-            <ExperimentReport report={report}/>
+            <ExperimentReport report={report} />
           }
         </Grid>
       </Grid>
