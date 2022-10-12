@@ -193,7 +193,7 @@ let ingress = {
 }
 
 const generateYamlFile = async (req, res) => {
-    let data = {};
+    let data;
 
     if (req.params.experimentType === "RandomPodTerminate") {
         data = YAML.stringify(randompodterm);

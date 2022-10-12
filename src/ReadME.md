@@ -21,3 +21,8 @@ To Restart
 pm2 restart kube-server
 pm2 restart matrics-server
 pm2 restart monitoring-server
+
+How Kill Running Nodejs port
+------------------------------------
+lsof -i :4001 
+kill -9 53096
