@@ -152,7 +152,7 @@ app.get("/pods/:namespace", (req, res, next) => {
         tempObject.containerImage = singlePod.spec?.containers[0].image;
         tempObject.imagePullPolicy = singlePod.spec?.containers[0].imagePullPolicy;
         tempObject.restartPolicy = singlePod.spec.restartPolicy;
-        tempObject.restartCount = singlePod.status?.initContainerStatuses[0].restartCount;
+        tempObject.restartCount = singlePod.status?.initContainerStatuses && singlePod.status?.initContainerStatuses[0].restartCount;
         tempArray.push(tempObject);
       });
       await res.status(200).json(tempArray);
