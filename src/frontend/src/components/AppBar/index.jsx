@@ -8,24 +8,23 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
-import PageRoutes from "../../PageRoutes";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDetails } from "../../store/auth-store/authActions";
-import { BrowserRouter as Router, Route, Routes,Link  } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 import {
   Containers,
   Dependency,
+  Experiments,
   Home,
   Matrics,
   Overview,
   Pods,
-  Services,
-  Experiments,
   Predictions,
+  Registration,
+  Services,
   UserInformation,
   UserLogin,
-  Registration,
 } from "../../pages";
+import { getUserDetails } from "../../store/auth-store/authActions";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -122,18 +121,14 @@ export default function PermanentDrawerLeft() {
             ) : (
               <>
                 <Link style={{ textDecoration: "none" }} to="/user">
-                  <ListItem
-                    className={classes.Link}
-                    button
-                    key={"User Information"}
-                  >
+                  <ListItem className={classes.Link} button key={"User Information"}>
                     <ListItemIcon className={classes.ListItemIcon}>
                       <Icon icon="vscode-icons:file-type-jenkins" width={25} />
                     </ListItemIcon>
                     <ListItemText primary={"User Information"} />
                   </ListItem>
                 </Link>
-                {kubeState.clusterConnected &&
+                {kubeState.clusterConnected && (
                   <>
                     <Link style={{ textDecoration: "none" }} to="/overview">
                       <ListItem className={classes.Link} button key={"Overview"}>
@@ -154,10 +149,7 @@ export default function PermanentDrawerLeft() {
                     <Link style={{ textDecoration: "none" }} to="/pods">
                       <ListItem className={classes.Link} button key={"Pods"}>
                         <ListItemIcon className={classes.ListItemIcon}>
-                          <Icon
-                            icon="vscode-icons:folder-type-kubernetes"
-                            width={25}
-                          />
+                          <Icon icon="vscode-icons:folder-type-kubernetes" width={25} />
                         </ListItemIcon>
                         <ListItemText primary={"Pods"} />
                       </ListItem>
@@ -173,10 +165,7 @@ export default function PermanentDrawerLeft() {
                     <Link style={{ textDecoration: "none" }} to="/dependency">
                       <ListItem className={classes.Link} button key={"Dependency"}>
                         <ListItemIcon className={classes.ListItemIcon}>
-                          <Icon
-                            icon="vscode-icons:file-type-dependencies"
-                            width={25}
-                          />
+                          <Icon icon="vscode-icons:file-type-dependencies" width={25} />
                         </ListItemIcon>
                         <ListItemText primary={"Dependency"} />
                       </ListItem>
@@ -198,7 +187,7 @@ export default function PermanentDrawerLeft() {
                       </ListItem>
                     </Link>
                   </>
-                }
+                )}
                 <Link
                   style={{ textDecoration: "none" }}
                   onClick={() => {
@@ -215,13 +204,12 @@ export default function PermanentDrawerLeft() {
                     <ListItemText primary={"Logout"} />
                   </ListItem>
                 </Link>
-
               </>
             )}
           </List>
         </Drawer>
         <main className={classes.content}>
-          <Routes >
+          <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/matrics" element={<Matrics />} />
             <Route path="/pods" element={<Pods />} />
@@ -234,7 +222,7 @@ export default function PermanentDrawerLeft() {
             <Route path="/user" element={<UserInformation />} />
             <Route path="/login" element={<UserLogin />} />
             <Route path="/register" element={<Registration />} />
-          </Routes >
+          </Routes>
         </main>
       </div>
     </Router>

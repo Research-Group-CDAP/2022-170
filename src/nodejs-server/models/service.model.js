@@ -5,6 +5,7 @@ const ServiceSchema = mongoose.Schema(
     serviceName: { type: String, required: true },
     repository: { type: Object, required: true },
     latestTag: { type: String, required: false, default: "v1.0.0" },
+    isLatestVersionReleased: { type: Boolean, required: false, default: false },
     status: {
       type: String,
       enum: [

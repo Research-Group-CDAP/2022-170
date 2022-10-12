@@ -46,6 +46,10 @@ const makeDeployment = async () => {
           status: "Completed",
           moreInformation: "Deployment is successfully completed",
         });
+
+        await Service.findByIdAndUpdate(waitingDeployment.serviceId, {
+          isLatestVersionReleased: true,
+        });
         return;
       } else {
         console.error("########## Image location not found");

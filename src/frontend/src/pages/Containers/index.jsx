@@ -1,6 +1,7 @@
-import { Add } from "@material-ui/icons";
+import { Snackbar } from "@material-ui/core";
+import { Add, RefreshOutlined } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/styles";
-import { Button } from "@mui/material";
+import { Alert, Button } from "@mui/material";
 import { Stack } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -18,6 +19,9 @@ const Containers = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const [state, setState] = useState({
+    isSnackBackOpen: false,
+  });
 
   useEffect(() => {
     dispatch(get_services());
@@ -26,6 +30,20 @@ const Containers = (props) => {
   // useEffect(() => {
   //   setServices(fastProviderState.services);
   // }, [fastProviderState.services]);
+
+  const getServices = (e) => {
+    e.preventDefault();
+    dispatch(get_services());
+    setState({ ...state, isSnackBackOpen: true });
+  };
+
+  const handleCloseSnackBar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setState({ ...state, isSnackBackOpen: false });
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -48,13 +66,30 @@ const Containers = (props) => {
           >
             Add Service
           </Button>
-          <AddService
-            open={open}
-            handleClose={handleClose}
-            handleClickOpen={handleClickOpen}
-          />
+          <Button
+            variant="outlined"
+            startIcon={<RefreshOutlined />}
+            onClick={getServices}
+            disableElevation
+            color="inherit"
+            className="mr-3"
+          >
+            Refresh
+          </Button>
+          <AddService open={open} handleClose={handleClose} handleClickOpen={handleClickOpen} />
+          <AddService open={open} handleClose={handleClose} handleClickOpen={handleClickOpen} />
         </Stack>
         <ListService />
+        <Snackbar
+          open={state.isSnackBackOpen}
+          autoHideDuration={2000}
+          onClose={handleCloseSnackBar}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        >
+          <Alert onClose={handleCloseSnackBar} severity="success" sx={{ width: "100%" }}>
+            Container images are refreshed successfully
+          </Alert>
+        </Snackbar>
       </div>
     </div>
   );

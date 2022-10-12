@@ -33,23 +33,23 @@ const DeploymentSchema = mongoose.Schema({
         },
         spec: {
           serviceAccountName: { type: String, required: false, default: "default" },
-          securityContext: {
-            fsGroup: { type: Number, required: false, default: 1000 },
-            runAsGroup: { type: Number, required: false, default: 1000 },
-            runAsNonRoot: { type: Boolean, required: false, default: true },
-            runAsUser: { type: Number, required: false, default: 1000 },
-          },
+          // securityContext: {
+          //   fsGroup: { type: Number, required: false, default: 1000 },
+          //   runAsGroup: { type: Number, required: false, default: 1000 },
+          //   runAsNonRoot: { type: Boolean, required: false, default: true },
+          //   runAsUser: { type: Number, required: false, default: 1000 },
+          // },
           containers: [
             {
               _id: false,
-              securityContext: {
-                allowPrivilegeEscalation: { type: Boolean, required: false, default: false },
-                capabilities: {
-                  drop: [{ _id: false, type: String, required: false, default: "all" }],
-                },
-                privileged: { type: Boolean, required: false, default: false },
-                readOnlyRootFilesystem: { type: Boolean, required: false, default: true },
-              },
+              // securityContext: {
+              //   allowPrivilegeEscalation: { type: Boolean, required: false, default: false },
+              //   capabilities: {
+              //     drop: [{ _id: false, type: String, required: false, default: "all" }],
+              //   },
+              //   privileged: { type: Boolean, required: false, default: false },
+              //   readOnlyRootFilesystem: { type: Boolean, required: false, default: true },
+              // },
               image: { type: String, required: false, default: "" },
               name: { type: String, required: false, default: "server" },
               imagePullPolicy: { type: String, required: false, default: "IfNotPresent" },
@@ -66,30 +66,30 @@ const DeploymentSchema = mongoose.Schema({
                   value: { type: String, required: false },
                 },
               ],
-              readinessProbe: {
-                initialDelaySeconds: { type: Number, required: false },
-                periodSeconds: { type: Number, required: false },
-                exec: {
-                  command: [{ _id: false, type: String, required: true }],
-                },
-              },
-              livenessProbe: {
-                initialDelaySeconds: { type: Number, required: false },
-                periodSeconds: { type: Number, required: false },
-                exec: {
-                  command: [{ _id: false, type: String, required: true }],
-                },
-              },
-              resources: {
-                requests: {
-                  cpu: { type: String, required: false },
-                  memory: { type: String, required: false },
-                },
-                limits: {
-                  cpu: { type: String, required: false },
-                  memory: { type: String, required: false },
-                },
-              },
+              // readinessProbe: {
+              //   initialDelaySeconds: { type: Number, required: false },
+              //   periodSeconds: { type: Number, required: false },
+              //   exec: {
+              //     command: [{ _id: false, type: String, required: true }],
+              //   },
+              // },
+              // livenessProbe: {
+              //   initialDelaySeconds: { type: Number, required: false },
+              //   periodSeconds: { type: Number, required: false },
+              //   exec: {
+              //     command: [{ _id: false, type: String, required: true }],
+              //   },
+              // },
+              // resources: {
+              //   requests: {
+              //     cpu: { type: String, required: false },
+              //     memory: { type: String, required: false },
+              //   },
+              //   limits: {
+              //     cpu: { type: String, required: false },
+              //     memory: { type: String, required: false },
+              //   },
+              // },
             },
           ],
         },

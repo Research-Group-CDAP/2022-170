@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-server
+  #namespace: go
+  labels:
+    app: goapi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: goapi
+  template:
+    metadata:
+      labels:
+        app: goapi
+    spec:
+      imagePullSecrets:
+        - name: pipeline-docker-registry
+      containers:
+        - name: goapi
+          image: fastregprod.azurecr.io/product-service:v1.0.1
+          ports:
+            - containerPort: 8070

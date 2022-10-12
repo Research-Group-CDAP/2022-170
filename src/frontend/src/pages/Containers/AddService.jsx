@@ -62,8 +62,9 @@ const AddService = (props) => {
   });
 
   const fetchServices = useCallback(() => {
-    console.log("called", fastProviderState.serviceRegisterInfo);
-    setIsLoading(false);
+    if (fastProviderState.serviceRegisterInfo) {
+      setIsLoading(false);
+    }
   }, [fastProviderState.serviceRegisterInfo]);
 
   useEffect(() => {
