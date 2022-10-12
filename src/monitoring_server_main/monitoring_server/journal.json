@@ -1,0 +1,138 @@
+{
+  "chaoslib-version": "1.29.0",
+  "platform": "Linux-5.15.0-1021-azure-x86_64-with-glibc2.29",
+  "node": "kubemate-vm",
+  "experiment": {
+    "version": "1.0.0",
+    "title": "Will the applications remain healthy, if we terminate an instance of the application?",
+    "description": "If an instance of the application is terminated, all the applications in the given namespace must be healthy",
+    "tags": [
+      "k8s",
+      "pod",
+      "deployment"
+    ],
+    "steady-state-hypothesis": {
+      "title": "The app is healthy",
+      "probes": [
+        {
+          "name": "all-apps-are-healthy",
+          "type": "probe",
+          "tolerance": true,
+          "provider": {
+            "type": "python",
+            "func": "all_microservices_healthy",
+            "module": "chaosk8s.probes",
+            "arguments": {
+              "ns": "default"
+            }
+          }
+        }
+      ]
+    },
+    "method": [
+      {
+        "type": "action",
+        "name": "terminate-pod",
+        "provider": {
+          "type": "python",
+          "module": "chaosk8s.pod.actions",
+          "func": "terminate_pods",
+          "arguments": {
+            "name_pattern": "adservice-75656d5f44-zghv7"
+          }
+        },
+        "pauses": {
+          "after": 10
+        }
+      }
+    ],
+    "dry": null
+  },
+  "start": "2022-10-12T15:09:18.145954",
+  "status": "completed",
+  "deviated": false,
+  "steady_states": {
+    "before": {
+      "steady_state_met": true,
+      "probes": [
+        {
+          "activity": {
+            "name": "all-apps-are-healthy",
+            "type": "probe",
+            "tolerance": true,
+            "provider": {
+              "type": "python",
+              "func": "all_microservices_healthy",
+              "module": "chaosk8s.probes",
+              "arguments": {
+                "ns": "default"
+              }
+            }
+          },
+          "output": true,
+          "status": "succeeded",
+          "start": "2022-10-12T15:09:18.146687",
+          "end": "2022-10-12T15:09:18.249368",
+          "duration": 0.102681,
+          "tolerance_met": true
+        }
+      ]
+    },
+    "after": {
+      "steady_state_met": true,
+      "probes": [
+        {
+          "activity": {
+            "name": "all-apps-are-healthy",
+            "type": "probe",
+            "tolerance": true,
+            "provider": {
+              "type": "python",
+              "func": "all_microservices_healthy",
+              "module": "chaosk8s.probes",
+              "arguments": {
+                "ns": "default"
+              }
+            }
+          },
+          "output": true,
+          "status": "succeeded",
+          "start": "2022-10-12T15:09:28.377444",
+          "end": "2022-10-12T15:09:28.488127",
+          "duration": 0.110683,
+          "tolerance_met": true
+        }
+      ]
+    },
+    "during": []
+  },
+  "run": [
+    {
+      "activity": {
+        "type": "action",
+        "name": "terminate-pod",
+        "provider": {
+          "type": "python",
+          "module": "chaosk8s.pod.actions",
+          "func": "terminate_pods",
+          "arguments": {
+            "name_pattern": "adservice-75656d5f44-zghv7"
+          }
+        },
+        "pauses": {
+          "after": 10
+        }
+      },
+      "output": [
+        "adservice-75656d5f44-zghv7"
+      ],
+      "status": "succeeded",
+      "start": "2022-10-12T15:09:18.249880",
+      "end": "2022-10-12T15:09:18.365479",
+      "duration": 0.115599
+    }
+  ],
+  "rollbacks": [],
+  "end": "2022-10-12T15:09:28.489166",
+  "duration": 10.352635145187378
+}

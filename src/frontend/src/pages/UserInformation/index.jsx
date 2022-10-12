@@ -69,6 +69,8 @@ const UserInformation = (props) => {
   const connectWithCluster = () => {
     setLoadingStatus(true);
     const data = {
+      azureUserName: state.user?.azureUserName,
+      azurePassword: state.user?.azurePassword,
       azureSubscriptionId: state.user?.azureSubscriptionId,
       resourceGroup: state.user?.resourceGroup,
       clusterName: state.user?.clusterName,
@@ -92,16 +94,16 @@ const UserInformation = (props) => {
             <Grid item xs={6} container justifyContent="flex-start">
               {clusterStatus ? (
                 <p className={classes.labelGreen}>          <Icon
-                icon="pajamas:status-health"
-                width={20}
-                style={{ marginRight: 8 }}
-              />Cluster Connected</p>
+                  icon="pajamas:status-health"
+                  width={20}
+                  style={{ marginRight: 8 }}
+                />Cluster Connected</p>
               ) : (
                 <p className={classes.labelRed}>          <Icon
-                icon="pajamas:status-health"
-                width={20}
-                style={{ marginRight: 8 }}
-              />Cluster Not Connected</p>
+                  icon="pajamas:status-health"
+                  width={20}
+                  style={{ marginRight: 8 }}
+                />Cluster Not Connected</p>
               )}
             </Grid>
             <Grid item xs={6} container justifyContent="flex-end">

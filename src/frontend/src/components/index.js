@@ -16,6 +16,7 @@ import ServiceBackdrop from "./ServiceBackdrop";
 import PodBackdrop from "./podBackdrop";
 import PredictionLineChart from "./PredictionLineChart";
 import UserInformationUpdate from "./UserInformationUpdate";
+import ExperimentSlideDrawer from "./ExperimentSlideDrawer";
 export {
   Cpu,
   Memory,
@@ -35,4 +36,5 @@ export {
   PodBackdrop,
   PredictionLineChart,
   UserInformationUpdate,
+  ExperimentSlideDrawer
 };

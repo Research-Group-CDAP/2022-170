@@ -10,7 +10,19 @@ npm install pm2@latest -g
 To Run 
 pm2 start index.js --name kube-server
 pm2 start server.js --name matrics-server
+pm2 start index.js --name monitoring-server
 
 To Stop
 pm2 stop kube-server
 pm2 stop matrics-server
+pm2 stop monitoring-server
+
+To Restart
+pm2 restart kube-server
+pm2 restart matrics-server
+pm2 restart monitoring-server
+
+How Kill Running Nodejs port
+------------------------------------
+lsof -i :4001 
+kill -9 53096

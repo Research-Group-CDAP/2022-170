@@ -29,7 +29,7 @@ end
 # unset irrelevant variables
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/cdap/2022-170/src/optimize_server/env"
+set -gx VIRTUAL_ENV "/home/kubemateadmin/projects/2022-170/src/optimize_server/env"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

@@ -1,0 +1,30 @@
+version: "1.0.0"
+title: "Will the applications remain healthy, if we terminate an instance of the application?"
+description: "If an instance of the application is terminated, all the applications in the given namespace must be healthy"
+tags:
+  - "k8s"
+  - "pod"
+  - "deployment"
+steady-state-hypothesis:
+  title: "The app is healthy"
+  probes:
+    - name: "all-apps-are-healthy"
+      type: "probe"
+      tolerance: true
+      provider:
+        type: "python"
+        func: "all_microservices_healthy"
+        module: "chaosk8s.probes"
+        arguments:
+          ns: "default"
+method:
+  - type: "action"
+    name: "terminate-pod"
+    provider:
+      type: "python"
+      module: "chaosk8s.pod.actions"
+      func: "terminate_pods"
+      arguments:
+        name_pattern: "adservice-75656d5f44-zghv7"
+    pauses:
+      after: 10
