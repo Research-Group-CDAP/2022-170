@@ -64,7 +64,7 @@ const LineChart = (props) => {
     props.timeSeriesData.slice(-20).forEach((singleData, index) => {
       tempLabelData.push(singleData.timestamp);
     });
-    props.predictedValues.slice(-20).forEach((singleData) => {
+    props.predictedValues.length && props.predictedValues.slice(-20).forEach((singleData) => {
       tempDatasetData.push(singleData);
     });
     setLabelData(tempLabelData);
