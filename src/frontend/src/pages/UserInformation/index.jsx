@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { logintoCluster } from "../../store/auth-store/authActions";
+import { clusterConnected, clusterNotConnected } from "../../store/kube-store/kubeActions";
 import { useState, useEffect } from "react";
 import Backdrop from "@material-ui/core/Backdrop";
 import { UserInformationUpdate } from "../../components";
@@ -62,8 +63,14 @@ const UserInformation = (props) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("clusterConntected", true);
-    setLoadingStatus(false);
+    if(state.clusterConnected){
+      localStorage.setItem("clusterConntected", true);
+      setLoadingStatus(false);
+      dispatch(clusterConnected());
+    }else{
+      setLoadingStatus(false);
+      dispatch(clusterNotConnected());
+    }
   }, [state.clusterConnected]);
 
   const connectWithCluster = () => {
@@ -82,6 +89,7 @@ const UserInformation = (props) => {
   const removeConnectWithCluster = () => {
     localStorage.removeItem("clusterConntected");
     setClusterStatus(false);
+    window.location.href = "/";
   };
 
   return (

@@ -11,6 +11,21 @@ import React, { useEffect, useState } from "react";
 import PageRoutes from "../../PageRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDetails } from "../../store/auth-store/authActions";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  Containers,
+  Dependency,
+  Home,
+  Matrics,
+  Overview,
+  Pods,
+  Services,
+  Experiments,
+  Predictions,
+  UserInformation,
+  UserLogin,
+  Registration,
+} from "../../pages";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -46,11 +61,12 @@ export default function PermanentDrawerLeft() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.authReducer);
+  const kubeState = useSelector((state) => state.kubeReducer);
   const [loginStatus, setLoginStatus] = useState(false);
 
   useEffect(() => {
     dispatch(getUserDetails());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (state.user) {
@@ -61,145 +77,166 @@ export default function PermanentDrawerLeft() {
   }, [state.user]);
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
-        <h4 className="m-4">KubeMate</h4>
-        <Divider />
-        <List>
-          <a style={{ textDecoration: "none" }} href="/">
-            <ListItem className={classes.Link} button key={"Home"}>
-              <ListItemIcon className={classes.ListItemIcon}>
-                <Icon icon="vscode-icons:file-type-homeassistant" width={25} />
-              </ListItemIcon>
-              <ListItemText primary={"Home"} />
-            </ListItem>
-          </a>
+    <Router>
+      <div className={classes.root}>
+        <CssBaseline />
+        <Drawer
+          className={classes.drawer}
+          variant="permanent"
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          anchor="left"
+        >
+          <h4 className="m-4">KubeMate</h4>
+          <Divider />
+          <List>
+            <a style={{ textDecoration: "none" }} href="/">
+              <ListItem className={classes.Link} button key={"Home"}>
+                <ListItemIcon className={classes.ListItemIcon}>
+                  <Icon icon="vscode-icons:file-type-homeassistant" width={25} />
+                </ListItemIcon>
+                <ListItemText primary={"Home"} />
+              </ListItem>
+            </a>
 
-          {!loginStatus ? (
-            <>
-              <a style={{ textDecoration: "none" }} href="/login">
-                <ListItem className={classes.Link} button key={"Login"}>
-                  <ListItemIcon className={classes.ListItemIcon}>
-                    <Icon icon="ic:baseline-login" width={25} />
-                  </ListItemIcon>
-                  <ListItemText primary={"Login"} />
-                </ListItem>
-              </a>
-              <a style={{ textDecoration: "none" }} href="/register">
-                <ListItem className={classes.Link} button key={"Register"}>
-                  <ListItemIcon className={classes.ListItemIcon}>
-                    <Icon icon="ic:baseline-app-registration" width={25} />
-                  </ListItemIcon>
-                  <ListItemText primary={"Register"} />
-                </ListItem>
-              </a>
-            </>
-          ) : (
-            <>
-              <a style={{ textDecoration: "none" }} href="/user">
-                <ListItem
-                  className={classes.Link}
-                  button
-                  key={"User Information"}
+            {!loginStatus ? (
+              <>
+                <a style={{ textDecoration: "none" }} href="/login">
+                  <ListItem className={classes.Link} button key={"Login"}>
+                    <ListItemIcon className={classes.ListItemIcon}>
+                      <Icon icon="ic:baseline-login" width={25} />
+                    </ListItemIcon>
+                    <ListItemText primary={"Login"} />
+                  </ListItem>
+                </a>
+                <a style={{ textDecoration: "none" }} href="/register">
+                  <ListItem className={classes.Link} button key={"Register"}>
+                    <ListItemIcon className={classes.ListItemIcon}>
+                      <Icon icon="ic:baseline-app-registration" width={25} />
+                    </ListItemIcon>
+                    <ListItemText primary={"Register"} />
+                  </ListItem>
+                </a>
+              </>
+            ) : (
+              <>
+                <a style={{ textDecoration: "none" }} href="/user">
+                  <ListItem
+                    className={classes.Link}
+                    button
+                    key={"User Information"}
+                  >
+                    <ListItemIcon className={classes.ListItemIcon}>
+                      <Icon icon="vscode-icons:file-type-jenkins" width={25} />
+                    </ListItemIcon>
+                    <ListItemText primary={"User Information"} />
+                  </ListItem>
+                </a>
+                {kubeState.clusterConnected &&
+                  <>
+                    <a style={{ textDecoration: "none" }} href="/overview">
+                      <ListItem className={classes.Link} button key={"Overview"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon icon="vscode-icons:file-type-appsemble" width={25} />
+                        </ListItemIcon>
+                        <ListItemText primary={"Overview"} />
+                      </ListItem>
+                    </a>
+                    <a style={{ textDecoration: "none" }} href="/services">
+                      <ListItem className={classes.Link} button key={"Services"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon icon="vscode-icons:file-type-dependabot" width={25} />
+                        </ListItemIcon>
+                        <ListItemText primary={"Services"} />
+                      </ListItem>
+                    </a>
+                    <a style={{ textDecoration: "none" }} href="/pods">
+                      <ListItem className={classes.Link} button key={"Pods"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon
+                            icon="vscode-icons:folder-type-kubernetes"
+                            width={25}
+                          />
+                        </ListItemIcon>
+                        <ListItemText primary={"Pods"} />
+                      </ListItem>
+                    </a>
+                    <a style={{ textDecoration: "none" }} href="/containers">
+                      <ListItem className={classes.Link} button key={"Containers"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon icon="vscode-icons:folder-type-docker" width={25} />
+                        </ListItemIcon>
+                        <ListItemText primary={"Containers"} />
+                      </ListItem>
+                    </a>
+                    <a style={{ textDecoration: "none" }} href="/dependency">
+                      <ListItem className={classes.Link} button key={"Dependency"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon
+                            icon="vscode-icons:file-type-dependencies"
+                            width={25}
+                          />
+                        </ListItemIcon>
+                        <ListItemText primary={"Dependency"} />
+                      </ListItem>
+                    </a>
+                    <a style={{ textDecoration: "none" }} href="/experiments">
+                      <ListItem className={classes.Link} button key={"Experiments"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon icon="fluent-emoji-flat:test-tube" width={25} />
+                        </ListItemIcon>
+                        <ListItemText primary={"Experiments"} />
+                      </ListItem>
+                    </a>
+                    <a style={{ textDecoration: "none" }} href="/predictions">
+                      <ListItem className={classes.Link} button key={"Predictions"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon icon="flat-color-icons:combo-chart" width={25} />
+                        </ListItemIcon>
+                        <ListItemText primary={"Predictions"} />
+                      </ListItem>
+                    </a>
+                  </>
+                }
+                <a
+                  style={{ textDecoration: "none" }}
+                  onClick={() => {
+                    localStorage.removeItem("x-auth-token");
+                    localStorage.removeItem("clusterConntected");
+                    setLoginStatus(false);
+                    window.location.href = "/";
+                  }}
                 >
-                  <ListItemIcon className={classes.ListItemIcon}>
-                    <Icon icon="vscode-icons:file-type-jenkins" width={25} />
-                  </ListItemIcon>
-                  <ListItemText primary={"User Information"} />
-                </ListItem>
-              </a>
-              <a style={{ textDecoration: "none" }} href="/overview">
-                <ListItem className={classes.Link} button key={"Overview"}>
-                  <ListItemIcon className={classes.ListItemIcon}>
-                    <Icon icon="vscode-icons:file-type-appsemble" width={25} />
-                  </ListItemIcon>
-                  <ListItemText primary={"Overview"} />
-                </ListItem>
-              </a>
-              <a style={{ textDecoration: "none" }} href="/services">
-                <ListItem className={classes.Link} button key={"Services"}>
-                  <ListItemIcon className={classes.ListItemIcon}>
-                    <Icon icon="vscode-icons:file-type-dependabot" width={25} />
-                  </ListItemIcon>
-                  <ListItemText primary={"Services"} />
-                </ListItem>
-              </a>
-              <a style={{ textDecoration: "none" }} href="/pods">
-                <ListItem className={classes.Link} button key={"Pods"}>
-                  <ListItemIcon className={classes.ListItemIcon}>
-                    <Icon
-                      icon="vscode-icons:folder-type-kubernetes"
-                      width={25}
-                    />
-                  </ListItemIcon>
-                  <ListItemText primary={"Pods"} />
-                </ListItem>
-              </a>
-              <a style={{ textDecoration: "none" }} href="/containers">
-                <ListItem className={classes.Link} button key={"Containers"}>
-                  <ListItemIcon className={classes.ListItemIcon}>
-                    <Icon icon="vscode-icons:folder-type-docker" width={25} />
-                  </ListItemIcon>
-                  <ListItemText primary={"Containers"} />
-                </ListItem>
-              </a>
-              <a style={{ textDecoration: "none" }} href="/dependency">
-                <ListItem className={classes.Link} button key={"Dependency"}>
-                  <ListItemIcon className={classes.ListItemIcon}>
-                    <Icon
-                      icon="vscode-icons:file-type-dependencies"
-                      width={25}
-                    />
-                  </ListItemIcon>
-                  <ListItemText primary={"Dependency"} />
-                </ListItem>
-              </a>
-              <a style={{ textDecoration: "none" }} href="/experiments">
-                <ListItem className={classes.Link} button key={"Experiments"}>
-                  <ListItemIcon className={classes.ListItemIcon}>
-                    <Icon icon="fluent-emoji-flat:test-tube" width={25} />
-                  </ListItemIcon>
-                  <ListItemText primary={"Experiments"} />
-                </ListItem>
-              </a>
-              <a style={{ textDecoration: "none" }} href="/predictions">
-                <ListItem className={classes.Link} button key={"Predictions"}>
-                  <ListItemIcon className={classes.ListItemIcon}>
-                    <Icon icon="flat-color-icons:combo-chart" width={25} />
-                  </ListItemIcon>
-                  <ListItemText primary={"Predictions"} />
-                </ListItem>
-              </a>
-              <a
-                style={{ textDecoration: "none" }}
-                onClick={() => {
-                  localStorage.removeItem("x-auth-token");
-                  setLoginStatus(false);
-                  window.location.href = "/";
-                }}
-              >
-                <ListItem className={classes.Link} button key={"Logout"}>
-                  <ListItemIcon className={classes.ListItemIcon}>
-                    <Icon icon="ic:baseline-logout" width={25} />
-                  </ListItemIcon>
-                  <ListItemText primary={"Logout"} />
-                </ListItem>
-              </a>
-            </>
-          )}
-        </List>
-      </Drawer>
-      <main className={classes.content}>
-        <PageRoutes />
-      </main>
-    </div>
+                  <ListItem className={classes.Link} button key={"Logout"}>
+                    <ListItemIcon className={classes.ListItemIcon}>
+                      <Icon icon="ic:baseline-logout" width={25} />
+                    </ListItemIcon>
+                    <ListItemText primary={"Logout"} />
+                  </ListItem>
+                </a>
+
+              </>
+            )}
+          </List>
+        </Drawer>
+        <main className={classes.content}>
+          <Routes >
+            <Route path="/" element={<Home />} />
+            <Route path="/matrics" element={<Matrics />} />
+            <Route path="/pods" element={<Pods />} />
+            <Route path="/containers" element={<Containers />} />
+            <Route path="/overview" element={<Overview />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/dependency" element={<Dependency />} />
+            <Route path="/experiments" element={<Experiments />} />
+            <Route path="/predictions" element={<Predictions />} />
+            <Route path="/user" element={<UserInformation />} />
+            <Route path="/login" element={<UserLogin />} />
+            <Route path="/register" element={<Registration />} />
+          </Routes >
+        </main>
+      </div>
+    </Router>
   );
 }

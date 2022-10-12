@@ -4,25 +4,25 @@
   "node": "kubemate-vm",
   "experiment": {
     "version": "1.0.0",
-    "title": "Will the applications remain healthy, if we terminate an instance of the application?",
-    "description": "If an instance of the application is terminated, all the applications in the given namespace must be healthy",
+    "title": "Other pods should not be terminated, if we terminate a Pod?",
+    "description": "If a Pod is terminated, other pods should remain running.",
     "tags": [
       "k8s",
-      "pod",
-      "deployment"
+      "pod"
     ],
     "steady-state-hypothesis": {
-      "title": "The app is healthy",
+      "title": "Pod exists",
       "probes": [
         {
-          "name": "all-apps-are-healthy",
+          "name": "pod-exists",
           "type": "probe",
-          "tolerance": true,
+          "tolerance": 0,
           "provider": {
             "type": "python",
-            "func": "all_microservices_healthy",
-            "module": "chaosk8s.probes",
+            "func": "count_pods",
+            "module": "chaosk8s.pod.probes",
             "arguments": {
+              "label_selector": "app=reviews",
               "ns": "default"
             }
           }
@@ -38,7 +38,7 @@
           "module": "chaosk8s.pod.actions",
           "func": "terminate_pods",
           "arguments": {
-            "name_pattern": "adservice-75656d5f44-zghv7"
+            "name_pattern": "adservice-75656d5f44-5vxdf"
           }
         },
         "pauses": {
@@ -48,7 +48,7 @@
     ],
     "dry": null
   },
-  "start": "2022-10-12T15:09:18.145954",
+  "start": "2022-10-12T15:58:08.385590",
   "status": "completed",
   "deviated": false,
   "steady_states": {
@@ -57,23 +57,24 @@
       "probes": [
         {
           "activity": {
-            "name": "all-apps-are-healthy",
+            "name": "pod-exists",
             "type": "probe",
-            "tolerance": true,
+            "tolerance": 0,
             "provider": {
               "type": "python",
-              "func": "all_microservices_healthy",
-              "module": "chaosk8s.probes",
+              "func": "count_pods",
+              "module": "chaosk8s.pod.probes",
               "arguments": {
+                "label_selector": "app=reviews",
                 "ns": "default"
               }
             }
           },
-          "output": true,
+          "output": 0,
           "status": "succeeded",
-          "start": "2022-10-12T15:09:18.146687",
-          "end": "2022-10-12T15:09:18.249368",
-          "duration": 0.102681,
+          "start": "2022-10-12T15:58:08.386247",
+          "end": "2022-10-12T15:58:08.445777",
+          "duration": 0.05953,
           "tolerance_met": true
         }
       ]
@@ -83,23 +84,24 @@
       "probes": [
         {
           "activity": {
-            "name": "all-apps-are-healthy",
+            "name": "pod-exists",
             "type": "probe",
-            "tolerance": true,
+            "tolerance": 0,
             "provider": {
               "type": "python",
-              "func": "all_microservices_healthy",
-              "module": "chaosk8s.probes",
+              "func": "count_pods",
+              "module": "chaosk8s.pod.probes",
               "arguments": {
+                "label_selector": "app=reviews",
                 "ns": "default"
               }
             }
           },
-          "output": true,
+          "output": 0,
           "status": "succeeded",
-          "start": "2022-10-12T15:09:28.377444",
-          "end": "2022-10-12T15:09:28.488127",
-          "duration": 0.110683,
+          "start": "2022-10-12T15:58:18.598565",
+          "end": "2022-10-12T15:58:18.663935",
+          "duration": 0.06537,
           "tolerance_met": true
         }
       ]
@@ -116,7 +118,7 @@
           "module": "chaosk8s.pod.actions",
           "func": "terminate_pods",
           "arguments": {
-            "name_pattern": "adservice-75656d5f44-zghv7"
+            "name_pattern": "adservice-75656d5f44-5vxdf"
           }
         },
         "pauses": {
@@ -124,15 +126,15 @@
         }
       },
       "output": [
-        "adservice-75656d5f44-zghv7"
+        "adservice-75656d5f44-5vxdf"
       ],
       "status": "succeeded",
-      "start": "2022-10-12T15:09:18.249880",
-      "end": "2022-10-12T15:09:18.365479",
-      "duration": 0.115599
+      "start": "2022-10-12T15:58:08.446287",
+      "end": "2022-10-12T15:58:08.587555",
+      "duration": 0.141268
     }
   ],
   "rollbacks": [],
-  "end": "2022-10-12T15:09:28.489166",
-  "duration": 10.352635145187378
+  "end": "2022-10-12T15:58:18.664451",
+  "duration": 10.288257837295532
 }

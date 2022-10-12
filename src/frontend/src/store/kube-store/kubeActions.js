@@ -21,3 +21,17 @@ export const fetch_All_Dependency_By_Namespace = (namespace) => {
     payload: KubeApi.fetch_All_Dependency_By_Namespace(namespace),
   };
 };
+
+export const clusterConnected = () => {
+  return {
+    type: ActionTypes.CLUSTER_CONNECTED,
+    payload: true,
+  };
+};
+
+export const clusterNotConnected = () => {
+  return {
+    type: ActionTypes.CLUSTER_CONNECTED,
+    payload: false,
+  };
+};

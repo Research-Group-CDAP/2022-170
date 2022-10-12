@@ -4,6 +4,7 @@ const initialState = {
   podDetailsByNamespace: [],
   servicesDetailsByNamespace: [],
   dependencyDetailsByNamespace: [],
+  clusterConnected:false,
   loading: false,
   error: null,
 };
@@ -26,6 +27,9 @@ const kubeReducer = (state = initialState, action) => {
     case `${ActionTypes.GET_DEPENDENCY_DETAILS_BY_NAMESPACE}_FULFILLED`:
       let dependencyDetailsByNamespace = action.payload.data;
       return { ...state, loading: false, dependencyDetailsByNamespace };
+    case `${ActionTypes.CLUSTER_CONNECTED}`:
+      let clusterConnected = action.payload;
+      return { ...state, loading: false, clusterConnected };
 
     case `${ActionTypes.GET_POD_DETAILS_BY_NAMESPACE}_REJECTED`:
     case `${ActionTypes.GET_SERVICES_DETAILS_BY_NAMESPACE}_REJECTED`:
