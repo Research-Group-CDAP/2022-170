@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { useDispatch, useSelector } from "react-redux";
 import { fetch_All_Memory_Utilization_By_Pod } from "../../store/matrics-store/matricsActions";
-import { fetch_All_Predicted_Memory_Utilization_By_Pod } from "../../store/optimize-store/optimizeActions";
+import { fetch_Predicted_Memory_Utilization_By_Pod } from "../../store/prediction-store/predictionActions";
 import LineChart from "../LineChart";
 import TimeSeriesDataTable from "../TimeSeriesDataTable";
 
@@ -20,13 +20,15 @@ const Memory = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.matricsReducer);
-  const predictState = useSelector((state) => state.optimizeReducer);
+  const predictionState = useSelector((state) => state.predictionReducer);
   const [memoryTimeSeriesData, setMemoryTimeSeriesData] = useState([]);
-  const [predictMemoryTimeSeriesData, setPredictMemoryTimeSeriesData] = useState([]);
+  const [predictedMemoryValues, setPredictedMemoryValues] = useState([]);
 
   useEffect(() => {
     dispatch(fetch_All_Memory_Utilization_By_Pod(props.podName));
-    dispatch(fetch_All_Predicted_Memory_Utilization_By_Pod(props.podName));
+    if (!predictedMemoryValues.length) {
+      dispatch(fetch_Predicted_Memory_Utilization_By_Pod(props.podName));
+    }
   }, [props.podName, dispatch]);
 
   useEffect(() => {
@@ -34,8 +36,8 @@ const Memory = (props) => {
   }, [state.memoryDataByPod]);
 
   useEffect(() => {
-    setPredictMemoryTimeSeriesData(predictState.memoryDataByPod);
-  }, [predictState.memoryDataByPod]);
+    setPredictedMemoryValues(predictionState.predictedMemoryDataByPod);
+  }, [predictionState.predictedMemoryDataByPod]);
 
   return (
     <div>
@@ -49,7 +51,7 @@ const Memory = (props) => {
               title={"Memory Usage"}
               titlePredicted={"Predicted Memory Usage"}
               timeSeriesData={memoryTimeSeriesData}
-              predictTimeSeriesData={predictMemoryTimeSeriesData}
+              predictedValues={predictedMemoryValues}
             />
             <div className="mt-5">
               <TimeSeriesDataTable timeSeriesData={memoryTimeSeriesData} />

@@ -3,13 +3,10 @@ const axios = require("axios");
 var express = require("express");
 var app = express();
 const Cpu_Usage_Model = require("../models/cpu_usage.model");
-const {ExportToCsv} = require('export-to-csv')
 
 const converter = require("json-2-csv");
 var path = require("path");
 var fs = require("fs");
-
-app.use(express.static(path.join(__dirname, "public")));
 
 const fetch_Cpu_Usage = async (request, response) => {
   axios
@@ -99,7 +96,7 @@ const fetch_All_Cpu_Usage_By_Pod = async (request, response) => {
     });
 };
 
-const exportToCSV= async (request, response) => {
+const exportToCSV = async (request, response) => {
   let timeSeriesDataArray = [];
   Cpu_Usage_Model.find()
     .then(async (res) => {
@@ -112,7 +109,9 @@ const exportToCSV= async (request, response) => {
         podData.timestamp = matricData.timestamp;
 
         let podDetails = matricData.timeSeriesData.filter(function (pod) {
-          return pod.podName == request.params.podName;
+          let myTextArray = pod.podName.split("-");
+          let tempPodName = myTextArray[0] + "-" + myTextArray[1];
+          return request.params.podName.includes(tempPodName);
         });
 
         podDetails.forEach((pod) => {
@@ -124,23 +123,37 @@ const exportToCSV= async (request, response) => {
 
       let json2csvCallback = function (err, csv) {
         if (err) throw err;
-        var file_name = "cpudata";
+        var file_name = request.params.podName;
         var file_content = csv;
         file_content = file_content.replace(/\n/g, "\r\n");
-
-        var stream = fs.createWriteStream(file_name + ".csv");
+        console.log("pathname", __dirname);
+        var savePath =
+          __dirname + "/../../optimize_server/app/util/datasets/CPU/";
+        var stream = fs.createWriteStream(savePath + file_name + ".csv");
         stream.once("open", function () {
           stream.write(file_content);
           stream.end();
         });
       };
-      await converter.json2csv(
-        timeSeriesDataArray,
-        json2csvCallback
-      );
+      await converter.json2csv(timeSeriesDataArray, json2csvCallback);
 
       await console.log("CSV Generateed");
-      await response.json(timeSeriesDataArray);
+      await console.log(timeSeriesDataArray);
+      await axios
+        .get(
+          "http://127.0.0.1:8000/model-prdiction-cpu/make-prediction_singlepod?pod_name=" +
+            request.params.podName
+        )
+        .then(async (res) => {
+          let tempArray = [];
+          await res.data.res.forEach((singleValue) => {
+            tempArray.push(singleValue[0]);
+          });
+          await response.json(tempArray);
+        })
+        .catch((error) => {
+          response.json(error);
+        });
     })
     .catch((error) => {
       response.json(error);
@@ -151,5 +164,5 @@ module.exports = {
   fetch_Cpu_Usage,
   fetch_All_Cpu_Usage,
   fetch_All_Cpu_Usage_By_Pod,
-  exportToCSV
+  exportToCSV,
 };

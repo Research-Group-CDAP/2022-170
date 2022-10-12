@@ -77,6 +77,7 @@ const Containers = (props) => {
             Refresh
           </Button>
           <AddService open={open} handleClose={handleClose} handleClickOpen={handleClickOpen} />
+          <AddService open={open} handleClose={handleClose} handleClickOpen={handleClickOpen} />
         </Stack>
         <ListService />
         <Snackbar

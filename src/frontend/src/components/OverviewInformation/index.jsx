@@ -71,21 +71,36 @@ const OverviewInformation = (props) => {
         />
       </div>
       <br />
-      <br/>
+      <br />
       <Grid container spacing={3}>
         <Grid item xs={4}>
           <div>
-            {props.cpuUsage.length && <UsageRanker title="CPU Usage Ranker" usageList={props.cpuUsage} />}
+            {props.cpuUsage.length && (
+              <UsageRanker
+                title="CPU Usage Ranker"
+                usageList={props.cpuUsage}
+              />
+            )}
           </div>
         </Grid>
         <Grid item xs={4}>
           <div>
-            {props.memoryUsage.length && <UsageRanker title="Memory Usage Ranker" usageList={props.memoryUsage} />}
+            {props.memoryUsage.length && (
+              <UsageRanker
+                title="Memory Usage Ranker"
+                usageList={props.memoryUsage}
+              />
+            )}
           </div>
         </Grid>
         <Grid item xs={4}>
           <div>
-            {props.networkUsage.length && <UsageRanker title="Network Usage Ranker" usageList={props.networkUsage} />}
+            {props.networkUsage.length && (
+              <UsageRanker
+                title="Network Usage Ranker"
+                usageList={props.networkUsage}
+              />
+            )}
           </div>
         </Grid>
       </Grid>

@@ -40,11 +40,9 @@ export default function TimeSeriesDataTable(props) {
 
   let rows = props.timeSeriesData
     .map((pod) => {
-      return createData(
-        pod.timestamp,
-        pod.value,
-      );
-    }).reverse()
+      return createData(pod.timestamp, pod.value);
+    })
+    .reverse()
     .sort((a, b) => (a.name < b.name ? -1 : 1));
 
   const handleChangePage = (event, newPage) => {

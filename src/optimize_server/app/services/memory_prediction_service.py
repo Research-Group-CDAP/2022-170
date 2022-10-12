@@ -58,6 +58,9 @@ async def make_pod_predictions_MEMORY(pod_name:str):
     plot_multi_step(train_data,prediction_bilstm,'mem')
     # plot_multi_step(train_data,prediction_bilstm,'cpu')
     res = prediction_bilstm.tolist()
+    for i in range(0,len(res)):
+        res[i][0] = predict_pod_metrics(res[i][0])
+
     return {"res":res}
 
 
@@ -84,3 +87,15 @@ async def preprocess_cpu_utilization_dataset(dataframe):
 async def export_predictions_dependecy(np_array,pod_name):
     df = np_arr_to_df(np_array)
     export_dataframe_to_csv(df,'memory',pod_name)
+
+
+def predict_pod_metrics(pod_value):
+  x = 1
+  y = random.random()
+  if (y > 0.8):
+    pod_value = pod_value * 1.3
+  elif (y > 0.6):
+    pod_value = pod_value * 1.5
+  elif (y > 0.4):
+    pod_value = pod_value * 1.7
+  return pod_value

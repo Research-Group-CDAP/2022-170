@@ -7,7 +7,11 @@ import {
   fetch_All_Pods_By_Namespace,
   fetch_All_Services_By_Namespace,
 } from "../../store/kube-store/kubeActions";
-import { fetch_All_Cpu_Usage, fetch_All_Memory_Utilization, fetch_All_Network_Utilization } from "../../store/matrics-store/matricsActions";
+import {
+  fetch_All_Cpu_Usage,
+  fetch_All_Memory_Utilization,
+  fetch_All_Network_Utilization,
+} from "../../store/matrics-store/matricsActions";
 
 const useStyles = makeStyles({
   root: {
@@ -76,18 +80,20 @@ const Overview = (props) => {
 
     if (matricsState.memoryData.length) {
       tempMemoryDataObject =
-        matricsState.memoryData[matricsState.memoryData.length - 1].timeSeriesData;
-        setMemoryUsage(tempMemoryDataObject);
+        matricsState.memoryData[matricsState.memoryData.length - 1]
+          .timeSeriesData;
+      setMemoryUsage(tempMemoryDataObject);
     }
-  }, [matricsState.cpuData]);
+  }, [matricsState.memoryData]);
 
   useEffect(() => {
     let tempNetworkDataObject = [];
 
     if (matricsState.networkData.length) {
       tempNetworkDataObject =
-        matricsState.networkData[matricsState.networkData.length - 1].timeSeriesData;
-        setNetworkUsage(tempNetworkDataObject);
+        matricsState.networkData[matricsState.networkData.length - 1]
+          .timeSeriesData;
+      setNetworkUsage(tempNetworkDataObject);
     }
   }, [matricsState.networkData]);
 

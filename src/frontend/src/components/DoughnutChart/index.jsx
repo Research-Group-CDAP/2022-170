@@ -9,15 +9,9 @@ const DoughnutChart = (props) => {
     labels: ["Active", "Inactive"],
     datasets: [
       {
-        data: [props.active,props.inactive],
-        backgroundColor: [
-          "#90EE90",
-          "#b5b5b5",
-        ],
-        borderColor: [
-          "#90EE90",
-          "#b5b5b5",
-        ],
+        data: [props.active, props.inactive],
+        backgroundColor: ["#90EE90", "#b5b5b5"],
+        borderColor: ["#90EE90", "#b5b5b5"],
         borderWidth: 0,
       },
     ],

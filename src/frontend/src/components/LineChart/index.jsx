@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -62,25 +63,26 @@ const LineChart = (props) => {
 
     props.timeSeriesData.slice(-20).forEach((singleData, index) => {
       tempLabelData.push(singleData.timestamp);
-      tempDatasetData.push(singleData.value);
     });
-
+    props.predictedValues.length && props.predictedValues.slice(-20).forEach((singleData) => {
+      tempDatasetData.push(singleData);
+    });
     setLabelData(tempLabelData);
-    setDatasetData(tempDatasetData);
-  },[props.timeSeriesData]);
+    setPredictDatasetData(tempDatasetData);
+  }, [props.predictedValues]);
 
   useEffect(() => {
     let tempLabelData = [];
     let tempDatasetData = [];
 
-    props.predictTimeSeriesData.slice(-20).forEach((singleData, index) => {
+    props.timeSeriesData.slice(-13).forEach((singleData, index) => {
       tempLabelData.push(singleData.timestamp);
       tempDatasetData.push(singleData.value);
     });
 
-    setPredictDatasetData(tempDatasetData);
-
-  },[props.predictTimeSeriesData]);
+    setLabelData(tempLabelData);
+    setDatasetData(tempDatasetData);
+  }, [props.timeSeriesData]);
 
   const labels = labelData;
 
@@ -88,22 +90,31 @@ const LineChart = (props) => {
     labels,
     datasets: [
       {
-        label: props.title,
-        data: datasetData,
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-        textColor: "#ffffff",
-      },
-      {
         label: props.titlePredicted,
         data: predictDatasetData,
         borderColor: "#008558",
         backgroundColor: "#008558",
         textColor: "#ffffff",
       },
+      {
+        label: props.title,
+        data: datasetData,
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        textColor: "#ffffff",
+      },
     ],
   };
-  return <Line options={options} data={data} />;
+  return (
+    <div>
+      <Line options={options} data={data} /> <br />{" "}
+      {!predictDatasetData.length && (
+        <div>
+          Analyzing On Progress <LinearProgress />
+        </div>
+      )}{" "}
+    </div>
+  );
 };
 
 export default LineChart;

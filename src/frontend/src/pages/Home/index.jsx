@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     fontSize: "60px",
     textAlign: "left",
   },
-  subHeading:{
+  subHeading: {
     fontSize: "30px",
     textAlign: "left",
   },
@@ -51,12 +51,12 @@ const Home = (props) => {
               <p>KubeMate</p>
             </div>
             <div className={classes.subHeading}>
-            <p>The way the world runs Kubernetes</p>
+              <p>The way the world runs Kubernetes</p>
             </div>
             <div className={classes.textPara}>
               <p>
                 Kubernetes is the OS for the cloud. Thousands of businesses and
-                people develop and operate their Kubernetes on Lens — The
+                people develop and operate their Kubernetes on KubeMate — The
                 largest and most advanced Kubernetes platform in the world.
               </p>
             </div>
@@ -70,12 +70,19 @@ const Home = (props) => {
         <h2 textAlign="center">
           The largest and most advanced Kubernetes platform in the world
         </h2>
-        <br/>
+        <br />
         <Grid container spacing={3}>
           <Grid item xs={4}>
             <Card className={classes.Card}>
               <CardContent>
-                <h5>  <Icon icon="vscode-icons:folder-type-kubernetes-opened" width={25} /> Kubernetes for Everyone</h5>
+                <h5>
+                  {" "}
+                  <Icon
+                    icon="vscode-icons:folder-type-kubernetes-opened"
+                    width={25}
+                  />{" "}
+                  Kubernetes for Everyone
+                </h5>
                 <Divider />
                 <br />
                 KubeMate is built on open source with a vibrant community and is
@@ -87,24 +94,35 @@ const Home = (props) => {
           <Grid item xs={4}>
             <Card className={classes.Card}>
               <CardContent>
-                <h5> <Icon icon="vscode-icons:file-type-dartlang" width={25} /> Pro Features </h5>
+                <h5>
+                  {" "}
+                  <Icon icon="vscode-icons:file-type-dartlang" width={25} /> Pro
+                  Features{" "}
+                </h5>
                 <Divider />
                 <br />
-                KubeMate works with any Kubernetes. It removes complexity
-                and increases productivity. It’s used by everyone — from devs to
-                ops and startups to large companies.
+                KubeMate works with any Kubernetes. It removes complexity and
+                increases productivity. It’s used by everyone — from devs to ops
+                and startups to large companies.
               </CardContent>
             </Card>
           </Grid>
           <Grid item xs={4}>
             <Card className={classes.Card}>
               <CardContent>
-                <h5> <Icon icon="vscode-icons:file-type-powershell2" width={25} /> Built on Open Source </h5>
+                <h5>
+                  {" "}
+                  <Icon
+                    icon="vscode-icons:file-type-powershell2"
+                    width={25}
+                  />{" "}
+                  Built on Open Source{" "}
+                </h5>
                 <Divider />
                 <br />
-                Expand the core functionality of KubeMate
-                Kubernetes, Teamwork, Security and Commercial Support for
-                increased productivity and time to value.
+                Expand the core functionality of KubeMate Kubernetes, Teamwork,
+                Security and Commercial Support for increased productivity and
+                time to value.
               </CardContent>
             </Card>
           </Grid>

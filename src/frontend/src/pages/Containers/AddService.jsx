@@ -1,4 +1,11 @@
-import { Box, Drawer, Grid, makeStyles, Snackbar, Typography } from "@material-ui/core";
+import {
+  Box,
+  Drawer,
+  Grid,
+  makeStyles,
+  Snackbar,
+  Typography,
+} from "@material-ui/core";
 import SaveIcon from "@mui/icons-material/Save";
 import { LoadingButton } from "@mui/lab";
 import { Alert, Button } from "@mui/material";
@@ -74,12 +81,14 @@ const AddService = (props) => {
 
   const validateForm = () => {
     const data = {
-      serviceName: state.serviceName.trim().length > 0 ? state.serviceName : null,
+      serviceName:
+        state.serviceName.trim().length > 0 ? state.serviceName : null,
       userName: state.userName.trim().length > 0 ? state.userName : null,
       password: state.password.trim().length > 0 ? state.password : null,
       email: state.email.trim().length > 0 ? state.email : null,
       url: state.url.trim().length > 0 ? state.url : null,
-      containerPort: state.containerPort.trim().length > 0 ? state.containerPort : null,
+      containerPort:
+        state.containerPort.trim().length > 0 ? state.containerPort : null,
       envs: validateEnvs() ? state.envs : null,
       svcPorts: validateServicePorts() ? state.ports : null,
     };
@@ -226,7 +235,13 @@ const AddService = (props) => {
       ...state,
       ports: [
         ...state.ports,
-        { id: state.portId + 1, name: "", port: "", targetPort: "", protocol: "TCP" },
+        {
+          id: state.portId + 1,
+          name: "",
+          port: "",
+          targetPort: "",
+          protocol: "TCP",
+        },
       ],
       portId: state.portId + 1,
     });
@@ -344,7 +359,9 @@ const AddService = (props) => {
               variant="body2"
               style={{ marginBottom: 5 }}
               component="div"
-              color={state.isFormNotValid && formData.envs === null ? "error" : ""}
+              color={
+                state.isFormNotValid && formData.envs === null ? "error" : ""
+              }
             >
               Environmental Variables
             </Typography>
@@ -388,7 +405,13 @@ const AddService = (props) => {
               />
             </Grid>
             <Grid item xs={2}>
-              <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "flex-end",
+                }}
+              >
                 <>
                   <Button
                     variant="outlined"
@@ -491,7 +514,11 @@ const AddService = (props) => {
             <Typography
               variant="body2"
               style={{ marginBottom: 5 }}
-              color={state.isFormNotValid && formData.svcPorts === null ? "error" : ""}
+              color={
+                state.isFormNotValid && formData.svcPorts === null
+                  ? "error"
+                  : ""
+              }
             >
               Service Ports
             </Typography>
@@ -558,7 +585,13 @@ const AddService = (props) => {
               />
             </Grid>
             <Grid item xs={2}>
-              <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "flex-end",
+                }}
+              >
                 <>
                   <Button
                     variant="outlined"
@@ -575,7 +608,13 @@ const AddService = (props) => {
           </Grid>
         ))}
 
-        <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "flex-end" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "flex-end",
+          }}
+        >
           <>
             <Button
               autoFocus
@@ -606,7 +645,11 @@ const AddService = (props) => {
         onClose={handleCloseSnackBar}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
-        <Alert onClose={handleCloseSnackBar} severity="warning" sx={{ width: "100%" }}>
+        <Alert
+          onClose={handleCloseSnackBar}
+          severity="warning"
+          sx={{ width: "100%" }}
+        >
           Please check the input fields
         </Alert>
       </Snackbar>
