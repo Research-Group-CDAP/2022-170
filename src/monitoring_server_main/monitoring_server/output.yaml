@@ -1,21 +1,21 @@
 version: "1.0.0"
-title: "Lets kill pods randomly"
-description: "If a random pod is killed, application should remain healthy."
+title: "Other pods should not be terminated, if we terminate a Pod?"
+description: "If a Pod is terminated, other pods should remain running."
 tags:
   - "k8s"
   - "pod"
-  - "deployment"
 steady-state-hypothesis:
-  title: "The app is healthy"
+  title: "Pod exists"
   probes:
-    - name: "all-apps-are-healthy"
+    - name: "pod-exists"
       type: "probe"
-      tolerance: true
+      tolerance: 0
       provider:
         type: "python"
-        func: "all_microservices_healthy"
-        module: "chaosk8s.probes"
+        func: "count_pods"
+        module: "chaosk8s.pod.probes"
         arguments:
+          label_selector: "app=reviews"
           ns: "default"
 method:
   - type: "action"
@@ -25,7 +25,6 @@ method:
       module: "chaosk8s.pod.actions"
       func: "terminate_pods"
       arguments:
-        rand: true
-        ns: "default"
+        name_pattern: "adservice-75656d5f44-8kr66"
     pauses:
       after: 10

@@ -240,19 +240,7 @@ const executeExperiment = async (req, res) => {
 };
 
 const responseAsJson = async (req, res) => {
-    exec(
-        `pm2 restart monitoring-server`,
-        (error, stdout, stderr) => {
-            if (error) {
-                res.json(error);
-            } else {
-                console.log(`stdout: ${stdout}`);
-                console.log(`stderr: ${stderr}`);
-                res.json(ExperimentJSON);
-            }
-        }
-    );
-
+    res.json(ExperimentJSON);
 };
 
 module.exports = {
