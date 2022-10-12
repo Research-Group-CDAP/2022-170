@@ -4,8 +4,8 @@
   "node": "kubemate-vm",
   "experiment": {
     "version": "1.0.0",
-    "title": "Lets kill pods randomly",
-    "description": "If a random pod is killed, application should remain healthy.",
+    "title": "Will the applications remain healthy, if we terminate an instance of the application?",
+    "description": "If an instance of the application is terminated, all the applications in the given namespace must be healthy",
     "tags": [
       "k8s",
       "pod",
@@ -38,8 +38,7 @@
           "module": "chaosk8s.pod.actions",
           "func": "terminate_pods",
           "arguments": {
-            "rand": true,
-            "ns": "default"
+            "name_pattern": "adservice-75656d5f44-zghv7"
           }
         },
         "pauses": {
@@ -49,7 +48,7 @@
     ],
     "dry": null
   },
-  "start": "2022-10-12T12:11:05.287474",
+  "start": "2022-10-12T15:09:18.145954",
   "status": "completed",
   "deviated": false,
   "steady_states": {
@@ -72,9 +71,9 @@
           },
           "output": true,
           "status": "succeeded",
-          "start": "2022-10-12T12:11:05.288081",
-          "end": "2022-10-12T12:11:05.393134",
-          "duration": 0.105053,
+          "start": "2022-10-12T15:09:18.146687",
+          "end": "2022-10-12T15:09:18.249368",
+          "duration": 0.102681,
           "tolerance_met": true
         }
       ]
@@ -98,9 +97,9 @@
           },
           "output": true,
           "status": "succeeded",
-          "start": "2022-10-12T12:11:15.522610",
-          "end": "2022-10-12T12:11:15.623139",
-          "duration": 0.100529,
+          "start": "2022-10-12T15:09:28.377444",
+          "end": "2022-10-12T15:09:28.488127",
+          "duration": 0.110683,
           "tolerance_met": true
         }
       ]
@@ -117,8 +116,7 @@
           "module": "chaosk8s.pod.actions",
           "func": "terminate_pods",
           "arguments": {
-            "rand": true,
-            "ns": "default"
+            "name_pattern": "adservice-75656d5f44-zghv7"
           }
         },
         "pauses": {
@@ -126,15 +124,15 @@
         }
       },
       "output": [
-        "currencyservice-7dc56c8-mtntm"
+        "adservice-75656d5f44-zghv7"
       ],
       "status": "succeeded",
-      "start": "2022-10-12T12:11:05.393639",
-      "end": "2022-10-12T12:11:05.511146",
-      "duration": 0.117507
+      "start": "2022-10-12T15:09:18.249880",
+      "end": "2022-10-12T15:09:18.365479",
+      "duration": 0.115599
     }
   ],
   "rollbacks": [],
-  "end": "2022-10-12T12:11:15.623639",
-  "duration": 10.34549355506897
+  "end": "2022-10-12T15:09:28.489166",
+  "duration": 10.352635145187378
 }

@@ -59,19 +59,23 @@ const ExperimentSlideDrawer = (props) => {
   const [report, setReport] = React.useState(null);
   const [loadingStatus, setLoadingStatus] = React.useState(false);
   const [isSuccess, setIsSuccess] = React.useState(false);
+  const [isExecuted, setIsExecuted] = React.useState(false);
 
   const generateYaml = () => {
     setLoadingStatus(true);
-    axios.post(`http://localhost:4001/experiment/generateYamlFile/${podName}/${experimentType}`).then((res) => {
+    axios.post(`${process.env.REACT_APP_MONITORING_SUB_API_ENDPOINT}/experiment/generateYamlFile/${podName}/${experimentType}`).then((res) => {
       if (res.data === "YAML Generated") {
+        setIsExecuted(true);
         setLoadingStatus(false);
         setIsSuccess(true);
       } else {
+        setIsExecuted(true);
         setLoadingStatus(false);
         setIsSuccess(false);
       }
 
     }).catch((error) => {
+      setIsExecuted(true);
       setLoadingStatus(false);
       setIsSuccess(false);
     })
@@ -79,15 +83,18 @@ const ExperimentSlideDrawer = (props) => {
 
   const executeExperiment = () => {
     setLoadingStatus(true);
-    axios.post(`http://localhost:4001/experiment/executeExperiment`).then((res) => {
+    axios.post(`${process.env.REACT_APP_MONITORING_SUB_API_ENDPOINT}/experiment/executeExperiment`).then((res) => {
       if (res.data === "Report Generated") {
+        setIsExecuted(true);
         setLoadingStatus(false);
         setIsSuccess(true);
       } else {
+        setIsExecuted(true);
         setLoadingStatus(false);
         setIsSuccess(false);
       }
     }).catch((error) => {
+      setIsExecuted(true);
       setLoadingStatus(false);
       setIsSuccess(false);
     })
@@ -95,19 +102,22 @@ const ExperimentSlideDrawer = (props) => {
 
   const responseAsJson = () => {
     setLoadingStatus(true);
-    axios.post(`http://localhost:4002/restartmonitoringserver`).then((res) => {
+    axios.post(`${process.env.REACT_APP_MONITORING_MAIN_API_ENDPOINT}/restartmonitoringserver`).then((res) => {
       if (res.data.restart) {
-        axios.get(`http://localhost:4001/experiment/responseAsJson`).then((res) => {
+        axios.get(`${process.env.REACT_APP_MONITORING_SUB_API_ENDPOINT}/experiment/responseAsJson`).then((res) => {
+          setIsExecuted(true);
           setLoadingStatus(false);
           setIsSuccess(true);
           console.log(res.data)
           setReport(res.data)
         }).catch((error) => {
+          setIsExecuted(true);
           setLoadingStatus(false);
           setIsSuccess(false);
         })
       }
     }).catch((error) => {
+      setIsExecuted(true);
       setLoadingStatus(false);
       setIsSuccess(false);
     })
@@ -165,7 +175,7 @@ const ExperimentSlideDrawer = (props) => {
           </Button>
         </Grid>
         <Grid item xs={12}>
-          {loadingStatus ? <Alert severity="info">Loading!</Alert> : isSuccess ? <Alert severity="success">Succesfully Executed</Alert>
+          {loadingStatus ? <Alert severity="info">Loading!</Alert> : !isExecuted ? "" : isSuccess ? <Alert severity="success">Succesfully Executed</Alert>
             : <Alert severity="error">Something went wrong!</Alert>
           }
         </Grid>
