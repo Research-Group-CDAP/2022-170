@@ -232,7 +232,7 @@ const Predictions = (props) => {
                     icon="vscode-icons:folder-type-kubernetes-opened"
                     width={25}
                   />{" "}
-                  Kubernetes for Everyone
+                  Kubernetes Autoscaling for Everyone
                 </h5>
                 <Divider />
                 <br />
