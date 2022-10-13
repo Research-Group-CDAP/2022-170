@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 const kc = new k8s.KubeConfig();
 kc.loadFromDefault();
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
+const k8sAppApi = kc.makeApiClient(k8s.AppsV1Api);
 
 app.get("/", (_, res, next) => {
   res.status(200).json({ message: "Node JS server" });
@@ -78,8 +79,8 @@ app.get("/nodes", (req, res, next) => {
         let tempObject = {
           name: "",
           os: "",
-          cluster:"",
-          region:""
+          cluster: "",
+          region: ""
         };
         tempObject.name = item.metadata.labels["kubernetes.io/hostname"];
         tempObject.os = item.metadata.labels["beta.kubernetes.io/os"];
@@ -126,15 +127,15 @@ app.get("/pods/:namespace", (req, res, next) => {
           namespace: "",
           status: "",
           startTime: "",
-          apiVersion:"",
-          manager:"",
-          resourceVersion:"",
-          uid:"",
-          ports:"",
-          containerImage:"",
-          imagePullPolicy:"",
-          restartPolicy:"",
-          restartCount:0
+          apiVersion: "",
+          manager: "",
+          resourceVersion: "",
+          uid: "",
+          ports: "",
+          containerImage: "",
+          imagePullPolicy: "",
+          restartPolicy: "",
+          restartCount: 0
         };
         tempObject.name = singlePod.metadata.name;
         tempObject.nodeName = singlePod.spec.nodeName;
@@ -172,18 +173,18 @@ app.get("/services/:namespace", (req, res, next) => {
       await data.body.items.forEach((singleService) => {
         let tempObject = {
           name: "",
-          namespace:"",
-          status:"",
-          startTime:"",
-          cpu:"",
-          memory:"",
-          podHash:"",
-          node:"",
-          kind:"",
-          apiVersion:"",
-          uid:"",
-          resourceVersion:"",
-          dnsPolicy:""
+          namespace: "",
+          status: "",
+          startTime: "",
+          cpu: "",
+          memory: "",
+          podHash: "",
+          node: "",
+          kind: "",
+          apiVersion: "",
+          uid: "",
+          resourceVersion: "",
+          dnsPolicy: ""
         };
         tempObject.name = singleService.metadata.labels.app;
         tempObject.namespace = singleService.metadata.namespace;
@@ -210,18 +211,18 @@ app.get("/services/:namespace", (req, res, next) => {
 
 app.get("/dependency/:namespace", (req, res, next) => {
   k8sApi
-  .listNamespacedPod(req.params.namespace)
+    .listNamespacedPod(req.params.namespace)
     .then(async (data) => {
       let tempArray = [];
 
       await data.body.items.forEach((singleService) => {
         let tempObject = {
           service: "",
-          pod:"",
-          node:""
+          pod: "",
+          node: ""
         };
         tempObject.service = singleService.metadata.labels.app;
-        tempObject.pod = singleService.metadata.labels.app+"-"+singleService.metadata.labels["pod-template-hash"];
+        tempObject.pod = singleService.metadata.labels.app + "-" + singleService.metadata.labels["pod-template-hash"];
         tempObject.node = singleService.spec.nodeName;
         tempArray.push(tempObject);
       });
@@ -233,6 +234,28 @@ app.get("/dependency/:namespace", (req, res, next) => {
     });
 });
 
+app.post("/scale/up", (req, res, next) => {
+  scale(req.body.namespace, req.body.name, req.body.replica)
+    .then((response) => {
+      res.status(200).json(response);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ err: err.message });
+    });
+});
+
+async function scale(namespace, name, replicas) {
+  // find the particular deployment
+  const res = await k8sAppApi.readNamespacedDeployment(name, namespace);
+  let deployment = res.body;
+
+  // edit
+  deployment.spec.replicas = replicas;
+
+  // replace
+  await k8sAppApi.replaceNamespacedDeployment(name, namespace, deployment);
+}
 
 //Define Routes
 app.use("/prediction", require("./routes/prediction.route"));
