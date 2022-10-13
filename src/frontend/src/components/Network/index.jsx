@@ -6,6 +6,7 @@ import { fetch_All_Network_Utilization_By_Pod } from "../../store/matrics-store/
 import { fetch_Predicted_Network_Utilization_By_Pod } from "../../store/prediction-store/predictionActions";
 import LineChart from "../LineChart";
 import TimeSeriesDataTable from "../TimeSeriesDataTable";
+import KubeScaler from "../KubeScaler";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,6 +54,7 @@ const Network = (props) => {
               timeSeriesData={networkTimeSeriesData}
               predictedValues={predictedNetworkValues}
             />
+            <KubeScaler podName={props.podName}/>
             <div className="mt-5">
               <TimeSeriesDataTable timeSeriesData={networkTimeSeriesData} />
             </div>
