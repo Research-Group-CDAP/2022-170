@@ -12,6 +12,11 @@ const UserSchema = new Schema(
     clusterName: { type: String, required: false },
     azureSubscriptionId :{ type: String, required: false },
     token: { type: String, required: false },
+    plugin: {
+      type: [String],
+      default: ["Fast Builder"],
+      required: false
+    }
   },
   { timestamps: true }
 );

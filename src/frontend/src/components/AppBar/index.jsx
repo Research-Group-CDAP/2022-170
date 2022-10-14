@@ -23,6 +23,7 @@ import {
   Services,
   UserInformation,
   UserLogin,
+  MarketPlace
 } from "../../pages";
 import { getUserDetails } from "../../store/auth-store/authActions";
 const drawerWidth = 240;
@@ -162,12 +163,12 @@ export default function PermanentDrawerLeft() {
                         <ListItemText primary={"Containers"} />
                       </ListItem>
                     </Link>
-                    <Link style={{ textDecoration: "none" }} to="/dependency">
-                      <ListItem className={classes.Link} button key={"Dependency"}>
+                    <Link style={{ textDecoration: "none" }} to="/predictions">
+                      <ListItem className={classes.Link} button key={"Predictions"}>
                         <ListItemIcon className={classes.ListItemIcon}>
-                          <Icon icon="vscode-icons:file-type-dependencies" width={25} />
+                          <Icon icon="flat-color-icons:combo-chart" width={25} />
                         </ListItemIcon>
-                        <ListItemText primary={"Dependency"} />
+                        <ListItemText primary={"Predictions"} />
                       </ListItem>
                     </Link>
                     <Link style={{ textDecoration: "none" }} to="/experiments">
@@ -178,12 +179,20 @@ export default function PermanentDrawerLeft() {
                         <ListItemText primary={"Experiments"} />
                       </ListItem>
                     </Link>
-                    <Link style={{ textDecoration: "none" }} to="/predictions">
-                      <ListItem className={classes.Link} button key={"Predictions"}>
+                    <Link style={{ textDecoration: "none" }} to="/dependency">
+                      <ListItem className={classes.Link} button key={"Dependency"}>
                         <ListItemIcon className={classes.ListItemIcon}>
-                          <Icon icon="flat-color-icons:combo-chart" width={25} />
+                          <Icon icon="vscode-icons:file-type-dependencies" width={25} />
                         </ListItemIcon>
-                        <ListItemText primary={"Predictions"} />
+                        <ListItemText primary={"Dependency"} />
+                      </ListItem>
+                    </Link>
+                    <Link style={{ textDecoration: "none" }} to="/market">
+                      <ListItem className={classes.Link} button key={"Market Place"}>
+                        <ListItemIcon className={classes.ListItemIcon}>
+                          <Icon icon="vscode-icons:folder-type-plugin" width={25} />
+                        </ListItemIcon>
+                        <ListItemText primary={"Market Place"} />
                       </ListItem>
                     </Link>
                   </>
@@ -222,6 +231,7 @@ export default function PermanentDrawerLeft() {
             <Route path="/user" element={<UserInformation />} />
             <Route path="/login" element={<UserLogin />} />
             <Route path="/register" element={<Registration />} />
+            <Route path="/market" element={<MarketPlace />} />
           </Routes>
         </main>
       </div>
