@@ -218,12 +218,8 @@ const Predictions = (props) => {
           </Grid>
         </Grid>
         <div className={classes.rootServices}>
-        <h2 textAlign="center">
-          The largest and most advanced Kubernetes platform in the world
-        </h2>
-        <br />
         <Grid container spacing={3}>
-          <Grid item xs={4}>
+          <Grid item xs={12}>
             <Card className={classes.Card}>
               <CardContent>
                 <h5>
@@ -232,7 +228,7 @@ const Predictions = (props) => {
                     icon="vscode-icons:folder-type-kubernetes-opened"
                     width={25}
                   />{" "}
-                  Kubernetes Autoscaling for Everyone
+                 Predicting
                 </h5>
                 <Divider />
                 <br />
@@ -240,13 +236,13 @@ const Predictions = (props) => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12}>
             <Card className={classes.Card}>
               <CardContent>
                 <h5>
                   {" "}
                   <Icon icon="vscode-icons:file-type-dartlang" width={25} /> Pro
-                  Features{" "}
+                  Autoscaling strategy{" "}
                 </h5>
                 <Divider />
                 <br />
@@ -254,7 +250,7 @@ const Predictions = (props) => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12}>
             <Card className={classes.Card}>
               <CardContent>
                 <h5>
@@ -263,7 +259,7 @@ const Predictions = (props) => {
                     icon="vscode-icons:file-type-powershell2"
                     width={25}
                   />{" "}
-                  Built on Open Source{" "}
+                 Effectiveness {" "}
                 </h5>
                 <Divider />
                 <br />
