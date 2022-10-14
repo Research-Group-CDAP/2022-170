@@ -30,6 +30,9 @@ const useStyles = makeStyles({
   },
   fields: {
     width: "100%"
+  },
+  Divider: {
+    background: "#ffffff"
   }
 });
 
@@ -225,12 +228,12 @@ const Predictions = (props) => {
                 <h5>
                   {" "}
                   <Icon
-                    icon="vscode-icons:folder-type-kubernetes-opened"
+                    icon="ic:baseline-online-prediction"
                     width={25}
                   />{" "}
                  Predicting
                 </h5>
-                <Divider />
+                <Divider className={classes.Divider} />
                 <br />
                 Developed an algorithm that predicts the microservice's load through the time series data queried from the cluster
               </CardContent>
@@ -241,10 +244,10 @@ const Predictions = (props) => {
               <CardContent>
                 <h5>
                   {" "}
-                  <Icon icon="vscode-icons:file-type-dartlang" width={25} /> Pro
+                  <Icon icon="ic:baseline-linear-scale" width={25} /> Pro
                   Autoscaling strategy{" "}
                 </h5>
-                <Divider />
+                <Divider className={classes.Divider} />
                 <br />
                 Solution that optimizes the autoscaling strategy based on a clustered matrix and the predicted load
               </CardContent>
@@ -256,12 +259,12 @@ const Predictions = (props) => {
                 <h5>
                   {" "}
                   <Icon
-                    icon="vscode-icons:file-type-powershell2"
+                    icon="ic:baseline-ac-unit"
                     width={25}
                   />{" "}
                  Effectiveness {" "}
                 </h5>
-                <Divider />
+                <Divider className={classes.Divider} />
                 <br />
                 Evaluate the effectiveness of the proposed deployment strategy of the optimization server compared to the existing strategy
               </CardContent>
