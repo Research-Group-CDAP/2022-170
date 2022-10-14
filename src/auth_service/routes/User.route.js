@@ -18,6 +18,6 @@ router.post("/register", registerUser);
 router.put("/edit", auth, updateUser);
 router.post("/login", loginUser);
 router.post("/logintoCluster", logintoCluster);
-router.put("/updateplugins", auth, updatePluginList);
+router.put("/updateplugins", updatePluginList);
 
 module.exports = router;

@@ -23,7 +23,7 @@ import {
   Services,
   UserInformation,
   UserLogin,
-  MarketPlace
+  MarketPlace,
 } from "../../pages";
 import { getUserDetails } from "../../store/auth-store/authActions";
 const drawerWidth = 240;
@@ -94,7 +94,10 @@ export default function PermanentDrawerLeft() {
             <Link style={{ textDecoration: "none" }} to="/">
               <ListItem className={classes.Link} button key={"Home"}>
                 <ListItemIcon className={classes.ListItemIcon}>
-                  <Icon icon="vscode-icons:file-type-homeassistant" width={25} />
+                  <Icon
+                    icon="vscode-icons:file-type-homeassistant"
+                    width={25}
+                  />
                 </ListItemIcon>
                 <ListItemText primary={"Home"} />
               </ListItem>
@@ -122,7 +125,11 @@ export default function PermanentDrawerLeft() {
             ) : (
               <>
                 <Link style={{ textDecoration: "none" }} to="/user">
-                  <ListItem className={classes.Link} button key={"User Information"}>
+                  <ListItem
+                    className={classes.Link}
+                    button
+                    key={"User Information"}
+                  >
                     <ListItemIcon className={classes.ListItemIcon}>
                       <Icon icon="vscode-icons:file-type-jenkins" width={25} />
                     </ListItemIcon>
@@ -132,65 +139,142 @@ export default function PermanentDrawerLeft() {
                 {kubeState.clusterConnected && (
                   <>
                     <Link style={{ textDecoration: "none" }} to="/overview">
-                      <ListItem className={classes.Link} button key={"Overview"}>
+                      <ListItem
+                        className={classes.Link}
+                        button
+                        key={"Overview"}
+                      >
                         <ListItemIcon className={classes.ListItemIcon}>
-                          <Icon icon="vscode-icons:file-type-appsemble" width={25} />
+                          <Icon
+                            icon="vscode-icons:file-type-appsemble"
+                            width={25}
+                          />
                         </ListItemIcon>
                         <ListItemText primary={"Overview"} />
                       </ListItem>
                     </Link>
-                    <Link style={{ textDecoration: "none" }} to="/services">
-                      <ListItem className={classes.Link} button key={"Services"}>
-                        <ListItemIcon className={classes.ListItemIcon}>
-                          <Icon icon="vscode-icons:file-type-dependabot" width={25} />
-                        </ListItemIcon>
-                        <ListItemText primary={"Services"} />
-                      </ListItem>
-                    </Link>
-                    <Link style={{ textDecoration: "none" }} to="/pods">
-                      <ListItem className={classes.Link} button key={"Pods"}>
-                        <ListItemIcon className={classes.ListItemIcon}>
-                          <Icon icon="vscode-icons:folder-type-kubernetes" width={25} />
-                        </ListItemIcon>
-                        <ListItemText primary={"Pods"} />
-                      </ListItem>
-                    </Link>
-                    <Link style={{ textDecoration: "none" }} to="/containers">
-                      <ListItem className={classes.Link} button key={"Containers"}>
-                        <ListItemIcon className={classes.ListItemIcon}>
-                          <Icon icon="vscode-icons:folder-type-docker" width={25} />
-                        </ListItemIcon>
-                        <ListItemText primary={"Containers"} />
-                      </ListItem>
-                    </Link>
-                    <Link style={{ textDecoration: "none" }} to="/predictions">
-                      <ListItem className={classes.Link} button key={"Predictions"}>
-                        <ListItemIcon className={classes.ListItemIcon}>
-                          <Icon icon="flat-color-icons:combo-chart" width={25} />
-                        </ListItemIcon>
-                        <ListItemText primary={"Predictions"} />
-                      </ListItem>
-                    </Link>
-                    <Link style={{ textDecoration: "none" }} to="/experiments">
-                      <ListItem className={classes.Link} button key={"Experiments"}>
-                        <ListItemIcon className={classes.ListItemIcon}>
-                          <Icon icon="fluent-emoji-flat:test-tube" width={25} />
-                        </ListItemIcon>
-                        <ListItemText primary={"Experiments"} />
-                      </ListItem>
-                    </Link>
-                    <Link style={{ textDecoration: "none" }} to="/dependency">
-                      <ListItem className={classes.Link} button key={"Dependency"}>
-                        <ListItemIcon className={classes.ListItemIcon}>
-                          <Icon icon="vscode-icons:file-type-dependencies" width={25} />
-                        </ListItemIcon>
-                        <ListItemText primary={"Dependency"} />
-                      </ListItem>
-                    </Link>
+
+                    {state.user.plugins.includes("Services") && (
+                      <Link style={{ textDecoration: "none" }} to="/services">
+                        <ListItem
+                          className={classes.Link}
+                          button
+                          key={"Services"}
+                        >
+                          <ListItemIcon className={classes.ListItemIcon}>
+                            <Icon
+                              icon="vscode-icons:file-type-dependabot"
+                              width={25}
+                            />
+                          </ListItemIcon>
+                          <ListItemText primary={"Services"} />
+                        </ListItem>
+                      </Link>
+                    )}
+
+                    {state.user.plugins.includes("Pods") && (
+                      <Link style={{ textDecoration: "none" }} to="/pods">
+                        <ListItem className={classes.Link} button key={"Pods"}>
+                          <ListItemIcon className={classes.ListItemIcon}>
+                            <Icon
+                              icon="vscode-icons:folder-type-kubernetes"
+                              width={25}
+                            />
+                          </ListItemIcon>
+                          <ListItemText primary={"Pods"} />
+                        </ListItem>
+                      </Link>
+                    )}
+
+                    {state.user.plugins.includes("Fast Builder") && (
+                      <Link style={{ textDecoration: "none" }} to="/containers">
+                        <ListItem
+                          className={classes.Link}
+                          button
+                          key={"Containers"}
+                        >
+                          <ListItemIcon className={classes.ListItemIcon}>
+                            <Icon
+                              icon="vscode-icons:folder-type-docker"
+                              width={25}
+                            />
+                          </ListItemIcon>
+                          <ListItemText primary={"Containers"} />
+                        </ListItem>
+                      </Link>
+                    )}
+
+                    {state.user.plugins.includes("Predictions") && (
+                      <Link
+                        style={{ textDecoration: "none" }}
+                        to="/predictions"
+                      >
+                        <ListItem
+                          className={classes.Link}
+                          button
+                          key={"Predictions"}
+                        >
+                          <ListItemIcon className={classes.ListItemIcon}>
+                            <Icon
+                              icon="flat-color-icons:combo-chart"
+                              width={25}
+                            />
+                          </ListItemIcon>
+                          <ListItemText primary={"Predictions"} />
+                        </ListItem>
+                      </Link>
+                    )}
+
+                    {state.user.plugins.includes("Experiments") && (
+                      <Link
+                        style={{ textDecoration: "none" }}
+                        to="/experiments"
+                      >
+                        <ListItem
+                          className={classes.Link}
+                          button
+                          key={"Experiments"}
+                        >
+                          <ListItemIcon className={classes.ListItemIcon}>
+                            <Icon
+                              icon="fluent-emoji-flat:test-tube"
+                              width={25}
+                            />
+                          </ListItemIcon>
+                          <ListItemText primary={"Experiments"} />
+                        </ListItem>
+                      </Link>
+                    )}
+
+                    {state.user.plugins.includes("Dependency") && (
+                      <Link style={{ textDecoration: "none" }} to="/dependency">
+                        <ListItem
+                          className={classes.Link}
+                          button
+                          key={"Dependency"}
+                        >
+                          <ListItemIcon className={classes.ListItemIcon}>
+                            <Icon
+                              icon="vscode-icons:file-type-dependencies"
+                              width={25}
+                            />
+                          </ListItemIcon>
+                          <ListItemText primary={"Dependency"} />
+                        </ListItem>
+                      </Link>
+                    )}
+
                     <Link style={{ textDecoration: "none" }} to="/market">
-                      <ListItem className={classes.Link} button key={"Market Place"}>
+                      <ListItem
+                        className={classes.Link}
+                        button
+                        key={"Market Place"}
+                      >
                         <ListItemIcon className={classes.ListItemIcon}>
-                          <Icon icon="vscode-icons:folder-type-plugin" width={25} />
+                          <Icon
+                            icon="vscode-icons:folder-type-plugin"
+                            width={25}
+                          />
                         </ListItemIcon>
                         <ListItemText primary={"Market Place"} />
                       </ListItem>
