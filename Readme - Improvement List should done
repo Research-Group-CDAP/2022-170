@@ -1,4 +1,7 @@
 Cron Job for do the Experiments and save the output results into a database - Dilmi
 Cron Job for Auto Scaling - Lasal
+
 Manual Insert Istio Prometheus for Cluster by Click Button - Senura
+-kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.15/samples/addons/prometheus.yaml
+
 Get More Data by k8s.AppsV1Api - senura
