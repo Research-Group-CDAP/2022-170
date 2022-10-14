@@ -163,8 +163,13 @@ const updatePluginList = async (request, response) => {
     .then(async (userDetails) => {
       if (userDetails) {
 
-        if (request.body.addedPlugin) {
-          userDetails.plugin = userDetails.plugin.push(request.body.addedPlugin);
+        if (request.body.plugin && request.body.type) {
+          if(request.body.type === "ADD"){
+            userDetails.plugins.push(request.body.plugin)
+            userDetails.plugins = userDetails.plugins;
+          }else{
+            userDetails.plugins = userDetails.plugins.filter(e => e !== request.body.plugin);
+          }
         }
 
         return await userDetails
