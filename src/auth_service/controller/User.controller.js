@@ -158,6 +158,37 @@ const updateUser = async (request, response) => {
     });
 };
 
+const updatePluginList = async (request, response) => {
+  return await User.findById(request.body.Id)
+    .then(async (userDetails) => {
+      if (userDetails) {
+
+        if (request.body.plugin && request.body.type) {
+          if(request.body.type === "ADD"){
+            userDetails.plugins.push(request.body.plugin)
+            userDetails.plugins = userDetails.plugins;
+          }else{
+            userDetails.plugins = userDetails.plugins.filter(e => e !== request.body.plugin);
+          }
+        }
+
+        return await userDetails
+          .save()
+          .then((updatedUser) => {
+            return response.json(updatedUser);
+          })
+          .catch((error) => {
+            return response.json(error);
+          });
+      } else {
+        return response.json("User Not Found");
+      }
+    })
+    .catch((error) => {
+      return response.json(error);
+    });
+};
+
 const deleteUserPermenently = async (request, response) => {
   return await User.findByIdAndDelete(request.params.userId)
     .then((user) => {
@@ -232,4 +263,5 @@ module.exports = {
   updateUser,
   deleteUserPermenently,
   logintoCluster,
+  updatePluginList
 };

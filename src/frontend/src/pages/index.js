@@ -10,6 +10,7 @@ import Predictions from "./Predictions";
 import UserInformation from "./UserInformation";
 import UserLogin from "./Login";
 import Registration from "./Registration";
+import MarketPlace from "./MarketPlace";
 export {
   Home,
   Matrics,
@@ -23,4 +24,5 @@ export {
   UserInformation,
   UserLogin,
   Registration,
+  MarketPlace
 };
