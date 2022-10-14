@@ -19,7 +19,7 @@ const Network_Utilization_Pred_Model = require("../models/network_utilization_pr
 app.use(express.static(path.join(__dirname, "public")));
 var cron = require("node-cron");
 
-cron.schedule("*/120 * * * *", async () => {
+cron.schedule("*/1 * * * *", async () => {
   console.log("Running a cron job every 1 minutes | Timestamp : " + new Date());
 
   await fetch_Cpu_Usage();
