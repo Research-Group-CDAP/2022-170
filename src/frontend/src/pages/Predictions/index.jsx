@@ -30,6 +30,9 @@ const useStyles = makeStyles({
   },
   fields: {
     width: "100%"
+  },
+  Divider: {
+    background: "#ffffff"
   }
 });
 
@@ -218,54 +221,50 @@ const Predictions = (props) => {
           </Grid>
         </Grid>
         <div className={classes.rootServices}>
-        <h2 textAlign="center">
-          The largest and most advanced Kubernetes platform in the world
-        </h2>
-        <br />
         <Grid container spacing={3}>
-          <Grid item xs={4}>
+          <Grid item xs={12}>
             <Card className={classes.Card}>
               <CardContent>
                 <h5>
                   {" "}
                   <Icon
-                    icon="vscode-icons:folder-type-kubernetes-opened"
+                    icon="ic:baseline-online-prediction"
                     width={25}
                   />{" "}
-                  Kubernetes for Everyone
+                 Predicting
                 </h5>
-                <Divider />
+                <Divider className={classes.Divider} />
                 <br />
                 Developed an algorithm that predicts the microservice's load through the time series data queried from the cluster
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12}>
             <Card className={classes.Card}>
               <CardContent>
                 <h5>
                   {" "}
-                  <Icon icon="vscode-icons:file-type-dartlang" width={25} /> Pro
-                  Features{" "}
+                  <Icon icon="ic:baseline-linear-scale" width={25} /> Pro
+                  Autoscaling strategy{" "}
                 </h5>
-                <Divider />
+                <Divider className={classes.Divider} />
                 <br />
                 Solution that optimizes the autoscaling strategy based on a clustered matrix and the predicted load
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12}>
             <Card className={classes.Card}>
               <CardContent>
                 <h5>
                   {" "}
                   <Icon
-                    icon="vscode-icons:file-type-powershell2"
+                    icon="ic:baseline-ac-unit"
                     width={25}
                   />{" "}
-                  Built on Open Source{" "}
+                 Effectiveness {" "}
                 </h5>
-                <Divider />
+                <Divider className={classes.Divider} />
                 <br />
                 Evaluate the effectiveness of the proposed deployment strategy of the optimization server compared to the existing strategy
               </CardContent>

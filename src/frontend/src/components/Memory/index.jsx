@@ -6,6 +6,7 @@ import { fetch_All_Memory_Utilization_By_Pod } from "../../store/matrics-store/m
 import { fetch_Predicted_Memory_Utilization_By_Pod } from "../../store/prediction-store/predictionActions";
 import LineChart from "../LineChart";
 import TimeSeriesDataTable from "../TimeSeriesDataTable";
+import KubeScaler from "../KubeScaler";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,6 +54,7 @@ const Memory = (props) => {
               timeSeriesData={memoryTimeSeriesData}
               predictedValues={predictedMemoryValues}
             />
+            <KubeScaler podName={props.podName}/>
             <div className="mt-5">
               <TimeSeriesDataTable timeSeriesData={memoryTimeSeriesData} />
             </div>

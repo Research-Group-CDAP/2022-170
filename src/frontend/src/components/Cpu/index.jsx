@@ -6,6 +6,7 @@ import { fetch_All_Cpu_Usage_By_Pod } from "../../store/matrics-store/matricsAct
 import { fetch_Predicted_Cpu_Usage_By_Pod } from "../../store/prediction-store/predictionActions";
 import LineChart from "../LineChart";
 import TimeSeriesDataTable from "../TimeSeriesDataTable";
+import KubeScaler from "../KubeScaler";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +53,7 @@ const Cpu = (props) => {
               timeSeriesData={cpuTimeSeriesData}
               predictedValues={predictedCpuValues}
             />
+            <KubeScaler podName={props.podName}/>
             <div className="mt-5">
               <TimeSeriesDataTable timeSeriesData={cpuTimeSeriesData} />
             </div>

@@ -36,7 +36,9 @@ const useStyles = makeStyles({
   },
   Card: {
     minHeight: "250px",
-  },
+  },  Divider: {
+    background: "#ffffff"
+  }
 });
 
 const Home = (props) => {
@@ -83,7 +85,7 @@ const Home = (props) => {
                   />{" "}
                   Kubernetes for Everyone
                 </h5>
-                <Divider />
+                <Divider className={classes.Divider} />
                 <br />
                 KubeMate is built on open source with a vibrant community and is
                 backed by a number of Kubernetes and cloud native ecosystem
@@ -99,7 +101,7 @@ const Home = (props) => {
                   <Icon icon="vscode-icons:file-type-dartlang" width={25} /> Pro
                   Features{" "}
                 </h5>
-                <Divider />
+                <Divider className={classes.Divider} />
                 <br />
                 KubeMate works with any Kubernetes. It removes complexity and
                 increases productivity. It’s used by everyone — from devs to ops
@@ -118,7 +120,7 @@ const Home = (props) => {
                   />{" "}
                   Built on Open Source{" "}
                 </h5>
-                <Divider />
+                <Divider className={classes.Divider} />
                 <br />
                 Expand the core functionality of KubeMate Kubernetes, Teamwork,
                 Security and Commercial Support for increased productivity and

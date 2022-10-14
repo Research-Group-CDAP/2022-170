@@ -24,5 +24,12 @@ pm2 restart monitoring-server
 
 How Kill Running Nodejs port
 ------------------------------------
-lsof -i :4001 
-kill -9 53096
+lsof -i :3000
+lsof -i :4001
+lsof -i :4002
+lsof -i :5001
+lsof -i :5500
+lsof -i :8015
+lsof -i :8080
+
+kill -9 PID

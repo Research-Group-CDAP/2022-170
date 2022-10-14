@@ -97,8 +97,8 @@ const UserInformation = (props) => {
       data,
       requestConfigJson
     ).then((res) => {
-      console.log(res.connected)
-      if(res.connected){
+      console.log(res.data.connected)
+      if(res.data.connected){
         dispatch(logintoCluster(true));
         dispatch(clusterConnected());
         setClusterStatus(true);
