@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import DoughnutChart from "../DoughnutChart";
 import OverviewTable from "../OverviewTable";
 import UsageRanker from "../UsageRanker";
+import ServicesIpAndLoadbalancerTable from "../ServicesIpAndLoadbalancerTable";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,6 +72,9 @@ const OverviewInformation = (props) => {
         />
       </div>
       <br />
+      <div>
+        <ServicesIpAndLoadbalancerTable/>
+      </div>
       <br />
       <Grid container spacing={3}>
         <Grid item xs={4}>

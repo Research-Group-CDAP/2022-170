@@ -22,6 +22,9 @@ uvicorn app.main:app --reload
 #NodeJs Server
 npm run dev
 
+#Cluster Service
+npm run server
+
 #Enable Istio
 curl -sL https://istio.io/downloadIstioctl | sh -
 export PATH=$HOME/.istioctl/bin:$PATH

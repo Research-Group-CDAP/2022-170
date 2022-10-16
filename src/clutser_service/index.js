@@ -27,6 +27,36 @@ app.post("/install/istio", (req, res) => {
     );
 });
 
+app.post("/uninstall/istio", (req, res) => {
+    exec(
+        `istioctl uninstall --purge`,
+        (error, stdout, stderr) => {
+            if (error) {
+                response.json({ uninstalled: false });
+            } else {
+                console.log(`stdout: ${stdout}`);
+                console.log(`stderr: ${stderr}`);
+                res.json({ uninstalled: true });
+            }
+        }
+    );
+});
+
+app.post("/services/clusteripsandloadbalancer", (req, res) => {
+    exec(
+        `kubectl get services -o JSON`,
+        (error, stdout, stderr) => {
+            if (error) {
+                response.json({ installed: false });
+            } else {
+                console.log(`stdout: ${stdout}`);
+                console.log(`stderr: ${stderr}`);
+                res.json({ list: JSON.parse(stdout).items });
+            }
+        }
+    );
+});
+
 app.post("/configure/prometheus", (req, res) => {
     exec(
         `kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.15/samples/addons/prometheus.yaml`,
