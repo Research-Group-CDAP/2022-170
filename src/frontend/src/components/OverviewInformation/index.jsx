@@ -73,7 +73,7 @@ const OverviewInformation = (props) => {
       </div>
       <br />
       <div>
-        <ServicesIpAndLoadbalancerTable/>
+        <ServicesIpAndLoadbalancerTable clusterIpsAndLoadbalancesList={props.clusterIpsAndLoadbalancesList} />
       </div>
       <br />
       <Grid container spacing={3}>

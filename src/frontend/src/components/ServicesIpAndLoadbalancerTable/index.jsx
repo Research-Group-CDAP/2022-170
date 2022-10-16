@@ -10,6 +10,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import {Link} from "react-router-dom"
 
 const columns = [
   { id: "name", label: "Name", minWidth: 170 },
@@ -70,23 +71,11 @@ export default function ServicesIpAndLoadbalancerTable(props) {
   const [clusterIpsAndLoadbalancerList, setClusterIpsAndLoadbalancerList] =
     useState([]);
 
-  useEffect(() => {
-    axios
-      .post(`http://localhost:4003/services/clusteripsandloadbalancer`)
-      .then((res) => {
-        console.log(res.data.list);
-        setClusterIpsAndLoadbalancerList(res.data.list);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
   function createData(name, type, clusterIP, loadBalancer, port, link) {
     return { name, type, clusterIP, loadBalancer, port, link };
   }
 
-  let rows = clusterIpsAndLoadbalancerList
+  let rows = props.clusterIpsAndLoadbalancesList
     .map((service) => {
       return createData(
         service.metadata.name,

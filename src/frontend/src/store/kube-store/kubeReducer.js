@@ -4,6 +4,7 @@ const initialState = {
   podDetailsByNamespace: [],
   servicesDetailsByNamespace: [],
   dependencyDetailsByNamespace: [],
+  clusterIpsAndLoadbalances: [],
   clusterConnected:false,
   loading: false,
   error: null,
@@ -16,6 +17,8 @@ const kubeReducer = (state = initialState, action) => {
     case `${ActionTypes.GET_SERVICES_DETAILS_BY_NAMESPACE}_PENDING`:
       return { ...state, loading: true };
     case `${ActionTypes.GET_DEPENDENCY_DETAILS_BY_NAMESPACE}_PENDING`:
+      return { ...state, loading: true };
+    case `${ActionTypes.CLUSTERIPS_AND_LOADBALANCES}_PENDING`:
       return { ...state, loading: true };
 
     case `${ActionTypes.GET_POD_DETAILS_BY_NAMESPACE}_FULFILLED`:
@@ -30,10 +33,14 @@ const kubeReducer = (state = initialState, action) => {
     case `${ActionTypes.CLUSTER_CONNECTED}`:
       let clusterConnected = action.payload;
       return { ...state, loading: false, clusterConnected };
+    case `${ActionTypes.CLUSTERIPS_AND_LOADBALANCES}_FULFILLED`:
+      let clusterIpsAndLoadbalances = action.payload.data.list;
+      return { ...state, loading: false, clusterIpsAndLoadbalances };
 
     case `${ActionTypes.GET_POD_DETAILS_BY_NAMESPACE}_REJECTED`:
     case `${ActionTypes.GET_SERVICES_DETAILS_BY_NAMESPACE}_REJECTED`:
     case `${ActionTypes.GET_DEPENDENCY_DETAILS_BY_NAMESPACE}_REJECTED`:
+    case `${ActionTypes.CLUSTERIPS_AND_LOADBALANCES}_REJECTED`:
       return {
         ...state,
         loading: false,
