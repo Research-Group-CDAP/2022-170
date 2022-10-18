@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { exec } = require("child_process");
+const connectDB = require("./config/db");
 const app = express();
 
 const YAML = require('json-to-pretty-yaml');
@@ -9,6 +10,9 @@ var fs = require("fs");
 
 //Using Cors
 app.use(cors());
+
+//Connect Database
+connectDB();
 
 //Init Middleware( include  bodyparser through express)
 app.use(express.json({ extended: false }));
