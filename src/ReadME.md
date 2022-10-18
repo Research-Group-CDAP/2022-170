@@ -27,6 +27,7 @@ How Kill Running Nodejs port
 lsof -i :3000
 lsof -i :4001
 lsof -i :4002
+lsof -i :4003
 lsof -i :5001
 lsof -i :5500
 lsof -i :8015
