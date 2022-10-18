@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { exec } = require("child_process");
 var cron = require("node-cron");
-const axios = require('axios');
+const axios = require("axios");
 const app = express();
 
 //Using Cors
@@ -14,31 +14,56 @@ app.use(express.json({ extended: false }));
 app.get("/", (req, res) => res.send("Monitoring Main Backend Api Running"));
 
 app.post("/restartmonitoringserver", (req, res) => {
-    exec(
-        `pm2 restart monitoring-server`,
-        (error, stdout, stderr) => {
-          if (error) {
-            response.json({ connected: false });
-          } else {
-            console.log(`stdout: ${stdout}`);
-            console.log(`stderr: ${stderr}`);
-            res.json({ restart: true });
-          }
-        }
-      );
+  exec(`pm2 restart monitoring-server`, (error, stdout, stderr) => {
+    if (error) {
+      response.json({ connected: false });
+    } else {
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+      res.json({ restart: true });
+    }
+  });
 });
 
 cron.schedule("*/1 * * * *", async () => {
   console.log("Running a cron job every 1 minutes | Timestamp : " + new Date());
+  cronJobforExperiments();
 });
 
 const cronJobforExperiments = async () => {
   console.log("------------cronJobforExperiments------------");
-  axios.post('http://localhost:4001/experiment/executeRandomPodExperiment').then(()=>{
-
-  }).catch((error)=>{
-    console.log(error)
-  })
+  axios
+    .post("http://localhost:4004/experiment/executeRandomPodExperiment")
+    .then((response) => {
+      if (response.data.executed) {
+        console.log("------------JSON Report Generated------------");
+        exec(
+          `pm2 restart monitoring-server-cron-job`,
+          (error, stdout, stderr) => {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log(
+                "------------Restart Application Success------------"
+              );
+              axios
+                .post("http://localhost:4004/experiment/saveToDatabase")
+                .then(() => {
+                  console.log("Save Experiment Results to Database");
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            }
+          }
+        );
+      } else {
+        console.log("Error");
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 const PORT = process.env.PORT || 4002;

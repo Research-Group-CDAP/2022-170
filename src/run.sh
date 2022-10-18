@@ -16,6 +16,9 @@ npm run server
 #Monitoring Server (Sub Service)
 pm2 start index.js --name monitoring-server
 
+#Monitoring Server CronJob (Sub Service)
+pm2 start index.js --name monitoring-server-cron-job
+
 #Optimize Server
 uvicorn app.main:app --reload
 

@@ -10,17 +10,20 @@ npm install pm2@latest -g
 To Run 
 pm2 start index.js --name kube-server
 pm2 start server.js --name matrics-server
+pm2 start index.js --name monitoring-server-cron-job
 pm2 start index.js --name monitoring-server
 
 To Stop
 pm2 stop kube-server
 pm2 stop matrics-server
 pm2 stop monitoring-server
+pm2 stop monitoring-server-cron-job
 
 To Restart
 pm2 restart kube-server
 pm2 restart matrics-server
 pm2 restart monitoring-server
+pm2 restart monitoring-server-cron-job
 
 How Kill Running Nodejs port
 ------------------------------------
@@ -28,6 +31,7 @@ lsof -i :3000
 lsof -i :4001
 lsof -i :4002
 lsof -i :4003
+lsof -i :4004
 lsof -i :5001
 lsof -i :5500
 lsof -i :8015
