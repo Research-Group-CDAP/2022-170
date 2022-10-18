@@ -6,6 +6,7 @@ import DoughnutChart from "../DoughnutChart";
 import OverviewTable from "../OverviewTable";
 import UsageRanker from "../UsageRanker";
 import ServicesIpAndLoadbalancerTable from "../ServicesIpAndLoadbalancerTable";
+import ClusterStatusCard from "../ClusterStatusCard.jsx";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,6 +62,12 @@ const OverviewInformation = (props) => {
               />
             </Paper>
           </Grid>
+          <Grid item xs={4}>
+            <Paper className={classes.paper}>
+              <h5>Status </h5>
+              <ClusterStatusCard/>
+            </Paper>
+          </Grid>
         </Grid>
       </div>
       <br />
@@ -73,7 +80,9 @@ const OverviewInformation = (props) => {
       </div>
       <br />
       <div>
-        <ServicesIpAndLoadbalancerTable clusterIpsAndLoadbalancesList={props.clusterIpsAndLoadbalancesList} />
+        <ServicesIpAndLoadbalancerTable
+          clusterIpsAndLoadbalancesList={props.clusterIpsAndLoadbalancesList}
+        />
       </div>
       <br />
       <Grid container spacing={3}>
