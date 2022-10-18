@@ -2251,3 +2251,295 @@
 [36m[2022-10-18 20:21:17 DEBUG] [__init__:399][39m No controls to apply on 'experiment'
 [36m[2022-10-18 20:21:17 DEBUG] [__init__:91][39m Cleaning up controls
 [36m[2022-10-18 20:21:17 DEBUG] [caching:42][39m Clearing activities cache
+[36m[2022-10-18 20:26:01 DEBUG] [cli:112][39m ###############################################################################
+[36m[2022-10-18 20:26:01 DEBUG] [cli:113][39m Running command 'run'
+[36m[2022-10-18 20:26:01 DEBUG] [cli:117][39m Using settings file 'C:\Users\senur\.chaostoolkit\settings.yaml'
+[36m[2022-10-18 20:26:02 DEBUG] [settings:30][39m The Chaos Toolkit settings file could not be found at 'C:\Users\senur\.chaostoolkit\settings.yaml'.
+[36m[2022-10-18 20:26:02 DEBUG] [__init__:399][39m No controls to apply on 'loader'
+[36m[2022-10-18 20:26:02 DEBUG] [__init__:399][39m No controls to apply on 'loader'
+[36m[2022-10-18 20:26:02 DEBUG] [caching:24][39m Building activity cache...
+[36m[2022-10-18 20:26:02 DEBUG] [caching:35][39m Cached 2 activities
+[32m[2022-10-18 20:26:02 INFO] [experiment:58][39m Validating the experiment's syntax
+[36m[2022-10-18 20:26:02 DEBUG] [configuration:63][39m Loading configuration...
+[36m[2022-10-18 20:26:02 DEBUG] [secret:78][39m Loading secrets...
+[36m[2022-10-18 20:26:02 DEBUG] [secret:104][39m Done loading secrets
+[32m[2022-10-18 20:26:04 INFO] [experiment:109][39m Experiment looks valid
+[36m[2022-10-18 20:26:04 DEBUG] [caching:42][39m Clearing activities cache
+[36m[2022-10-18 20:26:04 DEBUG] [caching:24][39m Building activity cache...
+[36m[2022-10-18 20:26:04 DEBUG] [caching:35][39m Cached 2 activities
+[36m[2022-10-18 20:26:04 DEBUG] [configuration:63][39m Loading configuration...
+[36m[2022-10-18 20:26:04 DEBUG] [secret:78][39m Loading secrets...
+[36m[2022-10-18 20:26:04 DEBUG] [secret:104][39m Done loading secrets
+[36m[2022-10-18 20:26:04 DEBUG] [configuration:160][39m Loading dynamic configuration...
+[36m[2022-10-18 20:26:04 DEBUG] [exit:90][39m System 'Windows-10-10.0.22000-SP0' does not expose SIGUSR signals
+[32m[2022-10-18 20:26:04 INFO] [run:320][39m Running experiment: Lets kill pods randomly
+[36m[2022-10-18 20:26:04 DEBUG] [__init__:52][39m Initializing controls
+[32m[2022-10-18 20:26:04 INFO] [run:344][39m Steady-state strategy: default
+[32m[2022-10-18 20:26:04 INFO] [run:348][39m Rollbacks strategy: default
+[36m[2022-10-18 20:26:04 DEBUG] [__init__:399][39m No controls to apply on 'experiment'
+[36m[2022-10-18 20:26:04 DEBUG] [run:506][39m Running steady-state hypothesis before the method
+[32m[2022-10-18 20:26:04 INFO] [hypothesis:182][39m Steady state hypothesis: The app is healthy
+[36m[2022-10-18 20:26:04 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[36m[2022-10-18 20:26:04 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[32m[2022-10-18 20:26:04 INFO] [activity:204][39m Probe: all-apps-are-healthy
+[36m[2022-10-18 20:26:04 DEBUG] [python:33][39m Activity 'all-apps-are-healthy' loaded from 'C:\Users\senur\AppData\Local\Programs\Python\Python310\lib\site-packages\chaosk8s\probes.py'
+[33m[2022-10-18 20:26:04 WARNING] [__init__:165][39m all_microservices_healthy function is DEPRECATED and will be removed in the next         releases, please use all_pods_healthy instead
+[36m[2022-10-18 20:26:04 DEBUG] [__init__:73][39m Using Kubernetes context 'default' from config 'C:\Users\senur/.kube/config'
+[36m[2022-10-18 20:26:05 DEBUG] [probes:296][39m Found 0 failed and 0 not ready pods
+[36m[2022-10-18 20:26:05 DEBUG] [activity:221][39m   => succeeded with 'True'
+[36m[2022-10-18 20:26:05 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[36m[2022-10-18 20:26:05 DEBUG] [hypothesis:221][39m allowed tolerance is True
+[32m[2022-10-18 20:26:05 INFO] [hypothesis:231][39m Steady state hypothesis is met!
+[36m[2022-10-18 20:26:05 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[32m[2022-10-18 20:26:05 INFO] [run:607][39m Playing your experiment's method now...
+[36m[2022-10-18 20:26:05 DEBUG] [__init__:399][39m No controls to apply on 'method'
+[36m[2022-10-18 20:26:05 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[32m[2022-10-18 20:26:05 INFO] [activity:204][39m Action: terminate-pod
+[36m[2022-10-18 20:26:05 DEBUG] [python:33][39m Activity 'terminate-pod' loaded from 'C:\Users\senur\AppData\Local\Programs\Python\Python310\lib\site-packages\chaosk8s\pod\actions.py'
+[36m[2022-10-18 20:26:05 DEBUG] [__init__:73][39m Using Kubernetes context 'default' from config 'C:\Users\senur/.kube/config'
+[36m[2022-10-18 20:26:07 DEBUG] [actions:238][39m Found 7 pods in ns 'default'
+[36m[2022-10-18 20:26:07 DEBUG] [activity:221][39m   => succeeded with '['emailservice-67b75bf988-2sn5n']'
+[32m[2022-10-18 20:26:07 INFO] [activity:239][39m Pausing after activity for 10s...
+[36m[2022-10-18 20:26:17 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[36m[2022-10-18 20:26:17 DEBUG] [__init__:399][39m No controls to apply on 'method'
+[36m[2022-10-18 20:26:17 DEBUG] [run:536][39m Running steady-state hypothesis after the method
+[32m[2022-10-18 20:26:17 INFO] [hypothesis:182][39m Steady state hypothesis: The app is healthy
+[36m[2022-10-18 20:26:17 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[36m[2022-10-18 20:26:17 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[32m[2022-10-18 20:26:17 INFO] [activity:204][39m Probe: all-apps-are-healthy
+[36m[2022-10-18 20:26:17 DEBUG] [python:33][39m Activity 'all-apps-are-healthy' loaded from 'C:\Users\senur\AppData\Local\Programs\Python\Python310\lib\site-packages\chaosk8s\probes.py'
+[33m[2022-10-18 20:26:17 WARNING] [__init__:165][39m all_microservices_healthy function is DEPRECATED and will be removed in the next         releases, please use all_pods_healthy instead
+[36m[2022-10-18 20:26:17 DEBUG] [__init__:73][39m Using Kubernetes context 'default' from config 'C:\Users\senur/.kube/config'
+[36m[2022-10-18 20:26:18 DEBUG] [probes:296][39m Found 0 failed and 0 not ready pods
+[36m[2022-10-18 20:26:18 DEBUG] [activity:221][39m   => succeeded with 'True'
+[36m[2022-10-18 20:26:18 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[36m[2022-10-18 20:26:18 DEBUG] [hypothesis:221][39m allowed tolerance is True
+[32m[2022-10-18 20:26:18 INFO] [hypothesis:231][39m Steady state hypothesis is met!
+[36m[2022-10-18 20:26:18 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[32m[2022-10-18 20:26:18 INFO] [run:893][39m Let's rollback...
+[36m[2022-10-18 20:26:18 DEBUG] [__init__:399][39m No controls to apply on 'rollback'
+[32m[2022-10-18 20:26:18 INFO] [rollback:27][39m No declared rollbacks, let's move on.
+[36m[2022-10-18 20:26:18 DEBUG] [__init__:399][39m No controls to apply on 'rollback'
+[32m[2022-10-18 20:26:18 INFO] [run:458][39m Experiment ended with status: completed
+[36m[2022-10-18 20:26:18 DEBUG] [__init__:399][39m No controls to apply on 'experiment'
+[36m[2022-10-18 20:26:18 DEBUG] [__init__:91][39m Cleaning up controls
+[36m[2022-10-18 20:26:18 DEBUG] [caching:42][39m Clearing activities cache
+[36m[2022-10-18 20:27:01 DEBUG] [cli:112][39m ###############################################################################
+[36m[2022-10-18 20:27:01 DEBUG] [cli:113][39m Running command 'run'
+[36m[2022-10-18 20:27:01 DEBUG] [cli:117][39m Using settings file 'C:\Users\senur\.chaostoolkit\settings.yaml'
+[36m[2022-10-18 20:27:02 DEBUG] [settings:30][39m The Chaos Toolkit settings file could not be found at 'C:\Users\senur\.chaostoolkit\settings.yaml'.
+[36m[2022-10-18 20:27:02 DEBUG] [__init__:399][39m No controls to apply on 'loader'
+[36m[2022-10-18 20:27:02 DEBUG] [__init__:399][39m No controls to apply on 'loader'
+[36m[2022-10-18 20:27:02 DEBUG] [caching:24][39m Building activity cache...
+[36m[2022-10-18 20:27:02 DEBUG] [caching:35][39m Cached 2 activities
+[32m[2022-10-18 20:27:02 INFO] [experiment:58][39m Validating the experiment's syntax
+[36m[2022-10-18 20:27:02 DEBUG] [configuration:63][39m Loading configuration...
+[36m[2022-10-18 20:27:02 DEBUG] [secret:78][39m Loading secrets...
+[36m[2022-10-18 20:27:02 DEBUG] [secret:104][39m Done loading secrets
+[32m[2022-10-18 20:27:03 INFO] [experiment:109][39m Experiment looks valid
+[36m[2022-10-18 20:27:03 DEBUG] [caching:42][39m Clearing activities cache
+[36m[2022-10-18 20:27:03 DEBUG] [caching:24][39m Building activity cache...
+[36m[2022-10-18 20:27:03 DEBUG] [caching:35][39m Cached 2 activities
+[36m[2022-10-18 20:27:03 DEBUG] [configuration:63][39m Loading configuration...
+[36m[2022-10-18 20:27:03 DEBUG] [secret:78][39m Loading secrets...
+[36m[2022-10-18 20:27:03 DEBUG] [secret:104][39m Done loading secrets
+[36m[2022-10-18 20:27:03 DEBUG] [configuration:160][39m Loading dynamic configuration...
+[36m[2022-10-18 20:27:03 DEBUG] [exit:90][39m System 'Windows-10-10.0.22000-SP0' does not expose SIGUSR signals
+[32m[2022-10-18 20:27:03 INFO] [run:320][39m Running experiment: Lets kill pods randomly
+[36m[2022-10-18 20:27:03 DEBUG] [__init__:52][39m Initializing controls
+[32m[2022-10-18 20:27:03 INFO] [run:344][39m Steady-state strategy: default
+[32m[2022-10-18 20:27:03 INFO] [run:348][39m Rollbacks strategy: default
+[36m[2022-10-18 20:27:03 DEBUG] [__init__:399][39m No controls to apply on 'experiment'
+[36m[2022-10-18 20:27:03 DEBUG] [run:506][39m Running steady-state hypothesis before the method
+[32m[2022-10-18 20:27:03 INFO] [hypothesis:182][39m Steady state hypothesis: The app is healthy
+[36m[2022-10-18 20:27:03 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[36m[2022-10-18 20:27:03 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[32m[2022-10-18 20:27:03 INFO] [activity:204][39m Probe: all-apps-are-healthy
+[36m[2022-10-18 20:27:03 DEBUG] [python:33][39m Activity 'all-apps-are-healthy' loaded from 'C:\Users\senur\AppData\Local\Programs\Python\Python310\lib\site-packages\chaosk8s\probes.py'
+[33m[2022-10-18 20:27:03 WARNING] [__init__:165][39m all_microservices_healthy function is DEPRECATED and will be removed in the next         releases, please use all_pods_healthy instead
+[36m[2022-10-18 20:27:03 DEBUG] [__init__:73][39m Using Kubernetes context 'default' from config 'C:\Users\senur/.kube/config'
+[36m[2022-10-18 20:27:04 DEBUG] [probes:296][39m Found 0 failed and 0 not ready pods
+[36m[2022-10-18 20:27:04 DEBUG] [activity:221][39m   => succeeded with 'True'
+[36m[2022-10-18 20:27:04 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[36m[2022-10-18 20:27:04 DEBUG] [hypothesis:221][39m allowed tolerance is True
+[32m[2022-10-18 20:27:04 INFO] [hypothesis:231][39m Steady state hypothesis is met!
+[36m[2022-10-18 20:27:04 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[32m[2022-10-18 20:27:04 INFO] [run:607][39m Playing your experiment's method now...
+[36m[2022-10-18 20:27:04 DEBUG] [__init__:399][39m No controls to apply on 'method'
+[36m[2022-10-18 20:27:04 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[32m[2022-10-18 20:27:04 INFO] [activity:204][39m Action: terminate-pod
+[36m[2022-10-18 20:27:04 DEBUG] [python:33][39m Activity 'terminate-pod' loaded from 'C:\Users\senur\AppData\Local\Programs\Python\Python310\lib\site-packages\chaosk8s\pod\actions.py'
+[36m[2022-10-18 20:27:04 DEBUG] [__init__:73][39m Using Kubernetes context 'default' from config 'C:\Users\senur/.kube/config'
+[36m[2022-10-18 20:27:06 DEBUG] [actions:238][39m Found 7 pods in ns 'default'
+[36m[2022-10-18 20:27:06 DEBUG] [activity:221][39m   => succeeded with '['emailservice-67b75bf988-2sn5n']'
+[32m[2022-10-18 20:27:06 INFO] [activity:239][39m Pausing after activity for 10s...
+[36m[2022-10-18 20:27:16 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[36m[2022-10-18 20:27:16 DEBUG] [__init__:399][39m No controls to apply on 'method'
+[36m[2022-10-18 20:27:16 DEBUG] [run:536][39m Running steady-state hypothesis after the method
+[32m[2022-10-18 20:27:16 INFO] [hypothesis:182][39m Steady state hypothesis: The app is healthy
+[36m[2022-10-18 20:27:16 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[36m[2022-10-18 20:27:16 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[32m[2022-10-18 20:27:16 INFO] [activity:204][39m Probe: all-apps-are-healthy
+[36m[2022-10-18 20:27:16 DEBUG] [python:33][39m Activity 'all-apps-are-healthy' loaded from 'C:\Users\senur\AppData\Local\Programs\Python\Python310\lib\site-packages\chaosk8s\probes.py'
+[33m[2022-10-18 20:27:16 WARNING] [__init__:165][39m all_microservices_healthy function is DEPRECATED and will be removed in the next         releases, please use all_pods_healthy instead
+[36m[2022-10-18 20:27:16 DEBUG] [__init__:73][39m Using Kubernetes context 'default' from config 'C:\Users\senur/.kube/config'
+[36m[2022-10-18 20:27:18 DEBUG] [probes:296][39m Found 0 failed and 0 not ready pods
+[36m[2022-10-18 20:27:18 DEBUG] [activity:221][39m   => succeeded with 'True'
+[36m[2022-10-18 20:27:18 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[36m[2022-10-18 20:27:18 DEBUG] [hypothesis:221][39m allowed tolerance is True
+[32m[2022-10-18 20:27:18 INFO] [hypothesis:231][39m Steady state hypothesis is met!
+[36m[2022-10-18 20:27:18 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[32m[2022-10-18 20:27:18 INFO] [run:893][39m Let's rollback...
+[36m[2022-10-18 20:27:18 DEBUG] [__init__:399][39m No controls to apply on 'rollback'
+[32m[2022-10-18 20:27:18 INFO] [rollback:27][39m No declared rollbacks, let's move on.
+[36m[2022-10-18 20:27:18 DEBUG] [__init__:399][39m No controls to apply on 'rollback'
+[32m[2022-10-18 20:27:18 INFO] [run:458][39m Experiment ended with status: completed
+[36m[2022-10-18 20:27:18 DEBUG] [__init__:399][39m No controls to apply on 'experiment'
+[36m[2022-10-18 20:27:18 DEBUG] [__init__:91][39m Cleaning up controls
+[36m[2022-10-18 20:27:18 DEBUG] [caching:42][39m Clearing activities cache
+[36m[2022-10-18 20:29:00 DEBUG] [cli:112][39m ###############################################################################
+[36m[2022-10-18 20:29:00 DEBUG] [cli:113][39m Running command 'run'
+[36m[2022-10-18 20:29:00 DEBUG] [cli:117][39m Using settings file 'C:\Users\senur\.chaostoolkit\settings.yaml'
+[36m[2022-10-18 20:29:01 DEBUG] [settings:30][39m The Chaos Toolkit settings file could not be found at 'C:\Users\senur\.chaostoolkit\settings.yaml'.
+[36m[2022-10-18 20:29:01 DEBUG] [__init__:399][39m No controls to apply on 'loader'
+[36m[2022-10-18 20:29:01 DEBUG] [__init__:399][39m No controls to apply on 'loader'
+[36m[2022-10-18 20:29:01 DEBUG] [caching:24][39m Building activity cache...
+[36m[2022-10-18 20:29:01 DEBUG] [caching:35][39m Cached 2 activities
+[32m[2022-10-18 20:29:01 INFO] [experiment:58][39m Validating the experiment's syntax
+[36m[2022-10-18 20:29:01 DEBUG] [configuration:63][39m Loading configuration...
+[36m[2022-10-18 20:29:01 DEBUG] [secret:78][39m Loading secrets...
+[36m[2022-10-18 20:29:01 DEBUG] [secret:104][39m Done loading secrets
+[32m[2022-10-18 20:29:02 INFO] [experiment:109][39m Experiment looks valid
+[36m[2022-10-18 20:29:02 DEBUG] [caching:42][39m Clearing activities cache
+[36m[2022-10-18 20:29:02 DEBUG] [caching:24][39m Building activity cache...
+[36m[2022-10-18 20:29:02 DEBUG] [caching:35][39m Cached 2 activities
+[36m[2022-10-18 20:29:02 DEBUG] [configuration:63][39m Loading configuration...
+[36m[2022-10-18 20:29:02 DEBUG] [secret:78][39m Loading secrets...
+[36m[2022-10-18 20:29:02 DEBUG] [secret:104][39m Done loading secrets
+[36m[2022-10-18 20:29:02 DEBUG] [configuration:160][39m Loading dynamic configuration...
+[36m[2022-10-18 20:29:02 DEBUG] [exit:90][39m System 'Windows-10-10.0.22000-SP0' does not expose SIGUSR signals
+[32m[2022-10-18 20:29:02 INFO] [run:320][39m Running experiment: Lets kill pods randomly
+[36m[2022-10-18 20:29:02 DEBUG] [__init__:52][39m Initializing controls
+[32m[2022-10-18 20:29:02 INFO] [run:344][39m Steady-state strategy: default
+[32m[2022-10-18 20:29:02 INFO] [run:348][39m Rollbacks strategy: default
+[36m[2022-10-18 20:29:02 DEBUG] [__init__:399][39m No controls to apply on 'experiment'
+[36m[2022-10-18 20:29:02 DEBUG] [run:506][39m Running steady-state hypothesis before the method
+[32m[2022-10-18 20:29:02 INFO] [hypothesis:182][39m Steady state hypothesis: The app is healthy
+[36m[2022-10-18 20:29:02 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[36m[2022-10-18 20:29:02 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[32m[2022-10-18 20:29:02 INFO] [activity:204][39m Probe: all-apps-are-healthy
+[36m[2022-10-18 20:29:02 DEBUG] [python:33][39m Activity 'all-apps-are-healthy' loaded from 'C:\Users\senur\AppData\Local\Programs\Python\Python310\lib\site-packages\chaosk8s\probes.py'
+[33m[2022-10-18 20:29:02 WARNING] [__init__:165][39m all_microservices_healthy function is DEPRECATED and will be removed in the next         releases, please use all_pods_healthy instead
+[36m[2022-10-18 20:29:02 DEBUG] [__init__:73][39m Using Kubernetes context 'default' from config 'C:\Users\senur/.kube/config'
+[36m[2022-10-18 20:29:04 DEBUG] [probes:296][39m Found 0 failed and 0 not ready pods
+[36m[2022-10-18 20:29:04 DEBUG] [activity:221][39m   => succeeded with 'True'
+[36m[2022-10-18 20:29:04 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[36m[2022-10-18 20:29:04 DEBUG] [hypothesis:221][39m allowed tolerance is True
+[32m[2022-10-18 20:29:04 INFO] [hypothesis:231][39m Steady state hypothesis is met!
+[36m[2022-10-18 20:29:04 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[32m[2022-10-18 20:29:04 INFO] [run:607][39m Playing your experiment's method now...
+[36m[2022-10-18 20:29:04 DEBUG] [__init__:399][39m No controls to apply on 'method'
+[36m[2022-10-18 20:29:04 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[32m[2022-10-18 20:29:04 INFO] [activity:204][39m Action: terminate-pod
+[36m[2022-10-18 20:29:04 DEBUG] [python:33][39m Activity 'terminate-pod' loaded from 'C:\Users\senur\AppData\Local\Programs\Python\Python310\lib\site-packages\chaosk8s\pod\actions.py'
+[36m[2022-10-18 20:29:04 DEBUG] [__init__:73][39m Using Kubernetes context 'default' from config 'C:\Users\senur/.kube/config'
+[36m[2022-10-18 20:29:06 DEBUG] [actions:238][39m Found 7 pods in ns 'default'
+[36m[2022-10-18 20:29:06 DEBUG] [activity:221][39m   => succeeded with '['currencyservice-7dc56c8-mv5wp']'
+[32m[2022-10-18 20:29:06 INFO] [activity:239][39m Pausing after activity for 10s...
+[36m[2022-10-18 20:29:16 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[36m[2022-10-18 20:29:16 DEBUG] [__init__:399][39m No controls to apply on 'method'
+[36m[2022-10-18 20:29:16 DEBUG] [run:536][39m Running steady-state hypothesis after the method
+[32m[2022-10-18 20:29:16 INFO] [hypothesis:182][39m Steady state hypothesis: The app is healthy
+[36m[2022-10-18 20:29:16 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[36m[2022-10-18 20:29:16 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[32m[2022-10-18 20:29:16 INFO] [activity:204][39m Probe: all-apps-are-healthy
+[36m[2022-10-18 20:29:16 DEBUG] [python:33][39m Activity 'all-apps-are-healthy' loaded from 'C:\Users\senur\AppData\Local\Programs\Python\Python310\lib\site-packages\chaosk8s\probes.py'
+[33m[2022-10-18 20:29:16 WARNING] [__init__:165][39m all_microservices_healthy function is DEPRECATED and will be removed in the next         releases, please use all_pods_healthy instead
+[36m[2022-10-18 20:29:16 DEBUG] [__init__:73][39m Using Kubernetes context 'default' from config 'C:\Users\senur/.kube/config'
+[36m[2022-10-18 20:29:17 DEBUG] [probes:296][39m Found 0 failed and 0 not ready pods
+[36m[2022-10-18 20:29:17 DEBUG] [activity:221][39m   => succeeded with 'True'
+[36m[2022-10-18 20:29:17 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[36m[2022-10-18 20:29:17 DEBUG] [hypothesis:221][39m allowed tolerance is True
+[32m[2022-10-18 20:29:17 INFO] [hypothesis:231][39m Steady state hypothesis is met!
+[36m[2022-10-18 20:29:17 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[32m[2022-10-18 20:29:17 INFO] [run:893][39m Let's rollback...
+[36m[2022-10-18 20:29:17 DEBUG] [__init__:399][39m No controls to apply on 'rollback'
+[32m[2022-10-18 20:29:17 INFO] [rollback:27][39m No declared rollbacks, let's move on.
+[36m[2022-10-18 20:29:17 DEBUG] [__init__:399][39m No controls to apply on 'rollback'
+[32m[2022-10-18 20:29:17 INFO] [run:458][39m Experiment ended with status: completed
+[36m[2022-10-18 20:29:17 DEBUG] [__init__:399][39m No controls to apply on 'experiment'
+[36m[2022-10-18 20:29:17 DEBUG] [__init__:91][39m Cleaning up controls
+[36m[2022-10-18 20:29:17 DEBUG] [caching:42][39m Clearing activities cache
+[36m[2022-10-18 20:30:01 DEBUG] [cli:112][39m ###############################################################################
+[36m[2022-10-18 20:30:01 DEBUG] [cli:113][39m Running command 'run'
+[36m[2022-10-18 20:30:01 DEBUG] [cli:117][39m Using settings file 'C:\Users\senur\.chaostoolkit\settings.yaml'
+[36m[2022-10-18 20:30:02 DEBUG] [settings:30][39m The Chaos Toolkit settings file could not be found at 'C:\Users\senur\.chaostoolkit\settings.yaml'.
+[36m[2022-10-18 20:30:02 DEBUG] [__init__:399][39m No controls to apply on 'loader'
+[36m[2022-10-18 20:30:02 DEBUG] [__init__:399][39m No controls to apply on 'loader'
+[36m[2022-10-18 20:30:02 DEBUG] [caching:24][39m Building activity cache...
+[36m[2022-10-18 20:30:02 DEBUG] [caching:35][39m Cached 2 activities
+[32m[2022-10-18 20:30:02 INFO] [experiment:58][39m Validating the experiment's syntax
+[36m[2022-10-18 20:30:02 DEBUG] [configuration:63][39m Loading configuration...
+[36m[2022-10-18 20:30:02 DEBUG] [secret:78][39m Loading secrets...
+[36m[2022-10-18 20:30:02 DEBUG] [secret:104][39m Done loading secrets
+[32m[2022-10-18 20:30:03 INFO] [experiment:109][39m Experiment looks valid
+[36m[2022-10-18 20:30:03 DEBUG] [caching:42][39m Clearing activities cache
+[36m[2022-10-18 20:30:03 DEBUG] [caching:24][39m Building activity cache...
+[36m[2022-10-18 20:30:03 DEBUG] [caching:35][39m Cached 2 activities
+[36m[2022-10-18 20:30:03 DEBUG] [configuration:63][39m Loading configuration...
+[36m[2022-10-18 20:30:03 DEBUG] [secret:78][39m Loading secrets...
+[36m[2022-10-18 20:30:03 DEBUG] [secret:104][39m Done loading secrets
+[36m[2022-10-18 20:30:03 DEBUG] [configuration:160][39m Loading dynamic configuration...
+[36m[2022-10-18 20:30:03 DEBUG] [exit:90][39m System 'Windows-10-10.0.22000-SP0' does not expose SIGUSR signals
+[32m[2022-10-18 20:30:03 INFO] [run:320][39m Running experiment: Lets kill pods randomly
+[36m[2022-10-18 20:30:03 DEBUG] [__init__:52][39m Initializing controls
+[32m[2022-10-18 20:30:03 INFO] [run:344][39m Steady-state strategy: default
+[32m[2022-10-18 20:30:03 INFO] [run:348][39m Rollbacks strategy: default
+[36m[2022-10-18 20:30:03 DEBUG] [__init__:399][39m No controls to apply on 'experiment'
+[36m[2022-10-18 20:30:03 DEBUG] [run:506][39m Running steady-state hypothesis before the method
+[32m[2022-10-18 20:30:03 INFO] [hypothesis:182][39m Steady state hypothesis: The app is healthy
+[36m[2022-10-18 20:30:03 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[36m[2022-10-18 20:30:03 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[32m[2022-10-18 20:30:03 INFO] [activity:204][39m Probe: all-apps-are-healthy
+[36m[2022-10-18 20:30:03 DEBUG] [python:33][39m Activity 'all-apps-are-healthy' loaded from 'C:\Users\senur\AppData\Local\Programs\Python\Python310\lib\site-packages\chaosk8s\probes.py'
+[33m[2022-10-18 20:30:03 WARNING] [__init__:165][39m all_microservices_healthy function is DEPRECATED and will be removed in the next         releases, please use all_pods_healthy instead
+[36m[2022-10-18 20:30:03 DEBUG] [__init__:73][39m Using Kubernetes context 'default' from config 'C:\Users\senur/.kube/config'
+[36m[2022-10-18 20:30:05 DEBUG] [probes:296][39m Found 0 failed and 0 not ready pods
+[36m[2022-10-18 20:30:05 DEBUG] [activity:221][39m   => succeeded with 'True'
+[36m[2022-10-18 20:30:05 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[36m[2022-10-18 20:30:05 DEBUG] [hypothesis:221][39m allowed tolerance is True
+[32m[2022-10-18 20:30:05 INFO] [hypothesis:231][39m Steady state hypothesis is met!
+[36m[2022-10-18 20:30:05 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[32m[2022-10-18 20:30:05 INFO] [run:607][39m Playing your experiment's method now...
+[36m[2022-10-18 20:30:05 DEBUG] [__init__:399][39m No controls to apply on 'method'
+[36m[2022-10-18 20:30:05 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[32m[2022-10-18 20:30:05 INFO] [activity:204][39m Action: terminate-pod
+[36m[2022-10-18 20:30:05 DEBUG] [python:33][39m Activity 'terminate-pod' loaded from 'C:\Users\senur\AppData\Local\Programs\Python\Python310\lib\site-packages\chaosk8s\pod\actions.py'
+[36m[2022-10-18 20:30:05 DEBUG] [__init__:73][39m Using Kubernetes context 'default' from config 'C:\Users\senur/.kube/config'
+[36m[2022-10-18 20:30:06 DEBUG] [actions:238][39m Found 7 pods in ns 'default'
+[36m[2022-10-18 20:30:06 DEBUG] [activity:221][39m   => succeeded with '['paymentservice-6f69f8b58d-2bmrf']'
+[32m[2022-10-18 20:30:06 INFO] [activity:239][39m Pausing after activity for 10s...
+[36m[2022-10-18 20:30:16 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[36m[2022-10-18 20:30:16 DEBUG] [__init__:399][39m No controls to apply on 'method'
+[36m[2022-10-18 20:30:16 DEBUG] [run:536][39m Running steady-state hypothesis after the method
+[32m[2022-10-18 20:30:16 INFO] [hypothesis:182][39m Steady state hypothesis: The app is healthy
+[36m[2022-10-18 20:30:16 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[36m[2022-10-18 20:30:16 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[32m[2022-10-18 20:30:16 INFO] [activity:204][39m Probe: all-apps-are-healthy
+[36m[2022-10-18 20:30:16 DEBUG] [python:33][39m Activity 'all-apps-are-healthy' loaded from 'C:\Users\senur\AppData\Local\Programs\Python\Python310\lib\site-packages\chaosk8s\probes.py'
+[33m[2022-10-18 20:30:16 WARNING] [__init__:165][39m all_microservices_healthy function is DEPRECATED and will be removed in the next         releases, please use all_pods_healthy instead
+[36m[2022-10-18 20:30:16 DEBUG] [__init__:73][39m Using Kubernetes context 'default' from config 'C:\Users\senur/.kube/config'
+[36m[2022-10-18 20:30:18 DEBUG] [probes:296][39m Found 0 failed and 0 not ready pods
+[36m[2022-10-18 20:30:18 DEBUG] [activity:221][39m   => succeeded with 'True'
+[36m[2022-10-18 20:30:18 DEBUG] [__init__:399][39m No controls to apply on 'activity'
+[36m[2022-10-18 20:30:18 DEBUG] [hypothesis:221][39m allowed tolerance is True
+[32m[2022-10-18 20:30:18 INFO] [hypothesis:231][39m Steady state hypothesis is met!
+[36m[2022-10-18 20:30:18 DEBUG] [__init__:399][39m No controls to apply on 'hypothesis'
+[32m[2022-10-18 20:30:18 INFO] [run:893][39m Let's rollback...
+[36m[2022-10-18 20:30:18 DEBUG] [__init__:399][39m No controls to apply on 'rollback'
+[32m[2022-10-18 20:30:18 INFO] [rollback:27][39m No declared rollbacks, let's move on.
+[36m[2022-10-18 20:30:18 DEBUG] [__init__:399][39m No controls to apply on 'rollback'
+[32m[2022-10-18 20:30:18 INFO] [run:458][39m Experiment ended with status: completed
+[36m[2022-10-18 20:30:18 DEBUG] [__init__:399][39m No controls to apply on 'experiment'
+[36m[2022-10-18 20:30:18 DEBUG] [__init__:91][39m Cleaning up controls
+[36m[2022-10-18 20:30:18 DEBUG] [caching:42][39m Clearing activities cache
