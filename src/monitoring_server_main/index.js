@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const { exec } = require("child_process");
-
+var cron = require("node-cron");
+const axios = require('axios');
 const app = express();
 
 //Using Cors
@@ -27,7 +28,18 @@ app.post("/restartmonitoringserver", (req, res) => {
       );
 });
 
-//Define Routes
+cron.schedule("*/1 * * * *", async () => {
+  console.log("Running a cron job every 1 minutes | Timestamp : " + new Date());
+});
+
+const cronJobforExperiments = async () => {
+  console.log("------------cronJobforExperiments------------");
+  axios.post('http://localhost:4001/experiment/executeRandomPodExperiment').then(()=>{
+
+  }).catch((error)=>{
+    console.log(error)
+  })
+};
 
 const PORT = process.env.PORT || 4002;
 

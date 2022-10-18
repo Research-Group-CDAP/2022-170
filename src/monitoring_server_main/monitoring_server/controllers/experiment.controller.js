@@ -230,6 +230,18 @@ const executeExperiment = async (req, res) => {
   });
 };
 
+const executeRandomPodExperiment = async (req, res) => {
+  exec(`chaos run randompodterm.yaml`, (error, stdout, stderr) => {
+    if (error) {
+      res.json({executed: false});
+    } else {
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+      res.json({executed: true});
+    }
+  });
+};
+
 const responseAsJson = async (req, res) => {
   res.json(ExperimentJSON);
 };
@@ -249,6 +261,7 @@ const saveToDatabase = async (req, res) => {
 module.exports = {
   generateYamlFile,
   executeExperiment,
+  executeRandomPodExperiment,
   responseAsJson,
   saveToDatabase,
 };
