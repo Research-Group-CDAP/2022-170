@@ -10,11 +10,11 @@ const ExperimentResults = require("../models/ExperimentResults");
 const executeRandomPodExperiment = async (req, res) => {
   exec(`chaos run randompodterm.yaml`, (error, stdout, stderr) => {
     if (error) {
-      res.json({executed: false});
+      res.json({ executed: false });
     } else {
       console.log(`stdout: ${stdout}`);
       console.log(`stderr: ${stderr}`);
-      res.json({executed: true});
+      res.json({ executed: true });
     }
   });
 };
@@ -31,7 +31,18 @@ const saveToDatabase = async (req, res) => {
     });
 };
 
+const fetchAllExperimentResults = async (req, res) => {
+  ExperimentResults.find()
+    .then((responseExperiment) => {
+      res.json(responseExperiment);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
+};
+
 module.exports = {
   executeRandomPodExperiment,
   saveToDatabase,
+  fetchAllExperimentResults,
 };
