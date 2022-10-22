@@ -1,5 +1,5 @@
 {
-    "mongoURL": "mongodb+srv://matricsserver:matricsserver@cluster0.noblywd.mongodb.net/experimentdb?retryWrites=true&w=majority",
+    "mongoURL": "mongodb+srv://matricsserver:matricsserver@cluster0.noblywd.mongodb.net/kubemateDatabase?retryWrites=true&w=majority",
   
     "jwtSecret": "mysecrettoken"
 }
