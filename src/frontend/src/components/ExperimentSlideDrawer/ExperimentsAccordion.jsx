@@ -6,10 +6,12 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExperimentReport from "./ExperimentReport";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
+    backgroundColor: "#424242",
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -32,11 +34,13 @@ export default function ExperimentsAccordion(props) {
 
   return (
     <div className={classes.root}>
-      {props.experimentList.reverse().map((experiment,index) => {
+      <h4>Experiments - Random pod kill</h4>
+      {props.experimentList.slice(-20).map((experiment,index) => {
         return (
           <Accordion
             expanded={expanded === `panel${index}`}
             onChange={handleChange(`panel${index}`)}
+            className={classes.root}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -44,7 +48,7 @@ export default function ExperimentsAccordion(props) {
               id={`panel${index}bh-header`}
             >
               <Typography className={classes.heading}>
-              {experiment.start}
+              {moment(experiment.start).format("YYYY/MM/DD hh:mm")}
               </Typography>
               <Typography className={classes.secondaryHeading}>
               {experiment.status}
