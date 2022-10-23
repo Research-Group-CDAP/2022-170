@@ -12,6 +12,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { Icon } from "@iconify/react";
 import { Card, CardContent, Divider } from "@material-ui/core";
 import ExperimentsAccordion from "./ExperimentsAccordion";
+import { useEffect } from "react";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -71,6 +72,16 @@ const ExperimentSlideDrawer = (props) => {
   const [loadingStatus, setLoadingStatus] = React.useState(false);
   const [isSuccess, setIsSuccess] = React.useState(false);
   const [isExecuted, setIsExecuted] = React.useState(false);
+  const [experimentList, setExperimentList] = React.useState([]);
+
+  useEffect(()=>{
+    axios.get(`${process.env.REACT_APP_MONITORING_SUB_API_ENDPOINT}/experiment/fetchAllExperimentResults`).then((res)=>{
+      console.log(res);
+      setExperimentList(res.data);
+    }).catch((error)=>{
+      console.log(error);
+    })
+  },[])
 
   const generateYaml = () => {
     setLoadingStatus(true);
@@ -247,7 +258,7 @@ const ExperimentSlideDrawer = (props) => {
           }
         </Grid>
         <Grid item xs={12}>
-            <ExperimentsAccordion/>
+          {experimentList.length && <ExperimentsAccordion experimentList={experimentList}/>}  
         </Grid>
       </Grid>
     </div>

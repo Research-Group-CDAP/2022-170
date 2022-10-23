@@ -258,10 +258,21 @@ const saveToDatabase = async (req, res) => {
     });
 };
 
+const fetchAllExperimentResults = async (req, res) => {
+  ExperimentResults.find()
+    .then((responseExperiment) => {
+      res.json(responseExperiment);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
+};
+
 module.exports = {
   generateYamlFile,
   executeExperiment,
   executeRandomPodExperiment,
   responseAsJson,
   saveToDatabase,
+  fetchAllExperimentResults
 };
