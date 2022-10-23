@@ -6,7 +6,7 @@ import DoughnutChart from "../DoughnutChart";
 import OverviewTable from "../OverviewTable";
 import UsageRanker from "../UsageRanker";
 import ServicesIpAndLoadbalancerTable from "../ServicesIpAndLoadbalancerTable";
-import ClusterStatusCard from "../ClusterStatusCard.jsx";
+import ClusterStatusCard from "../ClusterStatusCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {

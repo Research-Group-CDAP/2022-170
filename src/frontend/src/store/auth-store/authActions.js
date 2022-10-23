@@ -43,6 +43,13 @@ export const installIstio = (userId) => {
   };
 };
 
+export const uninstallIstio = (userId) => {
+  return {
+    type: ActionTypes.UNINSTALL_ISTIO,
+    payload: AuthApi.uninstallIstio(userId),
+  };
+};
+
 export const configurePrometheus = (userId) => {
   return {
     type: ActionTypes.COFIGURE_PROMETHEUS,

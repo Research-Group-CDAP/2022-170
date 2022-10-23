@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { installIstio, configurePrometheus } from "../../store/auth-store/authActions";
+import {
+  installIstio,
+  uninstallIstio,
+  configurePrometheus,
+} from "../../store/auth-store/authActions";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,20 +41,25 @@ const ClusterStatusCard = (props) => {
   );
 
   const onClickInstallIstio = () => {
-    setIstioInstalled("Loading")
-    dispatch(installIstio(authState.user._id))
-  }
+    setIstioInstalled("Loading");
+    dispatch(installIstio(authState.user._id));
+  };
+
+  const onClickUninstallIstio = () => {
+    setIstioInstalled("Loading");
+    dispatch(uninstallIstio(authState.user._id));
+  };
 
   const onClickPrometheusConfigured = () => {
-    setisPrometheusConfigured("Loading")
-    dispatch(configurePrometheus(authState.user._id))
-  }
+    setisPrometheusConfigured("Loading");
+    dispatch(configurePrometheus(authState.user._id));
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     setIstioInstalled(authState.user.isIstioInstalled);
-    setisPrometheusConfigured(authState.user.isPrometheusConfigured)
-  },[authState.user])
-  
+    setisPrometheusConfigured(authState.user.isPrometheusConfigured);
+  }, [authState.user]);
+
   return (
     <div>
       <div className={classes.card}>
@@ -69,43 +78,61 @@ const ClusterStatusCard = (props) => {
             Istio : <span className={classes.labelRed}>Inactive</span>{" "}
           </h6>
         )}
-        <Button variant="contained" color="primary" className={classes.button} onClick={onClickInstallIstio}>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={onClickInstallIstio}
+        >
           Install
         </Button>
         <Button
           variant="contained"
           color="secondary"
           className={classes.button}
+          onClick={onClickUninstallIstio}
         >
           Uninstall
         </Button>
       </div>
       <div className={classes.card}>
-      {isPrometheusConfigured === "Loading" && (
+        {isPrometheusConfigured === "Loading" && (
           <h6>
             Prometheus : <span className={classes.labelGreen}>Loading</span>{" "}
           </h6>
         )}
-        {isPrometheusConfigured && (
+        {istioInstalled === true  && isPrometheusConfigured === true  && (
           <h6>
             Prometheus : <span className={classes.labelGreen}>Active</span>{" "}
           </h6>
         )}
-        {!isPrometheusConfigured && (
+        {(!istioInstalled || !isPrometheusConfigured) && (
           <h6>
             Prometheus : <span className={classes.labelRed}>Inactive</span>{" "}
           </h6>
         )}
-        <Button variant="contained" color="primary" className={classes.button} onClick={onClickPrometheusConfigured}>
-          Install
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          className={classes.button}
-        >
-          Uninstall
-        </Button>
+
+        {istioInstalled === true && (
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={onClickPrometheusConfigured}
+          >
+            Install
+          </Button>
+        )}
+        {!istioInstalled && (
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={onClickPrometheusConfigured}
+            disabled
+          >
+            Install
+          </Button>
+        )}
       </div>
     </div>
   );

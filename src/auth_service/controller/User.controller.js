@@ -221,6 +221,37 @@ const installIstio = async (request, response) => {
     });
 };
 
+const uninstallIstio = async (request, response) => {
+  return await User.findById(request.params.userId)
+    .then(async (userDetails) => {
+      if (userDetails) {
+        axios
+          .post("http://localhost:4003/uninstall/istio")
+          .then(async (istioResponse) => {
+            console.log(istioResponse.data.uninstalled);
+            userDetails.isIstioInstalled = istioResponse.data.uninstalled;
+            userDetails.isPrometheusConfigured = false;
+            return await userDetails
+              .save()
+              .then((updatedUser) => {
+                return response.json(updatedUser);
+              })
+              .catch((error) => {
+                return response.json(error);
+              });
+          })
+          .catch((error) => {
+            return response.json(error);
+          });
+      } else {
+        return response.json("User Not Found");
+      }
+    })
+    .catch((error) => {
+      return response.json(error);
+    });
+};
+
 const configurePrometheus = async (request, response) => {
   return await User.findById(request.params.userId)
     .then(async (userDetails) => {
@@ -339,6 +370,7 @@ module.exports = {
   logintoCluster,
   updatePluginList,
   installIstio,
+  uninstallIstio,
   configurePrometheus,
   activePrometheus
 };

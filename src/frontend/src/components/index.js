@@ -18,7 +18,7 @@ import PredictionLineChart from "./PredictionLineChart";
 import UserInformationUpdate from "./UserInformationUpdate";
 import ExperimentSlideDrawer from "./ExperimentSlideDrawer";
 import KubeScaler from "./KubeScaler";
-import ClusterStatusCard from "./ClusterStatusCard.jsx";
+import ClusterStatusCard from "./ClusterStatusCard";
 export {
   Cpu,
   Memory,

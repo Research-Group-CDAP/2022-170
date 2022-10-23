@@ -11,6 +11,7 @@ const {
   logintoCluster,
   updatePluginList,
   installIstio,
+  uninstallIstio,
   configurePrometheus,
   activePrometheus
 } = require("../controller/User.controller");
@@ -23,6 +24,7 @@ router.post("/login", loginUser);
 router.post("/logintoCluster", logintoCluster);
 router.put("/updateplugins", updatePluginList);
 router.put("/installIstio/:userId", installIstio);
+router.put("/uninstallIstio/:userId", uninstallIstio);
 router.put("/configurePrometheus/:userId", configurePrometheus);
 router.post("/activePrometheusDashboard", activePrometheus);
 
