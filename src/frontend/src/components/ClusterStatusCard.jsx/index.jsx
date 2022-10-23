@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-// import { useDispatch, useSelector } from "react-redux";
-// import { fetch_All_Cpu_Usage_By_Pod } from "../../store/matrics-store/matricsActions";
+import { useDispatch, useSelector } from "react-redux";
+import { installIstio, configurePrometheus } from "../../store/auth-store/authActions";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,25 +17,59 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: "5px",
   },
+  labelGreen: {
+    color: "#90EE90",
+  },
+  labelRed: {
+    color: "#ed1515",
+  },
 }));
 
 const ClusterStatusCard = (props) => {
   const classes = useStyles();
-  //   const dispatch = useDispatch();
-  //   const state = useSelector((state) => state.matricsReducer);
+  const dispatch = useDispatch();
+  const authState = useSelector((state) => state.authReducer);
+  const [istioInstalled, setIstioInstalled] = useState(
+    authState.user.isIstioInstalled
+  );
+  const [isPrometheusConfigured, setisPrometheusConfigured] = useState(
+    authState.user.isPrometheusConfigured
+  );
 
-  //   useEffect(() => {
-  //     dispatch(fetch_All_Cpu_Usage_By_Pod(props.podName));
-  //     if (!predictedCpuValues.length) {
-  //       dispatch(fetch_Predicted_Cpu_Usage_By_Pod(props.podName));
-  //     }
-  //   }, [props.podName, dispatch]);
+  const onClickInstallIstio = () => {
+    setIstioInstalled("Loading")
+    dispatch(installIstio(authState.user._id))
+  }
 
+  const onClickPrometheusConfigured = () => {
+    setisPrometheusConfigured("Loading")
+    dispatch(configurePrometheus(authState.user._id))
+  }
+
+  useEffect(()=>{
+    setIstioInstalled(authState.user.isIstioInstalled);
+    setisPrometheusConfigured(authState.user.isPrometheusConfigured)
+  },[authState.user])
+  
   return (
     <div>
       <div className={classes.card}>
-        <h6>Istio</h6>
-        <Button variant="contained" color="primary" className={classes.button}>
+        {istioInstalled === "Loading" && (
+          <h6>
+            Istio : <span className={classes.labelGreen}>Loading</span>{" "}
+          </h6>
+        )}
+        {istioInstalled === true && (
+          <h6>
+            Istio : <span className={classes.labelGreen}>Active</span>{" "}
+          </h6>
+        )}
+        {!istioInstalled && (
+          <h6>
+            Istio : <span className={classes.labelRed}>Inactive</span>{" "}
+          </h6>
+        )}
+        <Button variant="contained" color="primary" className={classes.button} onClick={onClickInstallIstio}>
           Install
         </Button>
         <Button
@@ -47,8 +81,22 @@ const ClusterStatusCard = (props) => {
         </Button>
       </div>
       <div className={classes.card}>
-        <h6>Prometheus</h6>
-        <Button variant="contained" color="primary" className={classes.button}>
+      {isPrometheusConfigured === "Loading" && (
+          <h6>
+            Prometheus : <span className={classes.labelGreen}>Loading</span>{" "}
+          </h6>
+        )}
+        {isPrometheusConfigured && (
+          <h6>
+            Prometheus : <span className={classes.labelGreen}>Active</span>{" "}
+          </h6>
+        )}
+        {!isPrometheusConfigured && (
+          <h6>
+            Prometheus : <span className={classes.labelRed}>Inactive</span>{" "}
+          </h6>
+        )}
+        <Button variant="contained" color="primary" className={classes.button} onClick={onClickPrometheusConfigured}>
           Install
         </Button>
         <Button

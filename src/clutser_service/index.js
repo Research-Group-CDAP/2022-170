@@ -32,7 +32,8 @@ app.post("/uninstall/istio", (req, res) => {
         `istioctl uninstall --purge`,
         (error, stdout, stderr) => {
             if (error) {
-                response.json({ uninstalled: false });
+                console.log(error);
+                res.json({ uninstalled: false });
             } else {
                 console.log(`stdout: ${stdout}`);
                 console.log(`stderr: ${stderr}`);

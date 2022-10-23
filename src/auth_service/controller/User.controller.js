@@ -14,7 +14,7 @@ const getUserDetails = async (req, res) => {
       "-password"
     );
     res.json(user);
-  } catch {
+  } catch(err) {
     console.log(err.message);
     res.status(500).send("Server Error");
   }
@@ -203,7 +203,7 @@ const installIstio = async (request, response) => {
             return await userDetails
               .save()
               .then((updatedUser) => {
-                return response.json(istionResponse.data);
+                return response.json(updatedUser);
               })
               .catch((error) => {
                 return response.json(error);
@@ -234,7 +234,7 @@ const configurePrometheus = async (request, response) => {
             return await userDetails
               .save()
               .then((updatedUser) => {
-                return response.json(prometheusResponse.data);
+                return response.json(updatedUser);
               })
               .catch((error) => {
                 return response.json(error);

@@ -25,7 +25,7 @@ app.post("/restartmonitoringserver", (req, res) => {
   });
 });
 
-cron.schedule("*/2 * * * *", async () => {
+cron.schedule("*/15 * * * *", async () => {
   console.log("Running a cron job every 2 minutes | Timestamp : " + new Date());
   cronJobforExperiments();
 });
