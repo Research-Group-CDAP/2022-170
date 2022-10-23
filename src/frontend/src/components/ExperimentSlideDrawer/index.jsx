@@ -11,6 +11,7 @@ import ExperimentReport from "./ExperimentReport";
 import MuiAlert from '@material-ui/lab/Alert';
 import { Icon } from "@iconify/react";
 import { Card, CardContent, Divider } from "@material-ui/core";
+import ExperimentsAccordion from "./ExperimentsAccordion";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -244,6 +245,9 @@ const ExperimentSlideDrawer = (props) => {
           {report &&
             <ExperimentReport report={report} />
           }
+        </Grid>
+        <Grid item xs={12}>
+            <ExperimentsAccordion/>
         </Grid>
       </Grid>
     </div>

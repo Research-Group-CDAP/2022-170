@@ -35,3 +35,24 @@ export const logintoCluster = (clusterData) => {
     payload: clusterData,
   };
 };
+
+export const installIstio = (userId) => {
+  return {
+    type: ActionTypes.INSTALL_ISTIO,
+    payload: AuthApi.installIstio(userId),
+  };
+};
+
+export const uninstallIstio = (userId) => {
+  return {
+    type: ActionTypes.UNINSTALL_ISTIO,
+    payload: AuthApi.uninstallIstio(userId),
+  };
+};
+
+export const configurePrometheus = (userId) => {
+  return {
+    type: ActionTypes.COFIGURE_PROMETHEUS,
+    payload: AuthApi.configurePrometheus(userId),
+  };
+};

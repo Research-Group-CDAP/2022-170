@@ -3,6 +3,7 @@ const User = require("../models/User.model");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 const { exec } = require("child_process");
+const axios = require("axios");
 
 //get User details
 const getUserDetails = async (req, res) => {
@@ -13,7 +14,7 @@ const getUserDetails = async (req, res) => {
       "-password"
     );
     res.json(user);
-  } catch {
+  } catch(err) {
     console.log(err.message);
     res.status(500).send("Server Error");
   }
@@ -162,13 +163,14 @@ const updatePluginList = async (request, response) => {
   return await User.findById(request.body.Id)
     .then(async (userDetails) => {
       if (userDetails) {
-
         if (request.body.plugin && request.body.type) {
-          if(request.body.type === "ADD"){
-            userDetails.plugins.push(request.body.plugin)
+          if (request.body.type === "ADD") {
+            userDetails.plugins.push(request.body.plugin);
             userDetails.plugins = userDetails.plugins;
-          }else{
-            userDetails.plugins = userDetails.plugins.filter(e => e !== request.body.plugin);
+          } else {
+            userDetails.plugins = userDetails.plugins.filter(
+              (e) => e !== request.body.plugin
+            );
           }
         }
 
@@ -183,6 +185,109 @@ const updatePluginList = async (request, response) => {
       } else {
         return response.json("User Not Found");
       }
+    })
+    .catch((error) => {
+      return response.json(error);
+    });
+};
+
+const installIstio = async (request, response) => {
+  return await User.findById(request.params.userId)
+    .then(async (userDetails) => {
+      if (userDetails) {
+        axios
+          .post("http://localhost:4003/install/istio")
+          .then(async (istionResponse) => {
+            console.log(istionResponse.data.installed);
+            userDetails.isIstioInstalled = istionResponse.data.installed;
+            return await userDetails
+              .save()
+              .then((updatedUser) => {
+                return response.json(updatedUser);
+              })
+              .catch((error) => {
+                return response.json(error);
+              });
+          })
+          .catch((error) => {
+            return response.json(error);
+          });
+      } else {
+        return response.json("User Not Found");
+      }
+    })
+    .catch((error) => {
+      return response.json(error);
+    });
+};
+
+const uninstallIstio = async (request, response) => {
+  return await User.findById(request.params.userId)
+    .then(async (userDetails) => {
+      if (userDetails) {
+        axios
+          .post("http://localhost:4003/uninstall/istio")
+          .then(async (istioResponse) => {
+            console.log(istioResponse.data.uninstalled);
+            userDetails.isIstioInstalled = istioResponse.data.uninstalled;
+            userDetails.isPrometheusConfigured = false;
+            return await userDetails
+              .save()
+              .then((updatedUser) => {
+                return response.json(updatedUser);
+              })
+              .catch((error) => {
+                return response.json(error);
+              });
+          })
+          .catch((error) => {
+            return response.json(error);
+          });
+      } else {
+        return response.json("User Not Found");
+      }
+    })
+    .catch((error) => {
+      return response.json(error);
+    });
+};
+
+const configurePrometheus = async (request, response) => {
+  return await User.findById(request.params.userId)
+    .then(async (userDetails) => {
+      if (userDetails) {
+        axios
+          .post("http://localhost:4003/configure/prometheus")
+          .then(async (prometheusResponse) => {
+            console.log(prometheusResponse.data.configured);
+            userDetails.isPrometheusConfigured =
+              prometheusResponse.data.configured;
+            return await userDetails
+              .save()
+              .then((updatedUser) => {
+                return response.json(updatedUser);
+              })
+              .catch((error) => {
+                return response.json(error);
+              });
+          })
+          .catch((error) => {
+            return response.json(error);
+          });
+      } else {
+        return response.json("User Not Found");
+      }
+    })
+    .catch((error) => {
+      return response.json(error);
+    });
+};
+
+const activePrometheus = async (request, response) => {
+  return axios
+    .post("http://localhost:4003/active/prometheus")
+    .then(async (prometheusResponse) => {
+      return response.json(prometheusResponse.data.active);
     })
     .catch((error) => {
       return response.json(error);
@@ -263,5 +368,9 @@ module.exports = {
   updateUser,
   deleteUserPermenently,
   logintoCluster,
-  updatePluginList
+  updatePluginList,
+  installIstio,
+  uninstallIstio,
+  configurePrometheus,
+  activePrometheus
 };

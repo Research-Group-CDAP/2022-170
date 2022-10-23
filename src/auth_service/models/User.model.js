@@ -16,7 +16,9 @@ const UserSchema = new Schema(
       type: [String],
       default: ["Fast Builder"],
       required: false
-    }
+    },
+    isIstioInstalled: { type: Boolean, required: false, default: false },
+    isPrometheusConfigured: { type: Boolean, required: false, default: false },
   },
   { timestamps: true }
 );

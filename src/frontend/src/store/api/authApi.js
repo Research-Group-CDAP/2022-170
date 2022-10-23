@@ -37,6 +37,27 @@ class AuthAPI {
       requestConfigJson
     );
   }
+
+  static installIstio(userId) {
+    return axios.put(
+      `${BASE_URL}/user/installIstio/${userId}`,
+      requestConfigJson
+    );
+  }
+
+  static uninstallIstio(userId) {
+    return axios.put(
+      `${BASE_URL}/user/uninstallIstio/${userId}`,
+      requestConfigJson
+    );
+  }
+
+  static configurePrometheus(userId) {
+    return axios.put(
+      `${BASE_URL}/user/configurePrometheus/${userId}`,
+      requestConfigJson
+    );
+  }
 }
 
 export default AuthAPI;

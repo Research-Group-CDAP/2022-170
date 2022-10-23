@@ -21,6 +21,12 @@ const authReducer = (state = initialState, action) => {
       return { ...state, loading: true };
     case `${ActionTypes.UPDATE_USER}_PENDING`:
       return { ...state, loading: true };
+    case `${ActionTypes.INSTALL_ISTIO}_PENDING`:
+      return { ...state, loading: true };
+    case `${ActionTypes.UNINSTALL_ISTIO}_PENDING`:
+      return { ...state, loading: true };
+    case `${ActionTypes.COFIGURE_PROMETHEUS}_PENDING`:
+      return { ...state, loading: true };
 
     case `${ActionTypes.LOGIN_USER}_FULFILLED`:
       let user = action.payload.data;
@@ -43,12 +49,42 @@ const authReducer = (state = initialState, action) => {
         user: updatedUserData,
         updated: true,
       };
+    case `${ActionTypes.INSTALL_ISTIO}_FULFILLED`:
+      let updatedUserDataIstio = action.payload.data;
+      return {
+        ...state,
+        loading: false,
+        login: true,
+        user: updatedUserDataIstio,
+        updated: true,
+      };
+    case `${ActionTypes.UNINSTALL_ISTIO}_FULFILLED`:
+      let updatedUninstallUserDataIstio = action.payload.data;
+      return {
+        ...state,
+        loading: false,
+        login: true,
+        user: updatedUninstallUserDataIstio,
+        updated: true,
+      };
+    case `${ActionTypes.COFIGURE_PROMETHEUS}_FULFILLED`:
+      let updatedUserDataPrometheus = action.payload.data;
+      return {
+        ...state,
+        loading: false,
+        login: true,
+        user: updatedUserDataPrometheus,
+        updated: true,
+      };
 
     case `${ActionTypes.LOGIN_USER}_REJECTED`:
     case `${ActionTypes.REGISTER_USER}_REJECTED`:
     case `${ActionTypes.GET_USER_DETAILS}_REJECTED`:
     case `${ActionTypes.LOGIN_CLUSTER}_REJECTED`:
     case `${ActionTypes.UPDATE_USER}_REJECTED`:
+    case `${ActionTypes.INSTALL_ISTIO}_REJECTED`:
+    case `${ActionTypes.UNINSTALL_ISTIO}_REJECTED`:
+    case `${ActionTypes.COFIGURE_PROMETHEUS}_REJECTED`:
       return {
         ...state,
         loading: false,

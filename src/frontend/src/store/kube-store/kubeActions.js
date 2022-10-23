@@ -1,4 +1,5 @@
 import KubeApi from "../api/kubeApi";
+import clusterApi from "../api/clusterApi";
 import ActionTypes from "./kubeTypes";
 
 export const fetch_All_Pods_By_Namespace = (namespace) => {
@@ -33,5 +34,12 @@ export const clusterNotConnected = () => {
   return {
     type: ActionTypes.CLUSTER_CONNECTED,
     payload: false,
+  };
+};
+
+export const fetchClusterIpsAndLoadbalancer = (namespace) => {
+  return {
+    type: ActionTypes.CLUSTERIPS_AND_LOADBALANCES,
+    payload: clusterApi.fetchClusterIpsAndLoadbalancer(),
   };
 };

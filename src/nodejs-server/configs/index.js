@@ -1,5 +1,5 @@
 module.exports = {
-  MONGO_ALTALS_URI: "mongodb+srv://matricsserver:matricsserver@cluster0.noblywd.mongodb.net/fastproviderdb?retryWrites=true&w=majority",
+  MONGO_ALTALS_URI: "mongodb+srv://matricsserver:matricsserver@cluster0.noblywd.mongodb.net/kubemateDatabase?retryWrites=true&w=majority",
   REGISTRY_SERVER_URL: "20.85.180.87:5000",
   REGISTRY_USER_NAME: "",
   REGISTRY_PASSWORD: "",

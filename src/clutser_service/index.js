@@ -21,19 +21,38 @@ app.post("/install/istio", (req, res) => {
             } else {
                 console.log(`stdout: ${stdout}`);
                 console.log(`stderr: ${stderr}`);
+                res.json({ installed: true });
+            }
+        }
+    );
+});
 
-                exec(
-                    `kubectl label namespace default istio-injection=enabled`,
-                    (error, stdout, stderr) => {
-                        if (error) {
-                            res.json({ installed: false });
-                        } else {
-                            console.log(`stdout: ${stdout}`);
-                            console.log(`stderr: ${stderr}`);
-                            res.json({ installed: true });
-                        }
-                    }
-                );
+app.post("/uninstall/istio", (req, res) => {
+    exec(
+        `istioctl uninstall --purge`,
+        (error, stdout, stderr) => {
+            if (error) {
+                console.log(error);
+                res.json({ uninstalled: false });
+            } else {
+                console.log(`stdout: ${stdout}`);
+                console.log(`stderr: ${stderr}`);
+                res.json({ uninstalled: true });
+            }
+        }
+    );
+});
+
+app.post("/services/clusteripsandloadbalancer", (req, res) => {
+    exec(
+        `kubectl get services -o JSON`,
+        (error, stdout, stderr) => {
+            if (error) {
+                response.json({ installed: false });
+            } else {
+                console.log(`stdout: ${stdout}`);
+                console.log(`stderr: ${stderr}`);
+                res.json({ list: JSON.parse(stdout).items });
             }
         }
     );
@@ -44,11 +63,11 @@ app.post("/configure/prometheus", (req, res) => {
         `kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.15/samples/addons/prometheus.yaml`,
         (error, stdout, stderr) => {
             if (error) {
-                res.json({ installed: false });
+                res.json({ configured: false });
             } else {
                 console.log(`stdout: ${stdout}`);
                 console.log(`stderr: ${stderr}`);
-                res.json({ installed: true });
+                res.json({ configured: true });
             }
         }
     );
@@ -56,36 +75,14 @@ app.post("/configure/prometheus", (req, res) => {
 
 app.post("/active/prometheus", (req, res) => {
     exec(
-        `curl -sL https://istio.io/downloadIstioctl | sh -`,
+        `istioctl dashboard prometheus`,
         (error, stdout, stderr) => {
             if (error) {
                 res.json({ active: false });
             } else {
                 console.log(`stdout: ${stdout}`);
                 console.log(`stderr: ${stderr}`);
-                exec(
-                    `export PATH=$HOME/.istioctl/bin:$PATH`,
-                    (error, stdout, stderr) => {
-                        if (error) {
-                            res.json({ active: false });
-                        } else {
-                            console.log(`stdout: ${stdout}`);
-                            console.log(`stderr: ${stderr}`);
-                            exec(
-                                `istioctl dashboard prometheus`,
-                                (error, stdout, stderr) => {
-                                    if (error) {
-                                        res.json({ active: false });
-                                    } else {
-                                        console.log(`stdout: ${stdout}`);
-                                        console.log(`stderr: ${stderr}`);
-                                        res.json({ active: true });
-                                    }
-                                }
-                            );
-                        }
-                    }
-                );
+                res.json({ active: true });
             }
         }
     );

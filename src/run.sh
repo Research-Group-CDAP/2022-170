@@ -16,11 +16,17 @@ npm run server
 #Monitoring Server (Sub Service)
 pm2 start index.js --name monitoring-server
 
+#Monitoring Server CronJob (Sub Service)
+pm2 start index.js --name monitoring-server-cron-job
+
 #Optimize Server
 uvicorn app.main:app --reload
 
 #NodeJs Server
 npm run dev
+
+#Cluster Service
+npm run server
 
 #Enable Istio
 curl -sL https://istio.io/downloadIstioctl | sh -

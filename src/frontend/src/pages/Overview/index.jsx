@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetch_All_Pods_By_Namespace,
   fetch_All_Services_By_Namespace,
+  fetchClusterIpsAndLoadbalancer
 } from "../../store/kube-store/kubeActions";
 import {
   fetch_All_Cpu_Usage,
@@ -33,6 +34,8 @@ const Overview = (props) => {
   const [services, setServices] = useState(0);
   const [activeServices, setActiveServices] = useState(0);
 
+  const [clusterIpsAndLoadbalancesList, setClusterIpsAndLoadbalancesList] = useState([]);
+  
   const [cpuUsage, setCpuUsage] = useState([]);
   const [memoryUsage, setMemoryUsage] = useState([]);
   const [networkUsage, setNetworkUsage] = useState([]);
@@ -43,6 +46,7 @@ const Overview = (props) => {
     dispatch(fetch_All_Cpu_Usage());
     dispatch(fetch_All_Memory_Utilization());
     dispatch(fetch_All_Network_Utilization());
+    dispatch(fetchClusterIpsAndLoadbalancer());
   }, [dispatch]);
 
   useEffect(() => {
@@ -97,6 +101,12 @@ const Overview = (props) => {
     }
   }, [matricsState.networkData]);
 
+  useEffect(() => {
+    if (state.clusterIpsAndLoadbalances.length) {
+      setClusterIpsAndLoadbalancesList(state.clusterIpsAndLoadbalances);
+    }
+  }, [state.clusterIpsAndLoadbalances]);
+
   return (
     <div className={classes.root}>
       <h3>Overview</h3>
@@ -108,7 +118,8 @@ const Overview = (props) => {
       serviceList &&
       cpuUsage &&
       memoryUsage &&
-      networkUsage ? (
+      networkUsage && 
+      clusterIpsAndLoadbalancesList ? (
         <OverviewInformation
           pods={pods}
           activePods={activePods}
@@ -119,6 +130,7 @@ const Overview = (props) => {
           cpuUsage={cpuUsage}
           memoryUsage={memoryUsage}
           networkUsage={networkUsage}
+          clusterIpsAndLoadbalancesList={clusterIpsAndLoadbalancesList}
         />
       ) : (
         <LinearProgress />
