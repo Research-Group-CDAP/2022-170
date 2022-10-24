@@ -57,7 +57,7 @@ const fetch_Network_Utilization = async (request, response) => {
 };
 
 const fetch_All_Network_Utilization = async (request, response) => {
-  Network_Utilization_Model.find()
+  Network_Utilization_Model.find({ userId: request.params.userId })
     .then((res) => {
       console.log(res);
       response.json(res);
@@ -69,7 +69,7 @@ const fetch_All_Network_Utilization = async (request, response) => {
 
 const fetch_All_Network_Utilization_By_Pod = async (request, response) => {
   let timeSeriesDataArray = [];
-  Network_Utilization_Model.find()
+  Network_Utilization_Model.find({ userId: request.params.userId })
     .then(async (res) => {
       await res.forEach((matricData) => {
         let podData = {

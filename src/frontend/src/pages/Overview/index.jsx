@@ -25,6 +25,7 @@ const Overview = (props) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.kubeReducer);
   const matricsState = useSelector((state) => state.matricsReducer);
+  const authState = useSelector((state) => state.authReducer);
 
   const [podList, setPodList] = useState([]);
   const [pods, setPods] = useState(0);
@@ -43,9 +44,9 @@ const Overview = (props) => {
   useEffect(() => {
     dispatch(fetch_All_Pods_By_Namespace("default"));
     dispatch(fetch_All_Services_By_Namespace("default"));
-    dispatch(fetch_All_Cpu_Usage());
-    dispatch(fetch_All_Memory_Utilization());
-    dispatch(fetch_All_Network_Utilization());
+    dispatch(fetch_All_Cpu_Usage(authState.user._id));
+    dispatch(fetch_All_Memory_Utilization(authState.user._id));
+    dispatch(fetch_All_Network_Utilization(authState.user._id));
     dispatch(fetchClusterIpsAndLoadbalancer());
   }, [dispatch]);
 

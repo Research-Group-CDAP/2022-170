@@ -57,7 +57,7 @@ const fetch_Cpu_Usage = async (request, response) => {
 };
 
 const fetch_All_Cpu_Usage = async (request, response) => {
-  Cpu_Usage_Model.find()
+  Cpu_Usage_Model.find({ userId: request.params.userId })
     .then((res) => {
       console.log(res);
       response.json(res);
@@ -69,7 +69,7 @@ const fetch_All_Cpu_Usage = async (request, response) => {
 
 const fetch_All_Cpu_Usage_By_Pod = async (request, response) => {
   let timeSeriesDataArray = [];
-  Cpu_Usage_Model.find()
+  Cpu_Usage_Model.find({ userId: request.params.userId })
     .then(async (res) => {
       await res.forEach((matricData) => {
         let podData = {

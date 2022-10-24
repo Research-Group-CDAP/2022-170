@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const CPU_USAGE_Schema = new Schema({
+  userId: { type: Schema.Types.ObjectId, ref: "User" },
   metricName: {
     type: String,
   },

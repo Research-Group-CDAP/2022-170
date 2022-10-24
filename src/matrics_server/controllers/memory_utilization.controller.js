@@ -57,7 +57,7 @@ const fetch_Memory_Utilization = async (request, response) => {
 };
 
 const fetch_All_Memory_Utilization = async (request, response) => {
-  Memory_Utilization_Model.find()
+  Memory_Utilization_Model.find({ userId: request.params.userId })
     .then((res) => {
       console.log(res);
       response.json(res);
@@ -69,7 +69,7 @@ const fetch_All_Memory_Utilization = async (request, response) => {
 
 const fetch_All_Memory_Utilization_By_Pod = async (request, response) => {
   let timeSeriesDataArray = [];
-  Memory_Utilization_Model.find()
+  Memory_Utilization_Model.find({ userId: request.params.userId })
     .then(async (res) => {
       await res.forEach((matricData) => {
         let podData = {
