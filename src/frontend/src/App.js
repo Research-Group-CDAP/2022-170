@@ -37,6 +37,7 @@ const App = () => {
   );
 
   const MINUTE_MS = 60000;
+  const MINUTE_MS_EXPERIMENT = 1200000;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -79,6 +80,30 @@ const App = () => {
           });
       }
     }, MINUTE_MS);
+
+    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  }, []);
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("Logs every 20 minute");
+      if (localStorage.getItem("clusterConntected")) {
+
+        //fetch Cpu Usage from prometheus
+        axios
+          .post(
+            `${process.env.REACT_APP_MONITORING_MAIN_API_ENDPOINT}/cronJobforExperiments/${state.user._id}`
+          )
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+  
+      }
+    }, MINUTE_MS_EXPERIMENT);
 
     return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
   }, []);

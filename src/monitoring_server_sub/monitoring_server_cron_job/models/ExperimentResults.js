@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const ExperimentResultsSchema = new Schema(
   {
+    userId: { type: Schema.Types.ObjectId, ref: "User" },
     "chaoslib-version": {
       type: String,
     },
@@ -86,4 +87,7 @@ const ExperimentResultsSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = ExperimentResults = mongoose.model("ExperimentResults", ExperimentResultsSchema);
+module.exports = ExperimentResults = mongoose.model(
+  "ExperimentResults",
+  ExperimentResultsSchema
+);

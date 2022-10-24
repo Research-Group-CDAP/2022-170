@@ -6,7 +6,7 @@ const {
 } = require("../controllers/experiment.controller");
 
 router.post("/executeRandomPodExperiment", executeRandomPodExperiment);
-router.post("/saveToDatabase", saveToDatabase);
+router.post("/saveToDatabase/:userId", saveToDatabase);
 router.get("/fetchAllExperimentResults", fetchAllExperimentResults);
 
 module.exports = router;

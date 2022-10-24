@@ -259,7 +259,7 @@ const saveToDatabase = async (req, res) => {
 };
 
 const fetchAllExperimentResults = async (req, res) => {
-  ExperimentResults.find()
+  ExperimentResults.find({userId: req.params.userId})
     .then((responseExperiment) => {
       res.json(responseExperiment);
     })

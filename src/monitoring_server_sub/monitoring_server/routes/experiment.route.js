@@ -10,6 +10,6 @@ router.post("/executeExperiment", executeExperiment);
 router.post("/executeRandomPodExperiment", executeRandomPodExperiment);
 router.get("/responseAsJson", responseAsJson);
 router.post("/saveToDatabase", saveToDatabase);
-router.get("/fetchAllExperimentResults", fetchAllExperimentResults);
+router.get("/fetchAllExperimentResults/:userId", fetchAllExperimentResults);
 
 module.exports = router;

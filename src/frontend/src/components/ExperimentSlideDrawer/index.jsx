@@ -13,6 +13,7 @@ import { Icon } from "@iconify/react";
 import { Card, CardContent, Divider } from "@material-ui/core";
 import ExperimentsAccordion from "./ExperimentsAccordion";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -73,9 +74,10 @@ const ExperimentSlideDrawer = (props) => {
   const [isSuccess, setIsSuccess] = React.useState(false);
   const [isExecuted, setIsExecuted] = React.useState(false);
   const [experimentList, setExperimentList] = React.useState([]);
+  const authState = useSelector((state) => state.authReducer);
 
   useEffect(()=>{
-    axios.get(`${process.env.REACT_APP_MONITORING_SUB_API_ENDPOINT}/experiment/fetchAllExperimentResults`).then((res)=>{
+    axios.get(`${process.env.REACT_APP_MONITORING_SUB_API_ENDPOINT}/experiment/fetchAllExperimentResults/${authState.user._id}`).then((res)=>{
       console.log(res);
       setExperimentList(res.data);
     }).catch((error)=>{

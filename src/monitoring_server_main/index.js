@@ -25,9 +25,48 @@ app.post("/restartmonitoringserver", (req, res) => {
   });
 });
 
-cron.schedule("*/55 * * * *", async () => {
-  console.log("Running a cron job every 2 minutes | Timestamp : " + new Date());
-  cronJobforExperiments();
+// cron.schedule("*/55 * * * *", async () => {
+//   console.log("Running a cron job every 2 minutes | Timestamp : " + new Date());
+//   cronJobforExperiments();
+// });
+
+app.post("/cronJobforExperiments/:userId", (req, res) => {
+  console.log("------------cronJobforExperiments------------");
+  axios
+    .post("http://localhost:4004/experiment/executeRandomPodExperiment")
+    .then((response) => {
+      if (response.data.executed) {
+        console.log("------------JSON Report Generated------------");
+        axios
+          .post("http://localhost:4004/experiment/saveToDatabase/" + req.params.userId)
+          .then(() => {
+            console.log("------------Save Experiment Results to Database------------");
+            exec(
+              `pm2 restart monitoring-server-cron-job`,
+              (error, stdout, stderr) => {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log(
+                    "------------Restart Application Success------------"
+                  );
+                  res.json("Experiment Executed at " + new Date());
+                }
+              }
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+            res.json(error);
+          });
+      } else {
+        console.log("Error");
+        res.json(error);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 const cronJobforExperiments = async () => {
