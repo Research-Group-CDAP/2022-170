@@ -1,6 +1,8 @@
-import LeaderLine from "react-leader-line";
+import React from "react";
+import Xarrow, { useXarrow, Xwrapper } from "react-xarrows";
+import Draggable from "react-draggable";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import React, { useState, useEffect, useRef, forwardRef } from "react";
+import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -8,15 +10,23 @@ import {
   fetch_All_Services_By_Namespace,
   fetch_All_Pods_By_Namespace,
 } from "../../store/kube-store/kubeActions";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import Backdrop from "@material-ui/core/Backdrop";
 import { PodBackdrop, ServiceBackdrop } from "../../components";
 import { Icon } from "@iconify/react";
 
 const useStyles = makeStyles((theme) => ({
+  boxStyle : {
+    border: "grey solid 3px",
+    borderRadius: "10px",
+    background: "#272525",
+    padding: "10px",
+    marginBottom: "65px",
+    "&:hover": {
+      background: "#6D6D6D",
+      cursor: "default",
+    },
+  },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: "#fff",
@@ -29,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "5px",
     background: "#242424",
     "&:hover": {
-      background: "#787878",
+      background: "#4d4d4d",
       cursor: "default",
     },
   },
@@ -38,6 +48,17 @@ const useStyles = makeStyles((theme) => ({
     background: "#424242",
   },
 }));
+
+const DraggableBox = ({ id, name, icon }) => {
+  const updateXarrow = useXarrow();
+  return (
+    <Draggable onDrag={updateXarrow} onStop={updateXarrow}>
+      <div id={id} className={useStyles().boxStyle}>
+        <Icon icon={icon} width={20} /> {name}
+      </div>
+    </Draggable>
+  );
+};
 
 export default function Dependency() {
   const classes = useStyles();
@@ -71,27 +92,6 @@ export default function Dependency() {
     setPodsArray(state.podDetailsByNamespace);
   }, [state.podDetailsByNamespace]);
 
-  useEffect(() => {
-    const lineOptions = {
-      color: "#90EE90",
-    };
-
-    state.dependencyDetailsByNamespace.forEach((dependencyList, index) => {
-      new LeaderLine(
-        document.getElementById(dependencyList.service),
-        LeaderLine.pointAnchor(document.getElementById(dependencyList.pod)),
-        lineOptions
-      );
-      new LeaderLine(
-        document.getElementById(dependencyList.pod),
-        LeaderLine.pointAnchor(
-          document.getElementById(dependencyList.node + "-" + index)
-        ),
-        lineOptions
-      );
-    });
-  }, [dependencyDetailsByNamespaceArray]);
-
   const handleClose = () => {
     setOpen(false);
     setSelectServiceDetails(null);
@@ -117,57 +117,57 @@ export default function Dependency() {
   return (
     <div className={classes.root}>
       <h3>Dependency Map</h3>
-      <br />
-      <div>
+      <br /> <br />
+      <Grid container spacing={6}>
         {dependencyDetailsByNamespaceArray.length ? (
-          <Grid container spacing={3}>
-            {dependencyDetailsByNamespaceArray.map((dependencyList, index) => {
-              return (
-                <Grid item xs={4}>
-                  <Paper elevation={3} className={classes.paper}>
-                    <div
+          dependencyDetailsByNamespaceArray.map((dependencyList, index) => {
+            return (
+              <Grid item xs={4}>
+                <Xwrapper>
+                  <div
+                    ondblclick={() => {
+                      handleToggleSevice(dependencyList.service);
+                    }}
+                  >
+                    <DraggableBox
                       id={dependencyList.service}
-                      onClick={() => {
-                        handleToggleSevice(dependencyList.service);
-                      }}
-                    >
-                      <Card className={classes.card}>
-                        <CardContent>
-                          <Icon icon="ic:baseline-developer-board" width={20} />{" "}
-                          {dependencyList.service}
-                        </CardContent>
-                      </Card>
-                    </div>
-                    <div
+                      name={dependencyList.service}
+                      icon={"ic:baseline-developer-board"}
+                    />
+                  </div>
+                  <div
+                    ondblclick={() => {
+                      handleTogglePod(dependencyList.pod);
+                    }}
+                  >
+                    <DraggableBox
                       id={dependencyList.pod}
-                      onClick={() => {
-                        handleTogglePod(dependencyList.pod);
-                      }}
-                    >
-                      <Card className={classes.card}>
-                        <CardContent>
-                          <Icon icon="ic:baseline-shopping-basket" width={20} />{" "}
-                          {dependencyList.pod}{" "}
-                        </CardContent>
-                      </Card>
-                    </div>
-                    <div id={dependencyList.node + "-" + index}>
-                      <Card className={classes.card}>
-                        <CardContent>
-                          <Icon icon="ic:baseline-call-to-action" width={20} />{" "}
-                          {dependencyList.node}
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </Paper>
-                </Grid>
-              );
-            })}
-          </Grid>
+                      name={dependencyList.pod}
+                      icon={"ic:baseline-shopping-basket"}
+                    />
+                  </div>
+
+                  <DraggableBox
+                    id={dependencyList.node + "-" + index}
+                    name={dependencyList.node}
+                    icon={"ic:baseline-call-to-action"}
+                  />
+                  <Xarrow
+                    start={dependencyList.service}
+                    end={dependencyList.pod}
+                  />
+                  <Xarrow
+                    start={dependencyList.pod}
+                    end={dependencyList.node + "-" + index}
+                  />
+                </Xwrapper>
+              </Grid>
+            );
+          })
         ) : (
           <LinearProgress />
         )}
-      </div>
+      </Grid>
       <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
         {selectServiceDetails !== null ? (
           <ServiceBackdrop data={selectServiceDetails} />
