@@ -8,11 +8,11 @@ const {
 } = require("../controllers/network_utilization.controller");
 
 router.get(
-  "/fetch/fetch_All_Network_Utilization",
+  "/fetch/fetch_All_Network_Utilization/:userId",
   fetch_All_Network_Utilization
 );
 router.get(
-  "/fetch/fetch_All_Network_Utilization_By_Pod/:podName",
+  "/fetch/fetch_All_Network_Utilization_By_Pod/:podName/:userId",
   fetch_All_Network_Utilization_By_Pod
 );
 router.get("/export/All_Network_Usage_By_Pod/:podName", exportToCSV);

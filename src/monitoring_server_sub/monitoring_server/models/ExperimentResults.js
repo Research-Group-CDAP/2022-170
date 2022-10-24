@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const ExperimentResultsSchema = new Schema(
   {
+    userId: { type: Schema.Types.ObjectId, ref: "User" },
     "chaoslib-version": {
       type: String,
     },

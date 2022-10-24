@@ -22,11 +22,12 @@ const Network = (props) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.matricsReducer);
   const predictionState = useSelector((state) => state.predictionReducer);
+  const authState = useSelector((state) => state.authReducer);
   const [networkTimeSeriesData, setNetworkTimeSeriesData] = useState([]);
   const [predictedNetworkValues, setPredictedNetworkValues] = useState([]);
 
   useEffect(() => {
-    dispatch(fetch_All_Network_Utilization_By_Pod(props.podName));
+    dispatch(fetch_All_Network_Utilization_By_Pod(props.podName,authState.user._id));
     if (!predictedNetworkValues.length) {
       dispatch(fetch_Predicted_Network_Utilization_By_Pod(props.podName));
     }

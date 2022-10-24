@@ -7,9 +7,9 @@ const {
   exportToCSV,
 } = require("../controllers/cpu_usage.controller");
 
-router.get("/fetch/fetch_All_Cpu_Usage", fetch_All_Cpu_Usage);
+router.get("/fetch/fetch_All_Cpu_Usage/:userId", fetch_All_Cpu_Usage);
 router.get(
-  "/fetch/fetch_All_Cpu_Usage_By_Pod/:podName",
+  "/fetch/fetch_All_Cpu_Usage_By_Pod/:podName/:userId",
   fetch_All_Cpu_Usage_By_Pod
 );
 router.get("/export/All_Cpu_Usage_By_Pod/:podName", exportToCSV);

@@ -22,11 +22,12 @@ const Cpu = (props) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.matricsReducer);
   const predictionState = useSelector((state) => state.predictionReducer);
+  const authState = useSelector((state) => state.authReducer);
   const [cpuTimeSeriesData, setCpuTimeSeriesData] = useState([]);
   const [predictedCpuValues, setPredictedCpuValues] = useState([]);
 
   useEffect(() => {
-    dispatch(fetch_All_Cpu_Usage_By_Pod(props.podName));
+    dispatch(fetch_All_Cpu_Usage_By_Pod(props.podName,authState.user._id));
     if (!predictedCpuValues.length) {
       dispatch(fetch_Predicted_Cpu_Usage_By_Pod(props.podName));
     }

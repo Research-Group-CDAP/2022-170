@@ -42,6 +42,7 @@ const Predictions = (props) => {
   const state = useSelector((state) => state.kubeReducer);
   const matricsState = useSelector((state) => state.matricsReducer);
   const predictionState = useSelector((state) => state.predictionReducer);
+  const authState = useSelector((state) => state.authReducer);
   const [podDetailsByNamespaceArray, setPodDetailsByNamespaceArray] = useState(
     []
   );
@@ -107,15 +108,15 @@ const Predictions = (props) => {
     setStatus("loading");
     if (selectedType === "cpu") {
       dispatch(fetch_Predicted_Cpu_Usage_By_Pod(selectedPodName));
-      dispatch(fetch_All_Cpu_Usage_By_Pod(selectedPodName));
+      dispatch(fetch_All_Cpu_Usage_By_Pod(selectedPodName,authState.user._id));
     }
     if (selectedType === "memory") {
       dispatch(fetch_Predicted_Memory_Utilization_By_Pod(selectedPodName));
-      dispatch(fetch_All_Memory_Utilization_By_Pod(selectedPodName));
+      dispatch(fetch_All_Memory_Utilization_By_Pod(selectedPodName,authState.user._id));
     }
     if (selectedType === "network") {
       dispatch(fetch_Predicted_Network_Utilization_By_Pod(selectedPodName));
-      dispatch(fetch_All_Network_Utilization_By_Pod(selectedPodName));
+      dispatch(fetch_All_Network_Utilization_By_Pod(selectedPodName,authState.user._id));
     }
   };
 

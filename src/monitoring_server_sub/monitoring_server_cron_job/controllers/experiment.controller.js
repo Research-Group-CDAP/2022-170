@@ -20,7 +20,11 @@ const executeRandomPodExperiment = async (req, res) => {
 };
 
 const saveToDatabase = async (req, res) => {
-  experimentResults = new ExperimentResults(ExperimentJSON);
+  let obejectToSave = {
+    ...ExperimentJSON,
+    userId : req.params.userId
+  }
+  experimentResults = new ExperimentResults(obejectToSave);
   experimentResults
     .save()
     .then((responseExperiment) => {

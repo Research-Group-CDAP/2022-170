@@ -22,11 +22,12 @@ const Memory = (props) => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.matricsReducer);
   const predictionState = useSelector((state) => state.predictionReducer);
+  const authState = useSelector((state) => state.authReducer);
   const [memoryTimeSeriesData, setMemoryTimeSeriesData] = useState([]);
   const [predictedMemoryValues, setPredictedMemoryValues] = useState([]);
 
   useEffect(() => {
-    dispatch(fetch_All_Memory_Utilization_By_Pod(props.podName));
+    dispatch(fetch_All_Memory_Utilization_By_Pod(props.podName,authState.user._id));
     if (!predictedMemoryValues.length) {
       dispatch(fetch_Predicted_Memory_Utilization_By_Pod(props.podName));
     }
