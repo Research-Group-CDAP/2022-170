@@ -124,9 +124,11 @@ export default function Dependency() {
             return (
               <Grid item xs={4}>
                 <Xwrapper>
-                  <div
-                    ondblclick={() => {
-                      handleToggleSevice(dependencyList.service);
+                  <div 
+                    onClick={(e) => {
+                      if(e.detail === 2){
+                        handleToggleSevice(dependencyList.service);
+                      }                     
                     }}
                   >
                     <DraggableBox
@@ -136,8 +138,11 @@ export default function Dependency() {
                     />
                   </div>
                   <div
-                    ondblclick={() => {
-                      handleTogglePod(dependencyList.pod);
+                    onClick={(e) => {
+                      if(e.detail === 2){
+                        handleTogglePod(dependencyList.pod);
+                      }     
+                     
                     }}
                   >
                     <DraggableBox
