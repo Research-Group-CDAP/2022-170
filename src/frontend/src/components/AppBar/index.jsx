@@ -26,6 +26,7 @@ import {
   MarketPlace,
 } from "../../pages";
 import { getUserDetails } from "../../store/auth-store/authActions";
+import axios from "axios";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -75,6 +76,84 @@ export default function PermanentDrawerLeft() {
       setLoginStatus(false);
     }
   }, [state.user]);
+
+  const MINUTE_MS = 60000; //Time for cronjob - Fetch Prometheus Data
+
+  //Cronjob - Fetch Prometheus Data
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (state.user) {
+        console.log("Logs every minute");
+        if (localStorage.getItem("clusterConntected")) {
+          //fetch Cpu Usage from prometheus
+          axios
+            .post(
+              `${process.env.REACT_APP_MATRICS_API_ENDPOINT}/prometheus/fetch/fetch_Cpu_Usage/${state.user._id}`
+            )
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+          //fetch Memory Usage from prometheus
+          axios
+            .post(
+              `${process.env.REACT_APP_MATRICS_API_ENDPOINT}/prometheus/fetch/fetch_Memory_Utilization/${state.user._id}`
+            )
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+          //fetch Network Usage from prometheus
+          axios
+            .post(
+              `${process.env.REACT_APP_MATRICS_API_ENDPOINT}/prometheus/fetch/fetch_Network_Utilization/${state.user._id}`
+            )
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      } else {
+        console.log("User Not Found");
+      }
+    }, MINUTE_MS);
+    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  }, []);
+
+  const MINUTE_MS_EXPERIMENT = 1200000; //Time for cronjob - Experiments
+
+  //Cronjob - Experiments
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (state.user) {
+      console.log("Logs every 20 minute");
+      if (localStorage.getItem("clusterConntected")) {
+        axios
+          .post(
+            `${process.env.REACT_APP_MONITORING_MAIN_API_ENDPOINT}/cronJobforExperiments/${state.user._id}`
+          )
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }else{
+      console.log("User not found")
+    }
+    }, MINUTE_MS_EXPERIMENT);
+
+    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  }, []);
 
   return (
     <Router>

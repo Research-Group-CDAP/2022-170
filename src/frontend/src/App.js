@@ -6,19 +6,17 @@ import {
 } from "@material-ui/core";
 import { createContext, useMemo, useState, useEffect } from "react";
 import AppBar from "./components/AppBar";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   clusterConnected,
   clusterNotConnected,
 } from "./store/kube-store/kubeActions";
-import axios from "axios";
 
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 const App = () => {
   const [mode, setMode] = useState("dark");
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.authReducer);
 
   useEffect(() => {
     if (localStorage.getItem("clusterConntected")) {
@@ -35,78 +33,6 @@ const App = () => {
     }),
     []
   );
-
-  const MINUTE_MS = 60000;
-  const MINUTE_MS_EXPERIMENT = 1200000;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      console.log("Logs every minute");
-      if (localStorage.getItem("clusterConntected")) {
-        //fetch Cpu Usage from prometheus
-        axios
-          .post(
-            `${process.env.REACT_APP_MATRICS_API_ENDPOINT}/prometheus/fetch/fetch_Cpu_Usage/${state.user._id}`
-          )
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
-        //fetch Memory Usage from prometheus
-        axios
-          .post(
-            `${process.env.REACT_APP_MATRICS_API_ENDPOINT}/prometheus/fetch/fetch_Memory_Utilization/${state.user._id}`
-          )
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
-        //fetch Network Usage from prometheus
-        axios
-          .post(
-            `${process.env.REACT_APP_MATRICS_API_ENDPOINT}/prometheus/fetch/fetch_Network_Utilization/${state.user._id}`
-          )
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    }, MINUTE_MS);
-
-    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-  }, []);
-
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      console.log("Logs every 20 minute");
-      if (localStorage.getItem("clusterConntected")) {
-
-        //fetch Cpu Usage from prometheus
-        axios
-          .post(
-            `${process.env.REACT_APP_MONITORING_MAIN_API_ENDPOINT}/cronJobforExperiments/${state.user._id}`
-          )
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-  
-      }
-    }, MINUTE_MS_EXPERIMENT);
-
-    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-  }, []);
 
   const theme = useMemo(
     () =>
