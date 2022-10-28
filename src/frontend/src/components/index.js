@@ -40,5 +40,5 @@ export {
   UserInformationUpdate,
   ExperimentSlideDrawer,
   KubeScaler,
-  ClusterStatusCard
+  ClusterStatusCard,
 };

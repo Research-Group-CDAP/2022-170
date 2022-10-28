@@ -77,8 +77,16 @@ const Containers = (props) => {
           >
             Refresh
           </Button>
-          <AddService open={open} handleClose={handleClose} handleClickOpen={handleClickOpen} />
-          <AddService open={open} handleClose={handleClose} handleClickOpen={handleClickOpen} />
+          <AddService
+            open={open}
+            handleClose={handleClose}
+            handleClickOpen={handleClickOpen}
+          />
+          <AddService
+            open={open}
+            handleClose={handleClose}
+            handleClickOpen={handleClickOpen}
+          />
         </Stack>
         <ListService />
         <Snackbar
@@ -87,7 +95,11 @@ const Containers = (props) => {
           onClose={handleCloseSnackBar}
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         >
-          <Alert onClose={handleCloseSnackBar} severity="success" sx={{ width: "100%" }}>
+          <Alert
+            onClose={handleCloseSnackBar}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
             Container images are refreshed successfully
           </Alert>
         </Snackbar>

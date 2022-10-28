@@ -7,7 +7,7 @@ import {
   Button,
   Chip,
   Snackbar,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -29,7 +29,7 @@ import {
   Legend,
   LinearScale,
   Title,
-  Tooltip
+  Tooltip,
 } from "chart.js";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -40,10 +40,17 @@ import {
   add_relese,
   get_services,
   make_release,
-  retry_release
+  retry_release,
 } from "../../store/fastprovider-store/fastProviderActions";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export const options = {
   maxBarThickness: 40,
@@ -302,7 +309,8 @@ const ListService = () => {
                   <span
                     style={{
                       color:
-                        service.status === "Building" || service.status === "Waiting"
+                        service.status === "Building" ||
+                        service.status === "Waiting"
                           ? "#ffa000"
                           : service.status === "In-Progress"
                           ? "#29b6f6"
@@ -356,14 +364,23 @@ const ListService = () => {
               </Typography>
               <Typography variant="subtitle1">
                 Created At:{" "}
-                {service.createdAt ? <>{moment(service.createdAt).format("llll")}</> : ""}
+                {service.createdAt ? (
+                  <>{moment(service.createdAt).format("llll")}</>
+                ) : (
+                  ""
+                )}
               </Typography>
               <Typography variant="subtitle1">
                 Updated At:{" "}
-                {service.updatedAt ? <>{moment(service.updatedAt).format("llll")}</> : ""}
+                {service.updatedAt ? (
+                  <>{moment(service.updatedAt).format("llll")}</>
+                ) : (
+                  ""
+                )}
               </Typography>
               <Typography variant="subtitle1">
-                Description: {service.moreInformation ? <>{service.moreInformation}</> : ""}
+                Description:{" "}
+                {service.moreInformation ? <>{service.moreInformation}</> : ""}
               </Typography>
               <Divider style={{ marginBottom: 10 }} />
               {service.releases &&
@@ -378,7 +395,9 @@ const ListService = () => {
                   >
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                       <Icon icon="octicon:container-24" width={23} />
-                      <Typography style={{ marginLeft: 5 }}>{service.serviceName}</Typography>
+                      <Typography style={{ marginLeft: 5 }}>
+                        {service.serviceName}
+                      </Typography>
                       <Chip
                         size="small"
                         variant="outlined"
@@ -403,16 +422,20 @@ const ListService = () => {
                     <AccordionDetails>
                       <div style={{ width: "100%" }}>
                         <Typography variant="subtitle2">
-                          Build Start Time: {moment(release.buildStartTime).format("LTS")}
+                          Build Start Time:{" "}
+                          {moment(release.buildStartTime).format("LTS")}
                         </Typography>
                         <Typography variant="subtitle2">
-                          Build End Time: {moment(release.buildEndTime).format("LTS")}
+                          Build End Time:{" "}
+                          {moment(release.buildEndTime).format("LTS")}
                         </Typography>
                         <Typography variant="subtitle2">
-                          Push Start Time: {moment(release.pushStartTime).format("LTS")}
+                          Push Start Time:{" "}
+                          {moment(release.pushStartTime).format("LTS")}
                         </Typography>
                         <Typography variant="subtitle2">
-                          Push End Time: {moment(release.pushEndTime).format("LTS")}
+                          Push End Time:{" "}
+                          {moment(release.pushEndTime).format("LTS")}
                         </Typography>
                         <Bar
                           options={options}
@@ -457,7 +480,9 @@ const ListService = () => {
                               style={{ width: "auto", marginTop: 10 }}
                               variant="outlined"
                               color="inherit"
-                              endIcon={<Icon icon="logos:kubernetes" width={25} />}
+                              endIcon={
+                                <Icon icon="logos:kubernetes" width={25} />
+                              }
                               onClick={handleReleaseToK8s}
                               disabled={state.isReleaseBtnDisabled}
                             >
@@ -502,7 +527,11 @@ const ListService = () => {
                 onClose={handleCloseSnackBar}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}
               >
-                <Alert onClose={handleCloseSnackBar} severity="warning" sx={{ width: "100%" }}>
+                <Alert
+                  onClose={handleCloseSnackBar}
+                  severity="warning"
+                  sx={{ width: "100%" }}
+                >
                   Please check the input fields
                 </Alert>
               </Snackbar>

@@ -37,19 +37,20 @@ const Plugin = (props) => {
       Id: state.user?._id,
       plugin: props.plugin.pluginName,
       type: "ADD",
-    };;
+    };
 
-    if(event.target.checked){
-       updatePlugin.type = "ADD"
-    }else{
-       updatePlugin.type = "REMOVE"
+    if (event.target.checked) {
+      updatePlugin.type = "ADD";
+    } else {
+      updatePlugin.type = "REMOVE";
     }
 
-    axios.put("http://localhost:5500/user/updateplugins",updatePlugin).then(()=>{
-      dispatch(getUserDetails());
-    }).catch(()=>{
-
-    });
+    axios
+      .put("http://localhost:5500/user/updateplugins", updatePlugin)
+      .then(() => {
+        dispatch(getUserDetails());
+      })
+      .catch(() => {});
   };
 
   return (

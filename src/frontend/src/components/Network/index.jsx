@@ -27,7 +27,9 @@ const Network = (props) => {
   const [predictedNetworkValues, setPredictedNetworkValues] = useState([]);
 
   useEffect(() => {
-    dispatch(fetch_All_Network_Utilization_By_Pod(props.podName,authState.user._id));
+    dispatch(
+      fetch_All_Network_Utilization_By_Pod(props.podName, authState.user._id)
+    );
     if (!predictedNetworkValues.length) {
       dispatch(fetch_Predicted_Network_Utilization_By_Pod(props.podName));
     }
@@ -55,7 +57,7 @@ const Network = (props) => {
               timeSeriesData={networkTimeSeriesData}
               predictedValues={predictedNetworkValues}
             />
-            <KubeScaler podName={props.podName}/>
+            <KubeScaler podName={props.podName} />
             <div className="mt-5">
               <TimeSeriesDataTable timeSeriesData={networkTimeSeriesData} />
             </div>

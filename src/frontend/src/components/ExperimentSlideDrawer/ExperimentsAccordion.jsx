@@ -35,9 +35,10 @@ export default function ExperimentsAccordion(props) {
   return (
     <div className={classes.root}>
       <h4>Experiments - Random pod kill</h4>
-      {props.experimentList.slice(-20).map((experiment,index) => {
+      {props.experimentList.slice(-20).map((experiment, index) => {
         return (
           <Accordion
+            key={index}
             expanded={expanded === `panel${index}`}
             onChange={handleChange(`panel${index}`)}
             className={classes.root}
@@ -48,14 +49,14 @@ export default function ExperimentsAccordion(props) {
               id={`panel${index}bh-header`}
             >
               <Typography className={classes.heading}>
-              {moment(experiment.start).format("YYYY/MM/DD hh:mm")}
+                {moment(experiment.start).format("YYYY/MM/DD hh:mm")}
               </Typography>
               <Typography className={classes.secondaryHeading}>
-              {experiment.status}
+                {experiment.status}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <ExperimentReport report={experiment}/>
+              <ExperimentReport report={experiment} />
             </AccordionDetails>
           </Accordion>
         );

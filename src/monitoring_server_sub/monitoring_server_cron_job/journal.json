@@ -49,7 +49,7 @@
     ],
     "dry": null
   },
-  "start": "2022-10-28T07:55:27.929948",
+  "start": "2022-10-28T09:43:38.835213",
   "status": "completed",
   "deviated": false,
   "steady_states": {
@@ -72,9 +72,9 @@
           },
           "output": true,
           "status": "succeeded",
-          "start": "2022-10-28T07:55:27.934948",
-          "end": "2022-10-28T07:55:29.489225",
-          "duration": 1.554277,
+          "start": "2022-10-28T09:43:38.837211",
+          "end": "2022-10-28T09:43:40.371366",
+          "duration": 1.534155,
           "tolerance_met": true
         }
       ]
@@ -98,9 +98,9 @@
           },
           "output": true,
           "status": "succeeded",
-          "start": "2022-10-28T07:55:41.122700",
-          "end": "2022-10-28T07:55:42.584583",
-          "duration": 1.461883,
+          "start": "2022-10-28T09:43:52.088368",
+          "end": "2022-10-28T09:43:53.451730",
+          "duration": 1.363362,
           "tolerance_met": true
         }
       ]
@@ -126,15 +126,15 @@
         }
       },
       "output": [
-        "paymentservice-6f69f8b58d-wzf4r"
+        "paymentservice-6f69f8b58d-kmlxm"
       ],
       "status": "succeeded",
-      "start": "2022-10-28T07:55:29.491225",
-      "end": "2022-10-28T07:55:31.108271",
-      "duration": 1.617046
+      "start": "2022-10-28T09:43:40.374365",
+      "end": "2022-10-28T09:43:42.076747",
+      "duration": 1.702382
     }
   ],
   "rollbacks": [],
-  "end": "2022-10-28T07:55:42.587584",
-  "duration": 14.657635688781738
+  "end": "2022-10-28T09:43:53.455723",
+  "duration": 14.620510816574097
 }

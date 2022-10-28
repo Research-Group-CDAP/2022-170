@@ -134,22 +134,22 @@ export default function PermanentDrawerLeft() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (state.user && kubeState.clusterConnected) {
-      console.log("Logs every 20 minute " + + new Date());
-      if (localStorage.getItem("clusterConntected")) {
-        axios
-          .post(
-            `${process.env.REACT_APP_MONITORING_MAIN_API_ENDPOINT}/cronJobforExperiments/${state.user._id}`
-          )
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        console.log("Logs every 20 minute " + +new Date());
+        if (localStorage.getItem("clusterConntected")) {
+          axios
+            .post(
+              `${process.env.REACT_APP_MONITORING_MAIN_API_ENDPOINT}/cronJobforExperiments/${state.user._id}`
+            )
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      } else {
+        console.log("User not found or Cluster Not Connected");
       }
-    }else{
-      console.log("User not found or Cluster Not Connected")
-    }
     }, MINUTE_MS_EXPERIMENT);
 
     return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.

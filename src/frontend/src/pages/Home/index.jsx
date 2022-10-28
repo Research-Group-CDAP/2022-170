@@ -36,9 +36,10 @@ const useStyles = makeStyles({
   },
   Card: {
     minHeight: "250px",
-  },  Divider: {
-    background: "#ffffff"
-  }
+  },
+  Divider: {
+    background: "#ffffff",
+  },
 });
 
 const Home = (props) => {

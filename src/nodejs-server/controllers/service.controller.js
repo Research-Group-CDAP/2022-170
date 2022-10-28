@@ -143,7 +143,7 @@ const newRelease = async (req, res) => {
 
 const getServices = async (req, res) => {
   try {
-    const services = await Service.find({ userId: request.params.userId });
+    const services = await Service.find({ userId: req.params.userId });
     res.status(200).json(services);
   } catch (error) {
     res.status(400).json({ message: error.message, dateTime: new Date() });

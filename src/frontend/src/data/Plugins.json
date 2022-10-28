@@ -1,47 +1,46 @@
 {
-    "data": [
-      {
-        "id": 1,
-        "icon":"vscode-icons:file-type-dependabot",
-        "pluginName": "Services",
-        "description":"In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
-        "active":true
-      },
-      {
-        "id": 2,
-        "icon":"vscode-icons:folder-type-kubernetes",
-        "pluginName": "Pods",
-        "description":"In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
-        "active":true
-      },
-      {
-        "id": 3,
-        "icon":"flat-color-icons:combo-chart",
-        "pluginName": "Predictions",
-        "description":"In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
-        "active":true
-      },
-      {
-        "id": 4,
-        "icon":"vscode-icons:folder-type-docker",
-        "pluginName": "Fast Builder",
-        "description":"In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
-        "active":true
-      },
-      {
-        "id": 5,
-        "icon":"fluent-emoji-flat:test-tube",
-        "pluginName": "Experiments",
-        "description":"In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
-        "active":true
-      },
-      {
-        "id": 6,
-        "icon":"vscode-icons:file-type-dependencies",
-        "pluginName": "Dependency",
-        "description":"In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
-        "active":true
-      }
-    ]
-  }
-  
+  "data": [
+    {
+      "id": 1,
+      "icon": "vscode-icons:file-type-dependabot",
+      "pluginName": "Services",
+      "description": "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+      "active": true
+    },
+    {
+      "id": 2,
+      "icon": "vscode-icons:folder-type-kubernetes",
+      "pluginName": "Pods",
+      "description": "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+      "active": true
+    },
+    {
+      "id": 3,
+      "icon": "flat-color-icons:combo-chart",
+      "pluginName": "Predictions",
+      "description": "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+      "active": true
+    },
+    {
+      "id": 4,
+      "icon": "vscode-icons:folder-type-docker",
+      "pluginName": "Fast Builder",
+      "description": "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+      "active": true
+    },
+    {
+      "id": 5,
+      "icon": "fluent-emoji-flat:test-tube",
+      "pluginName": "Experiments",
+      "description": "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+      "active": true
+    },
+    {
+      "id": 6,
+      "icon": "vscode-icons:file-type-dependencies",
+      "pluginName": "Dependency",
+      "description": "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+      "active": true
+    }
+  ]
+}

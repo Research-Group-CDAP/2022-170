@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetch_All_Pods_By_Namespace,
   fetch_All_Services_By_Namespace,
-  fetchClusterIpsAndLoadbalancer
+  fetchClusterIpsAndLoadbalancer,
 } from "../../store/kube-store/kubeActions";
 import {
   fetch_All_Cpu_Usage,
@@ -35,8 +35,9 @@ const Overview = (props) => {
   const [services, setServices] = useState(0);
   const [activeServices, setActiveServices] = useState(0);
 
-  const [clusterIpsAndLoadbalancesList, setClusterIpsAndLoadbalancesList] = useState([]);
-  
+  const [clusterIpsAndLoadbalancesList, setClusterIpsAndLoadbalancesList] =
+    useState([]);
+
   const [cpuUsage, setCpuUsage] = useState([]);
   const [memoryUsage, setMemoryUsage] = useState([]);
   const [networkUsage, setNetworkUsage] = useState([]);
@@ -119,7 +120,7 @@ const Overview = (props) => {
       serviceList &&
       cpuUsage &&
       memoryUsage &&
-      networkUsage && 
+      networkUsage &&
       clusterIpsAndLoadbalancesList ? (
         <OverviewInformation
           pods={pods}

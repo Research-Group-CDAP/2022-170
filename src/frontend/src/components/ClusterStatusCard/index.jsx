@@ -101,7 +101,7 @@ const ClusterStatusCard = (props) => {
             Prometheus : <span className={classes.labelGreen}>Loading</span>{" "}
           </h6>
         )}
-        {istioInstalled === true  && isPrometheusConfigured === true  && (
+        {istioInstalled === true && isPrometheusConfigured === true && (
           <h6>
             Prometheus : <span className={classes.labelGreen}>Active</span>{" "}
           </h6>

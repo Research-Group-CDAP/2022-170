@@ -27,7 +27,7 @@ const Cpu = (props) => {
   const [predictedCpuValues, setPredictedCpuValues] = useState([]);
 
   useEffect(() => {
-    dispatch(fetch_All_Cpu_Usage_By_Pod(props.podName,authState.user._id));
+    dispatch(fetch_All_Cpu_Usage_By_Pod(props.podName, authState.user._id));
     if (!predictedCpuValues.length) {
       dispatch(fetch_Predicted_Cpu_Usage_By_Pod(props.podName));
     }
@@ -54,7 +54,7 @@ const Cpu = (props) => {
               timeSeriesData={cpuTimeSeriesData}
               predictedValues={predictedCpuValues}
             />
-            <KubeScaler podName={props.podName}/>
+            <KubeScaler podName={props.podName} />
             <div className="mt-5">
               <TimeSeriesDataTable timeSeriesData={cpuTimeSeriesData} />
             </div>

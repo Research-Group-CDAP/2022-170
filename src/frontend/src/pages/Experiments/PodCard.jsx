@@ -12,7 +12,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import moment from "moment";
 import React from "react";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import Drawer from "@material-ui/core/Drawer";
 import { ExperimentSlideDrawer } from "../../components";
 
@@ -136,10 +136,13 @@ const PodCard = (props) => {
           />
           <br />
 
-          <Button variant="contained" color="primary" onClick={toggleDrawer("right", true, props.pod.name)}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={toggleDrawer("right", true, props.pod.name)}
+          >
             Run
           </Button>
-
         </CardContent>
       </Card>
       <Drawer

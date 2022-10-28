@@ -27,7 +27,9 @@ const Memory = (props) => {
   const [predictedMemoryValues, setPredictedMemoryValues] = useState([]);
 
   useEffect(() => {
-    dispatch(fetch_All_Memory_Utilization_By_Pod(props.podName,authState.user._id));
+    dispatch(
+      fetch_All_Memory_Utilization_By_Pod(props.podName, authState.user._id)
+    );
     if (!predictedMemoryValues.length) {
       dispatch(fetch_Predicted_Memory_Utilization_By_Pod(props.podName));
     }
@@ -55,7 +57,7 @@ const Memory = (props) => {
               timeSeriesData={memoryTimeSeriesData}
               predictedValues={predictedMemoryValues}
             />
-            <KubeScaler podName={props.podName}/>
+            <KubeScaler podName={props.podName} />
             <div className="mt-5">
               <TimeSeriesDataTable timeSeriesData={memoryTimeSeriesData} />
             </div>

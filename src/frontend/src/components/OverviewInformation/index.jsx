@@ -65,7 +65,7 @@ const OverviewInformation = (props) => {
           <Grid item xs={4}>
             <Paper className={classes.paper}>
               <h5>Status </h5>
-              <ClusterStatusCard/>
+              <ClusterStatusCard />
             </Paper>
           </Grid>
         </Grid>
