@@ -126,7 +126,7 @@ export default function PermanentDrawerLeft() {
       }
     }, MINUTE_MS);
     return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-  }, []);
+  }, [state.user, kubeState.clusterConnected]);
 
   const MINUTE_MS_EXPERIMENT = 1200000; //Time for cronjob - Experiments
 
@@ -153,7 +153,7 @@ export default function PermanentDrawerLeft() {
     }, MINUTE_MS_EXPERIMENT);
 
     return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-  }, []);
+  }, [state.user, kubeState.clusterConnected]);
 
   return (
     <Router>
