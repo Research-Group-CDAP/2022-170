@@ -13,7 +13,7 @@ const {
 const routes = (app) => {
   app.post("/service/register", registerService);
   app.put("/service/release", newRelease);
-  app.get("/service", getServices);
+  app.get("/service/user/:userId", getServices);
   app.put("/service/retry/:id", retryRelease);
 
   app.post("/deployment/create", createDeployment);

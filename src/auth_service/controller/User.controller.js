@@ -14,7 +14,7 @@ const getUserDetails = async (req, res) => {
       "-password"
     );
     res.json(user);
-  } catch(err) {
+  } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");
   }
@@ -82,24 +82,19 @@ const registerUser = async (req, res) => {
       },
     };
 
-    jwt.sign(
-      payload,
-      config.get("jwtSecret"),
-      { expiresIn: 360000 },
-      (err, token) => {
-        if (err) throw err;
-        //save user to the database
-        user.token = token;
-        return user
-          .save()
-          .then((registeredUser) => {
-            return res.json(registeredUser);
-          })
-          .catch((error) => {
-            return res.json(error);
-          });
-      }
-    );
+    jwt.sign(payload, config.get("jwtSecret"), {}, (err, token) => {
+      if (err) throw err;
+      //save user to the database
+      user.token = token;
+      return user
+        .save()
+        .then((registeredUser) => {
+          return res.json(registeredUser);
+        })
+        .catch((error) => {
+          return res.json(error);
+        });
+    });
   } catch (err) {
     //Something wrong with the server
     console.error(err.message);
@@ -372,5 +367,5 @@ module.exports = {
   installIstio,
   uninstallIstio,
   configurePrometheus,
-  activePrometheus
+  activePrometheus,
 };

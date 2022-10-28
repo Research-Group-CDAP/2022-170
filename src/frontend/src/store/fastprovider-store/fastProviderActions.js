@@ -8,10 +8,10 @@ export const register_service = (serviceData) => {
   };
 };
 
-export const get_services = () => {
+export const get_services = (userId) => {
   return {
     type: ActionTypes.GET_SERVICES,
-    payload: FastProviderApi.get_services(),
+    payload: FastProviderApi.get_services(userId),
   };
 };
 

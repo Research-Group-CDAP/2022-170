@@ -99,6 +99,7 @@ const ListService = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const fastProviderReducer = useSelector((state) => state.fastProviderReducer);
+  const authState = useSelector((state) => state.authReducer);
   const [services, setServices] = useState([]);
   const [service, setService] = useState();
   const [expanded, setExpanded] = useState();
@@ -163,7 +164,7 @@ const ListService = () => {
   const retryRelease = (e) => {
     e.preventDefault();
     dispatch(retry_release(service._id));
-    dispatch(get_services());
+    dispatch(get_services(authState.user._id));
   };
 
   const handleNewRelease = (e) => {
@@ -174,7 +175,7 @@ const ListService = () => {
       };
 
       dispatch(add_relese(data));
-      dispatch(get_services());
+      dispatch(get_services(authState.user._id));
       toggleDrawer("right", false, service);
     } else {
       setIsSnackBarOpen(true);
