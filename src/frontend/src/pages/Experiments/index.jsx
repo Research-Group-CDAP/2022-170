@@ -30,7 +30,7 @@ const Experiments = () => {
 
   const onClickRefresh = () => {
     dispatch(fetch_All_Pods_By_Namespace("default"));
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -56,7 +56,7 @@ const Experiments = () => {
       {podList.length ? (
         <Grid container spacing={2}>
           {podList.map((pod) => (
-            <Grid item lg={4}>
+            <Grid key={pod.name} item lg={4}>
               <PodCard pod={pod} />
             </Grid>
           ))}

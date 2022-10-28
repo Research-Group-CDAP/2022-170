@@ -77,6 +77,7 @@ const PodsList = (props) => {
           {props.podList.map((singlePod) => {
             return (
               <ListItem
+                key={singlePod.name}
                 button
                 className={classes.ListItem}
                 onClick={toggleDrawer("right", true, singlePod.name, singlePod)}

@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/styles";
 import { Alert, Button } from "@mui/material";
 import { Stack } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { get_services } from "../../store/fastprovider-store/fastProviderActions";
 import AddService from "./AddService";
 import ListService from "./ListService";
@@ -22,9 +22,10 @@ const Containers = (props) => {
   const [state, setState] = useState({
     isSnackBackOpen: false,
   });
+  const authState = useSelector((state) => state.authReducer);
 
   useEffect(() => {
-    dispatch(get_services());
+    dispatch(get_services(authState.user._id));
   }, [dispatch]);
 
   // useEffect(() => {
@@ -33,7 +34,7 @@ const Containers = (props) => {
 
   const getServices = (e) => {
     e.preventDefault();
-    dispatch(get_services());
+    dispatch(get_services(authState.user._id));
     setState({ ...state, isSnackBackOpen: true });
   };
 
@@ -76,8 +77,16 @@ const Containers = (props) => {
           >
             Refresh
           </Button>
-          <AddService open={open} handleClose={handleClose} handleClickOpen={handleClickOpen} />
-          <AddService open={open} handleClose={handleClose} handleClickOpen={handleClickOpen} />
+          <AddService
+            open={open}
+            handleClose={handleClose}
+            handleClickOpen={handleClickOpen}
+          />
+          <AddService
+            open={open}
+            handleClose={handleClose}
+            handleClickOpen={handleClickOpen}
+          />
         </Stack>
         <ListService />
         <Snackbar
@@ -86,7 +95,11 @@ const Containers = (props) => {
           onClose={handleCloseSnackBar}
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         >
-          <Alert onClose={handleCloseSnackBar} severity="success" sx={{ width: "100%" }}>
+          <Alert
+            onClose={handleCloseSnackBar}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
             Container images are refreshed successfully
           </Alert>
         </Snackbar>

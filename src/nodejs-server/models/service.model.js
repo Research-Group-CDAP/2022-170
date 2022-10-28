@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const ServiceSchema = mongoose.Schema(
   {
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     serviceName: { type: String, required: true },
     repository: { type: Object, required: true },
     latestTag: { type: String, required: false, default: "v1.0.0" },

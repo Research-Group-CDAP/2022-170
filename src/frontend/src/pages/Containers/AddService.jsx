@@ -29,6 +29,7 @@ const AddService = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const fastProviderState = useSelector((state) => state.fastProviderReducer);
+  const authState = useSelector((state) => state.authReducer);
   const [isLoading, setIsLoading] = useState(false);
   const [state, setState] = useState({
     isSnackBackOpen: false,
@@ -145,6 +146,7 @@ const AddService = (props) => {
 
       if (!data.includes(false)) {
         const data = {
+          userId: authState.user._id,
           serviceName: state.serviceName,
           repository: {
             userName: state.userName,

@@ -7,8 +7,8 @@ class FastProviderAPI {
     return axios.post(`${BASE_URL}/service/register`, serviceData);
   }
 
-  static get_services() {
-    return axios.get(`${BASE_URL}/service/`);
+  static get_services(userId) {
+    return axios.get(`${BASE_URL}/service/user/${userId}`);
   }
 
   static get_service_by_id(serviceId) {

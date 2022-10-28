@@ -5,7 +5,7 @@ const initialState = {
   servicesDetailsByNamespace: [],
   dependencyDetailsByNamespace: [],
   clusterIpsAndLoadbalances: [],
-  clusterConnected:false,
+  clusterConnected: false,
   loading: false,
   error: null,
 };

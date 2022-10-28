@@ -13,12 +13,12 @@ import { fetch_All_Pods_By_Namespace } from "../../store/kube-store/kubeActions"
 import {
   fetch_All_Cpu_Usage_By_Pod,
   fetch_All_Memory_Utilization_By_Pod,
-  fetch_All_Network_Utilization_By_Pod
+  fetch_All_Network_Utilization_By_Pod,
 } from "../../store/matrics-store/matricsActions";
 import {
   fetch_Predicted_Cpu_Usage_By_Pod,
   fetch_Predicted_Memory_Utilization_By_Pod,
-  fetch_Predicted_Network_Utilization_By_Pod
+  fetch_Predicted_Network_Utilization_By_Pod,
 } from "../../store/prediction-store/predictionActions";
 
 const useStyles = makeStyles({
@@ -29,11 +29,11 @@ const useStyles = makeStyles({
     width: "100%",
   },
   fields: {
-    width: "100%"
+    width: "100%",
   },
   Divider: {
-    background: "#ffffff"
-  }
+    background: "#ffffff",
+  },
 });
 
 const Predictions = (props) => {
@@ -108,15 +108,22 @@ const Predictions = (props) => {
     setStatus("loading");
     if (selectedType === "cpu") {
       dispatch(fetch_Predicted_Cpu_Usage_By_Pod(selectedPodName));
-      dispatch(fetch_All_Cpu_Usage_By_Pod(selectedPodName,authState.user._id));
+      dispatch(fetch_All_Cpu_Usage_By_Pod(selectedPodName, authState.user._id));
     }
     if (selectedType === "memory") {
       dispatch(fetch_Predicted_Memory_Utilization_By_Pod(selectedPodName));
-      dispatch(fetch_All_Memory_Utilization_By_Pod(selectedPodName,authState.user._id));
+      dispatch(
+        fetch_All_Memory_Utilization_By_Pod(selectedPodName, authState.user._id)
+      );
     }
     if (selectedType === "network") {
       dispatch(fetch_Predicted_Network_Utilization_By_Pod(selectedPodName));
-      dispatch(fetch_All_Network_Utilization_By_Pod(selectedPodName,authState.user._id));
+      dispatch(
+        fetch_All_Network_Utilization_By_Pod(
+          selectedPodName,
+          authState.user._id
+        )
+      );
     }
   };
 
@@ -222,58 +229,59 @@ const Predictions = (props) => {
           </Grid>
         </Grid>
         <div className={classes.rootServices}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Card className={classes.Card}>
-              <CardContent>
-                <h5>
-                  {" "}
-                  <Icon
-                    icon="ic:baseline-online-prediction"
-                    width={25}
-                  />{" "}
-                 Predicting
-                </h5>
-                <Divider className={classes.Divider} />
-                <br />
-                Developed an algorithm that predicts the microservice's load through the time series data queried from the cluster
-              </CardContent>
-            </Card>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Card className={classes.Card}>
+                <CardContent>
+                  <h5>
+                    {" "}
+                    <Icon
+                      icon="ic:baseline-online-prediction"
+                      width={25}
+                    />{" "}
+                    Predicting
+                  </h5>
+                  <Divider className={classes.Divider} />
+                  <br />
+                  Developed an algorithm that predicts the microservice's load
+                  through the time series data queried from the cluster
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12}>
+              <Card className={classes.Card}>
+                <CardContent>
+                  <h5>
+                    {" "}
+                    <Icon icon="ic:baseline-linear-scale" width={25} /> Pro
+                    Autoscaling strategy{" "}
+                  </h5>
+                  <Divider className={classes.Divider} />
+                  <br />
+                  Solution that optimizes the autoscaling strategy based on a
+                  clustered matrix and the predicted load
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12}>
+              <Card className={classes.Card}>
+                <CardContent>
+                  <h5>
+                    {" "}
+                    <Icon
+                      icon="ic:baseline-ac-unit"
+                      width={25}
+                    /> Effectiveness{" "}
+                  </h5>
+                  <Divider className={classes.Divider} />
+                  <br />
+                  Evaluate the effectiveness of the proposed deployment strategy
+                  of the optimization server compared to the existing strategy
+                </CardContent>
+              </Card>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Card className={classes.Card}>
-              <CardContent>
-                <h5>
-                  {" "}
-                  <Icon icon="ic:baseline-linear-scale" width={25} /> Pro
-                  Autoscaling strategy{" "}
-                </h5>
-                <Divider className={classes.Divider} />
-                <br />
-                Solution that optimizes the autoscaling strategy based on a clustered matrix and the predicted load
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12}>
-            <Card className={classes.Card}>
-              <CardContent>
-                <h5>
-                  {" "}
-                  <Icon
-                    icon="ic:baseline-ac-unit"
-                    width={25}
-                  />{" "}
-                 Effectiveness {" "}
-                </h5>
-                <Divider className={classes.Divider} />
-                <br />
-                Evaluate the effectiveness of the proposed deployment strategy of the optimization server compared to the existing strategy
-              </CardContent>
-            </Card>
-          </Grid>
-         
-        </Grid>
-      </div>
+        </div>
       </div>
     </div>
   );

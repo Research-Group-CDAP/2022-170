@@ -35,7 +35,8 @@ const registerService = async (req, res) => {
                 // },
                 ports: service.deploymentInfo.ports,
                 env:
-                  service.deploymentInfo.env && service.deploymentInfo.env.length > 0
+                  service.deploymentInfo.env &&
+                  service.deploymentInfo.env.length > 0
                     ? service.deploymentInfo.env
                     : null,
                 // readinessProbe: {
@@ -113,7 +114,9 @@ const registerService = async (req, res) => {
 const newRelease = async (req, res) => {
   try {
     const { version, serviceId } = req.body;
-    const service = await Service.findOne({ _id: serviceId }).select("_id, latestTag");
+    const service = await Service.findOne({ _id: serviceId }).select(
+      "_id, latestTag"
+    );
 
     if (service) {
       if (version === service.latestTag) {
@@ -122,7 +125,11 @@ const newRelease = async (req, res) => {
 
       await Service.findOneAndUpdate(
         { _id: serviceId },
-        { status: "Waiting", moreInformation: "Service is waiting to release", latestTag: version }
+        {
+          status: "Waiting",
+          moreInformation: "Service is waiting to release",
+          latestTag: version,
+        }
       );
 
       res.status(200).json({ message: service, dateTime: new Date() });
@@ -136,7 +143,7 @@ const newRelease = async (req, res) => {
 
 const getServices = async (req, res) => {
   try {
-    const services = await Service.find({});
+    const services = await Service.find({ userId: req.params.userId });
     res.status(200).json(services);
   } catch (error) {
     res.status(400).json({ message: error.message, dateTime: new Date() });
@@ -154,11 +161,19 @@ const getServiceById = async (req, res) => {
 
 const retryRelease = async (req, res) => {
   try {
-    const service = await Service.findByIdAndUpdate(req.params.id, { status: "Waiting" });
+    const service = await Service.findByIdAndUpdate(req.params.id, {
+      status: "Waiting",
+    });
     res.status(200).json(service);
   } catch (error) {
     res.status(400).json({ message: error.message, dateTime: new Date() });
   }
 };
 
-module.exports = { registerService, newRelease, getServices, retryRelease, getServiceById };
+module.exports = {
+  registerService,
+  newRelease,
+  getServices,
+  retryRelease,
+  getServiceById,
+};

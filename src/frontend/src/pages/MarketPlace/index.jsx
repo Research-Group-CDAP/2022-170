@@ -33,8 +33,8 @@ const MarketPlace = () => {
       <br />
       {PluginsData.data.length ? (
         <Grid container spacing={2}>
-          {PluginsData.data.map((singlePlugins) => (
-            <Grid item lg={4}>
+          {PluginsData.data.map((singlePlugins, index) => (
+            <Grid key={index} item lg={4}>
               <Plugin plugin={singlePlugins} />
             </Grid>
           ))}

@@ -16,7 +16,7 @@ import { PodBackdrop, ServiceBackdrop } from "../../components";
 import { Icon } from "@iconify/react";
 
 const useStyles = makeStyles((theme) => ({
-  boxStyle : {
+  boxStyle: {
     border: "grey solid 3px",
     borderRadius: "10px",
     background: "#272525",
@@ -122,11 +122,13 @@ export default function Dependency() {
         {dependencyDetailsByNamespaceArray.length ? (
           dependencyDetailsByNamespaceArray.map((dependencyList, index) => {
             return (
-              <Grid item xs={4}>
+              <Grid key={index} item xs={4}>
                 <Xwrapper>
                   <div
-                    ondblclick={() => {
-                      handleToggleSevice(dependencyList.service);
+                    onClick={(e) => {
+                      if (e.detail === 2) {
+                        handleToggleSevice(dependencyList.service);
+                      }
                     }}
                   >
                     <DraggableBox
@@ -136,8 +138,10 @@ export default function Dependency() {
                     />
                   </div>
                   <div
-                    ondblclick={() => {
-                      handleTogglePod(dependencyList.pod);
+                    onClick={(e) => {
+                      if (e.detail === 2) {
+                        handleTogglePod(dependencyList.pod);
+                      }
                     }}
                   >
                     <DraggableBox

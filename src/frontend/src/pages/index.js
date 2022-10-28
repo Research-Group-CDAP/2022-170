@@ -24,5 +24,5 @@ export {
   UserInformation,
   UserLogin,
   Registration,
-  MarketPlace
+  MarketPlace,
 };

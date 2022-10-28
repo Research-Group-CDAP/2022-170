@@ -72,7 +72,7 @@ const SlideDrawer = (props) => {
   };
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="black">
+      <AppBar position="static">
         <Tabs
           value={value}
           onChange={handleChange}
@@ -82,7 +82,6 @@ const SlideDrawer = (props) => {
           indicatorColor="white"
           textColor="white"
           aria-label="scrollable force tabs"
-          centered
         >
           <Tab label="CPU" icon={<ComputerIcon />} {...a11yProps(0)} />
           <Tab label="MEMORY" icon={<MemoryIcon />} {...a11yProps(1)} />

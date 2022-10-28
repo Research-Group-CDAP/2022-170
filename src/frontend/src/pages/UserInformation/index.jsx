@@ -7,7 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { logintoCluster } from "../../store/auth-store/authActions";
-import { clusterConnected, clusterNotConnected } from "../../store/kube-store/kubeActions";
+import {
+  clusterConnected,
+  clusterNotConnected,
+} from "../../store/kube-store/kubeActions";
 import { useState, useEffect } from "react";
 import Backdrop from "@material-ui/core/Backdrop";
 import { UserInformationUpdate } from "../../components";
@@ -38,11 +41,11 @@ const useStyles = makeStyles((theme) => ({
   },
   labelGreen: {
     color: "#90EE90",
-    fontSize: "25px"
+    fontSize: "25px",
   },
   labelRed: {
     color: "#ed1515",
-    fontSize: "25px"
+    fontSize: "25px",
   },
 }));
 
@@ -92,30 +95,32 @@ const UserInformation = (props) => {
       },
     };
 
-    axios.post(
-      `${process.env.REACT_APP_AUTH_API_ENDPOINT}/user/logintoCluster`,
-      data,
-      requestConfigJson
-    ).then((res) => {
-      console.log(res.data.connected)
-      if(res.data.connected){
-        dispatch(logintoCluster(true));
-        dispatch(clusterConnected());
-        setClusterStatus(true);
-        setLoadingStatus(false);
-      }else{
+    axios
+      .post(
+        `${process.env.REACT_APP_AUTH_API_ENDPOINT}/user/logintoCluster`,
+        data,
+        requestConfigJson
+      )
+      .then((res) => {
+        console.log(res.data.connected);
+        if (res.data.connected) {
+          dispatch(logintoCluster(true));
+          dispatch(clusterConnected());
+          setClusterStatus(true);
+          setLoadingStatus(false);
+        } else {
+          setClusterStatus(false);
+          setLoadingStatus(false);
+          dispatch(logintoCluster(false));
+          dispatch(clusterNotConnected());
+        }
+      })
+      .catch(() => {
         setClusterStatus(false);
         setLoadingStatus(false);
         dispatch(logintoCluster(false));
         dispatch(clusterNotConnected());
-      }
-    }).catch(() => {
-      setClusterStatus(false);
-      setLoadingStatus(false);
-      dispatch(logintoCluster(false));
-      dispatch(clusterNotConnected());
-    });
-
+      });
   };
 
   const removeConnectWithCluster = () => {
@@ -134,17 +139,25 @@ const UserInformation = (props) => {
           <Grid container spacing={3}>
             <Grid item xs={6} container justifyContent="flex-start">
               {kubeReducer.clusterConnected ? (
-                <p className={classes.labelGreen}>          <Icon
-                  icon="pajamas:status-health"
-                  width={20}
-                  style={{ marginRight: 8 }}
-                />Cluster Connected</p>
+                <p className={classes.labelGreen}>
+                  {" "}
+                  <Icon
+                    icon="pajamas:status-health"
+                    width={20}
+                    style={{ marginRight: 8 }}
+                  />
+                  Cluster Connected
+                </p>
               ) : (
-                <p className={classes.labelRed}>          <Icon
-                  icon="pajamas:status-health"
-                  width={20}
-                  style={{ marginRight: 8 }}
-                />Cluster Not Connected</p>
+                <p className={classes.labelRed}>
+                  {" "}
+                  <Icon
+                    icon="pajamas:status-health"
+                    width={20}
+                    style={{ marginRight: 8 }}
+                  />
+                  Cluster Not Connected
+                </p>
               )}
             </Grid>
             <Grid item xs={6} container justifyContent="flex-end">
