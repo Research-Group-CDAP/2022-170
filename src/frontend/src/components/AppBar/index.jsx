@@ -83,7 +83,7 @@ export default function PermanentDrawerLeft() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (state.user && kubeState.clusterConnected) {
-        console.log("Logs every minute");
+        console.log("Logs every minute " + new Date());
         if (localStorage.getItem("clusterConntected")) {
           //fetch Cpu Usage from prometheus
           axios
@@ -134,7 +134,7 @@ export default function PermanentDrawerLeft() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (state.user && kubeState.clusterConnected) {
-      console.log("Logs every 20 minute");
+      console.log("Logs every 20 minute " + + new Date());
       if (localStorage.getItem("clusterConntected")) {
         axios
           .post(
