@@ -82,7 +82,7 @@ export default function PermanentDrawerLeft() {
   //Cronjob - Fetch Prometheus Data
   useEffect(() => {
     const interval = setInterval(() => {
-      if (state.user) {
+      if (state.user && kubeState.clusterConnected) {
         console.log("Logs every minute");
         if (localStorage.getItem("clusterConntected")) {
           //fetch Cpu Usage from prometheus
@@ -122,7 +122,7 @@ export default function PermanentDrawerLeft() {
             });
         }
       } else {
-        console.log("User Not Found");
+        console.log("User Not Found or Cluster Not Connected");
       }
     }, MINUTE_MS);
     return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
@@ -133,7 +133,7 @@ export default function PermanentDrawerLeft() {
   //Cronjob - Experiments
   useEffect(() => {
     const interval = setInterval(() => {
-      if (state.user) {
+      if (state.user && kubeState.clusterConnected) {
       console.log("Logs every 20 minute");
       if (localStorage.getItem("clusterConntected")) {
         axios
@@ -148,7 +148,7 @@ export default function PermanentDrawerLeft() {
           });
       }
     }else{
-      console.log("User not found")
+      console.log("User not found or Cluster Not Connected")
     }
     }, MINUTE_MS_EXPERIMENT);
 
