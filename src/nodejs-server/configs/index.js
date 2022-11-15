@@ -4,8 +4,8 @@ module.exports = {
   REGISTRY_USER_NAME: "",
   REGISTRY_PASSWORD: "",
   REGISTRY_EMAIL: "",
-  ACR_SERVER_URL: "fastregprod.azurecr.io",
-  ACR_USER_NAME: "fastregprod",
-  ACR_PASSWORD: "vFCJnyBnRY8RL83uS4Ce1MRgMPKSU7E+",
-  ACR_EMAIL: "rusiru.bandara@studentambassadors.com",
+  ACR_SERVER_URL: "fastregdemo2.azurecr.io",
+  ACR_USER_NAME: "fastregdemo2",
+  ACR_PASSWORD: "HslplU93ESEkSbecjm8v/d0WKKTSmE5c",
+  ACR_EMAIL: "Shivaani.Rajkumar@studentambassadors.com",
 };
