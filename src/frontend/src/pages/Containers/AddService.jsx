@@ -1,11 +1,4 @@
-import {
-  Box,
-  Drawer,
-  Grid,
-  makeStyles,
-  Snackbar,
-  Typography,
-} from "@material-ui/core";
+import { Box, Drawer, Grid, makeStyles, Snackbar, Typography } from "@material-ui/core";
 import SaveIcon from "@mui/icons-material/Save";
 import { LoadingButton } from "@mui/lab";
 import { Alert, Button } from "@mui/material";
@@ -52,7 +45,7 @@ const AddService = (props) => {
     limitsCpu: "",
     limitsMemory: "",
 
-    serviceType: "LoadBalancer",
+    serviceType: "",
     portId: -1,
     ports: [],
 
@@ -61,6 +54,29 @@ const AddService = (props) => {
 
     isFormNotValid: false,
   });
+
+  const handleLoadData = (e) => {
+    e.preventDefault();
+    setState({
+      ...state,
+      serviceName: "productservice",
+      userName: "rusiruavb",
+      password: "RavB1998",
+      email: "rusiruavb98@gmail.com",
+      url: "https://github.com/Sample-Microservice/product-service.git",
+      replicas: 1,
+      containerPort: "8070",
+      serviceType: "LoadBalancer",
+      ports: [
+        {
+          name: "productport",
+          port: "4000",
+          targetPort: "8070",
+          protocol: "TCP",
+        },
+      ],
+    });
+  };
 
   const fetchServices = useCallback(() => {
     if (fastProviderState.serviceRegisterInfo) {
@@ -82,14 +98,12 @@ const AddService = (props) => {
 
   const validateForm = () => {
     const data = {
-      serviceName:
-        state.serviceName.trim().length > 0 ? state.serviceName : null,
+      serviceName: state.serviceName.trim().length > 0 ? state.serviceName : null,
       userName: state.userName.trim().length > 0 ? state.userName : null,
       password: state.password.trim().length > 0 ? state.password : null,
       email: state.email.trim().length > 0 ? state.email : null,
       url: state.url.trim().length > 0 ? state.url : null,
-      containerPort:
-        state.containerPort.trim().length > 0 ? state.containerPort : null,
+      containerPort: state.containerPort.trim().length > 0 ? state.containerPort : null,
       envs: validateEnvs() ? state.envs : null,
       svcPorts: validateServicePorts() ? state.ports : null,
     };
@@ -258,9 +272,20 @@ const AddService = (props) => {
   return (
     <Drawer anchor="right" open={props.open} onClose={props.handleClose}>
       <Box className={classes.root}>
-        <Typography style={{ cursor: "move" }} id="draggable-dialog-title">
-          Add New Service
-        </Typography>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Typography style={{ cursor: "move" }} id="draggable-dialog-title">
+            Add New Service
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            disableElevation
+            style={{ color: "#fff", fontSize: 11 }}
+            onClick={(e) => handleLoadData(e)}
+          >
+            Load Data
+          </Button>
+        </Box>
         <Typography variant="body2" style={{ marginBottom: 10 }}>
           Service Information
         </Typography>
@@ -273,6 +298,7 @@ const AddService = (props) => {
           InputProps={{ disableUnderline: true }}
           name="serviceName"
           onChange={(e) => onChange(e)}
+          value={state.serviceName}
           error={state.isFormNotValid && formData.serviceName === null}
         />
         <Typography variant="body2" style={{ marginTop: 10, marginBottom: 10 }}>
@@ -286,6 +312,7 @@ const AddService = (props) => {
           InputProps={{ disableUnderline: true }}
           name="userName"
           placeholder="kubeuser"
+          value={state.userName}
           onChange={(e) => onChange(e)}
           error={state.isFormNotValid && formData.userName === null}
         />
@@ -297,6 +324,7 @@ const AddService = (props) => {
           InputProps={{ disableUnderline: true }}
           name="email"
           placeholder="kube@mate.com"
+          value={state.email}
           onChange={(e) => onChange(e)}
           error={state.isFormNotValid && formData.email === null}
           type="email"
@@ -309,6 +337,7 @@ const AddService = (props) => {
           InputProps={{ disableUnderline: true }}
           name="password"
           placeholder="kubepassword"
+          value={state.password}
           onChange={(e) => onChange(e)}
           error={state.isFormNotValid && formData.password === null}
           type="password"
@@ -321,6 +350,7 @@ const AddService = (props) => {
           InputProps={{ disableUnderline: true }}
           name="url"
           placeholder="https://github.com/kubemate/yourregistry.git"
+          value={state.url}
           onChange={(e) => onChange(e)}
           error={state.isFormNotValid && formData.url === null}
         />
@@ -334,6 +364,7 @@ const AddService = (props) => {
           fullWidth
           className={classes.mb}
           InputProps={{ disableUnderline: true }}
+          value={state.replicas}
           name="replicas"
           onChange={(e) => onChange(e)}
         />
@@ -345,6 +376,7 @@ const AddService = (props) => {
           className={classes.mb}
           InputProps={{ disableUnderline: true }}
           name="containerPort"
+          value={state.containerPort}
           onChange={(e) => onChange(e)}
           error={state.isFormNotValid && formData.containerPort === null}
         />
@@ -361,9 +393,7 @@ const AddService = (props) => {
               variant="body2"
               style={{ marginBottom: 5 }}
               component="div"
-              color={
-                state.isFormNotValid && formData.envs === null ? "error" : ""
-              }
+              color={state.isFormNotValid && formData.envs === null ? "error" : ""}
             >
               Environmental Variables
             </Typography>
@@ -501,6 +531,7 @@ const AddService = (props) => {
           className={classes.mb}
           InputProps={{ disableUnderline: true }}
           name="serviceType"
+          value={state.serviceType}
           onChange={(e) => onChange(e)}
         />
 
@@ -516,11 +547,7 @@ const AddService = (props) => {
             <Typography
               variant="body2"
               style={{ marginBottom: 5 }}
-              color={
-                state.isFormNotValid && formData.svcPorts === null
-                  ? "error"
-                  : ""
-              }
+              color={state.isFormNotValid && formData.svcPorts === null ? "error" : ""}
             >
               Service Ports
             </Typography>
@@ -547,6 +574,7 @@ const AddService = (props) => {
                 className={classes.mb}
                 InputProps={{ disableUnderline: true }}
                 name="name"
+                value={state.ports[0].name}
                 onChange={(e) => onChangePort(e, index)}
               />
             </Grid>
@@ -559,6 +587,7 @@ const AddService = (props) => {
                 className={classes.mb}
                 InputProps={{ disableUnderline: true }}
                 name="port"
+                value={state.ports[0].port}
                 onChange={(e) => onChangePort(e, index)}
               />
             </Grid>
@@ -571,6 +600,7 @@ const AddService = (props) => {
                 className={classes.mb}
                 InputProps={{ disableUnderline: true }}
                 name="targetPort"
+                value={state.ports[0].targetPort}
                 onChange={(e) => onChangePort(e, index)}
               />
             </Grid>
@@ -583,6 +613,7 @@ const AddService = (props) => {
                 className={classes.mb}
                 InputProps={{ disableUnderline: true }}
                 name="protocol"
+                value={state.ports[0].protocol}
                 onChange={(e) => onChangePort(e, index)}
               />
             </Grid>
@@ -647,11 +678,7 @@ const AddService = (props) => {
         onClose={handleCloseSnackBar}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
-        <Alert
-          onClose={handleCloseSnackBar}
-          severity="warning"
-          sx={{ width: "100%" }}
-        >
+        <Alert onClose={handleCloseSnackBar} severity="warning" sx={{ width: "100%" }}>
           Please check the input fields
         </Alert>
       </Snackbar>

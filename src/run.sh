@@ -23,7 +23,7 @@ pm2 start index.js --name monitoring-server-cron-job
 uvicorn app.main:app --reload
 
 #NodeJs Server
-npm run dev
+pm2 start index.js --name nodejs-server
 
 #Cluster Service
 npm run server
