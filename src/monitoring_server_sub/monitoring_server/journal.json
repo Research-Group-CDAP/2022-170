@@ -1,7 +1,7 @@
 {
   "chaoslib-version": "1.29.0",
-  "platform": "Linux-5.15.0-1021-azure-x86_64-with-glibc2.29",
-  "node": "kubemate-vm",
+  "platform": "Linux-5.15.0-1022-azure-x86_64-with-glibc2.29",
+  "node": "kubemate-server",
   "experiment": {
     "version": "1.0.0",
     "title": "Lets kill pods randomly",
@@ -49,7 +49,7 @@
     ],
     "dry": null
   },
-  "start": "2022-10-13T07:29:14.388962",
+  "start": "2022-11-15T11:01:39.888571",
   "status": "completed",
   "deviated": false,
   "steady_states": {
@@ -72,9 +72,9 @@
           },
           "output": true,
           "status": "succeeded",
-          "start": "2022-10-13T07:29:14.389637",
-          "end": "2022-10-13T07:29:14.514863",
-          "duration": 0.125226,
+          "start": "2022-11-15T11:01:39.889454",
+          "end": "2022-11-15T11:01:40.016237",
+          "duration": 0.126783,
           "tolerance_met": true
         }
       ]
@@ -98,9 +98,9 @@
           },
           "output": true,
           "status": "succeeded",
-          "start": "2022-10-13T07:29:24.665157",
-          "end": "2022-10-13T07:29:24.843847",
-          "duration": 0.17869,
+          "start": "2022-11-15T11:01:50.158903",
+          "end": "2022-11-15T11:01:50.330482",
+          "duration": 0.171579,
           "tolerance_met": true
         }
       ]
@@ -126,15 +126,15 @@
         }
       },
       "output": [
-        "loadgenerator-77bc9cbc96-h52wm"
+        "productcatalogservice-67f5c88476-z5lrf"
       ],
       "status": "succeeded",
-      "start": "2022-10-13T07:29:14.515405",
-      "end": "2022-10-13T07:29:14.654201",
-      "duration": 0.138796
+      "start": "2022-11-15T11:01:40.017030",
+      "end": "2022-11-15T11:01:40.146702",
+      "duration": 0.129672
     }
   ],
   "rollbacks": [],
-  "end": "2022-10-13T07:29:24.844337",
-  "duration": 10.464725255966187
+  "end": "2022-11-15T11:01:50.331392",
+  "duration": 10.453868865966797
 }

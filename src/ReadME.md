@@ -10,8 +10,8 @@ npm install pm2@latest -g
 To Run 
 pm2 start index.js --name kube-server
 pm2 start server.js --name matrics-server
-pm2 start index.js --name monitoring-server-cron-job
 pm2 start index.js --name monitoring-server
+pm2 start index.js --name monitoring-server-cron-job
 
 To Stop
 pm2 stop kube-server

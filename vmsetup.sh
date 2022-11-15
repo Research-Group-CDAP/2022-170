@@ -52,6 +52,9 @@ pip install chaostoolkit-kubernetes
 pip install -U chaostoolkit-reporting
 apt-get install libcairo2-dev
 
+# will give read, write, and execute permissions for everyone.
+chmod 777 src
+
 sudo npm install pm2@latest -g
 
 curl -sL https://istio.io/downloadIstioctl | sh -
