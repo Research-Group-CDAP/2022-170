@@ -1,0 +1,5 @@
+https://stackoverflow.com/questions/20853474/importerror-no-module-named-dateutil-parser
+----------------------------------------------------------------------------------------------
+sudo pip install python-dateutil --force-reinstall
+
+pip3 install -U scikit-learn scipy matplotlib
