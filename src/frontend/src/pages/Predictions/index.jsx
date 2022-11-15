@@ -230,7 +230,7 @@ const Predictions = (props) => {
         </Grid>
         <div className={classes.rootServices}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
+            <Grid key={1} item xs={12}>
               <Card className={classes.Card}>
                 <CardContent>
                   <h5>
@@ -248,7 +248,7 @@ const Predictions = (props) => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12}>
+            <Grid key={2} item xs={12}>
               <Card className={classes.Card}>
                 <CardContent>
                   <h5>
@@ -263,7 +263,7 @@ const Predictions = (props) => {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12}>
+            <Grid key={3} item xs={12}>
               <Card className={classes.Card}>
                 <CardContent>
                   <h5>
